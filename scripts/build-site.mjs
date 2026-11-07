@@ -22,6 +22,7 @@ const sisters = await loadSisters();
 const books = sisters.flatMap((site) => site.books.map((book) => ({ ...book, siteId: site.id, siteName: site.name })));
 const pricedBooks = books.filter((book) => book.price != null && book.price !== "");
 const quote = boxSetQuote(pricedBooks.map((book) => book.price), SHOP_POLICY.boxSetDiscount);
+const missingBookSites = sisters.filter((site) => !site.books.some((book) => book.price != null && book.price !== ""));
 const issue = sisters.map((site) => (
   site.status === "live"
     ? `${site.name}: ${site.count} ${site.subject}`
@@ -220,7 +221,28 @@ function sisterMain(site) {
     </div>`;
 }
 
-const homeFeatured = featured.slice(0, 6);
+const homeFeatured = interleaved(featured, 6);
+function interleaved(items, limit) {
+  const bySite = new Map();
+  for (const item of items) {
+    if (!bySite.has(item.siteId)) bySite.set(item.siteId, []);
+    bySite.get(item.siteId).push(item);
+  }
+  const groups = [...bySite.values()];
+  const out = [];
+  for (let index = 0; out.length < limit; index += 1) {
+    let added = false;
+    for (const group of groups) {
+      if (!group[index]) continue;
+      out.push(group[index]);
+      added = true;
+      if (out.length >= limit) break;
+    }
+    if (!added) break;
+  }
+  return out;
+}
+const featuredSites = sisters.filter((site) => featured.some((item) => item.siteId === site.id));
 const homeJourneys = sisters.flatMap((site) => site.journeys.map((journey) => ({ ...journey, siteId: site.id, siteName: site.name })));
 
 write("index.html", page({
@@ -251,7 +273,7 @@ write("index.html", page({
         <form class="search-form" action="search/" method="get">
           <label for="home-q">Search the published shelves</label>
           <div class="tool-row">
-            <input id="home-q" name="q" type="search" placeholder="Search sauces, places, journeys">
+            <input id="home-q" name="q" type="search" placeholder="Search sauces, pancakes, places">
             <button class="button" type="submit">Search</button>
           </div>
         </form>
@@ -281,7 +303,7 @@ write("index.html", page({
       <h2>Featured recipes</h2>
       <p>Each card is a stop on a journey the sister site already published. The link opens the full entry there.</p>
       ${homeFeatured.length ? `<div class="grid">${homeFeatured.map(recipeCard).join("")}</div>` : `<p class="coming">No journey stops are published yet.</p>`}
-      ${featured.length > homeFeatured.length ? `<p><a class="button button-quiet" href="sauces/">All featured stops</a></p>` : ""}
+      ${featured.length > homeFeatured.length ? `<p class="button-row">${featuredSites.map((site) => `<a class="button button-quiet" href="${site.id}/">${escapeHtml(site.name)} stops</a>`).join("")}</p>` : ""}
     </section>
     <section class="wrap">
       <p class="eyebrow">Hot air balloon, plane, train, boat</p>
@@ -297,7 +319,7 @@ write("index.html", page({
     <section class="wrap highlight">
       <p class="eyebrow">Quoted from the sister sites</p>
       <h2>Who settled the flavor</h2>
-      <p>These lines are the sister sites’ own words about settlement, migration, and the kitchens that carried a sauce. Flying Kitchen does not add a story of its own.</p>
+      <p>These lines are the sister sites’ own words about settlement, migration, and the kitchens that carried the flavor. Flying Kitchen does not add a story of its own.</p>
       ${passages.length ? `<div class="passage-list">${passages.slice(0, 3).map((passage) => `<blockquote>
         <p>${escapeHtml(passage.text)}</p>
         <footer><a href="${escapeHtml(passage.url)}">${escapeHtml(passage.title)}</a> · ${escapeHtml(passage.siteName)}</footer>
@@ -509,7 +531,7 @@ write("shop/ultimate-library/index.html", page({
             <li>Set price: <span data-total>${escapeHtml(priceLabel(quote.total, SHOP_POLICY))}</span></li>
           </ul>
           ${buyBox(quote.total)}
-          <p class="note">Flying Pancakes and Flying BBQ join this sum when their sites publish book prices. Until then they are absent from the arithmetic on purpose.</p>
+          <p class="note">${missingBookSites.length ? `${escapeHtml(missingBookSites.map((site) => site.name).join(" and "))} ${missingBookSites.length === 1 ? "joins" : "join"} this sum when ${missingBookSites.length === 1 ? "that site publishes" : "those sites publish"} book prices. Until then ${missingBookSites.length === 1 ? "it is" : "they are"} absent from the arithmetic on purpose.` : "Every Flying site with published book prices is in this sum."}</p>
         </div>
       </div>
       <h2>Books in the set</h2>
@@ -628,7 +650,7 @@ write("about/index.html", page({
       <p class="eyebrow">About the hub</p>
       <h1>A journal for three Flying sites</h1>
       <p>Flying Kitchen is the flagship shelf for Flying Sauces, Flying Pancakes, and Flying BBQ. The voice is a travel journal: hot air balloon, plane, train, and boat. The work is recipes and where they come from.</p>
-      <p>At build time the hub reads each site’s public repository. Flying Sauces is in this issue. Flying Pancakes and Flying BBQ show a coming-soon section until they publish a catalog, and the next rebuild fills those sections from their data.</p>
+      <p>At build time the hub reads each site’s public repository. ${sisters.map((site) => site.status === "live" ? `${site.name} is in this issue with ${site.count} ${site.subject}.` : `${site.name} shows a coming-soon section until it publishes a catalog.`).join(" ")} The next rebuild fills a coming-soon section from that catalog.</p>
       <h2>Accuracy</h2>
       <p>Counts, journeys, books, and settlement lines come from those sites. Featured recipes are stops on published journeys. The Top 100 is the sister site’s own book, when one exists. Editor’s picks are that site’s flagship books.</p>
       <p>Dishes, origins, and book lists come from the sister sites’ published pages. Community ratings start empty. A comment appears only after a reader posts one in demo mode, and it stays in that browser.</p>

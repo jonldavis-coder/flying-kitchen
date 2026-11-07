@@ -105,6 +105,7 @@ async function fetchSite(source) {
 
   const indexText = texts.get("data/index.json") || texts.get("data/catalog.json") || "";
   const items = indexText ? itemsFromIndex(indexText, source) : [];
+  attachCoordinates(items, texts);
   const bySlug = new Map(items.map((item) => [item.slug, item]));
 
   const journeyMod = texts.has("data/journeys.js") ? loadExports(texts.get("data/journeys.js"), ["JOURNEYS", "VEHICLES"]) : {};
@@ -304,8 +305,15 @@ function bookPrice(shop, slug) {
 
 function normalizeJourney(raw, source, bySlug, labels, booksBySlug) {
   if (!raw?.slug || !raw?.title) return null;
-  const stops = (raw.stops || []).map((slug) => bySlug.get(slug)).filter(Boolean).map(compactItem);
-  if (!stops.length) return null;
+  const fullStops = (raw.stops || []).map((slug) => bySlug.get(slug)).filter(Boolean);
+  if (!fullStops.length) return null;
+  const explicit = cleanRoute(raw.route);
+  const route = explicit.length
+    ? explicit
+    : fullStops
+      .filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng))
+      .map((item) => [item.lat, item.lng]);
+  const stops = fullStops.map(compactItem);
   const book = booksBySlug.get(raw.slug);
   return {
     slug: String(raw.slug),
@@ -315,9 +323,33 @@ function normalizeJourney(raw, source, bySlug, labels, booksBySlug) {
     dek: String(raw.dek || ""),
     intro: Array.isArray(raw.intro) ? raw.intro.filter((part) => typeof part === "string") : [],
     stops,
-    route: cleanRoute(raw.route),
+    route,
     outbound: book?.url || stops[0].url
   };
+}
+
+function attachCoordinates(items, texts) {
+  const coords = new Map();
+  const point = /lat:\s*(-?\d+(?:\.\d+)?)\s*,\s*lng:\s*(-?\d+(?:\.\d+)?)/g;
+  for (const [file, sourceText] of texts) {
+    if (!file.endsWith(".js")) continue;
+    let match;
+    while ((match = point.exec(sourceText))) {
+      const before = sourceText.slice(Math.max(0, match.index - 900), match.index);
+      const slug = [...before.matchAll(/slug:\s*"([^"]+)"/g)].pop()?.[1];
+      if (!slug || coords.has(slug)) continue;
+      const lat = Number(match[1]);
+      const lng = Number(match[2]);
+      if (Number.isFinite(lat) && Number.isFinite(lng)) coords.set(slug, { lat, lng });
+    }
+    point.lastIndex = 0;
+  }
+  for (const item of items) {
+    const found = coords.get(item.slug);
+    if (!found) continue;
+    item.lat = found.lat;
+    item.lng = found.lng;
+  }
 }
 
 function compactItem(item) {

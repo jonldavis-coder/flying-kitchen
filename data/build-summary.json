@@ -1,18 +1,18 @@
 {
-  "issue": "Flying Sauces: 278 sauces · Flying Pancakes: coming soon · Flying BBQ: coming soon",
+  "issue": "Flying Sauces: 278 sauces · Flying Pancakes: 290 pancakes · Flying BBQ: coming soon",
   "sauces": 278,
-  "featured": 33,
-  "journeys": 5,
-  "books": 23,
-  "pricedBooks": 23,
+  "featured": 115,
+  "journeys": 15,
+  "books": 41,
+  "pricedBooks": 41,
   "boxSet": {
-    "sum": 358,
-    "savings": 107.4,
-    "total": 250.6,
+    "sum": 644,
+    "savings": 193.2,
+    "total": 450.8,
     "rate": 0.3,
-    "count": 23
+    "count": 41
   },
-  "passages": 7,
+  "passages": 24,
   "gear": 10,
-  "pages": 91
+  "pages": 201
 }

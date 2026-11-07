@@ -16,7 +16,7 @@ export const SISTERS = [
     id: "pancakes",
     name: "Flying Pancakes",
     subject: "pancakes",
-    dek: "A field guide to pancakes, still being built.",
+    dek: "A travel journal of the world’s pancakes and their griddled relatives.",
     pages: "https://jonldavis-coder.github.io/flying-pancakes/",
     repo: "jonldavis-coder/flying-pancakes",
     repoUrl: "https://github.com/jonldavis-coder/flying-pancakes",

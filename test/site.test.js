@@ -32,16 +32,16 @@ test("sister sites, shop math, and accuracy rules", () => {
   assert.equal(sauces.status, "live");
   assert.ok(sauces.count >= 200);
 
-  for (const id of ["pancakes", "bbq"]) {
-    const site = sisters.find((item) => item.id === id);
-    const html = read(`${id}/index.html`);
-    if (site.status === "coming-soon") {
-      assert.match(html, /Coming soon/);
-      assert.doesNotMatch(html, /customers love|testimonial|five stars from/i);
-    } else {
-      assert.match(html, /Open the full site/);
-    }
-  }
+  const pancakes = sisters.find((site) => site.id === "pancakes");
+  assert.equal(pancakes.status, "live");
+  assert.ok(pancakes.count >= 290);
+  assert.ok(pancakes.journeys >= 8);
+  assert.ok(pancakes.books >= 18);
+  const bbq = sisters.find((site) => site.id === "bbq");
+  assert.equal(bbq.status, "coming-soon");
+  assert.match(read("bbq/index.html"), /Coming soon/);
+  assert.match(read("pancakes/index.html"), /Open the full site/);
+  assert.match(read("pancakes/index.html"), /Journeys/);
 
   const shop = readGlobal("shop-config.js", "FLYING_KITCHEN_SHOP");
   assert.equal(shop.openingSoon, true);
@@ -51,8 +51,13 @@ test("sister sites, shop math, and accuracy rules", () => {
   assert.equal(shop.boxSet.pricePlaceholder, undefined);
   assert.equal(shop.gear.length, 10);
 
+  const pancakeBooks = shop.books.filter((book) => book.site === "pancakes");
+  const sauceBooks = shop.books.filter((book) => book.site === "sauces");
+  assert.ok(pancakeBooks.length >= 18);
+  assert.ok(sauceBooks.length >= 20);
+  assert.ok(pancakeBooks.some((book) => book.id === "pancakes-top-100-pancakes"));
   const quote = boxSetQuote(shop.books.map((book) => book.pricePlaceholder), shop.boxSetDiscount);
-  assert.ok(quote.count >= 10);
+  assert.equal(quote.count, sauceBooks.length + pancakeBooks.length);
   assert.equal(quote.total, Math.round((quote.sum - quote.savings) * 100) / 100);
   const library = read("shop/ultimate-library/index.html");
   assert.match(library, /30%/);
@@ -68,6 +73,10 @@ test("sister sites, shop math, and accuracy rules", () => {
 
   const home = read("index.html");
   assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-sauces\/sauces\//);
+  assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-pancakes\/pancakes\//);
+  assert.match(home, /290/);
+  assert.match(library, /Flying Pancakes/);
+  assert.match(library, /Flying BBQ joins this sum/);
   assert.match(home, /Who settled the flavor/);
   assert.doesNotMatch(home, /National Geographic/);
   assert.match(home, /hidden/);

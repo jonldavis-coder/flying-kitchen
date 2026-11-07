@@ -251,6 +251,150 @@ window.FLYING_KITCHEN_SHOP = {
       "pricePlaceholder": "18",
       "page": "shop/books/sauces/mother-sauces-and-classics/",
       "outbound": "https://jonldavis-coder.github.io/flying-sauces/books/mother-sauces-and-classics/"
+    },
+    {
+      "id": "pancakes-top-100-pancakes",
+      "site": "pancakes",
+      "name": "Flying Pancakes: The Top 100 Pancakes of the World",
+      "pricePlaceholder": "24",
+      "page": "shop/books/pancakes/top-100-pancakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/top-100-pancakes/"
+    },
+    {
+      "id": "pancakes-appalachian-griddle-cakes",
+      "site": "pancakes",
+      "name": "Appalachian Griddle Cakes",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/appalachian-griddle-cakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/appalachian-griddle-cakes/"
+    },
+    {
+      "id": "pancakes-across-the-american-south",
+      "site": "pancakes",
+      "name": "Across the American South",
+      "pricePlaceholder": "18",
+      "page": "shop/books/pancakes/across-the-american-south/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/across-the-american-south/"
+    },
+    {
+      "id": "pancakes-british-isles-and-ireland",
+      "site": "pancakes",
+      "name": "The British Isles & Ireland",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/british-isles-and-ireland/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/british-isles-and-ireland/"
+    },
+    {
+      "id": "pancakes-crepes-of-france",
+      "site": "pancakes",
+      "name": "Crepes of France",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/crepes-of-france/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/crepes-of-france/"
+    },
+    {
+      "id": "pancakes-east-asias-savory-pancakes",
+      "site": "pancakes",
+      "name": "East Asia's Savory Pancakes",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/east-asias-savory-pancakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/east-asias-savory-pancakes/"
+    },
+    {
+      "id": "pancakes-indias-dosas-and-cheelas",
+      "site": "pancakes",
+      "name": "India's Dosas & Cheelas",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/indias-dosas-and-cheelas/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/indias-dosas-and-cheelas/"
+    },
+    {
+      "id": "pancakes-africa-coast-to-coast",
+      "site": "pancakes",
+      "name": "Africa Coast to Coast",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/africa-coast-to-coast/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/africa-coast-to-coast/"
+    },
+    {
+      "id": "pancakes-latin-america-and-the-caribbean",
+      "site": "pancakes",
+      "name": "Latin America & the Caribbean",
+      "pricePlaceholder": "18",
+      "page": "shop/books/pancakes/latin-america-and-the-caribbean/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/latin-america-and-the-caribbean/"
+    },
+    {
+      "id": "pancakes-shrove-tuesday-around-the-world",
+      "site": "pancakes",
+      "name": "Shrove Tuesday Around the World",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/shrove-tuesday-around-the-world/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/shrove-tuesday-around-the-world/"
+    },
+    {
+      "id": "pancakes-breakfast-pancakes",
+      "site": "pancakes",
+      "name": "Breakfast Pancakes",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/breakfast-pancakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/breakfast-pancakes/"
+    },
+    {
+      "id": "pancakes-savory-pancakes",
+      "site": "pancakes",
+      "name": "Savory Pancakes",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/savory-pancakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/savory-pancakes/"
+    },
+    {
+      "id": "pancakes-dessert-pancakes",
+      "site": "pancakes",
+      "name": "Dessert Pancakes",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/dessert-pancakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/dessert-pancakes/"
+    },
+    {
+      "id": "pancakes-potato-cakes",
+      "site": "pancakes",
+      "name": "Potato Cakes",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/potato-cakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/potato-cakes/"
+    },
+    {
+      "id": "pancakes-fermented-batters",
+      "site": "pancakes",
+      "name": "Fermented Batters",
+      "pricePlaceholder": "16",
+      "page": "shop/books/pancakes/fermented-batters/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/fermented-batters/"
+    },
+    {
+      "id": "pancakes-scandinavian-griddle",
+      "site": "pancakes",
+      "name": "The Scandinavian Griddle",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/scandinavian-griddle/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/scandinavian-griddle/"
+    },
+    {
+      "id": "pancakes-molded-batter-cakes",
+      "site": "pancakes",
+      "name": "Molded Batter Cakes",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/molded-batter-cakes/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/molded-batter-cakes/"
+    },
+    {
+      "id": "pancakes-hanukkah-table",
+      "site": "pancakes",
+      "name": "The Hanukkah Table",
+      "pricePlaceholder": "14",
+      "page": "shop/books/pancakes/hanukkah-table/",
+      "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/hanukkah-table/"
     }
   ],
   "boxSet": {

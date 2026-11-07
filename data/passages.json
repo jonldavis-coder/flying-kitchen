@@ -61,5 +61,158 @@
     "text": "Cooked mango chutney is an Indian preserve that British cooks adopted in the colonial period and sweetened into the jar now common with cheese and cold meat. Major Grey’s is a brand style, not a single historic recipe. This is a home cooked mango chutney with ginger and chile, for the refrigerator, not a canning formula.",
     "label": "From the field guide",
     "sourceFile": "data/sauces/south-asia.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Appalachian Griddle Cakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/books/appalachian-griddle-cakes/",
+    "text": "Scots-Irish and English settlers brought oat and wheat habits into the mountains. Corn was already there. Enslaved people and later Black Appalachian cooks worked the same kitchens. This book does not treat the mountains as one family's pantry.",
+    "label": "From the book",
+    "sourceFile": "data/flagship-books.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Australian pikelets",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/australian-pikelets/",
+    "text": "Australian pikelets are small thick pancakes dropped by the spoon, a British inheritance on the tea table. Drop scones and pikelets traveled with British settlers and stayed as afternoon-tea food, the kind made for a visit or a church hall. They are not the large thin pancake. That cake has its own page, with a looser batter, a wider pan, and lemon and sugar. Pikelets are the small ones, buttered and jammed.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/africa-me-oceania.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Australian pancakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/australian-pancakes/",
+    "text": "These are the larger Australian pancakes, thinner than pikelets and finished with lemon and sugar. British settlers brought that lemon-and-sugar habit, and weekend pans still use it. The batter on this page is looser than a pikelet batter, and the cakes are cooked wider in the pan. Pikelets remain the small thick tea cakes. They are a different recipe, with less milk and a smaller spoon, and they are not repeated here.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/africa-me-oceania.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "New Zealand pikelets",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/new-zealand-pikelets/",
+    "text": "New Zealand pikelets come from the same British drop-scone cooking that settlers carried south. On this tea table they are a batch for morning or afternoon tea, the small thick cakes home cooks still stir up without a special occasion. The pin is Dunedin, a city with a strong Scottish settlement history, and the cakes are not a Dunedin invention. They are a national home recipe. Golden syrup and butter finish this batch. The Australian pikelet page is a different write-up, with jam, and it is not copied here.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/africa-me-oceania.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Parāoa parai",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/maori-paraoa-parai/",
+    "text": "Parāoa parai is Māori fried bread. Parāoa is the word for flour and for bread, and parai means fried. Wheat flour reached Māori kitchens through trade and the colonial economy, including the long pressure on Māori land. This is not a pre-contact food. It is a fried dough that became ordinary kai, cooked at home and for gatherings. The pin is Whanganui. The bread is cooked in Māori homes well beyond that river. This recipe fries a simple baking-powder dough.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/africa-me-oceania.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Mauritian crepes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/mauritian-crepes/",
+    "text": "Mauritian crepes are the thin pancakes of French Creole cooking on the island, made at home and sold on the street in Port Louis and at fairs. French colonial kitchens left the crepe. Mauritian cooks kept it beside a table that is also Indian, African, and Chinese. This page is only the crepe: a thin wheat batter with vanilla, cooked in a small pan and folded with brown sugar. It is not a Breton galette and not a dholl puri. Mauritius is filed under East Africa on this map.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/africa-me-oceania.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Filipino hotcakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/filipino-hotcakes/",
+    "text": "Filipino hotcakes are a 20th century breakfast. American colonial influence brought wheat pancakes and canned milk into Philippine kitchens, and the cakes stayed after that period as a local morning food. Homes and small cafes cook them in margarine and serve them with sugar or sweetened condensed milk more often than with maple syrup. They sit beside rice meals. They did not replace rice. This page tells that history directly. The batter is wheat, egg, and milk, a modern breakfast cake, not a precolonial rice cake.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/asia.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Dominican casabe",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/dominican-casabe/",
+    "text": "Casabe comes from Taíno cooking on the island. People in the Dominican Republic still make it and buy it. What you find in a shop today is a processed flatbread: cassava that has already been turned into flour or into packaged rounds, then cooked until dry. This recipe uses commercial cassava flour. It does not reconstruct a pre-colonial kitchen, and it does not teach you to process raw bitter cassava at home. Wheat breads arrived later. Casabe is the older starch on this table.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/latin-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Peruvian tacu-tacu",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/peruvian-tacu-tacu/",
+    "text": "Tacu-tacu is a cake of leftover rice and beans, fried in a skillet until the outside is crisp. It is Lima criollo cooking. Afro-Peruvian cooks helped build that coastal cuisine in the colonial city and afterward, working with Indigenous ingredients and Spanish techniques in kitchens shaped by slavery and, later, by free Black communities. The dish itself is practical: the previous day's rice and beans, garlic, onion, and ají amarillo, pressed into a hot pan. A fried egg or a breaded steak is a common addition. Those are not in this recipe.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/latin-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Appalachian buckwheat cakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/appalachian-buckwheat-cakes/",
+    "text": "Appalachian buckwheat cakes use flour milled from buckwheat, a crop that grows on cooler mountain ground, usually mixed with wheat flour so the cake holds together. Scots-Irish and English settlement lines up with this griddle, and German-speaking neighbors lived in the same hills. Enslaved people and later Black Appalachian cooks worked many of the same farms. The cakes are a tangy breakfast, often finished with sorghum rather than maple.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Lowcountry rice griddle cakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/lowcountry-rice-griddle-cakes/",
+    "text": "Lowcountry rice griddle cakes use the long-grain rice of the South Carolina and Georgia coast. Enslaved West Africans brought rice-growing knowledge, and planters built a brutal rice economy on their labor and on the labor of their descendants. The cake is a later griddle use of that grain. It is not a rename of one village dish.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Sweet potato pancakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/sweet-potato-pancakes/",
+    "text": "Sweet potato pancakes mash an orange-fleshed sweet potato into a wheat batter. Sweet potatoes have been a Southern field crop for a long time, in Native gardens and later in the kitchens of enslaved and free Black cooks and of white farm families. The griddle cake is a breakfast use of the mashed root. Wilson, North Carolina, is a modern market town for the crop and the map pin, not a claim that the pancake was invented there.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Hudson Valley buckwheat cakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/hudson-valley-buckwheat-cakes/",
+    "text": "Dutch settlers in the Hudson Valley cooked buckwheat cakes, and the grain fits a cool climate and a short season. The same grain shows up in other cold regions for that reason. Nineteenth-century New York breakfasts often included a yeasted buckwheat batter mixed with some wheat flour. These cakes are that Dutch-American breakfast, pinned at Kingston.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Pennsylvania Dutch funnel cakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/pennsylvania-dutch-funnel-cakes/",
+    "text": "Pennsylvania Dutch funnel cakes are batter fried in hot fat after it is poured through a funnel in looping strands. The name Pennsylvania Dutch means Deutsch, the German-speaking settlers of the region, not the Netherlands. Fair stands later carried the fried batter well beyond Lancaster County. Kutztown is the map pin.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Gingerbread pancakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/gingerbread-pancakes/",
+    "text": "Gingerbread pancakes are a seasonal American breakfast that borrows molasses, ginger, and cinnamon from gingerbread. They are a twentieth-century table idea, a spiced wheat cake for cold mornings. Philadelphia is the map pin because molasses moved through that port, not because a single colonial manuscript holds this pancake. The crumb is darker and sharper than a plain buttermilk pancake.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "Florida plantain pancakes",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/florida-plantain-pancakes/",
+    "text": "These plantain pancakes are Cuban-American home cooking in Miami, where ripe plantains are mashed, bound with egg and a little flour, and fried in small cakes. The dish belongs to twentieth-century Cuban kitchens in the city. It is not a colonial-era recipe.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
+  },
+  {
+    "site": "pancakes",
+    "siteName": "Flying Pancakes",
+    "title": "New Orleans calas",
+    "url": "https://jonldavis-coder.github.io/flying-pancakes/pancakes/new-orleans-calas/",
+    "text": "New Orleans calas are fried rice fritters sold for generations by Black vendors, many of them women, who carried the cakes through the streets. Rice growing in Louisiana depended on the skill of enslaved West Africans and on the plantation economy built on their labor. This page does not claim that one West African village recipe became calas. The fritter that can be documented is the Creole rice cake sold in the city.",
+    "label": "From the field guide",
+    "sourceFile": "data/pancakes/north-america.js"
   }
 ]
