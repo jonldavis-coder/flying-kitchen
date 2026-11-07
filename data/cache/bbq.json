@@ -1,0 +1,20 @@
+{
+  "id": "bbq",
+  "name": "Flying BBQ",
+  "subject": "barbecue",
+  "dek": "A field guide to barbecue, still being built.",
+  "pages": "https://jonldavis-coder.github.io/flying-bbq/",
+  "repo": "jonldavis-coder/flying-bbq",
+  "repoUrl": "https://github.com/jonldavis-coder/flying-bbq",
+  "status": "coming-soon",
+  "reason": "Flying BBQ has not published a field-guide catalog yet. This section fills in on the next rebuild after it does.",
+  "fetchedAt": "2026-11-07T19:47:09.553Z",
+  "stale": false,
+  "files": [],
+  "count": 0,
+  "items": [],
+  "journeys": [],
+  "books": [],
+  "passages": [],
+  "shop": null
+}

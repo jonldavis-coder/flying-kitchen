@@ -1,0 +1,65 @@
+[
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "Across the American South",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/books/across-the-american-south/",
+    "text": "Enslaved West African cooks and their descendants shaped Southern pits and pepper sauces. English and Scottish settlers brought vinegar habits. German settlement in the Midlands is the usual account of the mustard sauce. This book follows that route and does not pretend one gravy belongs to one people only.",
+    "label": "From the book",
+    "sourceFile": "data/flagship-books.js"
+  },
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "Appalachian Sauces",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/books/appalachian-sauces/",
+    "text": "Scots-Irish and English settlers brought biscuit and vinegar habits into the mountains in the eighteenth century. German-speaking settlers, often by way of Pennsylvania, brought sweet-sour pickling. Enslaved people and later Black Appalachian cooks worked the same farms and kitchens. Their labor is part of this food, not a footnote.",
+    "label": "From the book",
+    "sourceFile": "data/flagship-books.js"
+  },
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "Cajun & Creole Louisiana",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/books/cajun-and-creole/",
+    "text": "Creole cooking in New Orleans drew on French and Spanish colonial kitchens, West African cooking carried by enslaved people, Caribbean links, and Native American ingredients such as filé. Cajun cooking grew among Acadian exiles in rural southwest Louisiana. The usual distinction is city tomato and butter against a darker rural roux. It is a useful distinction, not a wall.",
+    "label": "From the book",
+    "sourceFile": "data/flagship-books.js"
+  },
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "New England Shore",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/books/new-england-shore/",
+    "text": "English Puritan settlers in the seventeenth century met a cold coast: dairy, cod, lobster, and native cranberry bogs already used by Wampanoag and other Native people. Drawn butter and cranberry sauce are the shore sauces in this guide.",
+    "label": "From the book",
+    "sourceFile": "data/flagship-books.js"
+  },
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "Salsa Veracruzana",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/sauces/salsa-veracruzana/",
+    "text": "Salsa veracruzana is the tomato sauce of Veracruz for fish, with olive, caper, and often bay and thyme. Those Mediterranean pantry items arrived with Spanish colonial trade and stayed in the Gulf kitchen. The sauce is cooked and spooned over fish.",
+    "label": "From the field guide",
+    "sourceFile": "data/sauces/americas.js"
+  },
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "Hot Bacon Dressing",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/sauces/hot-bacon-dressing/",
+    "text": "Hot bacon dressing is the Pennsylvania Dutch dressing for wilted lettuce, dandelion, or spinach. Bacon fat, vinegar, and sugar are warmed and poured over the greens so they soften. Pennsylvania Dutch means the German-speaking settlers of Pennsylvania, from Deutsch, not the Netherlands. The dressing is a home sauce of that community.",
+    "label": "From the field guide",
+    "sourceFile": "data/sauces/regional-extra.js"
+  },
+  {
+    "site": "sauces",
+    "siteName": "Flying Sauces",
+    "title": "Mango Chutney",
+    "url": "https://jonldavis-coder.github.io/flying-sauces/sauces/mango-chutney/",
+    "text": "Cooked mango chutney is an Indian preserve that British cooks adopted in the colonial period and sweetened into the jar now common with cheese and cold meat. Major Grey’s is a brand style, not a single historic recipe. This is a home cooked mango chutney with ginger and chile, for the refrigerator, not a canning formula.",
+    "label": "From the field guide",
+    "sourceFile": "data/sauces/south-asia.js"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "id": "pancakes",
+  "name": "Flying Pancakes",
+  "subject": "pancakes",
+  "dek": "A field guide to pancakes, still being built.",
+  "pages": "https://jonldavis-coder.github.io/flying-pancakes/",
+  "repo": "jonldavis-coder/flying-pancakes",
+  "repoUrl": "https://github.com/jonldavis-coder/flying-pancakes",
+  "status": "coming-soon",
+  "reason": "Flying Pancakes has not published a field-guide catalog yet. This section fills in on the next rebuild after it does.",
+  "fetchedAt": "2026-11-07T19:47:09.238Z",
+  "stale": false,
+  "files": [],
+  "count": 0,
+  "items": [],
+  "journeys": [],
+  "books": [],
+  "passages": [],
+  "shop": null
+}
