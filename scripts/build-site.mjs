@@ -273,7 +273,7 @@ write("index.html", page({
         <form class="search-form" action="search/" method="get">
           <label for="home-q">Search the published shelves</label>
           <div class="tool-row">
-            <input id="home-q" name="q" type="search" placeholder="Search sauces, pancakes, places">
+            <input id="home-q" name="q" type="search" placeholder="Search sauces, pancakes, barbecue">
             <button class="button" type="submit">Search</button>
           </div>
         </form>

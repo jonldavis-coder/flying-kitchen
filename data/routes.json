@@ -635,5 +635,282 @@
       ]
     ],
     "href": "journeys/pancakes/scandinavia-by-boat/"
+  },
+  {
+    "id": "bbq:american-bbq-belt",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "The American BBQ Belt by train",
+    "vehicle": "train",
+    "vehicleLabel": "Train",
+    "points": [
+      [
+        35.4724,
+        -77.4164
+      ],
+      [
+        35.824,
+        -80.2534
+      ],
+      [
+        34.0007,
+        -81.0348
+      ],
+      [
+        34.6059,
+        -86.9833
+      ],
+      [
+        35.1495,
+        -90.049
+      ],
+      [
+        37.7719,
+        -87.1112
+      ],
+      [
+        38.627,
+        -90.1994
+      ],
+      [
+        41.768,
+        -87.625
+      ],
+      [
+        39.0997,
+        -94.5786
+      ],
+      [
+        32.5449,
+        -94.3674
+      ],
+      [
+        29.8849,
+        -97.67
+      ],
+      [
+        25.9018,
+        -97.4975
+      ]
+    ],
+    "href": "journeys/bbq/american-bbq-belt/"
+  },
+  {
+    "id": "bbq:caribbean-by-boat",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "Caribbean by boat",
+    "vehicle": "boat",
+    "vehicleLabel": "Boat",
+    "points": [
+      [
+        21.929,
+        -79.443
+      ],
+      [
+        18.164,
+        -76.332
+      ],
+      [
+        18.594,
+        -72.307
+      ],
+      [
+        18.486,
+        -69.931
+      ],
+      [
+        18.113,
+        -66.166
+      ],
+      [
+        10.66,
+        -61.508
+      ],
+      [
+        13.063,
+        -59.539
+      ]
+    ],
+    "href": "journeys/bbq/caribbean-by-boat/"
+  },
+  {
+    "id": "bbq:asado-by-plane",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "Asado and churrasco by plane",
+    "vehicle": "plane",
+    "vehicleLabel": "Plane",
+    "points": [
+      [
+        -34.25,
+        -59.47
+      ],
+      [
+        -32.317,
+        -58.076
+      ],
+      [
+        -50.338,
+        -72.265
+      ],
+      [
+        -33.449,
+        -70.669
+      ],
+      [
+        -30.035,
+        -51.218
+      ]
+    ],
+    "href": "journeys/bbq/asado-by-plane/"
+  },
+  {
+    "id": "bbq:mediterranean-by-balloon",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "Mediterranean by balloon",
+    "vehicle": "balloon",
+    "vehicleLabel": "Hot air balloon",
+    "points": [
+      [
+        36.72,
+        -4.42
+      ],
+      [
+        41.29,
+        1.25
+      ],
+      [
+        42.58,
+        -2.85
+      ],
+      [
+        38.72,
+        -9.14
+      ],
+      [
+        37.57,
+        22.8
+      ],
+      [
+        37,
+        35.32
+      ]
+    ],
+    "href": "journeys/bbq/mediterranean-by-balloon/"
+  },
+  {
+    "id": "bbq:africa-by-plane",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "Africa's fires by plane",
+    "vehicle": "plane",
+    "vehicleLabel": "Plane",
+    "points": [
+      [
+        31.63,
+        -8.01
+      ],
+      [
+        14.72,
+        -17.47
+      ],
+      [
+        12,
+        8.52
+      ],
+      [
+        5.56,
+        -0.21
+      ],
+      [
+        -1.29,
+        36.82
+      ],
+      [
+        -25.97,
+        32.57
+      ],
+      [
+        -26.2,
+        28.05
+      ]
+    ],
+    "href": "journeys/bbq/africa-by-plane/"
+  },
+  {
+    "id": "bbq:pacific-by-boat",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "Pacific earth ovens by boat",
+    "vehicle": "boat",
+    "vehicleLabel": "Boat",
+    "points": [
+      [
+        19.7297,
+        -155.09
+      ],
+      [
+        -18.141,
+        178.441
+      ],
+      [
+        -13.833,
+        -171.766
+      ],
+      [
+        -21.139,
+        -175.205
+      ],
+      [
+        -38.137,
+        176.25
+      ]
+    ],
+    "href": "journeys/bbq/pacific-by-boat/"
+  },
+  {
+    "id": "bbq:asian-grills-by-plane",
+    "site": "bbq",
+    "siteName": "Flying BBQ",
+    "title": "Asian grills by plane",
+    "vehicle": "plane",
+    "vehicleLabel": "Plane",
+    "points": [
+      [
+        43.825,
+        87.617
+      ],
+      [
+        39.904,
+        116.407
+      ],
+      [
+        23.13,
+        113.264
+      ],
+      [
+        37.263,
+        127.029
+      ],
+      [
+        35.682,
+        139.759
+      ],
+      [
+        15.229,
+        104.857
+      ],
+      [
+        2.993,
+        101.788
+      ],
+      [
+        10.307,
+        123.886
+      ]
+    ],
+    "href": "journeys/bbq/asian-grills-by-plane/"
   }
 ]

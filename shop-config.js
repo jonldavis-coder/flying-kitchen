@@ -395,6 +395,150 @@ window.FLYING_KITCHEN_SHOP = {
       "pricePlaceholder": "14",
       "page": "shop/books/pancakes/hanukkah-table/",
       "outbound": "https://jonldavis-coder.github.io/flying-pancakes/books/hanukkah-table/"
+    },
+    {
+      "id": "bbq-top-100-bbq",
+      "site": "bbq",
+      "name": "Flying BBQ: The Top 100 Barbecue Dishes of the World",
+      "pricePlaceholder": "24",
+      "page": "shop/books/bbq/top-100-bbq/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/top-100-bbq/"
+    },
+    {
+      "id": "bbq-appalachian-smoke",
+      "site": "bbq",
+      "name": "Appalachian Smoke",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/appalachian-smoke/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/appalachian-smoke/"
+    },
+    {
+      "id": "bbq-across-the-american-south",
+      "site": "bbq",
+      "name": "Across the American South",
+      "pricePlaceholder": "18",
+      "page": "shop/books/bbq/across-the-american-south/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/across-the-american-south/"
+    },
+    {
+      "id": "bbq-american-bbq-belt",
+      "site": "bbq",
+      "name": "The American BBQ Belt",
+      "pricePlaceholder": "18",
+      "page": "shop/books/bbq/american-bbq-belt/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/american-bbq-belt/"
+    },
+    {
+      "id": "bbq-asado-and-churrasco",
+      "site": "bbq",
+      "name": "Asado & Churrasco",
+      "pricePlaceholder": "18",
+      "page": "shop/books/bbq/asado-and-churrasco/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/asado-and-churrasco/"
+    },
+    {
+      "id": "bbq-asian-grills",
+      "site": "bbq",
+      "name": "Asian Grills",
+      "pricePlaceholder": "18",
+      "page": "shop/books/bbq/asian-grills/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/asian-grills/"
+    },
+    {
+      "id": "bbq-africas-fires",
+      "site": "bbq",
+      "name": "Africa's Fires",
+      "pricePlaceholder": "18",
+      "page": "shop/books/bbq/africas-fires/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/africas-fires/"
+    },
+    {
+      "id": "bbq-caribbean-jerk-and-island-roasts",
+      "site": "bbq",
+      "name": "Caribbean Jerk & Island Roasts",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/caribbean-jerk-and-island-roasts/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/caribbean-jerk-and-island-roasts/"
+    },
+    {
+      "id": "bbq-british-and-irish-fires",
+      "site": "bbq",
+      "name": "Britain & Ireland at the Fire",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/british-and-irish-fires/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/british-and-irish-fires/"
+    },
+    {
+      "id": "bbq-middle-eastern-grills",
+      "site": "bbq",
+      "name": "Middle Eastern Grills",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/middle-eastern-grills/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/middle-eastern-grills/"
+    },
+    {
+      "id": "bbq-india-tandoor-and-seekh",
+      "site": "bbq",
+      "name": "India: Tandoor & Seekh",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/india-tandoor-and-seekh/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/india-tandoor-and-seekh/"
+    },
+    {
+      "id": "bbq-east-asian-grills",
+      "site": "bbq",
+      "name": "East Asian Grills",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/east-asian-grills/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/east-asian-grills/"
+    },
+    {
+      "id": "bbq-mexico-and-the-pit",
+      "site": "bbq",
+      "name": "Mexico and the Pit",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/mexico-and-the-pit/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/mexico-and-the-pit/"
+    },
+    {
+      "id": "bbq-oceania-fires",
+      "site": "bbq",
+      "name": "Oceania's Fires",
+      "pricePlaceholder": "16",
+      "page": "shop/books/bbq/oceania-fires/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/oceania-fires/"
+    },
+    {
+      "id": "bbq-rubs-mops-and-sauces",
+      "site": "bbq",
+      "name": "Rubs, Mops & Sauces",
+      "pricePlaceholder": "14",
+      "page": "shop/books/bbq/rubs-mops-and-sauces/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/rubs-mops-and-sauces/"
+    },
+    {
+      "id": "bbq-sides-of-the-pit",
+      "site": "bbq",
+      "name": "Sides of the Pit",
+      "pricePlaceholder": "14",
+      "page": "shop/books/bbq/sides-of-the-pit/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/sides-of-the-pit/"
+    },
+    {
+      "id": "bbq-seafood-on-the-coals",
+      "site": "bbq",
+      "name": "Seafood on the Coals",
+      "pricePlaceholder": "14",
+      "page": "shop/books/bbq/seafood-on-the-coals/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/seafood-on-the-coals/"
+    },
+    {
+      "id": "bbq-skewers-of-the-world",
+      "site": "bbq",
+      "name": "Skewers of the World",
+      "pricePlaceholder": "14",
+      "page": "shop/books/bbq/skewers-of-the-world/",
+      "outbound": "https://jonldavis-coder.github.io/flying-bbq/books/skewers-of-the-world/"
     }
   ],
   "boxSet": {

@@ -38,8 +38,12 @@ test("sister sites, shop math, and accuracy rules", () => {
   assert.ok(pancakes.journeys >= 8);
   assert.ok(pancakes.books >= 18);
   const bbq = sisters.find((site) => site.id === "bbq");
-  assert.equal(bbq.status, "coming-soon");
-  assert.match(read("bbq/index.html"), /Coming soon/);
+  assert.equal(bbq.status, "live");
+  assert.ok(bbq.count >= 302);
+  assert.ok(bbq.journeys >= 7);
+  assert.ok(bbq.books >= 18);
+  assert.match(read("bbq/index.html"), /Open the full site/);
+  assert.match(read("bbq/index.html"), /Journeys/);
   assert.match(read("pancakes/index.html"), /Open the full site/);
   assert.match(read("pancakes/index.html"), /Journeys/);
 
@@ -53,11 +57,14 @@ test("sister sites, shop math, and accuracy rules", () => {
 
   const pancakeBooks = shop.books.filter((book) => book.site === "pancakes");
   const sauceBooks = shop.books.filter((book) => book.site === "sauces");
+  const bbqBooks = shop.books.filter((book) => book.site === "bbq");
   assert.ok(pancakeBooks.length >= 18);
   assert.ok(sauceBooks.length >= 20);
+  assert.ok(bbqBooks.length >= 18);
   assert.ok(pancakeBooks.some((book) => book.id === "pancakes-top-100-pancakes"));
+  assert.ok(bbqBooks.some((book) => book.id === "bbq-top-100-bbq"));
   const quote = boxSetQuote(shop.books.map((book) => book.pricePlaceholder), shop.boxSetDiscount);
-  assert.equal(quote.count, sauceBooks.length + pancakeBooks.length);
+  assert.equal(quote.count, sauceBooks.length + pancakeBooks.length + bbqBooks.length);
   assert.equal(quote.total, Math.round((quote.sum - quote.savings) * 100) / 100);
   const library = read("shop/ultimate-library/index.html");
   assert.match(library, /30%/);
@@ -74,9 +81,13 @@ test("sister sites, shop math, and accuracy rules", () => {
   const home = read("index.html");
   assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-sauces\/sauces\//);
   assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-pancakes\/pancakes\//);
+  assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-bbq\/dishes\//);
   assert.match(home, /290/);
+  assert.match(home, /302/);
   assert.match(library, /Flying Pancakes/);
-  assert.match(library, /Flying BBQ joins this sum/);
+  assert.match(library, /Flying BBQ/);
+  assert.match(library, /Every Flying site with published book prices is in this sum/);
+  assert.doesNotMatch(library, /joins this sum/);
   assert.match(home, /Who settled the flavor/);
   assert.doesNotMatch(home, /National Geographic/);
   assert.match(home, /hidden/);

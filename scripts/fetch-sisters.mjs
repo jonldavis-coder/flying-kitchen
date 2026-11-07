@@ -117,8 +117,12 @@ async function fetchSite(source) {
   const shop = shopMod.SHOP || null;
   const seenBooks = new Set();
   const books = [];
-  for (const raw of [...(flagshipMod.FLAGSHIP_BOOKS || []), ...(booksMod.BOOKS || [])]) {
-    const book = normalizeBook(raw, source, bySlug, shop);
+  const bookSources = [
+    ...(flagshipMod.FLAGSHIP_BOOKS || []).map((raw) => ({ raw, fromFlagship: true })),
+    ...(booksMod.BOOKS || []).map((raw) => ({ raw, fromFlagship: false }))
+  ];
+  for (const { raw, fromFlagship } of bookSources) {
+    const book = normalizeBook(raw, source, bySlug, shop, fromFlagship);
     if (!book || seenBooks.has(book.slug)) continue;
     seenBooks.add(book.slug);
     books.push(book);
@@ -214,7 +218,7 @@ function itemsFromIndex(text, source) {
   let list = [];
   if (Array.isArray(json)) list = json;
   else {
-    const keys = ["items", "recipes", "sauces", "pancakes", "bbq", "entries", "catalog"];
+    const keys = ["items", "recipes", "sauces", "pancakes", "bbq", "dishes", "entries", "catalog"];
     for (const key of keys) {
       if (Array.isArray(json[key])) {
         list = json[key];
@@ -267,7 +271,7 @@ function itemUrl(raw, source, slug) {
   return new URL(`${source.entryFolder}/${slug}/`, source.pages).href;
 }
 
-function normalizeBook(raw, source, bySlug, shop) {
+function normalizeBook(raw, source, bySlug, shop, fromFlagship = false) {
   if (!raw?.slug || !raw?.title) return null;
   let members = [];
   if (Array.isArray(raw.slugs)) {
@@ -286,7 +290,7 @@ function normalizeBook(raw, source, bySlug, shop) {
     slug: String(raw.slug),
     title: String(raw.title),
     dek: String(raw.dek || ""),
-    tier: String(raw.tier || "booklet"),
+    tier: bookTier(raw, fromFlagship),
     vehicle: String(raw.vehicle || ""),
     intro: Array.isArray(raw.intro) ? raw.intro.filter((part) => typeof part === "string") : [],
     route: cleanRoute(raw.route),
@@ -294,6 +298,15 @@ function normalizeBook(raw, source, bySlug, shop) {
     url: new URL(`${source.bookFolder}/${raw.slug}/`, source.pages).href,
     price
   };
+}
+
+function bookTier(raw, fromFlagship) {
+  if (raw.tier) return String(raw.tier);
+  const title = String(raw.title || "");
+  const slug = String(raw.slug || "");
+  if (slug.includes("top-100") || /top 100/i.test(title)) return "top";
+  if (fromFlagship) return "flagship";
+  return "booklet";
 }
 
 function bookPrice(shop, slug) {

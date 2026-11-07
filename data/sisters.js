@@ -26,12 +26,12 @@ export const SISTERS = [
   {
     id: "bbq",
     name: "Flying BBQ",
-    subject: "barbecue",
-    dek: "A field guide to barbecue, still being built.",
+    subject: "stops",
+    dek: "A travel journal of barbecue and live-fire cooking.",
     pages: "https://jonldavis-coder.github.io/flying-bbq/",
     repo: "jonldavis-coder/flying-bbq",
     repoUrl: "https://github.com/jonldavis-coder/flying-bbq",
-    entryFolder: "bbq",
+    entryFolder: "dishes",
     bookFolder: "books"
   }
 ];
