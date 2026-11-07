@@ -91,6 +91,7 @@ export function page({
           <a href="bbq/">Flying BBQ</a>
           <a href="settled/">Who settled the flavor</a>
           <a href="sources/">Sources</a>
+          <a href="credits/">Photo credits</a>
           <a href="about/">About</a>
           <a href="guidelines/">Community guidelines</a>
           <a href="affiliate/">Affiliate disclosure</a>

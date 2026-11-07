@@ -3,6 +3,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { boxSetQuote } from "../assets/js/lib/shop.js";
+import { licenseAllowed } from "../scripts/photos.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -92,6 +93,23 @@ test("sister sites, shop math, and accuracy rules", () => {
   assert.doesNotMatch(home, /National Geographic/);
   assert.match(home, /hidden/);
   assert.match(home, /data-ad-slot="home_after_hero"/);
+  assert.match(home, /assets\/photos\/hub\/balloon\.jpg/);
+  assert.match(home, /Hot air balloons over a rocky landscape/);
+  assert.doesNotMatch(home, /assets\/photos\/hub\/skillet\.jpg[\s\S]{0,400}Fesenjan/);
+  const credits = read("credits/index.html");
+  assert.match(credits, /Wikimedia Commons/);
+  assert.match(credits, /CC0/);
+  assert.match(credits, /CC BY-SA 4\.0/);
+  assert.match(credits, /Public domain/);
+  assert.ok(fs.existsSync(path.join(root, "assets/photos/hub/balloon.jpg")));
+  assert.match(read("shop/skillet/index.html"), /Original mockup/);
+  assert.equal(licenseAllowed("CC BY-SA 4.0"), true);
+  assert.equal(licenseAllowed("CC BY 2.0"), true);
+  assert.equal(licenseAllowed("CC0"), true);
+  assert.equal(licenseAllowed("Public domain"), true);
+  assert.equal(licenseAllowed("CC BY-NC-SA 4.0"), false);
+  assert.equal(licenseAllowed("CC BY-ND 4.0"), false);
+  assert.equal(licenseAllowed(""), false);
 
   const passages = JSON.parse(read("data/passages.json"));
   assert.ok(passages.length >= 3);

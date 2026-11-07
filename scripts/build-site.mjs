@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadSisters } from "./fetch-sisters.mjs";
+import { prepareHubPhotos } from "./photos.mjs";
 import { page, adSlot } from "./layout.mjs";
 import { GEAR, SHOP_POLICY } from "../data/gear.js";
 import { boxSetQuote, priceLabel } from "../assets/js/lib/shop.js";
@@ -18,7 +19,13 @@ function write(rel, contents) {
   if (rel.endsWith(".html") || rel.endsWith(".xml") || rel.endsWith(".txt")) pages.push(rel);
 }
 
-const sisters = await loadSisters();
+const [sisters, hubPhotos] = await Promise.all([loadSisters(), prepareHubPhotos()]);
+const vehiclePhoto = {
+  balloon: hubPhotos.balloon,
+  train: hubPhotos.train,
+  boat: hubPhotos.boat,
+  plane: hubPhotos.plane
+};
 const books = sisters.flatMap((site) => site.books.map((book) => ({ ...book, siteId: site.id, siteName: site.name })));
 const pricedBooks = books.filter((book) => book.price != null && book.price !== "");
 const quote = boxSetQuote(pricedBooks.map((book) => book.price), SHOP_POLICY.boxSetDiscount);
@@ -158,8 +165,18 @@ function communityBlock() {
       <section id="comments" class="no-print section-rule" aria-label="Comments"></section>`;
 }
 
+function photoFigure(photo, { className = "photo-frame", note = "" } = {}) {
+  if (!photo?.local || !photo.alt) return "";
+  return `<figure class="${className}">
+      <img src="${escapeHtml(photo.local)}" alt="${escapeHtml(photo.alt)}" width="${photo.width || 1200}" height="${photo.height || 800}">
+      <figcaption class="photo-credit">${escapeHtml(photo.caption || "")}${photo.caption ? " " : ""}${escapeHtml(photo.credit)} · ${escapeHtml(photo.license)}${note ? ` · ${escapeHtml(note)}` : ""} · <a href="${escapeHtml(photo.sourceUrl)}">Source</a></figcaption>
+    </figure>`;
+}
+
 function recipeCard(item) {
+  const picture = item.photo?.local ? photoFigure(item.photo, { className: "card-photo", note: `Photograph published for ${item.name}` }) : "";
   return `<article class="card">
+      ${picture}
       <p class="eyebrow">${escapeHtml(item.siteName)} · ${escapeHtml(item.vehicleLabel || "Route")}</p>
       <h3><a href="${escapeHtml(item.url)}">${escapeHtml(item.name)}</a></h3>
       <p>${escapeHtml(item.flavor || item.country || "")}</p>
@@ -264,9 +281,9 @@ write("index.html", page({
       "query-input": "required name=query"
     }
   },
-  main: `<div class="wrap hero">
-      <img class="hero-mark" src="assets/images/mark.jpg" width="512" height="512" alt="Hot air balloon above a cast-iron skillet, the Flying Kitchen mark.">
-      <div>
+  main: `<section class="hero-stage">
+      ${photoFigure(hubPhotos.balloon, { className: "hero-frame" })}
+      <div class="wrap hero-card">
         <p class="eyebrow">Flagship hub · Balloon, plane, train, and boat</p>
         <h1>Taste the world from one kitchen.</h1>
         <p class="lede">Flying Kitchen gathers the Flying sites the way a travel journal gathers a route. The recipes stay on their own shelves. This issue carries the journeys, the books, and a gear list that is still being planned.</p>
@@ -278,7 +295,14 @@ write("index.html", page({
           </div>
         </form>
       </div>
-    </div>
+    </section>
+    <section class="wrap">
+      <h2>The way the journal travels</h2>
+      <p>These are photographs of a balloon, a railway, a boat, an airplane, and cast-iron skillets. They are not pictures of a named recipe.</p>
+      <div class="photo-row">
+        ${[hubPhotos.train, hubPhotos.boat, hubPhotos.plane, hubPhotos.skillet].map((photo) => photoFigure(photo)).join("")}
+      </div>
+    </section>
     ${adSlot("home_after_hero")}
     <section class="wrap">
       <h2>The three sites</h2>
@@ -301,7 +325,7 @@ write("index.html", page({
     <section class="wrap">
       <p class="eyebrow">From the published journeys</p>
       <h2>Featured recipes</h2>
-      <p>Each card is a stop on a journey the sister site already published. The link opens the full entry there.</p>
+      <p>Each card is a stop on a journey the sister site already published. The link opens the full entry there. A picture is added only when that site publishes a freely licensed photograph of that same entry, with its credit.</p>
       ${homeFeatured.length ? `<div class="grid">${homeFeatured.map(recipeCard).join("")}</div>` : `<p class="coming">No journey stops are published yet.</p>`}
       ${featured.length > homeFeatured.length ? `<p class="button-row">${featuredSites.map((site) => `<a class="button button-quiet" href="${site.id}/">${escapeHtml(site.name)} stops</a>`).join("")}</p>` : ""}
     </section>
@@ -604,6 +628,7 @@ for (const site of sisters) {
       canonical: `${ORIGIN}/journeys/${site.id}/${journey.slug}/`,
       main: `<article id="entry-root" class="wrap entry" data-slug="journey:${escapeHtml(site.id)}:${escapeHtml(journey.slug)}">
         <p class="print-only print-brand">Flying Kitchen</p>
+        ${photoFigure(vehiclePhoto[journey.vehicle], { note: "This photograph shows the vehicle, not the food on this route." })}
         <p class="eyebrow">${escapeHtml(site.name)} · ${escapeHtml(journey.vehicleLabel || journey.vehicle)}</p>
         <h1>${escapeHtml(journey.title)}</h1>
         <p class="dek">${escapeHtml(journey.dek)}</p>
@@ -628,6 +653,7 @@ for (const item of featured) {
     canonical: `${ORIGIN}/notes/${item.siteId}/${item.slug}/`,
     main: `<article id="entry-root" class="wrap entry" data-slug="recipe:${escapeHtml(item.siteId)}:${escapeHtml(item.slug)}">
       <p class="print-only print-brand">Flying Kitchen</p>
+      ${item.photo?.local ? photoFigure(item.photo, { note: `Photograph published for ${item.name}` }) : ""}
       <p class="eyebrow">${escapeHtml(item.siteName)}${item.journey ? ` · ${escapeHtml(item.journey)}` : ""}</p>
       <h1>${escapeHtml(item.name)}</h1>
       <p class="dek">${escapeHtml(item.flavor || "")}</p>
@@ -639,6 +665,41 @@ for (const item of featured) {
     </article>`
   }));
 }
+
+const usedEntryPhotos = [];
+const seenEntryPhotos = new Set();
+for (const item of featured) {
+  if (!item.photo?.local || seenEntryPhotos.has(`${item.siteId}:${item.slug}`)) continue;
+  seenEntryPhotos.add(`${item.siteId}:${item.slug}`);
+  usedEntryPhotos.push(item);
+}
+
+write("credits/index.html", page({
+  title: "Photo credits · Flying Kitchen",
+  description: "Credits for the photographs on Flying Kitchen. Hub pictures are freely licensed. Dish pictures come only from the sister site that published that entry.",
+  issue,
+  canonical: `${ORIGIN}/credits/`,
+  main: `<div class="wrap prose">
+      <p class="eyebrow">Photographs</p>
+      <h1>Photo credits</h1>
+      <p class="lede">Hub pictures are photographs downloaded from Wikimedia Commons. Each one is CC0, CC BY, CC BY-SA, or public domain. A dish card gets a photograph only when its own sister site publishes a freely licensed picture of that same entry.</p>
+      <h2>Hub photographs</h2>
+      <ul class="credit-list">
+        ${Object.values(hubPhotos).map((photo) => `<li>
+          <img src="${escapeHtml(photo.local)}" alt="" width="160" height="100">
+          <p><strong>${escapeHtml(photo.caption)}</strong></p>
+          <p>${escapeHtml(photo.alt)}</p>
+          <p>${escapeHtml(photo.credit)} · ${escapeHtml(photo.license)}${photo.licenseUrl ? ` · <a href="${escapeHtml(photo.licenseUrl)}">License</a>` : ""} · <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a></p>
+        </li>`).join("")}
+      </ul>
+      <h2>Sister-site photographs</h2>
+      ${usedEntryPhotos.length ? `<ul class="credit-list">${usedEntryPhotos.map((item) => `<li>
+          <p><strong>${escapeHtml(item.name)}</strong> · ${escapeHtml(item.siteName)}</p>
+          <p>${escapeHtml(item.photo.alt)}</p>
+          <p>${escapeHtml(item.photo.credit)} · ${escapeHtml(item.photo.license)}${item.photo.licenseUrl ? ` · <a href="${escapeHtml(item.photo.licenseUrl)}">License</a>` : ""} · <a href="${escapeHtml(item.photo.sourceUrl || item.url)}">Source</a></p>
+        </li>`).join("")}</ul>` : `<p>None of the sister sites has published a freely licensed photograph for a featured entry in this build. Those cards stay without a picture rather than borrow one from another dish.</p>`}
+    </div>`
+}));
 
 write("about/index.html", page({
   title: "About · Flying Kitchen",

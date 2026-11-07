@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SISTERS } from "../data/sisters.js";
+import { licenseAllowed, parsePhotoRecords, photoFromCatalogItem, materializeEntryPhoto, sisterPhotoUrl } from "./photos.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const cacheDir = path.join(root, "data", "cache");
@@ -21,7 +22,8 @@ const KNOWN_FILES = [
   "data/journeys.js",
   "data/flagship-books.js",
   "data/books.js",
-  "data/shop.js"
+  "data/shop.js",
+  "data/photos.json"
 ];
 
 export async function loadSisters() {
@@ -106,6 +108,7 @@ async function fetchSite(source) {
   const indexText = texts.get("data/index.json") || texts.get("data/catalog.json") || "";
   const items = indexText ? itemsFromIndex(indexText, source) : [];
   attachCoordinates(items, texts);
+  await attachEntryPhotos(items, texts, source);
   const bySlug = new Map(items.map((item) => [item.slug, item]));
 
   const journeyMod = texts.has("data/journeys.js") ? loadExports(texts.get("data/journeys.js"), ["JOURNEYS", "VEHICLES"]) : {};
@@ -260,7 +263,8 @@ function normalizeItem(raw, source) {
     heat: String(raw.heat || ""),
     uses: Array.isArray(raw.uses) ? raw.uses.map(String) : [],
     diets: Array.isArray(raw.diets) ? raw.diets.map(String) : [],
-    url: itemUrl(raw, source, slug)
+    url: itemUrl(raw, source, slug),
+    photo: photoFromCatalogItem(raw)
   };
 }
 
@@ -372,8 +376,35 @@ function compactItem(item) {
     country: item.country,
     region: item.region,
     flavor: item.flavor,
-    url: item.url
+    url: item.url,
+    photo: item.photo || null
   };
+}
+
+async function attachEntryPhotos(items, texts, source) {
+  const bySlug = new Map();
+  if (texts.has("data/photos.json")) {
+    try {
+      for (const record of parsePhotoRecords(JSON.parse(texts.get("data/photos.json")))) {
+        bySlug.set(record.slug, record);
+      }
+    } catch {
+      // A broken photos file is skipped. Cards stay without a picture.
+    }
+  }
+  for (const item of items) {
+    const record = bySlug.get(item.slug) || item.photo;
+    if (!record || !licenseAllowed(record.license)) {
+      item.photo = null;
+      continue;
+    }
+    const src = sisterPhotoUrl(source, record.src);
+    try {
+      item.photo = await materializeEntryPhoto(source.id, { ...record, src });
+    } catch {
+      item.photo = null;
+    }
+  }
 }
 
 function cleanRoute(route) {

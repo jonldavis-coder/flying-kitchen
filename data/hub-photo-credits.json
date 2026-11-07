@@ -1,0 +1,72 @@
+[
+  {
+    "id": "balloon",
+    "role": "hero",
+    "local": "assets/photos/hub/balloon.jpg",
+    "alt": "Several hot air balloons in flight over a pale rocky landscape under a blue sky.",
+    "caption": "Hot air balloons over a rocky landscape.",
+    "credit": "ellehem",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hot_Air_Balloon_Ride_(Unsplash).jpg",
+    "commonsTitle": "File:Hot Air Balloon Ride (Unsplash).jpg",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "train",
+    "role": "feature",
+    "local": "assets/photos/hub/train.jpg",
+    "alt": "Steam locomotives outside the engine shed of the Leek and Rudyard Railway.",
+    "caption": "Steam locomotives at the Leek and Rudyard Railway.",
+    "credit": "Photograph by Mike Peel ( www.mikepeel.net ).",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:At_Rudyard_Lake_Steam_Railway_2023_030.jpg",
+    "commonsTitle": "File:At Rudyard Lake Steam Railway 2023 030.jpg",
+    "width": 1200,
+    "height": 800
+  },
+  {
+    "id": "boat",
+    "role": "feature",
+    "local": "assets/photos/hub/boat.jpg",
+    "alt": "A wooden sailing boat resting on the shore of a harbor at low tide.",
+    "caption": "A wooden boat on a harbor shore.",
+    "credit": "Nasehi2277",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_traditional_wooden_boat_rests_on_the_harbor_shore.jpg",
+    "commonsTitle": "File:A traditional wooden boat rests on the harbor shore.jpg",
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "id": "plane",
+    "role": "feature",
+    "local": "assets/photos/hub/plane.jpg",
+    "alt": "An airplane wing seen through a round window, above clouds at sunset.",
+    "caption": "An airplane wing above the clouds at sunset.",
+    "credit": "Salwa Farwaneh Dameh",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sunset_view_from_an_airplane_window_above_the_clouds.jpg",
+    "commonsTitle": "File:Sunset view from an airplane window above the clouds.jpg",
+    "width": 1080,
+    "height": 1440
+  },
+  {
+    "id": "skillet",
+    "role": "feature",
+    "local": "assets/photos/hub/skillet.jpg",
+    "alt": "Two cast-iron skillets on a white cloth, one seasoned dark and one bare metal.",
+    "caption": "Two cast-iron skillets.",
+    "credit": "FiveRings at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Castiron-skillets.jpg",
+    "commonsTitle": "File:Castiron-skillets.jpg",
+    "width": 1113,
+    "height": 683
+  }
+]
