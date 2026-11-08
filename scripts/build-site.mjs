@@ -286,7 +286,7 @@ write("index.html", page({
       <div class="wrap hero-card">
         <p class="eyebrow">Flagship hub · Balloon, plane, train, and boat</p>
         <h1>Taste the world from one kitchen.</h1>
-        <p class="lede">Flying Kitchen gathers the Flying sites the way a travel journal gathers a route. The recipes stay on their own shelves. This issue carries the journeys, the books, and a gear list that is still being planned.</p>
+        <p class="lede">Flying Kitchen gathers the Flying sites along one route. The recipes stay on their own shelves. This issue carries the journeys, the books, and a gear list that is still being planned.</p>
         <form class="search-form" action="search/" method="get">
           <label for="home-q">Search the published shelves</label>
           <div class="tool-row">
@@ -710,7 +710,7 @@ write("about/index.html", page({
   main: `<div class="wrap prose">
       <p class="eyebrow">About the hub</p>
       <h1>A journal for three Flying sites</h1>
-      <p>Flying Kitchen is the flagship shelf for Flying Sauces, Flying Pancakes, and Flying BBQ. The voice is a travel journal: hot air balloon, plane, train, and boat. The work is recipes and where they come from.</p>
+      <p>Flying Kitchen is the flagship shelf for Flying Sauces, Flying Pancakes, and Flying BBQ. The route is by hot air balloon, plane, train, and boat. The work is recipes and where they come from.</p>
       <p>At build time the hub reads each site’s public repository. ${sisters.map((site) => site.status === "live" ? `${site.name} is in this issue with ${site.count} ${site.subject}.` : `${site.name} shows a coming-soon section until it publishes a catalog.`).join(" ")} The next rebuild fills a coming-soon section from that catalog.</p>
       <h2>Accuracy</h2>
       <p>Counts, journeys, books, and settlement lines come from those sites. Featured recipes are stops on published journeys. The Top 100 is the sister site’s own book, when one exists. Editor’s picks are that site’s flagship books.</p>

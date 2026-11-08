@@ -8,7 +8,7 @@
   "repoUrl": "https://github.com/jonldavis-coder/flying-sauces",
   "status": "live",
   "reason": "",
-  "fetchedAt": "2026-11-07T21:12:47.988Z",
+  "fetchedAt": "2026-11-08T02:28:18.436Z",
   "stale": false,
   "files": [
     "data/books.js",
@@ -18,6 +18,7 @@
     "data/index.json",
     "data/journeys.js",
     "data/learn.js",
+    "data/photos.json",
     "data/places.js",
     "data/sauce-shape.js",
     "data/sauces/africa-me.js",
