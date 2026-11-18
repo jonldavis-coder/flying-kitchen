@@ -240,9 +240,9 @@ function transformSection(dir, name, originFrom) {
     html = html.replace(/<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">\s*/g, "");
     html = html.replace(/<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com" crossorigin>\s*/g, "");
     html = html.replace(/<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com\/css2[^"]*">\s*/g, "");
-    html = html.replace(/<link rel="icon"[^>]*>\s*/g, "");
-    html = html.replace(/<link rel="apple-touch-icon"[^>]*>\s*/g, "");
-    if (!html.includes("/favicon.ico")) {
+    html = html.replace(/\s*<link rel="icon"[^>]*>/g, "");
+    html = html.replace(/\s*<link rel="apple-touch-icon"[^>]*>/g, "");
+    if (!html.includes('href="/favicon.ico"')) {
       html = html.replace(/<\/head>/, `  <link rel="icon" href="/favicon.ico" sizes="any">\n  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">\n</head>`);
     }
     html = html.replace(/<meta name="theme-color" content="[^"]*">/, '<meta name="theme-color" content="#141210">');
@@ -344,7 +344,7 @@ write("ads.txt", `# KiteKitchen ads.txt placeholder.
 # single line Google gives you. Do not invent a pub- ID.
 `);
 
-write("CNAME", "kitekitchen.com\n");
+write("CNAME", "kitekitchen.com");
 
 write("site.webmanifest", JSON.stringify({
   name: "KiteKitchen",
