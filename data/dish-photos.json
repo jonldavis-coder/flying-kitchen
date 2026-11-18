@@ -54,13 +54,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:CrepeSuzette 20220506 202934.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.46,
+      0.6
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.62
   },
   {
     "key": "asado",
@@ -75,13 +76,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Asado (argentine meat) 2019.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.68,
+      0.38
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.46
   },
   {
     "key": "mole",
@@ -123,7 +125,8 @@
     "mastWidth": 1176,
     "mastHeight": 784,
     "cardWidth": 1176,
-    "cardHeight": 882
+    "cardHeight": 882,
+    "zoom": 1
   },
   {
     "key": "chimichurri",
@@ -264,13 +267,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Guacamole IMGP1256.jpg",
     "focal": [
-      0.5,
+      0.52,
       0.5
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.82
   },
   {
     "key": "haydari",
@@ -357,27 +361,6 @@
     "cardHeight": 900
   },
   {
-    "key": "injera",
-    "id": "injera",
-    "slug": "injera",
-    "alt": "Injera, a spongy flatbread, on a griddle",
-    "caption": "Injera.",
-    "artist": "Natnael Tadele",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fresh_Injera.JPG",
-    "source": "Wikimedia Commons",
-    "commons": "File:Fresh Injera.JPG",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
     "key": "poffertjes",
     "id": "poffertjes",
     "slug": "poffertjes",
@@ -391,12 +374,13 @@
     "commons": "File:1-Poffertjes-pan.JPG",
     "focal": [
       0.5,
-      0.5
+      0.7
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.82
   },
   {
     "key": "potato-latkes",
@@ -474,13 +458,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Arepa Boyacense.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.64,
+      0.58
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.6
   },
   {
     "key": "colombian-arepas",
@@ -726,13 +711,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Bulgogi (Marinated beef. Served with rice) - Kogi 2023-09-11.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.3,
+      0.52
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.5
   },
   {
     "key": "jamaican-jerk-chicken",
@@ -756,27 +742,6 @@
     "cardHeight": 900
   },
   {
-    "key": "tianjin-jianbing",
-    "id": "tianjin-jianbing",
-    "slug": "tianjin-jianbing",
-    "alt": "Jianbing cooking on a round griddle",
-    "caption": "Jianbing.",
-    "artist": "Jmps2016",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jianbing.jpg",
-    "source": "Wikimedia Commons",
-    "commons": "File:Jianbing.jpg",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
     "key": "nigerian-suya",
     "id": "nigerian-suya",
     "slug": "nigerian-suya",
@@ -789,13 +754,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:An Hausa man producing suya at suya production site in Nigeria 06.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.62,
+      0.78
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.5
   },
   {
     "key": "moroccan-baghrir",
@@ -837,7 +803,8 @@
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 1
   },
   {
     "key": "australian-pancakes",
@@ -914,27 +881,6 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spaghetto_cacio_e_pepe_Roma_2018.jpg",
     "source": "Wikimedia Commons",
     "commons": "File:Spaghetto cacio e pepe Roma 2018.jpg",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
-    "key": "aioli",
-    "id": "aioli",
-    "slug": "aioli",
-    "alt": "A\u00efoli in a white bowl",
-    "caption": "A\u00efoli.",
-    "artist": "CNEcija12345",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aioli_sauce.jpg",
-    "source": "Wikimedia Commons",
-    "commons": "File:Aioli sauce.jpg",
     "focal": [
       0.5,
       0.5
@@ -1026,7 +972,8 @@
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 1
   },
   {
     "key": "massaman-curry",
@@ -1188,13 +1135,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Picanha brazil.JPG",
     "focal": [
-      0.5,
-      0.5
+      0.26,
+      0.58
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.5
   },
   {
     "key": "chicken-tikka",
@@ -1299,7 +1247,8 @@
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 1
   },
   {
     "key": "seekh-kebab",
@@ -1398,13 +1347,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Mozambican Chicken piri piri.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.48,
+      0.78
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.55
   },
   {
     "key": "egyptian-kofta",
@@ -1440,13 +1390,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Msemmem.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.4,
+      0.48
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.78
   },
   {
     "key": "crepes-bretonnes",
@@ -1546,12 +1497,13 @@
     "commons": "File:Peking duck pancake.jpg",
     "focal": [
       0.5,
-      0.5
+      0.34
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.48
   },
   {
     "key": "harissa",
@@ -1566,13 +1518,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Harissa in a jar.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.4,
+      0.7
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.48
   },
   {
     "key": "char-siu",
@@ -1614,7 +1567,8 @@
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 1
   },
   {
     "key": "new-zealand-pikelets",
@@ -1671,13 +1625,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Chakalaka.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.42,
+      0.46
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.52
   },
   {
     "key": "farofa",
@@ -1755,13 +1710,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Socca slices Nice.jpg",
     "focal": [
-      0.5,
+      0.7,
       0.5
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.78
   },
   {
     "key": "bagna-cauda",
@@ -1890,27 +1846,6 @@
     "cardHeight": 900
   },
   {
-    "key": "banana-ketchup",
-    "id": "banana-ketchup",
-    "slug": "banana-ketchup",
-    "alt": "Banana ketchup beside a banana",
-    "caption": "Banana ketchup.",
-    "artist": "Khayri R.R. Woulfe",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Banana_Ketchup.jpg",
-    "source": "Wikimedia Commons",
-    "commons": "File:Banana Ketchup.jpg",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1200,
-    "mastHeight": 800,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
     "key": "tahini-sauce",
     "id": "tahini-sauce",
     "slug": "tahini-sauce",
@@ -1964,27 +1899,6 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cachapas_from_Venezuela.jpg",
     "source": "Wikimedia Commons",
     "commons": "File:Cachapas from Venezuela.jpg",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
-    "key": "fesenjan",
-    "id": "fesenjan",
-    "slug": "fesenjan",
-    "alt": "Fesenjan, a walnut and pomegranate stew",
-    "caption": "Fesenjan.",
-    "artist": "Darafsh",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fesenjan_7861.jpg",
-    "source": "Wikimedia Commons",
-    "commons": "File:Fesenjan 7861.jpg",
     "focal": [
       0.5,
       0.5
@@ -2406,13 +2320,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Purple asparagus in Beurre blanc sauce.jpg",
     "focal": [
-      0.5,
-      0.5
+      0.78,
+      0.3
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.5
   },
   {
     "key": "bumbu-kacang",
@@ -2806,12 +2721,13 @@
     "commons": "File:Racuchy - 2024.01.09.jpg",
     "focal": [
       0.5,
-      0.5
+      0.48
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.42
   },
   {
     "key": "ssamjang",
@@ -3003,27 +2919,6 @@
     "cardHeight": 900
   },
   {
-    "key": "paper-dosa",
-    "id": "paper-dosa",
-    "slug": "paper-dosa",
-    "alt": "A large thin paper dosa",
-    "caption": "Paper dosa.",
-    "artist": "AMeusch",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3APaper_Dosa_in_Pune.jpg",
-    "source": "Wikimedia Commons",
-    "commons": "File:Paper Dosa in Pune.jpg",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
     "key": "sambal-matah",
     "id": "sambal-matah",
     "slug": "sambal-matah",
@@ -3035,47 +2930,6 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASAMBAL_MATAH.jpg",
     "source": "Wikimedia Commons",
     "commons": "File:SAMBAL MATAH.jpg",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
-    "key": "apple-sauce",
-    "id": "apple-sauce",
-    "slug": "apple-sauce",
-    "alt": "Apple sauce in a glass bowl",
-    "caption": "Apple sauce.",
-    "artist": "Rachel Loughman",
-    "license": "Pexels License",
-    "licenseUrl": "https://www.pexels.com/license/",
-    "sourceUrl": "https://www.pexels.com/photo/yellow-cream-in-the-glass-bowl-5440962/",
-    "source": "Pexels",
-    "focal": [
-      0.5,
-      0.5
-    ],
-    "mastWidth": 1500,
-    "mastHeight": 1000,
-    "cardWidth": 1200,
-    "cardHeight": 900
-  },
-  {
-    "key": "blue-cheese-dressing",
-    "id": "blue-cheese-dressing",
-    "slug": "blue-cheese-dressing",
-    "alt": "Blue cheese dressing in a white bowl, with broccoli",
-    "caption": "Blue cheese dressing.",
-    "artist": "jules",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ABlue_cheese_dressing.jpg",
-    "source": "Wikimedia Commons",
-    "commons": "File:Blue cheese dressing.jpg",
     "focal": [
       0.5,
       0.5
@@ -3119,13 +2973,14 @@
     "source": "Wikimedia Commons",
     "commons": "File:Dabu-dabu manta.JPG",
     "focal": [
-      0.5,
-      0.5
+      0.58,
+      0.78
     ],
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 0.5
   },
   {
     "key": "gricia",
@@ -3167,7 +3022,8 @@
     "mastWidth": 1080,
     "mastHeight": 720,
     "cardWidth": 1080,
-    "cardHeight": 810
+    "cardHeight": 810,
+    "zoom": 1
   },
   {
     "key": "raita",
@@ -3272,7 +3128,8 @@
     "mastWidth": 1500,
     "mastHeight": 1000,
     "cardWidth": 1200,
-    "cardHeight": 900
+    "cardHeight": 900,
+    "zoom": 1
   },
   {
     "key": "australian-prawns",
@@ -3412,6 +3269,70 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pumpkin_pie_with_pastry_leaf_decoration,_November_2005.jpg",
     "source": "Wikimedia Commons",
     "commons": "File:Pumpkin pie with pastry leaf decoration, November 2005.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900,
+    "zoom": 1
+  },
+  {
+    "key": "injera",
+    "id": "injera",
+    "slug": "injera",
+    "alt": "Injera, a spongy flatbread, on a griddle",
+    "caption": "Injera.",
+    "artist": "Natnael Tadele",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fresh_Injera.JPG",
+    "source": "Wikimedia Commons",
+    "commons": "File:Fresh Injera.JPG",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "tianjin-jianbing",
+    "id": "tianjin-jianbing",
+    "slug": "tianjin-jianbing",
+    "alt": "Jianbing cooking on a round griddle",
+    "caption": "Jianbing.",
+    "artist": "Jmps2016",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jianbing.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Jianbing.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "paper-dosa",
+    "id": "paper-dosa",
+    "slug": "paper-dosa",
+    "alt": "A large thin paper dosa",
+    "caption": "Paper dosa.",
+    "artist": "AMeusch",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3APaper_Dosa_in_Pune.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Paper Dosa in Pune.jpg",
     "focal": [
       0.5,
       0.5
