@@ -48,19 +48,15 @@ h1, h2, h3, .kk-word, .brand-name, .sauce-title, .pancake-title, .dish-title, .k
 h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); margin: 0 0 0.45rem; }
 h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin: 2.4rem 0 0.8rem; }
 h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
-.kk-wrap > h2,
-.kk-home > h2,
-.kk-browse > h2 {
-  display: flex;
-  align-items: baseline;
-  gap: 0.85rem;
-}
+.kk-home > h2 { margin-top: 3.1rem; }
 .kk-wrap > h2::after,
 .kk-home > h2::after,
 .kk-browse > h2::after {
   content: "";
-  flex: 1;
+  display: block;
+  width: 2.75rem;
   height: 1px;
+  margin-top: 0.55rem;
   background: var(--gold-line);
 }
 
@@ -89,7 +85,7 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-header {
   background: rgba(255, 253, 251, 0.96);
   color: var(--ink);
-  border-bottom: 3px solid var(--gold-line);
+  border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
   z-index: 20;
@@ -243,10 +239,10 @@ body:has(.kk-guide-mast) .site-header { display: none; }
   gap: 0.9rem 1.2rem;
   align-items: start;
   margin: 0;
-  padding: 1.15rem 0 0;
+  padding: 1.35rem 0 0;
   background: transparent;
   border: 0;
-  border-top: 1px solid var(--gold-line);
+  border-top: 1px solid var(--line);
 }
 .kk-catalog .kk-cover { width: 100%; }
 .kk-catalog h2 { margin: 0.1rem 0 0.35rem; font-size: clamp(1.7rem, 2.4vw, 2.35rem); }
@@ -270,7 +266,7 @@ body:has(.kk-guide-mast) .site-header { display: none; }
 a.kk-pantry { color: inherit; text-decoration: none; border-bottom: 1px solid var(--gold-line); }
 a.kk-pantry:hover { color: var(--gold); }
 .kk-pantry-index { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; grid-template-columns: 1fr; }
-.kk-pantry-index li { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; padding: 0.75rem 0; border-top: 1px solid var(--gold-line); }
+.kk-pantry-index li { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; padding: 0.75rem 0; border-top: 1px solid var(--line); }
 .kk-pantry-index a { font-family: var(--serif); font-size: 1.55rem; color: inherit; text-decoration: none; }
 .kk-pantry-plate { max-width: 40rem; }
 .kk-pantry-plate .kk-map { width: 100%; height: auto; border: 1px solid var(--gold-line); background: #f4f0e8; }
@@ -386,12 +382,14 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-rcard, .kk-card, .kk-guide {
   background: #fff;
   border: 1px solid var(--line);
-  border-top: 3px solid var(--gold-line);
   padding: 0.95rem 1rem 1rem;
   box-shadow: none;
   color: inherit;
   text-decoration: none;
 }
+.kk-rcard:has(.kk-shot) .kk-pin,
+.kk-rcard:has(.kk-shot) .kk-band { display: none; }
+.kk-rcard .kk-credit { display: none; }
 .kk-guide { display: flex; flex-direction: column; gap: 0.2rem; }
 .kk-guide h3, .kk-rcard h3, .kk-card h3 { font-size: 1.7rem; }
 .kk-rcard h3 a, .kk-card h2 a, .kk-card h3 a { color: var(--ink); text-decoration: none; }
@@ -475,7 +473,8 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-lands a:focus-visible path { stroke: #1a1a1a; stroke-width: 1.8px; }
 .kk-filters select { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding-right: 0.8rem; }
 
-.kk-footer { border-top: 3px solid var(--gold-line); background: var(--paper-2); padding: 1.75rem 0 2rem; }
+.kk-footer { border-top: 1px solid var(--line); background: var(--paper-2); padding: 1.75rem 0 2rem; font-size: 0.95rem; }
+.kk-footer .kk-tag { color: var(--muted); }
 .kk-footer .kk-wrap, .kk-foot { padding-top: 0; padding-bottom: 0; }
 .kk-foot { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem 1.75rem; align-items: center; }
 .kk-crest { width: 96px; height: auto; display: block; }
@@ -569,8 +568,8 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
   list-style: none;
   padding: 0.72rem 0;
   margin: 1rem 0 0.15rem;
-  border-top: 1px solid var(--gold-line);
-  border-bottom: 1px solid var(--gold-line);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -627,27 +626,26 @@ ol.steps > li::before {
   gap: 0.4rem 2.4rem;
   margin-top: 2.4rem;
   padding-top: 0.3rem;
-  border-top: 1px solid var(--gold-line);
+  border-top: 1px solid var(--line);
 }
 .kk-more h2 { margin-top: 0.4rem; }
 .kk-also .kk-meta { margin-left: 0.5rem; }
 .origin-card, .kk-about-crest {
-  border: 1px solid var(--gold-line);
-  background: var(--paper-2);
+  border: 1px solid var(--line);
+  background: transparent;
   padding: 0.9rem 1rem;
-  box-shadow: inset 0 0 0 5px #fffdfb, inset 0 0 0 6px var(--gold-line);
 }
-.kk-about-crest { display: inline-block; margin: 0 0 1.2rem; padding: 0.7rem; }
+.kk-about-crest { display: inline-block; margin: 0.4rem 0 1.4rem; padding: 0.7rem; }
 .kk-about-crest img { display: block; width: min(280px, 78vw); height: auto; }
 .kk-continents { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.4rem 0 1.4rem; }
-.kk-continent { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.85rem 0.9rem; background: var(--paper-2); border: 1px solid var(--gold-line); color: inherit; text-decoration: none; }
+.kk-continent { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.85rem 0.9rem; background: transparent; border: 1px solid var(--line); color: inherit; text-decoration: none; }
 .kk-continent strong { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; }
 .kk-continent span:last-child { color: var(--muted); font-size: 0.92rem; }
 .kk-cover { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; background: #f6f1e6; border: 1px solid var(--gold-line); }
 .kk-book { padding: 0.55rem 0.55rem 0.9rem; }
 .kk-book h2 { margin: 0.45rem 0.35rem 0.2rem; font-size: 1.35rem; }
 .kk-results { display: grid; gap: 0.7rem; margin-top: 0.8rem; }
-.kk-hit { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.85rem 1rem; align-items: center; padding: 0.55rem; background: #fff; border: 1px solid var(--line); border-top: 1px solid var(--gold-line); color: inherit; text-decoration: none; }
+.kk-hit { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.85rem 1rem; align-items: center; padding: 0.55rem; background: #fff; border: 1px solid var(--line); color: inherit; text-decoration: none; }
 .kk-hit img, .kk-hit .kk-pin, .kk-hit .kk-plate-svg { width: 11rem; height: 6.2rem; object-fit: cover; }
 .kk-hit strong { display: block; font-family: var(--serif); font-size: 1.65rem; font-weight: 500; line-height: 1.05; }
 .kk-hit .kk-dek { display: block; margin-top: 0.25rem; font-family: var(--serif); font-size: 1.05rem; line-height: 1.35; color: var(--ink); }
@@ -655,13 +653,13 @@ ol.steps > li::before {
 .kk-empty { margin: 1rem 0; padding: 1.2rem 1.25rem; border: 1px solid var(--gold-line); background: var(--paper-2); font-family: var(--serif); font-size: 1.35rem; line-height: 1.35; max-width: 36rem; }
 .kk-missing { max-width: 40rem; }
 .kk-stops { list-style: none; margin: 1.5rem 0 0; padding: 0; }
-.kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--gold-line); }
+.kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--line); }
 .kk-stop h2 { margin: 0.2rem 0 0.45rem; }
 .kk-route { width: 100%; max-width: 44rem; margin: 0; }
 .kk-country-map .kk-pin { width: min(100%, 22rem); height: auto; }
 .kk-day-stop { display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: start; }
 .kk-day-media .kk-shot, .kk-day-media .kk-atlas-card { margin: 0; }
-.kk-week, .kk-day-home, .kk-feature { margin: 0.4rem 0 1.4rem; padding: 0.85rem; background: var(--paper-2); border: 1px solid var(--gold-line); }
+.kk-week, .kk-day-home, .kk-feature { margin: 1.6rem 0 0.4rem; padding: 1.35rem 0 0.2rem; background: transparent; border: 0; border-top: 1px solid var(--line); }
 .kk-week, .kk-feature { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 1rem 1.4rem; align-items: center; }
 .kk-feature > *, .kk-week > * { min-width: 0; }
 .kk-feature .kk-caption, .kk-feature .kk-cap-line { max-width: 100%; overflow-wrap: anywhere; }
@@ -784,19 +782,20 @@ ol.steps > li::before {
 .frame { margin: 0 !important; border: 0 !important; background: var(--paper); min-height: 0; }
 .site-header .header-inner, .demo-banner { display: none !important; }
 .issue-line {
-  margin: 0;
-  padding: 0.45rem 1.25rem 0.7rem;
-  text-align: center;
-  letter-spacing: 0.14em;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem 0;
+  text-align: left;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--muted);
 }
+.story-block, .fun-facts, .variations, .pairings, article.kk-wrap > p { max-width: 40rem; }
 .site-footer { display: none !important; }
 .card, .book-card, .explore-card, .feature {
   box-shadow: none;
   border: 1px solid var(--line);
-  border-top: 3px solid var(--gold-line);
   background: #fff;
 }
 a.explore-card, a.feature { color: inherit; text-decoration: none; }
