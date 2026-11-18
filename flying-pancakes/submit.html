@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/flying-pancakes/">
+  <title>Submit a pancake · Flying Pancakes · KiteKitchen</title>
+  <meta name="description" content="Submit a pancake that is not already in the field guide.">
+  <meta name="theme-color" content="#141210">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <link rel="canonical" href="https://kitekitchen.com/flying-pancakes/submit.html">
+  
+  
+  <link rel="stylesheet" href="/assets/css/kite.css">
+          <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">
+</head>
+<body data-page="submit" data-print="full">
+<div class="kk-bar" id="kk-bar">
+    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="36" height="36"><span class="kk-word">KiteKitchen</span></a>
+    <p class="kk-section-name">Flying Pancakes</p>
+    <nav aria-label="KiteKitchen"><a href="/">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/" aria-current="page">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+  </div>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="frame">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="8" fill="#e2b007"/>
+            <rect x="6" y="6" width="52" height="52" fill="#1e4d5c"/>
+            <circle cx="34" cy="36" r="12" fill="none" stroke="#f7f1e4" stroke-width="2"/>
+            <path d="M12 20l16-3-10-12 3 14 12 2-14 3 10 12-3-14z" fill="#f7f1e4"/>
+          </svg>
+          <span class="brand-text">
+            <span class="brand-name">Flying Pancakes</span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" aria-label="Primary">
+          <a href="index.html">Journal</a>
+          <a href="map/">Route map</a>
+          <a href="journeys/">Journeys</a>
+          <a href="explore/">Explore</a>
+          <a href="books/">Recipe books</a>
+          <a href="shop/">Shop</a>
+          <a href="learn/pancake-101/">Pancake 101</a>
+          <a href="submit.html" aria-current="page">Submit a pancake</a>
+          <a href="about/">About</a>
+        </nav>
+        <div id="auth-slot"></div>
+      </div>
+      <p class="issue-line">290 pancakes in this issue · Growing to 1,000</p>
+    </header>
+    <p id="demo-banner" class="demo-banner" role="status" hidden></p>
+    <noscript>
+      <p class="demo-banner">JavaScript is off. You can still read the journal. Search, the route map, and community notes need JavaScript.</p>
+    </noscript>
+    <main id="content" tabindex="-1">
+      <div class="wrap">
+      <h1>Submit a pancake</h1>
+      <p class="lede">Use this for a real pancake that is missing from the guide. For a change to a published recipe, add a twist on that pancake’s page.</p>
+      <p id="submit-auth-note" class="note" hidden></p>
+      <form id="submit-form" class="form-card">
+        <label for="name">Name</label>
+        <input id="name" name="name" required maxlength="120">
+        <label for="country">Country</label>
+        <input id="country" name="country" required maxlength="60">
+        <label for="region">Region</label>
+        <select id="region" name="region" required><option value="">Choose a region</option><option value="North Africa">North Africa</option><option value="West Africa">West Africa</option><option value="Central Africa">Central Africa</option><option value="East Africa">East Africa</option><option value="Southern Africa">Southern Africa</option><option value="Middle East">Middle East</option><option value="Caucasus">Caucasus</option><option value="Central Asia">Central Asia</option><option value="South Asia">South Asia</option><option value="Southeast Asia">Southeast Asia</option><option value="East Asia">East Asia</option><option value="Western Europe">Western Europe</option><option value="Northern Europe">Northern Europe</option><option value="Eastern Europe">Eastern Europe</option><option value="Southern Europe">Southern Europe</option><option value="North America">North America</option><option value="Mexico &amp; Central America">Mexico &amp; Central America</option><option value="Caribbean">Caribbean</option><option value="South America">South America</option><option value="Oceania">Oceania</option></select>
+        <label for="baseType">Base type</label>
+        <select id="baseType" name="baseType" required><option value="">Choose a type</option><option value="wheat-batter">Wheat batter</option><option value="crepe">Crepe</option><option value="buckwheat">Buckwheat</option><option value="yeasted">Yeasted cake</option><option value="fermented-batter">Fermented batter</option><option value="rice-batter">Rice batter</option><option value="lentil-batter">Lentil batter</option><option value="cornmeal">Cornmeal cake</option><option value="masa">Masa cake</option><option value="potato">Potato cake</option><option value="oat">Oat cake</option><option value="egg-cake">Egg skillet cake</option><option value="stuffed">Stuffed pancake</option><option value="fritter">Pan-fried fritter</option><option value="flatbread">Griddled flatbread</option><option value="mold-cake">Molded batter cake</option><option value="oven-pancake">Oven pancake</option></select>
+        <label for="heat">Heat</label>
+        <select id="heat" name="heat" required><option value="">Choose a heat</option><option value="none">No chili heat</option><option value="mild">Mild</option><option value="medium">Medium</option><option value="hot">Hot</option><option value="extra-hot">Extra hot</option></select>
+        <label for="flavor">Flavor, in one line</label>
+        <input id="flavor" name="flavor" required maxlength="400">
+        <label for="story">Origin note</label>
+        <textarea id="story" name="story" required maxlength="2000" rows="5"></textarea>
+        <label for="funFact">One field note</label>
+        <input id="funFact" name="funFact" required maxlength="400">
+        <label for="yieldText">Yield</label>
+        <input id="yieldText" name="yieldText" required maxlength="80" placeholder="about 1 cup">
+        <label for="servings">Servings</label>
+        <input id="servings" name="servings" type="number" min="1" max="100" required>
+        <label for="prepMinutes">Prep minutes</label>
+        <input id="prepMinutes" name="prepMinutes" type="number" min="0" max="1440" required>
+        <label for="cookMinutes">Cook minutes</label>
+        <input id="cookMinutes" name="cookMinutes" type="number" min="0" max="1440" required>
+        <fieldset><legend>Uses</legend><div class="checks"><label><input type="checkbox" name="uses" value="breakfast"> Breakfast</label><label><input type="checkbox" name="uses" value="savory"> Savory meal</label><label><input type="checkbox" name="uses" value="dessert"> Dessert</label><label><input type="checkbox" name="uses" value="street"> Street food</label><label><input type="checkbox" name="uses" value="feast"> Feast or fast day</label><label><input type="checkbox" name="uses" value="snack"> Snack</label><label><input type="checkbox" name="uses" value="accompaniment"> Accompaniment to a meal</label></div></fieldset>
+        <fieldset><legend>Diet, if the recipe matches</legend><div class="checks"><label><input type="checkbox" name="diets" value="vegetarian"> Vegetarian</label><label><input type="checkbox" name="diets" value="vegan"> Vegan</label><label><input type="checkbox" name="diets" value="gluten-free"> Gluten-free</label><label><input type="checkbox" name="diets" value="dairy-free"> Dairy-free</label><label><input type="checkbox" name="diets" value="nut-free"> Nut-free</label></div></fieldset>
+        <label for="ingredients">Ingredients, one per line</label>
+        <textarea id="ingredients" name="ingredients" required rows="8"></textarea>
+        <label for="steps">Steps, one per line</label>
+        <textarea id="steps" name="steps" required rows="8"></textarea>
+        <label for="photo">Optional picture, illustration or food only</label>
+        <input id="photo" name="photo" type="file" accept="image/*">
+        <p class="visually-hidden"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></p>
+        <p class="form-error" role="alert"></p>
+        <button type="submit">Submit pancake</button>
+      </form>
+    </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav aria-label="Footer">
+          <a href="shop/">Shop</a>
+          <a href="books/">Recipe books</a>
+          <a href="journeys/">Journeys</a>
+          <a href="learn/who-settled-the-flavor/">Who settled the flavor</a>
+          <a href="about/">About</a>
+          <a href="learn/pancake-101/">Pancake 101</a>
+          <a href="learn/glossary/">Glossary</a>
+          <a href="/guidelines/">Community guidelines</a>
+          <a href="/affiliate/">Affiliate disclosure</a>
+          <a href="credits/">Photo credits</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="submit.html">Submit a pancake</a>
+        </nav>
+        <p id="mode-note"></p>
+        <p>Recipes are for home cooking. They are not professional food-safety, medical, or dietary advice. The journal is growing toward 1,000 pancakes. Counts on this site are the edited entries in this issue, nothing else.</p>
+      </div>
+    <p class="kk-partof">Flying Pancakes is a section of <a href="/">KiteKitchen</a>.</p></footer>
+  </div>
+  
+  <script src="config.js"></script>
+  <script src="ads-config.js"></script>
+  <script type="module" src="assets/js/boot.js"></script>
+<div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
+    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <div class="kk-row">
+      <button type="button" class="kk-button" data-consent="granted">Accept</button>
+      <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
+    </div>
+  </div>
+<script src="/config.js"></script>
+<script src="/assets/js/consent.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M595.8 140.6 L607.1 102.4 L192.9 257.6" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="595.8" cy="140.6" r="5" fill="#8c2f1e"/><circle cx="607.1" cy="102.4" r="5" fill="#8c2f1e"/><circle cx="192.9" cy="257.6" r="5" fill="#8c2f1e"/>
+  <text x="603.8" y="132.6" font-family="Georgia, serif" font-size="14">Ashkenazi Poland</text><text x="200.9" y="249.6" font-family="Georgia, serif" font-size="14">Lower East Side, New York</text>
+</svg>

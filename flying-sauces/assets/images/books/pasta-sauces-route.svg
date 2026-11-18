@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M654.7 104.9 L497.6 296.0 L64.0 64.0 L736.0 293.6" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="654.7" cy="104.9" r="5" fill="#8c2f1e"/><circle cx="497.6" cy="296.0" r="5" fill="#8c2f1e"/><circle cx="64.0" cy="64.0" r="5" fill="#8c2f1e"/><circle cx="736.0" cy="293.6" r="5" fill="#8c2f1e"/>
+  <text x="662.7" y="96.9" font-family="Georgia, serif" font-size="12">Southern Italy</text><text x="505.6" y="288.0" font-family="Georgia, serif" font-size="12">French kitchens</text><text x="72.0" y="56.0" font-family="Georgia, serif" font-size="12">Cincinnati</text><text x="744.0" y="285.6" font-family="Georgia, serif" font-size="12">Egypt</text>
+</svg>

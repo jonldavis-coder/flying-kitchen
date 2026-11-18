@@ -1,0 +1,13 @@
+{
+  "name": "flying-sauces",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "test": "node scripts/build-site.mjs && node --test",
+    "preview": "node scripts/preview.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.4"
+  }
+}

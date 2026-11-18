@@ -2,19 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { boxSetQuote } from "../assets/js/lib/shop.js";
-import { licenseAllowed } from "../scripts/photos.mjs";
+import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS } from "../site.config.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
 function read(rel) {
   return fs.readFileSync(path.join(root, rel), "utf8");
-}
-
-function readGlobal(rel, key) {
-  const sandbox = {};
-  new Function("window", read(rel))(sandbox);
-  return sandbox[key];
 }
 
 function walkHtml(dir, found = []) {
@@ -27,130 +20,76 @@ function walkHtml(dir, found = []) {
   return found;
 }
 
-test("sister sites, shop math, and accuracy rules", () => {
-  const sisters = JSON.parse(read("data/sisters.json"));
-  const sauces = sisters.find((site) => site.id === "sauces");
-  assert.equal(sauces.status, "live");
-  assert.ok(sauces.count >= 200);
-
-  const pancakes = sisters.find((site) => site.id === "pancakes");
-  assert.equal(pancakes.status, "live");
-  assert.ok(pancakes.count >= 290);
-  assert.ok(pancakes.journeys >= 8);
-  assert.ok(pancakes.books >= 18);
-  const bbq = sisters.find((site) => site.id === "bbq");
-  assert.equal(bbq.status, "live");
-  assert.ok(bbq.count >= 302);
-  assert.ok(bbq.journeys >= 7);
-  assert.ok(bbq.books >= 18);
-  assert.match(read("bbq/index.html"), /Open the full site/);
-  assert.match(read("bbq/index.html"), /Journeys/);
-  assert.match(read("pancakes/index.html"), /Open the full site/);
-  assert.match(read("pancakes/index.html"), /Journeys/);
-
-  const shop = readGlobal("shop-config.js", "FLYING_KITCHEN_SHOP");
-  assert.equal(shop.openingSoon, true);
-  assert.equal(shop.boxSet.discount, 0.3);
-  assert.equal(shop.boxSet.total, undefined);
-  assert.equal(shop.boxSet.price, undefined);
-  assert.equal(shop.boxSet.pricePlaceholder, undefined);
-  assert.equal(shop.gear.length, 10);
-
-  const pancakeBooks = shop.books.filter((book) => book.site === "pancakes");
-  const sauceBooks = shop.books.filter((book) => book.site === "sauces");
-  const bbqBooks = shop.books.filter((book) => book.site === "bbq");
-  assert.ok(pancakeBooks.length >= 18);
-  assert.ok(sauceBooks.length >= 20);
-  assert.ok(bbqBooks.length >= 18);
-  assert.ok(pancakeBooks.some((book) => book.id === "pancakes-top-100-pancakes"));
-  assert.ok(bbqBooks.some((book) => book.id === "bbq-top-100-bbq"));
-  const quote = boxSetQuote(shop.books.map((book) => book.pricePlaceholder), shop.boxSetDiscount);
-  assert.equal(quote.count, sauceBooks.length + pancakeBooks.length + bbqBooks.length);
-  assert.equal(quote.total, Math.round((quote.sum - quote.savings) * 100) / 100);
-  const library = read("shop/ultimate-library/index.html");
-  assert.match(library, /30%/);
-  assert.match(library, new RegExp(`data-total="${quote.total}"`));
-  assert.match(library, /Coming soon/);
-  assert.match(library, /print-on-demand or private-label/i);
-
-  const ads = readGlobal("ads-config.js", "FLYING_KITCHEN_ADS");
-  assert.equal(ads.provider, "none");
-  const css = read("assets/css/styles.css");
-  assert.match(css, /@media print/);
-  assert.match(css, /\.ad-slot[\s\S]*display:\s*none !important/);
-
+test("origin, domain, analytics, and ads stay honest", () => {
+  assert.equal(SITE_ORIGIN, "https://kitekitchen.com");
+  assert.equal(read("CNAME").trim(), "kitekitchen.com");
+  assert.equal(GA_MEASUREMENT_ID, "G-JHDKNY6NTV");
+  assert.equal(ADS.enabled, false);
+  assert.equal(ADS.publisherId, "");
+  assert.match(read("robots.txt"), new RegExp(`Sitemap: ${SITE_ORIGIN}/sitemap.xml`));
+  assert.match(read("sitemap.xml"), new RegExp(`<loc>${SITE_ORIGIN}/</loc>`));
+  assert.doesNotMatch(read("sitemap.xml"), /jonldavis-coder\.github\.io/);
+  assert.doesNotMatch(read("ads.txt"), /pub-\d/);
+  assert.match(read("assets/js/consent.js"), /pointerdown/);
+  assert.match(read("assets/js/consent.js"), /4500/);
+  assert.match(read("assets/js/consent.js"), /analytics_storage: "denied"/);
+  assert.match(read("assets/js/consent.js"), /analytics_storage: "granted"/);
+  assert.match(read("privacy/index.html"), /Google Analytics 4/);
+  assert.match(read("privacy/index.html"), new RegExp(GA_MEASUREMENT_ID));
   const home = read("index.html");
-  assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-sauces\/sauces\//);
-  assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-pancakes\/pancakes\//);
-  assert.match(home, /https:\/\/jonldavis-coder\.github\.io\/flying-bbq\/dishes\//);
-  assert.match(home, /290/);
-  assert.match(home, /302/);
-  assert.match(library, /Flying Pancakes/);
-  assert.match(library, /Flying BBQ/);
-  assert.match(library, /Every Flying site with published book prices is in this sum/);
-  assert.doesNotMatch(library, /joins this sum/);
-  assert.match(home, /Who settled the flavor/);
-  assert.doesNotMatch(home, /National Geographic/);
-  assert.match(home, /hidden/);
-  assert.match(home, /data-ad-slot="home_after_hero"/);
-  assert.match(home, /assets\/photos\/hub\/balloon\.jpg/);
-  assert.match(home, /Hot air balloons over a rocky landscape/);
-  assert.doesNotMatch(home, /assets\/photos\/hub\/skillet\.jpg[\s\S]{0,400}Fesenjan/);
-  const credits = read("credits/index.html");
-  assert.match(credits, /Wikimedia Commons/);
-  assert.match(credits, /CC0/);
-  assert.match(credits, /CC BY-SA 4\.0/);
-  assert.match(credits, /Public domain/);
-  assert.ok(fs.existsSync(path.join(root, "assets/photos/hub/balloon.jpg")));
-  assert.match(read("shop/skillet/index.html"), /Original mockup/);
-  assert.equal(licenseAllowed("CC BY-SA 4.0"), true);
-  assert.equal(licenseAllowed("CC BY 2.0"), true);
-  assert.equal(licenseAllowed("CC0"), true);
-  assert.equal(licenseAllowed("Public domain"), true);
-  assert.equal(licenseAllowed("CC BY-NC-SA 4.0"), false);
-  assert.equal(licenseAllowed("CC BY-ND 4.0"), false);
-  assert.equal(licenseAllowed(""), false);
-
-  const passages = JSON.parse(read("data/passages.json"));
-  assert.ok(passages.length >= 3);
-  for (const passage of passages) {
-    assert.match(passage.url, /^https:\/\/jonldavis-coder\.github\.io\/flying-/);
-    assert.ok(passage.text.length > 40);
-  }
-  assert.match(read("settled/index.html"), /settlers/i);
-
-  for (const item of shop.gear) {
-    assert.ok(fs.existsSync(path.join(root, "assets/images/gear", `${item.id}.jpg`)));
-    const page = read(`shop/${item.id}/index.html`);
-    assert.match(page, /Coming soon/);
-    assert.match(page, /Original mockup/);
-  }
+  assert.match(home, /logo-360\.webp/);
+  assert.match(home, /kite-mark-128\.webp/);
+  assert.doesNotMatch(home, /Taste the World/);
+  assert.doesNotMatch(home, /googletagmanager\.com\/gtag\/js/);
+  assert.match(home, /Flying Sauces/);
+  assert.match(home, /Flying Pancakes/);
+  assert.match(read("friends/index.html"), /flying-bbq/);
+  assert.match(read("shop/index.html"), /Coming soon/);
+  assert.doesNotMatch(read("shop/index.html"), /\$\d/);
 });
 
-test("every built page is a real file and local links resolve", () => {
-  const manifest = JSON.parse(read("data/pages.json"));
-  assert.ok(manifest.length > 40);
-  const htmlFiles = walkHtml(root);
-  assert.equal(htmlFiles.length, manifest.length);
+test("every sitemap url is a file and local links resolve", () => {
+  const locs = [...read("sitemap.xml").matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  assert.ok(locs.length > 800);
+  for (const loc of locs) {
+    assert.ok(loc.startsWith(`${SITE_ORIGIN}/`), loc);
+    let rel = loc.slice(`${SITE_ORIGIN}/`.length);
+    const file = rel === "" ? path.join(root, "index.html") : path.join(root, rel, rel.endsWith(".html") ? "" : "index.html");
+    const target = rel.endsWith(".html") ? path.join(root, rel) : (rel === "" ? path.join(root, "index.html") : path.join(root, rel, "index.html"));
+    assert.equal(fs.existsSync(target), true, loc);
+  }
 
   const missing = [];
-  for (const file of htmlFiles) {
+  for (const file of walkHtml(root)) {
     const html = fs.readFileSync(file, "utf8");
-    assert.doesNotMatch(html, /National Geographic/);
+    assert.doesNotMatch(html, /Placeholder price/);
     assert.doesNotMatch(html, /testimonial/i);
-    const refs = html.matchAll(/\b(?:href|src)="([^"]+)"/g);
-    for (const match of refs) {
-      let href = match[1];
-      if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("#") || href.startsWith("data:")) continue;
+    const base = (html.match(/<base href="([^"]+)"/) || ["", "/"])[1];
+    const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((m) => m[1]);
+    const srcset = [...html.matchAll(/srcset="([^"]+)"/g)].flatMap((m) => m[1].split(",").map((part) => part.trim().split(/\s+/)[0]));
+    for (let href of refs.concat(srcset)) {
+      if (!href || href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("#") || href.startsWith("data:")) continue;
       href = href.split("#")[0].split("?")[0];
-      if (href.startsWith("/flying-kitchen/")) href = href.slice("/flying-kitchen/".length);
-      else if (href.startsWith("/")) href = href.slice(1);
-      if (!href) href = "index.html";
-      const rel = decodeURIComponent(href);
+      if (!href) continue;
+      const rel = decodeURIComponent(href.startsWith("/") ? href.slice(1) : `${base.startsWith("/") ? base.slice(1) : base}${href}`);
       const target = path.normalize(path.join(root, rel));
-      const candidate = target.endsWith(path.sep) || !path.extname(target) ? path.join(target, "index.html") : target;
+      const candidate = path.extname(target) ? target : path.join(target, "index.html");
       if (!candidate.startsWith(root) || !fs.existsSync(candidate)) missing.push(`${path.relative(root, file)} -> ${href}`);
     }
   }
   assert.deepEqual(missing, []);
+});
+
+test("recipe pages keep ads out of the method and printable", () => {
+  const css = read("assets/css/kite.css");
+  assert.match(css, /@media print/);
+  assert.match(css, /\.kk-ad[\s\S]*display:\s*none !important/);
+  const recipe = read("recipes/bermudian-codfish-cakes/index.html");
+  assert.equal((recipe.match(/data-ad-slot="/g) || []).length, 3);
+  const ingredients = recipe.slice(recipe.indexOf('<ul class="kk-ingredients">'), recipe.indexOf("</ul>"));
+  assert.equal(ingredients.includes("kk-ad"), false);
+  assert.match(recipe, /"@type":"Recipe"/);
+  assert.match(read("traditions/bermuda-good-friday/index.html"), /gotobermuda\.com/);
+  assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /noindex/);
+  assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /flying-sauces\/sauces\/pesto-alla-genovese/);
 });

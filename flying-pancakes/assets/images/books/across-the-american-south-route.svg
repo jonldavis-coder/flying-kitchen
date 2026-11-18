@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M471.8 182.0 L607.1 118.7 L534.0 114.8 L597.7 149.1 L558.5 198.2 L481.5 201.9 L192.9 224.6 L400.7 232.9 L361.4 245.2 L361.3 245.2" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="471.8" cy="182.0" r="5" fill="#8c2f1e"/><circle cx="607.1" cy="118.7" r="5" fill="#8c2f1e"/><circle cx="534.0" cy="114.8" r="5" fill="#8c2f1e"/><circle cx="597.7" cy="149.1" r="5" fill="#8c2f1e"/><circle cx="558.5" cy="198.2" r="5" fill="#8c2f1e"/><circle cx="481.5" cy="201.9" r="5" fill="#8c2f1e"/><circle cx="192.9" cy="224.6" r="5" fill="#8c2f1e"/><circle cx="400.7" cy="232.9" r="5" fill="#8c2f1e"/><circle cx="361.4" cy="245.2" r="5" fill="#8c2f1e"/><circle cx="361.3" cy="245.2" r="5" fill="#8c2f1e"/>
+  <text x="479.8" y="174.0" font-family="Georgia, serif" font-size="14">Atlanta</text><text x="542.0" y="106.8" font-family="Georgia, serif" font-size="14">Beckley</text><text x="566.5" y="190.2" font-family="Georgia, serif" font-size="14">Charleston</text><text x="200.9" y="216.6" font-family="Georgia, serif" font-size="14">San Saba</text><text x="369.4" y="237.2" font-family="Georgia, serif" font-size="14">New Orleans</text>
+</svg>

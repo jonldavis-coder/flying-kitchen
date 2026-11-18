@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M336.8 134.9 L464.7 87.6 L572.6 64.0 L736.0 212.2 L64.0 296.0" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="336.8" cy="134.9" r="5" fill="#8c2f1e"/><circle cx="464.7" cy="87.6" r="5" fill="#8c2f1e"/><circle cx="572.6" cy="64.0" r="5" fill="#8c2f1e"/><circle cx="736.0" cy="212.2" r="5" fill="#8c2f1e"/><circle cx="64.0" cy="296.0" r="5" fill="#8c2f1e"/>
+  <text x="344.8" y="126.9" font-family="Georgia, serif" font-size="12">Tarragona</text><text x="472.7" y="79.6" font-family="Georgia, serif" font-size="12">Provence</text><text x="580.6" y="56.0" font-family="Georgia, serif" font-size="12">Genoa</text><text x="744.0" y="204.2" font-family="Georgia, serif" font-size="12">Sicily</text><text x="72.0" y="288.0" font-family="Georgia, serif" font-size="12">Morocco</text>
+</svg>
