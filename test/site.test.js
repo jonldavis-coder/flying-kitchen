@@ -3,7 +3,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
-import { featureForDate } from "../scripts/feature-calendar.mjs";
+import { featureForDate, isoWeekSerial, weekPick } from "../scripts/feature-calendar.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -70,6 +70,18 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("cookbooks/index.html"), /url=\/books\//);
   assert.match(read("index.html"), /Recipe of the week/);
   assert.match(read("index.html"), /A day around the world/);
+  assert.equal(isoWeekSerial(new Date("1970-01-05T00:00:00Z")), 0);
+  assert.equal(isoWeekSerial(new Date("1970-01-11T00:00:00Z")), 0);
+  assert.equal(isoWeekSerial(new Date("1970-01-12T00:00:00Z")), 1);
+  const photoHrefs = JSON.parse(read("assets/search-index.json")).filter((item) => item.thumb).map((item) => item.href);
+  assert.ok(photoHrefs.length > 26);
+  const seen = new Set();
+  for (let week = 0; week < 26; week += 1) {
+    const href = weekPick(photoHrefs, new Date(Date.UTC(2026, 0, 5 + week * 7)));
+    assert.equal(seen.has(href), false);
+    seen.add(href);
+  }
+  assert.match(read("index.html"), new RegExp(`data-week="${weekPick(photoHrefs, new Date()).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
   assert.equal(featureForDate(new Date("2026-11-18T15:00:00Z")), "holiday-table");
   assert.equal(featureForDate(new Date("2026-11-30T23:00:00Z")), "holiday-table");
   assert.equal(featureForDate(new Date("2026-12-01T00:30:00Z")), "winter-warmers");
@@ -176,6 +188,28 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("pantry/chilies/index.html"), /list chilies/);
   assert.match(read("flying-sauces/sauces/carbonara/index.html"), /class="kk-pantry" href="\/pantry\/black-pepper\/"/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /class="kk-pantry" href="\/pantry\/garlic\/"/);
+  assert.match(read("flying-sauces/sauces/carbonara/index.html"), /Home<\/a><a href="\/recipes\/\?continent=Europe">Europe<\/a><a href="\/countries\/italy\/">Italy<\/a><span aria-current="page">Carbonara<\/span>/);
+  assert.match(read("flying-sauces/sauces/carbonara/index.html"), /"@type":"BreadcrumbList"/);
+  assert.match(read("flying-sauces/sauces/carbonara/index.html"), /"name":"Kite Kitchen"/);
+  assert.doesNotMatch(read("flying-sauces/sauces/carbonara/index.html"), /datePublished/);
+  assert.match(read("countries/italy/index.html"), /Home<\/a><a href="\/recipes\/\?continent=Europe">Europe<\/a><span aria-current="page">Italy<\/span>/);
+  assert.match(read("regions/southern-europe/index.html"), /Home<\/a><a href="\/recipes\/\?continent=Europe">Europe<\/a><span aria-current="page">Southern Europe<\/span>/);
+  assert.match(read("pantry/garlic/index.html"), /Home<\/a><a href="\/pantry\/">Pantry<\/a><span aria-current="page">Garlic<\/span>/);
+  const sample = ["flying-sauces/sauces/carbonara", "flying-sauces/sauces/pesto-alla-genovese", "flying-pancakes/pancakes/masala-dosa", "flying-bbq/dishes/argentine-asado", "flying-bbq/dishes/jamaican-jerk-chicken"];
+  for (const rel of sample) {
+    const raw = read(`${rel}/index.html`).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1];
+    const node = JSON.parse(raw).find((item) => item["@type"] === "Recipe");
+    assert.ok(node.image);
+    assert.equal(node.author["@type"], "Organization");
+    assert.equal(node.author.name, "Kite Kitchen");
+    assert.equal(node.datePublished, undefined);
+    assert.ok(node.recipeIngredient.length);
+    assert.ok(node.recipeInstructions.every((step) => step["@type"] === "HowToStep" && step.text));
+    assert.ok(node.totalTime);
+    assert.ok(node.recipeYield);
+    assert.ok(node.recipeCuisine);
+    assert.ok(node.recipeCategory);
+  }
   assert.match(read("sitemap.xml"), /\/pantry\/garlic\//);
   assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
   assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);

@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { cpSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
-import { featureForDate } from "./feature-calendar.mjs";
+import { featureForDate, weekPick } from "./feature-calendar.mjs";
 import { PANTRY_TERMS, pantrySlug } from "./pantry.mjs";
 import { escapeHtml, safeJsonLd } from "../assets/js/lib/escape.js";
 import { traditions, recipes, products } from "../content/kite.mjs";
@@ -1448,7 +1448,11 @@ const featuredItems = [
   "/flying-pancakes/pancakes/appam/",
   "/flying-bbq/dishes/eastern-nc-whole-hog/"
 ].map((href) => catalog.find((item) => item.href === href)).filter(Boolean);
-const weekRecipe = featuredItems[Math.floor(Date.now() / 604800000) % featuredItems.length];
+const photoHrefs = catalog.filter((item) => {
+  const slug = item.href.split("/").filter(Boolean).at(-1);
+  return Boolean(DISH_PHOTO[slug] || CARD_PHOTO[item.href]);
+}).map((item) => item.href);
+const weekRecipe = catalog.find((item) => item.href === weekPick(photoHrefs, new Date()));
 const featuredDay = DAY_JOURNEYS[0];
 const cookbookPicks = guideBooks.filter((book) => /top-100|flagship|american-bbq-belt|crepes-of-france|top 100/i.test(`${book.slug} ${book.title}`)).slice(0, 6);
 
@@ -1483,7 +1487,7 @@ write("index.html", page({
         <p class="kk-meta"><a href="/journeys/">All journeys</a></p>
       </article>
       <h2>Recipe of the week</h2>
-      <article class="kk-week">
+      <article class="kk-week" data-week="${escapeHtml(weekRecipe.href)}">
         ${(() => {
           const photo = CARD_PHOTO[weekRecipe.href] || DISH_PHOTO[weekRecipe.href.split("/").filter(Boolean).at(-1)];
           return photo ? photoFigure(photo, { eager: true, sizes: "(min-width: 800px) 34rem, 92vw", frame: "kk-shot" }) : "";
@@ -1769,10 +1773,10 @@ for (const [region, items] of byRegion) {
     path: `/regions/${slug}/`,
     image: `/assets/og/regions/${slug}.jpg`,
     current: "map",
-    jsonLd: itemListLd(`${region} recipes`, items),
+    jsonLd: withBreadcrumb(itemListLd(`${region} recipes`, items), [["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/regions/${slug}/`, region]]),
     scripts: `<script src="/assets/js/atlas.js" defer></script>`,
     main: `<article class="kk-wrap">
-      ${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"], [`/regions/${slug}/`, region]])}
+      ${crumbs([["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/regions/${slug}/`, region]])}
       <header class="kk-mast">
         <p class="kk-kicker">${escapeHtml(continent || "Recipes")}</p>
         <h1 class="kk-display">${escapeHtml(region)}</h1>
@@ -1794,6 +1798,23 @@ const countryBlocks = [...byCountry.entries()].sort((a, b) => byIso[a[0]].name.l
   const regionHtml = regions.map((region) => `<a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a>`).join(", ");
   return `<section id="${iso}" class="kk-country"><h2><a href="${countryPath(iso)}">${escapeHtml(place.name)}</a></h2><p class="kk-meta">${label}${regionHtml ? ` · ${regionHtml}` : ""}</p><ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul></section>`;
 }).join("");
+function breadcrumbLd(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item[1],
+      item: `${SITE_ORIGIN}${item[0]}`
+    }))
+  };
+}
+function withBreadcrumb(jsonLd, items) {
+  const crumb = breadcrumbLd(items);
+  if (!jsonLd) return crumb;
+  return Array.isArray(jsonLd) ? [...jsonLd, crumb] : [jsonLd, crumb];
+}
 function itemListLd(name, items) {
   return {
     "@context": "https://schema.org",
@@ -1834,9 +1855,9 @@ for (const [iso, items] of byCountry) {
     path: `/countries/${slug}/`,
     image: `/assets/og/places/${slug}.jpg`,
     current: "map",
-    jsonLd: itemListLd(`Recipes from ${place.name}`, items),
+    jsonLd: withBreadcrumb(itemListLd(`Recipes from ${place.name}`, items), [["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/countries/${slug}/`, place.name]]),
     main: `<article class="kk-wrap">
-      ${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"], [`/countries/${slug}/`, place.name]])}
+      ${crumbs([["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/countries/${slug}/`, place.name]])}
       <header class="kk-mast">
         <p class="kk-kicker">${escapeHtml(continent || "Country")}</p>
         <h1 class="kk-display">${escapeHtml(place.name)}</h1>
@@ -2363,6 +2384,10 @@ function syncRecipeLd(html) {
         node.recipeInstructions = steps.map((text) => ({ "@type": "HowToStep", text }));
         changed = true;
       }
+      node.author = { "@type": "Organization", name: "Kite Kitchen" };
+      changed = true;
+      if (typeof node.image === "string" && node.image.startsWith("/")) node.image = `${SITE_ORIGIN}${node.image}`;
+      delete node.datePublished;
       const prepTime = durationFrom(prep);
       const cookTime = durationFrom(cook);
       if (prepTime) node.prepTime = prepTime;
@@ -2402,7 +2427,8 @@ function buildPantry() {
     description: "The ingredients named most often in the recipes on Kite Kitchen, each with the recipes that list it.",
     path: "/pantry/",
     image: "/assets/og/pantry.jpg",
-    main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/pantry/", "Pantry"]])}
+    jsonLd: breadcrumbLd([["/", "Home"], ["/pantry/", "Pantry"]]),
+    main: `<div class="kk-wrap">${crumbs([["/", "Home"], ["/pantry/", "Pantry"]])}
       <header class="kk-mast">
         <p class="kk-kicker">From the ingredient lines</p>
         <h1 class="kk-display">Pantry atlas</h1>
@@ -2427,7 +2453,8 @@ function buildPantry() {
       description: `${term.recipes.length} recipes on Kite Kitchen list ${label}.`,
       path: `/pantry/${term.slug}/`,
       image: `/assets/og/pantry/${term.slug}.jpg`,
-      main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/pantry/", "Pantry"], [`/pantry/${term.slug}/`, term.name]])}
+      jsonLd: breadcrumbLd([["/", "Home"], ["/pantry/", "Pantry"], [`/pantry/${term.slug}/`, term.name]]),
+      main: `<article class="kk-wrap">${crumbs([["/", "Home"], ["/pantry/", "Pantry"], [`/pantry/${term.slug}/`, term.name]])}
         <header class="kk-mast">
           <p class="kk-kicker">Pantry</p>
           <h1 class="kk-display">${escapeHtml(term.name)}</h1>
@@ -2491,11 +2518,25 @@ function polishRecipes() {
     for (const slug of dirs(`${dir}/${folder}`)) {
       const file = path.join(root, dir, folder, slug, "index.html");
       let html = fs.readFileSync(file, "utf8");
-      if (!html.includes("kk-crumbs")) {
-        const title = textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/);
-        const crumb = `<nav class="kk-crumbs" aria-label="Breadcrumb"><a href="/">Kite Kitchen</a><a href="/${dir}/">${escapeHtml(name)}</a><span aria-current="page">${escapeHtml(title)}</span></nav>`;
-        html = html.replace(/<p class="eyebrow">/, `${crumb}\n        <p class="eyebrow">`);
-      }
+      const title = textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/);
+      const selfHref = `/${dir}/${folder}/${slug}/`;
+      const selfEarly = catalog.find((item) => item.href === selfHref);
+      const trail = [["/", "Home"]];
+      if (selfEarly?.continent) trail.push([`/recipes/?continent=${encodeURIComponent(selfEarly.continent)}`, selfEarly.continent]);
+      if (selfEarly?.iso && selfEarly.country) trail.push([countryPath(selfEarly.iso), selfEarly.country]);
+      trail.push([selfHref, title]);
+      const crumb = crumbs(trail);
+      if (html.includes("kk-crumbs")) html = html.replace(/<nav class="kk-crumbs"[\s\S]*?<\/nav>/, crumb);
+      else html = html.replace(/<p class="eyebrow">/, `${crumb}\n        <p class="eyebrow">`);
+      html = html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (full, raw) => {
+        let data;
+        try { data = JSON.parse(raw); } catch { return full; }
+        const list = Array.isArray(data) ? data : [data];
+        if (!list.some((node) => node && (node["@type"] === "Recipe" || node["@type"] === "BreadcrumbList"))) return full;
+        const rest = list.filter((node) => node && node["@type"] !== "BreadcrumbList");
+        rest.push(breadcrumbLd(trail));
+        return `<script type="application/ld+json">${JSON.stringify(rest).replace(/</g, "\\u003c")}</script>`;
+      });
       if (!html.includes("kk-info")) {
         html = html.replace(/<p class="meta recipe-meta">([^<]*)<\/p>/, (_, text) => {
           const parts = text.split("·").map((part) => part.trim()).filter(Boolean);
@@ -2546,8 +2587,7 @@ function polishRecipes() {
       }
       html = html.replace(/<div class="kk-more">[\s\S]*?<\/div>\s*/g, "");
       html = html.replace(/<section class="kk-related">[\s\S]*?<\/section>\s*/g, "");
-      const selfHref = `/${dir}/${folder}/${slug}/`;
-      const self = catalog.find((item) => item.href === selfHref);
+      const self = selfEarly;
       const blocks = [];
       const tables = COLLECTIONS.flatMap((collection) => collection.stops.flatMap((stop) => {
         if (stop.href !== selfHref) return [];

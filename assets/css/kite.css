@@ -191,7 +191,7 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-crumbs a + a::before,
 .kk-crumbs a + span::before,
 .kk-crumbs span + span::before {
-  content: "/";
+  content: "›";
   margin-right: 0.45rem;
   color: var(--gold-line);
 }
