@@ -38,7 +38,7 @@ a:hover { color: var(--gold); }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
 [hidden] { display: none !important; }
 
-h1, h2, h3, .kk-word, .brand-name, .sauce-title, .pancake-title, .dish-title {
+h1, h2, h3, .kk-word, .brand-name, .sauce-title, .pancake-title, .dish-title, .kk-display {
   font-family: var(--serif);
   font-weight: 500;
   letter-spacing: -0.015em;
@@ -198,22 +198,29 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 }
 .kk-shot.kk-hero-shot img, .photo-hero img, .stop-hero img, .pancake-hero img, .pancake-photo img { aspect-ratio: 16 / 9; }
 .kk-atlas-card, .kk-locator-fallback {
-  display: grid;
-  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
-  gap: 0.9rem 1.1rem;
-  align-items: center;
-  max-width: 36rem;
-  margin: 1rem 0 1.2rem;
-  padding: 0.75rem;
-  background: var(--paper-2);
-  border: 1px solid var(--gold-line);
-  box-shadow: inset 0 0 0 5px #fffdfb, inset 0 0 0 6px var(--gold-line);
+  display: block;
+  max-width: 44rem;
+  margin: 0.9rem 0 0.2rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
-.kk-atlas-card svg, .kk-locator-fallback svg, .kk-atlas-card .kk-pin {
+.kk-plate-svg, .kk-route, .kk-atlas-card svg, .kk-locator-fallback svg {
   width: 100%;
   height: auto;
   display: block;
+  aspect-ratio: 16 / 9;
   background: #f4f0e8;
+  border: 1px solid var(--gold-line);
+}
+.kk-land-def { position: absolute; width: 0; height: 0; overflow: hidden; }
+.kk-plate-name { font-family: var(--serif), Georgia, serif; fill: var(--ink); }
+.kk-plate-coord {
+  font-family: var(--sans);
+  fill: #8a6a32;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 .kk-atlas-place { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.7rem; line-height: 1; }
 .kk-atlas-coord { margin: 0.2rem 0 0; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; color: var(--muted); }
@@ -223,9 +230,9 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .ingredients li { display: flex; gap: 0.55rem; align-items: flex-start; }
 .kk-check { width: 1.15rem; height: 1.15rem; margin-top: 0.35rem; flex: none; accent-color: #1a1a1a; }
 .kk-related { margin-top: 2rem; }
-@media (max-width: 640px) {
-  .kk-atlas-card, .kk-locator-fallback { grid-template-columns: 1fr; }
-}
+.kk-rcard .kk-atlas-card { max-width: none; margin: -0.95rem -1rem 0.75rem; }
+.kk-rcard .kk-atlas-card .kk-plate-svg,
+.kk-rcard .kk-shot img { border-left: 0; border-right: 0; border-top: 0; }
 .kk-caption, .photo-hero figcaption, .stop-hero figcaption, .pancake-hero figcaption, .photo-credit {
   margin: 0.55rem 0 0;
   font-size: 0.78rem;
@@ -236,7 +243,9 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .photo-hero .kk-cap-line,
 .pancake-hero .kk-cap-line,
 .stop-hero .kk-cap-line,
-.kk-hero-shot .kk-cap-line {
+.kk-hero-shot .kk-cap-line,
+.kk-route-shot .kk-cap-line,
+.kk-atlas-card .kk-cap-line {
   font-family: var(--serif);
   font-size: 1.2rem;
   line-height: 1.3;
@@ -470,14 +479,14 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-consent .quiet { background: #fff; color: var(--ink); }
 
 .kk-band { display: block; width: 2.5rem; height: 3px; background: var(--gold-line); margin: 0.35rem 0 0.15rem; }
-.sauce-title, .pancake-title, .dish-title {
+.sauce-title, .pancake-title, .dish-title, .kk-display {
   font-size: clamp(3.15rem, 6.2vw, 5.4rem);
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin: 0.15rem 0 0.1rem;
 }
 .kk-mast { margin: 0.2rem 0 0.15rem; max-width: none; }
-.kk-mast .kk-shot, .kk-mast .photo-hero, .kk-mast .pancake-hero, .kk-mast .stop-hero { max-width: 44rem; margin: 0.9rem 0 0.15rem; }
+.kk-mast .kk-shot, .kk-mast .photo-hero, .kk-mast .pancake-hero, .kk-mast .stop-hero, .kk-mast .kk-atlas-card, .kk-mast .kk-route-shot { max-width: 44rem; margin: 0.9rem 0 0.15rem; }
 .kk-mast .kk-info { max-width: 40rem; }
 .kk-mast .dek {
   margin: 0.55rem 0 0;
@@ -574,7 +583,7 @@ ol.steps > li::before {
 .kk-book h2 { margin: 0.45rem 0.35rem 0.2rem; font-size: 1.35rem; }
 .kk-results { display: grid; gap: 0.7rem; margin-top: 0.8rem; }
 .kk-hit { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.75rem; align-items: center; padding: 0.55rem; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--gold-line); color: inherit; text-decoration: none; }
-.kk-hit img, .kk-hit .kk-pin { width: 7.5rem; height: 5.6rem; object-fit: cover; }
+.kk-hit img, .kk-hit .kk-pin, .kk-hit .kk-plate-svg { width: 7.5rem; height: 4.22rem; object-fit: cover; }
 .kk-hit strong { display: block; font-family: var(--serif); font-size: 1.35rem; font-weight: 500; line-height: 1.15; }
 .kk-hit .kk-meta { display: block; margin-top: 0.15rem; }
 .kk-empty { margin: 0.8rem 0; padding: 1rem 1.1rem; border: 1px dashed var(--gold-line); background: var(--paper-2); }
@@ -582,7 +591,7 @@ ol.steps > li::before {
 .kk-stops { list-style: none; margin: 1.5rem 0 0; padding: 0; }
 .kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--gold-line); }
 .kk-stop h2 { margin: 0.2rem 0 0.45rem; }
-.kk-route { width: 100%; max-width: 42rem; height: auto; display: block; margin: 1rem 0 0.4rem; border: 1px solid var(--gold-line); background: #f4f0e8; }
+.kk-route { width: 100%; max-width: 44rem; margin: 0; }
 .kk-country-map .kk-pin { width: min(100%, 22rem); height: auto; }
 .kk-day-stop { display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: start; }
 .kk-day-media .kk-shot, .kk-day-media .kk-atlas-card { margin: 0; }
@@ -633,9 +642,9 @@ ol.steps > li::before {
   .kk-hero h1 { font-size: clamp(2.55rem, 12vw, 3.3rem); }
   .kk-wrap { padding: 1.15rem 1.05rem 2.8rem; }
   .kk-lede, .dek { font-size: 1.12rem; line-height: 1.5; }
-  .sauce-title, .pancake-title, .dish-title { font-size: clamp(2.55rem, 11vw, 3.35rem); }
+  .sauce-title, .pancake-title, .dish-title, .kk-display { font-size: clamp(2.55rem, 11vw, 3.35rem); }
   .kk-mast .dek { font-size: 1.22rem; }
-  .photo-hero .kk-cap-line, .pancake-hero .kk-cap-line, .stop-hero .kk-cap-line, .kk-hero-shot .kk-cap-line { font-size: 1.08rem; }
+  .photo-hero .kk-cap-line, .pancake-hero .kk-cap-line, .stop-hero .kk-cap-line, .kk-hero-shot .kk-cap-line, .kk-route-shot .kk-cap-line, .kk-atlas-card .kk-cap-line { font-size: 1.08rem; }
   .kk-more { grid-template-columns: 1fr; }
   .kk-search { border-radius: 1.25rem; }
   .kk-search input { min-width: 0; }

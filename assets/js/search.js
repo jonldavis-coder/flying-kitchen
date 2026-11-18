@@ -13,20 +13,22 @@
     });
   }
 
-  function atlas(lat, lon) {
+  function atlas(item) {
     var mark = "";
-    if (Number.isFinite(lat) && Number.isFinite(lon)) {
-      var x = ((lon + 180) / 360) * 160;
-      var y = ((90 - lat) / 180) * 80;
-      mark = '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6.5" fill="#e2b007" stroke="#1a1a1a" stroke-width="0.8"/>';
+    if (Number.isFinite(item.lat) && Number.isFinite(item.lon)) {
+      var x = ((item.lon + 180) / 360) * 144 + 8;
+      var y = ((90 - item.lat) / 180) * 72 + 4;
+      mark = '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="4.2" fill="#e2b007" stroke="#1a1a1a" stroke-width="0.7"/>';
     }
     var inner = land ? land.innerHTML : '<rect width="160" height="80" fill="#f4f0e8"/>';
-    return '<svg class="kk-pin" viewBox="0 0 160 80" aria-hidden="true">' + inner + mark + "</svg>";
+    var size = item.title.length > 18 ? 11 : 14;
+    var compass = '<g transform="translate(128 6) scale(0.34)"><circle cx="32" cy="32" r="28" fill="#f4f0e8" stroke="#1a1a1a" stroke-width="1.4"/><path d="M32 6 L36 32 L32 26 L28 32 Z" fill="#c6a15b"/><path d="M32 58 L28 32 L32 38 L36 32 Z" fill="#1a1a1a"/></g>';
+    return '<svg class="kk-plate-svg" viewBox="0 0 160 90" aria-hidden="true"><rect width="160" height="90" fill="#f4f0e8"/><g transform="translate(8 2) scale(0.9)">' + inner + "</g>" + mark + compass + '<text x="8" y="82" fill="#1a1a1a" font-family="Georgia, serif" font-size="' + size + '">' + esc(item.title) + "</text></svg>";
   }
 
   function thumb(item) {
-    if (item.thumb) return '<img src="' + esc(item.thumb) + '" alt="" width="160" height="120">';
-    return atlas(item.lat, item.lon);
+    if (item.thumb) return '<img src="' + esc(item.thumb) + '" alt="" width="160" height="90">';
+    return atlas(item);
   }
 
   fetch("/assets/search-index.json").then(function (response) { return response.json(); }).then(function (items) {

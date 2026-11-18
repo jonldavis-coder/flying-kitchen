@@ -439,17 +439,27 @@ function loadCountries() {
   return countries;
 }
 
-function ringPath(ring, w, h, digits) {
+function downsampleRing(ring, max = 72) {
+  if (!ring || ring.length <= max) return ring || [];
+  const last = ring.length - 1;
+  const step = last / (max - 1);
+  const out = [];
+  for (let i = 0; i < max; i += 1) out.push(ring[Math.round(i * step)]);
+  return out;
+}
+
+function ringPath(ring, w, h, digits, maxPoints = 0) {
+  const source = maxPoints ? downsampleRing(ring, maxPoints) : ring;
   let d = "";
-  for (let i = 0; i < ring.length; i++) {
-    const x = ((ring[i][0] + 180) / 360) * w;
-    const y = ((90 - ring[i][1]) / 180) * h;
+  for (let i = 0; i < source.length; i++) {
+    const x = ((source[i][0] + 180) / 360) * w;
+    const y = ((90 - source[i][1]) / 180) * h;
     d += `${i ? "L" : "M"}${x.toFixed(digits)} ${y.toFixed(digits)}`;
   }
   return `${d}Z`;
 }
 
-function worldSvg(countries, w, h, hrefFor, simple = false) {
+function worldSvg(countries, w, h, hrefFor, simple = false, maxPoints = 0) {
   const lines = [];
   for (let lon = -150; lon <= 150; lon += 30) {
     const x = ((lon + 180) / 360) * w;
@@ -462,7 +472,7 @@ function worldSvg(countries, w, h, hrefFor, simple = false) {
   const digits = simple ? 0 : 1;
   const lands = countries.map((country) => {
     const rings = simple ? [country.outline || country.rings[0]] : country.rings;
-    const d = rings.map((ring) => ringPath(ring, w, h, digits)).join("");
+    const d = rings.map((ring) => ringPath(ring, w, h, digits, maxPoints)).join("");
     const tier = country.count >= 12 ? "has has-3" : country.count >= 4 ? "has has-2" : country.count ? "has has-1" : "";
     const title = `<title>${escapeHtml(country.name)}${country.count ? `, ${country.count} recipes` : ""}</title>`;
     const pathEl = `<path class="${tier}" d="${d}">${title}</path>`;
@@ -496,61 +506,120 @@ function coordLabel(lat, lon) {
   return `${Math.abs(Math.round(lat))}° ${ns}, ${Math.abs(Math.round(lon))}° ${ew}`;
 }
 
-function locatorCard(svg, countryName, lat, lon) {
-  const place = escapeHtml(countryName || "Origin");
-  const coord = Number.isFinite(lat) && Number.isFinite(lon) ? coordLabel(lat, lon) : "";
-  return `<figure class="kk-atlas-card" data-kk-locator>
-      <div class="kk-atlas-card-map">${svg}</div>
-      <figcaption>
-        <p class="kk-kicker">Locator</p>
-        <p class="kk-atlas-place">${place}</p>
-        ${coord ? `<p class="kk-atlas-coord">${coord}</p>` : ""}
-        <p class="kk-caption">No photograph of this dish is on this page.</p>
-      </figcaption>
-    </figure>`;
-}
+const PLATE_COMPASS = `<g class="kk-compass-mark" transform="translate(552 34) scale(0.7)" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#f4f0e8" stroke="#1a1a1a" stroke-width="1.2"/><circle cx="32" cy="32" r="2" fill="#1a1a1a"/><path d="M32 6 L37 32 L32 26 L27 32 Z" fill="#c6a15b"/><path d="M32 58 L27 32 L32 38 L37 32 Z" fill="#1a1a1a"/><path d="M6 32 L32 27 L26 32 L32 37 Z" fill="#1a1a1a"/><path d="M58 32 L32 37 L38 32 L32 27 Z" fill="#1a1a1a"/></g>`;
 
-function locatorFigure(iso, countryName) {
-  const place = byIso[iso];
-  const name = countryName || "Origin";
-  if (!place || !place.outline) {
-    return locatorCard(`<svg viewBox="0 0 320 180" role="img" aria-label="Map"><rect width="320" height="180" fill="#f4f0e8"/></svg>`, name, place?.lat, place?.lon);
-  }
+function outlineSpan(place) {
   let minX = 180;
   let maxX = -180;
   let minY = 90;
   let maxY = -90;
-  for (const pt of place.outline) {
+  for (const pt of place?.outline || []) {
     minX = Math.min(minX, pt[0]);
     maxX = Math.max(maxX, pt[0]);
     minY = Math.min(minY, pt[1]);
     maxY = Math.max(maxY, pt[1]);
   }
-  const spanX = maxX - minX;
-  const spanY = maxY - minY;
-  if (spanX > 80 || spanY > 50) {
-    const svg = pinSvg(place.lat, place.lon).replace('aria-hidden="true"', `role="img" aria-label="World map marking ${escapeHtml(name)}"`);
-    return locatorCard(svg, name, place.lat, place.lon);
-  }
-  const w = 320;
-  const h = 180;
-  const pad = 18;
+  return { minX, maxX, minY, maxY, spanX: Math.max(maxX - minX, 4), spanY: Math.max(maxY - minY, 3) };
+}
+
+function fittedOutline(place) {
+  const ring = downsampleRing(place?.outline, 80);
+  if (!ring.length) return "";
+  const { minX, maxX, minY, maxY, spanX, spanY } = outlineSpan(place);
+  const box = { x: 64, y: 40, w: 460, h: 196 };
   const midX = (minX + maxX) / 2;
   const midY = (minY + maxY) / 2;
-  const scaleX = Math.max(spanX, 6);
-  const scaleY = Math.max(spanY, 4);
-  const project = (lon, lat) => {
-    const x = ((lon - midX) / scaleX + 0.5) * (w - pad * 2) + pad;
-    const y = ((midY - lat) / scaleY + 0.5) * (h - pad * 2) + pad;
-    return [x, y];
-  };
-  const d = place.outline.map((pt, index) => {
-    const [x, y] = project(pt[0], pt[1]);
+  const scale = Math.min(box.w / spanX, box.h / spanY) * 0.88;
+  return `<path d="${ring.map((pt, index) => {
+    const x = box.x + box.w / 2 + (pt[0] - midX) * scale;
+    const y = box.y + box.h / 2 - (pt[1] - midY) * scale;
     return `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
-  }).join("") + "Z";
-  const [cx, cy] = project(place.lon, place.lat);
-  const svg = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Map of ${escapeHtml(name)}"><rect width="${w}" height="${h}" fill="#f4f0e8"/><path d="M0 ${h / 2}H${w}M${w / 2} 0V${h}" stroke="#e4ddd2" stroke-width="0.6"/><path d="${d}" fill="#ead7ae" stroke="#1a1a1a" stroke-width="1.2"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6.5" fill="#e2b007" stroke="#fffdfb" stroke-width="1.6"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6.5" fill="none" stroke="#1a1a1a" stroke-width="0.7"/></svg>`;
-  return locatorCard(svg, name, place.lat, place.lon);
+  }).join("")}Z" fill="#ead7ae" stroke="#1a1a1a" stroke-width="1.5"/>`;
+}
+
+function worldHighlight(iso) {
+  const box = { x: 36, y: 28, w: 568, h: 214 };
+  const paths = [];
+  let markedPath = "";
+  for (const country of Object.values(byIso)) {
+    const marked = country.iso === iso;
+    const ring = downsampleRing(country.outline, marked ? 56 : 14);
+    if (!ring.length) continue;
+    const d = ring.map((pt, index) => {
+      const x = box.x + ((pt[0] + 180) / 360) * box.w;
+      const y = box.y + ((90 - pt[1]) / 180) * box.h;
+      return `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
+    }).join("") + "Z";
+    const path = `<path d="${d}" fill="${marked ? "#e4c56a" : "#efe8dc"}" stroke="${marked ? "#1a1a1a" : "#d9d0c2"}" stroke-width="${marked ? 1.2 : 0.35}"/>`;
+    if (marked) markedPath = path;
+    else paths.push(path);
+  }
+  if (markedPath) paths.push(markedPath);
+  const place = byIso[iso];
+  if (place && Number.isFinite(place.lon)) {
+    const x = box.x + ((place.lon + 180) / 360) * box.w;
+    const y = box.y + ((90 - place.lat) / 180) * box.h;
+    paths.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="#e2b007" stroke="#1a1a1a" stroke-width="0.8"/>`);
+  }
+  return paths.join("");
+}
+
+function plateLand(place) {
+  if (!place?.outline) return "";
+  const { spanX, spanY } = outlineSpan(place);
+  if (spanX > 55 || spanY > 36) return worldHighlight(place.iso);
+  return fittedOutline(place);
+}
+
+function plateLabel(title) {
+  const text = String(title || "Atlas").replace(/\s+/g, " ").trim();
+  if (text.length <= 22) return { text, size: 34 };
+  if (text.length <= 36) return { text, size: 26 };
+  const cut = text.slice(0, 34).replace(/\s+\S*$/, "");
+  return { text: `${cut}…`, size: 24 };
+}
+
+function atlasSvg(place, title, coord, symbol = "") {
+  const label = plateLabel(title);
+  const name = escapeHtml(label.text);
+  const where = escapeHtml(coord || "");
+  const land = symbol ? `<use href="#kk-land-${symbol}"/>` : plateLand(place);
+  return `<svg class="kk-plate-svg" viewBox="0 0 640 360" role="img" aria-label="${escapeHtml(title || "Atlas plate")}${where ? `, ${where}` : ""}">
+    <rect width="640" height="360" fill="#f4f0e8"/>
+    <g stroke="#e4ddd2" stroke-width="0.8"><path d="M40 88H600M40 156H600M40 224H600M150 28V248M320 28V248M490 28V248"/></g>
+    <rect x="16" y="16" width="608" height="328" fill="none" stroke="#c6a15b" stroke-width="1.25"/>
+    <rect x="24" y="24" width="592" height="312" fill="none" stroke="#c6a15b" stroke-width="0.6"/>
+    ${land}
+    ${PLATE_COMPASS}
+    <text class="kk-plate-name" x="40" y="302" font-size="${label.size}">${name}</text>
+    ${where ? `<text class="kk-plate-coord" x="40" y="330">${where}</text>` : ""}
+  </svg>`;
+}
+
+function landDefs(items) {
+  const seen = new Set();
+  const parts = [];
+  for (const item of items) {
+    if (!item?.iso || seen.has(item.iso) || itemPhoto(item)) continue;
+    const place = byIso[item.iso];
+    if (!place?.outline) continue;
+    seen.add(item.iso);
+    parts.push(`<svg class="kk-land-def" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="kk-land-${item.iso}" viewBox="0 0 640 360">${plateLand(place)}</symbol></svg>`);
+  }
+  return parts.join("");
+}
+
+function locatorFigure(iso, countryName, dish = "", { hero = true, symbol = false } = {}) {
+  const place = iso ? byIso[iso] : null;
+  const name = countryName || place?.name || "Origin";
+  const coord = place && Number.isFinite(place.lat) && Number.isFinite(place.lon) ? coordLabel(place.lat, place.lon) : "";
+  const title = dish || name;
+  const svg = atlasSvg(place, title, coord, symbol && iso ? iso : "");
+  const frame = hero ? "kk-atlas-card kk-hero-shot" : "kk-atlas-card";
+  const caption = hero
+    ? `<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(dish ? `${dish}.` : `${name}.`)}</span><span class="kk-credit">Atlas plate${coord ? ` · ${escapeHtml(coord)}` : ""}</span></figcaption>`
+    : "";
+  return `<figure class="${frame}" data-kk-locator>${svg}${caption}</figure>`;
 }
 
 function originMarkup(countryName, lat, lon, href) {
@@ -774,15 +843,17 @@ function coverSvg(book) {
 
 function routeSvg(points) {
   const w = 640;
-  const h = 320;
+  const h = 360;
+  const mapH = 320;
+  const oy = 12;
   const coords = points.map((point) => {
     const x = ((point.lon + 180) / 360) * w;
-    const y = ((90 - point.lat) / 180) * h;
+    const y = oy + ((90 - point.lat) / 180) * mapH;
     return [x, y];
   });
   const path = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("");
   const dots = coords.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="#e2b007" stroke="#fffdfb" stroke-width="2.2"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>`).join("");
-  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="World map with a gold route between the stops"><rect width="${w}" height="${h}" fill="#f4f0e8"/><g transform="scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.45">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-dasharray="2 5" stroke-linecap="round"/>${dots}</svg>`;
+  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="Route between the stops on this journey"><rect width="${w}" height="${h}" fill="#f4f0e8"/><rect x="16" y="16" width="608" height="328" fill="none" stroke="#c6a15b" stroke-width="1.25"/><g transform="translate(0 ${oy}) scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.45">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-dasharray="2 5" stroke-linecap="round"/>${dots}</svg>`;
 }
 
 function pinSvg(lat, lon) {
@@ -1479,21 +1550,28 @@ const regionLinks = [...byRegion.keys()].sort().map((region) => `<li><a href="/r
 for (const [region, items] of byRegion) {
   const slug = regionSlug(region);
   const continent = CONTINENT[region] || "";
+  const named = [...new Set(items.map((item) => item.country).filter(Boolean))].sort();
+  const description = `${items.length} recipes filed under ${region}${continent ? `, ${continent}` : ""}.`;
   write(`regions/${slug}/index.html`, page({
     title: `${region} · Kite Kitchen`,
-    description: `${items.length} recipes filed under ${region}${continent ? `, ${continent}` : ""}.`,
+    description,
     path: `/regions/${slug}/`,
+    image: `/assets/og/regions/${slug}.jpg`,
     current: "map",
+    jsonLd: itemListLd(`${region} recipes`, items),
     scripts: `<script src="/assets/js/atlas.js" defer></script>`,
-    main: `<div class="kk-wrap">
+    main: `<article class="kk-wrap">
       ${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"], [`/regions/${slug}/`, region]])}
-      <p class="kk-kicker">${escapeHtml(continent || "Recipes")}</p>
-      <h1>${escapeHtml(region)}</h1>
-      <p class="kk-lede">${regionIntro(region, items)}</p>
-      ${plate(worldSvg(Object.values(byIso).map((country) => ({ ...country, count: items.some((item) => item.iso === country.iso) ? items.filter((item) => item.iso === country.iso).length : 0 })), 640, 320, (iso) => countryPath(iso), true), `${region} on the world map`)}
+      <header class="kk-mast">
+        <p class="kk-kicker">${escapeHtml(continent || "Recipes")}</p>
+        <h1 class="kk-display">${escapeHtml(region)}</h1>
+        <p class="dek">${escapeHtml(regionIntro(region, items))}</p>
+        <figure class="kk-shot kk-hero-shot kk-route-shot">${worldSvg(Object.values(byIso).map((country) => ({ ...country, count: items.some((item) => item.iso === country.iso) ? items.filter((item) => item.iso === country.iso).length : 0 })), 640, 360, (iso) => countryPath(iso), true, 28)}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(region)}.</span><span class="kk-credit">Atlas plate. Shaded countries have recipes filed here.</span></figcaption></figure>
+        <ul class="kk-info" aria-label="This region"><li>${items.length} recipes</li><li>${named.length} ${named.length === 1 ? "country" : "countries"}</li>${continent ? `<li>${escapeHtml(continent)}</li>` : ""}</ul>
+      </header>
       <p class="kk-meta"><a href="/map/">Back to the world map</a></p>
       <ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${item.iso ? `<a href="${countryPath(item.iso)}">${escapeHtml(item.country || item.section)}</a>` : escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul>
-    </div>`
+    </article>`
   }));
 }
 const countryBlocks = [...byCountry.entries()].sort((a, b) => byIso[a[0]].name.localeCompare(byIso[b[0]].name)).map(([iso, items]) => {
@@ -1538,21 +1616,27 @@ for (const [iso, items] of byCountry) {
   const through = journeysThrough(iso);
   const counts = guides.map((group) => `${group.items.length} from ${group.section}`).join(", ");
   const description = `${items.length} recipes are filed under ${place.name}: ${counts}.`;
+  const guideNames = guides.map((group) => group.section.replace("Flying ", "")).join(" · ");
   write(`countries/${slug}/index.html`, page({
     title: `${place.name} recipes · Kite Kitchen`,
     description,
     path: `/countries/${slug}/`,
+    image: `/assets/og/places/${slug}.jpg`,
     current: "map",
     jsonLd: itemListLd(`Recipes from ${place.name}`, items),
     main: `<article class="kk-wrap">
       ${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"], [`/countries/${slug}/`, place.name]])}
-      <p class="kk-kicker">${escapeHtml(continent || "Country")}</p>
-      <h1>${escapeHtml(place.name)}</h1>
-      <p class="kk-lede">${escapeHtml(description)} ${escapeHtml(coordLabel(place.lat, place.lon))}.</p>
-      <figure class="kk-plate kk-country-map"><figcaption>${escapeHtml(place.name)} on the world map</figcaption><div class="kk-atlas">${pinSvg(place.lat, place.lon)}</div></figure>
+      <header class="kk-mast">
+        <p class="kk-kicker">${escapeHtml(continent || "Country")}</p>
+        <h1 class="kk-display">${escapeHtml(place.name)}</h1>
+        <p class="dek">${escapeHtml(description)}</p>
+        ${locatorFigure(iso, place.name, "", { hero: true })}
+        <ul class="kk-info" aria-label="This country"><li>${items.length} ${items.length === 1 ? "recipe" : "recipes"}</li>${guideNames ? `<li>${escapeHtml(guideNames)}</li>` : ""}<li>${escapeHtml(coordLabel(place.lat, place.lon))}</li></ul>
+      </header>
       <p class="kk-meta"><a href="/map/#${iso}">Open ${escapeHtml(place.name)} on the world map</a>${regions.length ? ` · ${regions.map((region) => `<a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a>`).join(", ")}` : ""}</p>
-      ${guides.map((group) => `<h2>${escapeHtml(group.section)}</h2><ul class="kk-recipe-list">${group.items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a></li>`).join("")}</ul>`).join("")}
-      ${through.length ? `<h2>Journeys through ${escapeHtml(place.name)}</h2><ul class="kk-recipe-list">${through.map((journey) => `<li><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></li>`).join("")}</ul>` : ""}
+      ${landDefs(items)}
+      ${guides.map((group) => `<h2>${escapeHtml(group.section)}</h2><div class="kk-rcards">${group.items.map((item) => placeCard(item)).join("")}</div>`).join("")}
+      ${through.length ? `<h2>Journeys through ${escapeHtml(place.name)}</h2><div class="kk-rcards">${through.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">Journey</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>` : ""}
     </article>`
   }));
 }
@@ -1672,30 +1756,81 @@ function journeyStops(journey) {
     return { ...item, meal };
   });
 }
-function stopFigure(item) {
+function itemPhoto(item) {
   const slug = item.href.split("/").filter(Boolean).at(-1);
-  const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
-  if (photo) return photoFigure(photo, { sizes: "(min-width: 800px) 18rem, 92vw", frame: "kk-shot" });
-  return locatorFigure(item.iso, item.country);
+  return DISH_PHOTO[slug] || CARD_PHOTO[item.href] || null;
+}
+function placeCard(item, meal = "") {
+  const photo = itemPhoto(item);
+  const media = photo
+    ? photoFigure(photo, { sizes: "(min-width: 1100px) 22rem, (min-width: 700px) 46vw, 92vw", frame: "kk-shot" }).replace(/<figcaption[\s\S]*?<\/figcaption>/, "")
+    : locatorFigure(item.iso, item.country, item.title, { hero: false, symbol: true });
+  const kicker = [meal, item.country || item.section].filter(Boolean).join(" · ");
+  return `<article class="kk-rcard">${media}<p class="kk-kicker">${escapeHtml(kicker)}</p><h3><a href="${item.href}">${escapeHtml(item.title)}</a></h3><p>${escapeHtml(item.text)}</p></article>`;
+}
+function orderedCountries(stops) {
+  const names = [];
+  for (const stop of stops) {
+    if (stop.country && !names.includes(stop.country)) names.push(stop.country);
+  }
+  return names;
+}
+function listSentence(names) {
+  if (names.length <= 1) return names[0] ? `${names[0]}.` : "";
+  if (names.length === 2) return `${names[0]} and ${names[1]}.`;
+  return `${names.slice(0, -1).join(", ")}, and ${names.at(-1)}.`;
+}
+function routeCaption(names) {
+  if (names.length < 2) return names[0] ? `${names[0]}.` : "The route.";
+  if (names.length === 2) return `From ${names[0]} to ${names[1]}.`;
+  return `From ${names[0]}, through ${names.slice(1, -1).join(", ")}, to ${names.at(-1)}.`;
+}
+function routePlaces(stops) {
+  const seen = new Set();
+  const places = [];
+  for (const stop of stops) {
+    const place = byIso[stop.iso];
+    if (!place || !Number.isFinite(place.lat)) continue;
+    const key = `${place.lat.toFixed(2)},${place.lon.toFixed(2)}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    places.push(place);
+  }
+  return places;
 }
 for (const journey of JOURNEYS) {
   const stops = journeyStops(journey);
-  const places = stops.map((item) => byIso[item.iso]).filter((place) => place && Number.isFinite(place.lat));
-  const route = places.length >= 2 ? routeSvg(places) : "";
-  const list = stops.map((item) => `<li class="kk-stop kk-day-stop"><div class="kk-day-media">${stopFigure(item)}</div><div><p class="kk-kicker">${escapeHtml(item.meal)} · ${escapeHtml(item.country || item.section)}</p><h2><a href="${item.href}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.text)}</p><p class="kk-meta">${escapeHtml([item.region, item.section].filter(Boolean).join(" · "))}</p></div></li>`).join("");
+  const day = DAY_JOURNEYS.includes(journey);
+  const names = orderedCountries(stops);
+  const places = routePlaces(stops);
+  const dishes = listSentence(stops.map((item) => item.title));
+  const dek = day ? dishes : journey.lede;
+  const hero = places.length >= 2
+    ? `<figure class="kk-shot kk-hero-shot kk-route-shot">${routeSvg(places)}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(routeCaption(names))}</span><span class="kk-credit">Route plate.</span></figcaption></figure>`
+    : locatorFigure(stops[0]?.iso, names[0] || stops[0]?.country, "", { hero: true });
+  const meals = stops.map((item) => item.meal).filter((meal) => meal && !/^Recipe \d+$/.test(meal));
+  const facts = [
+    `${stops.length} ${stops.length === 1 ? "stop" : "stops"}`,
+    names.join(" · "),
+    meals.length ? meals.join(" · ") : ""
+  ].filter(Boolean);
   write(`journeys/${journey.slug}/index.html`, page({
     title: `${journey.title} · Kite Kitchen`,
-    description: journey.lede,
+    description: dek,
     path: `/journeys/${journey.slug}/`,
-    image: "/assets/og/journeys.jpg",
+    image: `/assets/og/itineraries/${journey.slug}.jpg`,
     jsonLd: itemListLd(journey.title, stops),
     current: "journeys",
     main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/journeys/", "Journeys"], [`/journeys/${journey.slug}/`, journey.title]])}
-      <p class="kk-kicker">Journey</p>
-      <h1>${escapeHtml(journey.title)}</h1>
-      <p class="kk-lede">${escapeHtml(journey.lede)}</p>
-      ${route}
-      <ol class="kk-stops">${list}</ol>
+      <header class="kk-mast">
+        <p class="kk-kicker">${day ? "A day around the world" : "Journey"}</p>
+        <h1 class="kk-display">${escapeHtml(journey.title)}</h1>
+        <p class="dek">${escapeHtml(dek)}</p>
+        ${hero}
+        <ul class="kk-info" aria-label="This journey">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
+      </header>
+      ${landDefs(stops)}
+      <div class="kk-rcards">${stops.map((item) => placeCard(item, item.meal)).join("")}</div>
     </article>`
   }));
 }
@@ -1832,9 +1967,10 @@ function polishRecipes() {
       if (!html.includes("data-photo=") && (html.includes("data-kk-locator") || (hero && notDish.test(hero[0])))) {
         const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
         const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/) || textOf(html, /<p class="meta">([^·<]+)/);
-        const figure = locatorFigure(iso, countryName);
+        const dish = textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/);
+        const figure = locatorFigure(iso, countryName, dish);
         const replaced = html.includes("data-kk-locator")
-          ? html.replace(/<figure class="kk-(?:locator-fallback|atlas-card)"[\s\S]*?<\/figure>/, figure)
+          ? html.replace(/<figure class="kk-(?:locator-fallback|atlas-card)\b[^"]*"[\s\S]*?<\/figure>/, figure)
           : html.replace(/<figure class="(?:photo-hero|pancake-hero|stop-hero)[^"]*"[\s\S]*?<\/figure>/, figure);
         if (replaced !== html) html = replaced;
       }
@@ -1843,7 +1979,21 @@ function polishRecipes() {
       }
       html = html.replace(/<p class="kk-tools[\s\S]*?<\/p>\s*/g, "");
       if (html.includes("kk-mast")) {
-        html = html.replace(/(<div class="kk-mast">[\s\S]*?<\/div>)/, `$1\n<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-print>Print</button></p>`);
+        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
+        const start = html.indexOf('<div class="kk-mast">');
+        let depth = 0;
+        let end = -1;
+        for (let i = start; i < html.length; i += 1) {
+          if (html.startsWith("<div", i)) depth += 1;
+          else if (html.startsWith("</div>", i)) {
+            depth -= 1;
+            if (depth === 0) {
+              end = i + 6;
+              break;
+            }
+          }
+        }
+        if (end > start) html = `${html.slice(0, end)}\n${tools}${html.slice(end)}`;
       }
       html = html.replace(/<div class="kk-more">[\s\S]*?<\/div>\s*/g, "");
       html = html.replace(/<section class="kk-related">[\s\S]*?<\/section>\s*/g, "");
@@ -1971,6 +2121,43 @@ for (const item of catalog) {
     kicker: item.section,
     line: [item.country, item.region].filter(Boolean).join(" · "),
     photo: photoFile(photo),
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
+  });
+}
+for (const journey of JOURNEYS) {
+  const stops = journeyStops(journey);
+  const place = byIso[stops[0]?.iso];
+  const names = orderedCountries(stops);
+  ogJobs.push({
+    out: `assets/og/itineraries/${journey.slug}.jpg`,
+    title: journey.title,
+    kicker: DAY_JOURNEYS.includes(journey) ? "A day around the world" : "Journey",
+    line: names.join(" · "),
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
+  });
+}
+for (const [iso, items] of byCountry) {
+  const place = byIso[iso];
+  const slug = slugByIso[iso];
+  ogJobs.push({
+    out: `assets/og/places/${slug}.jpg`,
+    title: place.name,
+    kicker: "Kite Kitchen",
+    line: `${items.length} ${items.length === 1 ? "recipe" : "recipes"}`,
+    lat: place.lat,
+    lon: place.lon
+  });
+}
+for (const [region, items] of byRegion) {
+  const sample = items.find((item) => byIso[item.iso]);
+  const place = sample ? byIso[sample.iso] : null;
+  ogJobs.push({
+    out: `assets/og/regions/${regionSlug(region)}.jpg`,
+    title: region,
+    kicker: CONTINENT[region] || "Kite Kitchen",
+    line: `${items.length} recipes`,
     lat: place ? place.lat : null,
     lon: place ? place.lon : null
   });
