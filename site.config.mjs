@@ -18,3 +18,6 @@ export const ADS = {
 
 // Placeholder mailbox. Jonathan still needs to confirm it receives mail.
 export const HELLO_EMAIL = "hello@kitekitchen.com";
+
+// home_hero_photo: set false to remove the photograph under the home search.
+export const home_hero_photo = false;

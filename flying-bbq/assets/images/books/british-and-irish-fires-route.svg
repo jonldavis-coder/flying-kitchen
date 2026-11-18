@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M394.0 93.1 L383.8 94.6" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="394.0" cy="93.1" r="5" fill="#8c2f1e"/><circle cx="383.8" cy="94.6" r="5" fill="#8c2f1e"/>
+  <text x="402.0" y="85.1" font-family="Georgia, serif" font-size="12">United Kingdom</text><text x="391.8" y="86.6" font-family="Georgia, serif" font-size="12">Ireland</text>
+</svg>

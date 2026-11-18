@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M243.7 151.0 L239.1 145.6 L265.7 150.8 L258.2 150.0 L252.3 149.6 L275.8 163.3 L242.3 139.4" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="243.7" cy="151.0" r="5" fill="#8c2f1e"/><circle cx="239.1" cy="145.6" r="5" fill="#8c2f1e"/><circle cx="265.7" cy="150.8" r="5" fill="#8c2f1e"/><circle cx="258.2" cy="150.0" r="5" fill="#8c2f1e"/><circle cx="252.3" cy="149.6" r="5" fill="#8c2f1e"/><circle cx="275.8" cy="163.3" r="5" fill="#8c2f1e"/><circle cx="242.3" cy="139.4" r="5" fill="#8c2f1e"/>
+  <text x="251.7" y="143.0" font-family="Georgia, serif" font-size="12">Jamaica</text><text x="273.7" y="142.8" font-family="Georgia, serif" font-size="12">Puerto Rico</text><text x="260.3" y="141.6" font-family="Georgia, serif" font-size="12">Haiti</text><text x="250.3" y="131.4" font-family="Georgia, serif" font-size="12">The Bahamas</text>
+</svg>

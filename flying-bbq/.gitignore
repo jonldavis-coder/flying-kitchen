@@ -1,0 +1,7 @@
+.DS_Store
+node_modules/
+.preview-port
+*.log
+__pycache__/
+scripts/ENTRY_SPEC.txt
+data/photo-cache.json

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS } from "../site.config.mjs";
+import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -37,8 +37,38 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("privacy/index.html"), /Google Analytics 4/);
   assert.match(read("privacy/index.html"), new RegExp(GA_MEASUREMENT_ID));
   const home = read("index.html");
-  assert.match(home, /logo-360\.webp/);
-  assert.match(home, /kite-mark-128\.webp/);
+  assert.match(home, /class="kk-mark"/);
+  assert.match(home, /Search recipes/);
+  assert.equal((home.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
+  assert.equal(home_hero_photo, false);
+  if (home_hero_photo) {
+    assert.match(home, /hero-1280\.avif/);
+    assert.match(home, /rel="preload"/);
+  } else {
+    assert.doesNotMatch(home, /hero-1280\.avif/);
+    assert.doesNotMatch(home, /rel="preload"/);
+  }
+  assert.match(home, /Browse by continent/);
+  assert.match(read("books/index.html"), /kk-cover/);
+  assert.match(read("about/index.html"), /logo-full/);
+  assert.match(read("about/index.html"), /flying around the world/);
+  assert.match(read("404.html"), /kk-compass-lg/);
+  assert.match(read("404.html"), /Off the map/);
+  assert.match(read("search/index.html"), /Nothing matches/);
+  assert.match(read("search/index.html"), /kk-hit|id="results"/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /\/assets\/og\/recipes\/sauces-pesto-alla-genovese\.jpg/);
+  assert.equal(fs.existsSync(path.join(root, "assets/og/home.jpg")), true);
+  assert.equal(fs.existsSync(path.join(root, "assets/og/recipes/bbq-tandoori-chicken.jpg")), true);
+  assert.match(read("flying-sauces/sauces/bechamel/index.html"), /data-photo="bechamel"/);
+  assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /kk-atlas-card/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Jump to recipe/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /From Southern Europe/);
+  assert.match(read("regions/southern-europe/index.html"), /Countries named on those pages/);
+  assert.match(home, /kk-hero/);
+  assert.match(home, /Atlas plate/);
+  assert.doesNotMatch(home, /Jonathan/);
+  assert.doesNotMatch(home, /kk-hero-photo/);
   assert.doesNotMatch(home, /Taste the World/);
   assert.doesNotMatch(home, /googletagmanager\.com\/gtag\/js/);
   assert.match(home, /Flying Sauces/);
@@ -84,12 +114,21 @@ test("recipe pages keep ads out of the method and printable", () => {
   const css = read("assets/css/kite.css");
   assert.match(css, /@media print/);
   assert.match(css, /\.kk-ad[\s\S]*display:\s*none !important/);
-  const recipe = read("recipes/bermudian-codfish-cakes/index.html");
-  assert.equal((recipe.match(/data-ad-slot="/g) || []).length, 3);
-  const ingredients = recipe.slice(recipe.indexOf('<ul class="kk-ingredients">'), recipe.indexOf("</ul>"));
+  const recipe = read("flying-sauces/sauces/pesto-alla-genovese/index.html");
+  const slots = recipe.match(/data-ad-slot="/g) || [];
+  assert.ok(slots.length >= 1 && slots.length <= 3);
+  const ingredients = recipe.slice(recipe.indexOf('<ul class="ingredients">'), recipe.indexOf("</ul>"));
   assert.equal(ingredients.includes("kk-ad"), false);
   assert.match(recipe, /"@type":"Recipe"/);
-  assert.match(read("traditions/bermuda-good-friday/index.html"), /gotobermuda\.com/);
+  assert.match(recipe, /kk-origin/);
+  assert.equal((recipe.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
+  assert.match(read("traditions/bermuda-good-friday/index.html"), /noindex/);
+  assert.match(read("flying-bbq/index.html"), /Flying BBQ/);
+  assert.match(read("regions/southern-europe/index.html"), /Pesto alla Genovese/);
+  assert.match(read("map/index.html"), /\/regions\/southern-europe\//);
+  assert.match(read("books/index.html"), /data-kk-filter/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /"publisher":\{"@type":"Organization","name":"Kite Kitchen"/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /kk-place-links/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /noindex/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /flying-sauces\/sauces\/pesto-alla-genovese/);
 });

@@ -1,4 +1,4 @@
 # KiteKitchen ads.txt placeholder.
 # Ads are disabled. There is no AdSense publisher ID in this file.
-# After AdSense approves kitekitchen.com, replace this comment with the
+# After AdSense provides a publisher line, replace this comment with the
 # single line Google gives you. Do not invent a pub- ID.
