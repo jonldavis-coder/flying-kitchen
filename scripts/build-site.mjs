@@ -39,7 +39,7 @@ const SHOP_LINE = `<p><a href="/shop/">The Kite Kitchen shop is coming soon.</a>
 
 function ad(slot, kind, shopLine = false) {
   const side = kind === "sidebar";
-  return `<aside class="kk-ad${side ? " kk-ad-sidebar" : " kk-ad-inline"}" data-ad-slot="${slot}" aria-label="Advertisement">
+  return `<aside class="kk-ad${side ? " kk-ad-sidebar" : " kk-ad-inline"}" data-ad-slot="${slot}" aria-label="Advertisement, ${escapeHtml(slot)}">
       <p class="kk-ad-label">Advertisement</p>
       <div class="kk-ad-frame">${shopLine ? SHOP_LINE : ""}</div>
     </aside>`;
@@ -128,8 +128,8 @@ function menuControl(current) {
 }
 
 function header(current) {
-  return `<a class="skip-link" href="#content">Skip to content</a>
-<header class="kk-header">
+  return `<header class="kk-header">
+  <a class="skip-link" href="#content">Skip to content</a>
   <div class="kk-header-inner">
     ${brandLockup()}
     ${nav(current, "kk-nav")}
@@ -258,6 +258,7 @@ function ensureSisters() {
 function sectionBar(name, currentHref) {
   const current = NAV.find(([href]) => href === currentHref)?.[2] || "";
   return `<header class="kk-header" id="kk-bar">
+  <a class="skip-link" href="#content">Skip to content</a>
   <div class="kk-header-inner">
     ${brandLockup()}
     <p class="kk-section-name">${escapeHtml(name)}</p>
@@ -314,6 +315,22 @@ function transformSection(dir, name, originFrom) {
       html = html.replace(/<\/head>/, `  <link rel="icon" href="/favicon.ico" sizes="any">\n  <link rel="icon" href="/assets/brand/kite-mark.svg" type="image/svg+xml">\n  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">\n</head>`);
     }
     html = html.replace(/<meta name="theme-color" content="[^"]*">/, '<meta name="theme-color" content="#141210">');
+    html = html.replace(/<header class="site-header">([\s\S]*?)<\/header>/, '<div class="site-header" role="region" aria-label="This issue">$1</div>');
+    html = html.replace(/<div class="site-header">/, '<div class="site-header" role="region" aria-label="This issue">');
+    html = html.replace(/<aside class="(kk-ad[^"]*)" data-ad-slot="([^"]+)" aria-label="Advertisement">/g, '<aside class="$1" data-ad-slot="$2" aria-label="Advertisement, $2">');
+    html = html.replace(/(<\/header>)\s*<a class="skip-link" href="#content">Skip to content<\/a>/, "$1");
+    const guideDescriptions = {
+      "shop/index.html": `${name} shop. Coming soon: printable recipe books. Prices are not listed.`,
+      "books/index.html": `${name} cookbooks and field booklets. Buying the books is coming soon. Prices are not listed.`,
+      "affiliate/index.html": `${name}: how affiliate links and ads would be labeled if they are added.`
+    };
+    for (const [suffix, desc] of Object.entries(guideDescriptions)) {
+      if (!rel.endsWith(suffix)) continue;
+      const content = escapeHtml(desc);
+      html = html.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${content}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${content}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${content}">`);
+    }
     html = html.replaceAll(originFrom, originTo);
     html = html.replace(/<title>([^<]*)<\/title>/, (m, t) => {
       let title = t.includes("KiteKitchen") ? t : `${t} · KiteKitchen`;
@@ -514,7 +531,9 @@ function worldSvg(countries, w, h, hrefFor, simple = false, maxPoints = 0) {
     }
     return `${pathEl}${dot}`;
   }).join("");
-  return `<svg class="kk-map" viewBox="0 0 ${w} ${h}" role="img" aria-label="World map. Countries with recipes can be opened.">
+  const linked = Boolean(hrefFor) && countries.some((country) => country.count);
+  const mapRole = linked ? "group" : "img";
+  return `<svg class="kk-map" viewBox="0 0 ${w} ${h}" role="${mapRole}" aria-label="World map. Countries with recipes can be opened.">
     <rect class="kk-map-ocean" width="${w}" height="${h}"/>
     <g class="kk-graticule">${lines.join("")}</g>
     <g class="kk-lands">${lands}</g>
@@ -1027,7 +1046,7 @@ const DAY_JOURNEYS = [
     { meal: "Lunch", href: "/flying-pancakes/pancakes/colombian-arepas/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/choripan/" }
   ]},
-  { slug: "day-colombia-india-hawaii", title: "Breakfast in Colombia, lunch in India, dinner in Hawaii", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-colombia-india-unitedstates", title: "Breakfast in Colombia, lunch in India, dinner in the United States", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/arepa-boyacense/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/seekh-kebab/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/kalua-pig/" }
@@ -1937,6 +1956,7 @@ for (const journey of JOURNEYS) {
         <ul class="kk-info" aria-label="This journey">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
       </header>
       ${landDefs(stops)}
+      <h2>Stops</h2>
       <div class="kk-rcards">${stops.map((item) => placeCard(item, item.meal)).join("")}</div>
     </article>`
   }));
@@ -1953,7 +1973,8 @@ const DAY_REDIRECTS = [
   ["day-kenya-tanzania", "day-kenya-ethiopia-yemen"],
   ["day-morocco-mali-senegal", "day-morocco-senegal-nigeria"],
   ["day-egypt-mozambique", "day-turkey-egypt-mozambique"],
-  ["day-zambia-ghana-zimbabwe", "day-nigeria-southafrica-zimbabwe"]
+  ["day-zambia-ghana-zimbabwe", "day-nigeria-southafrica-zimbabwe"],
+  ["day-colombia-india-hawaii", "day-colombia-india-unitedstates"]
 ];
 for (const [from, to] of DAY_REDIRECTS) {
   writeMoved(`journeys/${from}/index.html`, `/journeys/${to}/`);
@@ -2020,6 +2041,7 @@ for (const collection of COLLECTIONS) {
         <ul class="kk-info" aria-label="This collection">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
       </header>
       ${landDefs(stops)}
+      <h2>Recipes</h2>
       <div class="kk-rcards">${photosFirst(stops).map((item) => placeCard(item, item.meal)).join("")}</div>
       ${collectionPlate(stops)}
       <p class="kk-meta"><a href="/collections/">All collections</a></p>
