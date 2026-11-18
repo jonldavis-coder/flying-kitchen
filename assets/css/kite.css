@@ -47,7 +47,7 @@ body {
   color: var(--ink);
   font-family: var(--sans);
   font-size: 1.0625rem;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 img { max-width: 100%; height: auto; }
 a { color: var(--ink); }
@@ -563,7 +563,7 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-band { display: block; width: 2.5rem; height: 3px; background: var(--gold-line); margin: 0.35rem 0 0.15rem; }
 .sauce-title, .pancake-title, .dish-title, .kk-display {
   font-size: clamp(3.15rem, 6.2vw, 5.4rem);
-  line-height: 0.92;
+  line-height: 0.98;
   letter-spacing: -0.03em;
   margin: 0.15rem 0 0.1rem;
 }
@@ -628,7 +628,7 @@ ol.steps > li {
   margin: 0;
   padding: 0.9rem 0;
   border-top: 1px solid var(--line);
-  line-height: 1.55;
+  line-height: 1.5;
   font-size: 1.05rem;
 }
 ol.steps > li::before {
@@ -820,7 +820,9 @@ ol.steps > li::before {
   font-size: 0.72rem;
   color: var(--muted);
 }
-.story-block, .fun-facts, .variations, .pairings, article.kk-wrap > p { max-width: 40rem; }
+.story-block, .fun-facts, .variations, .pairings, article.kk-wrap > p { max-width: 34rem; }
+.story-block h2, .fun-facts h2, .variations h2, .pairings h2 { margin: 1.6rem 0 0.45rem; line-height: 1.08; }
+.story-block p, .fun-facts li, .variations p, .pairings p { line-height: 1.5; }
 .site-footer { display: none !important; }
 .card, .book-card, .explore-card, .feature {
   box-shadow: none;
