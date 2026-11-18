@@ -18,14 +18,18 @@
   <meta property="og:image" content="https://kitekitchen.com/flying-bbq/assets/images/hero.svg">
   <link rel="stylesheet" href="/assets/css/kite.css">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/kite-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">
 </head>
 <body data-page="explore" data-print="full">
-<div class="kk-bar" id="kk-bar">
-    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="28" height="28"><span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag">Flying around the world, one simple recipe at a time</span></span></a>
+<header class="kk-header" id="kk-bar">
+  <div class="kk-header-inner">
+    <a class="kk-brand" href="/"><svg class="kk-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/><path fill="none" stroke="#5c3d12" stroke-width="1.35" stroke-linecap="round" d="M32 51c4 6 12 8 16 11"/><circle cx="32" cy="30" r="1.35" fill="#5c3d12"/></svg><span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag kk-tag-long">Flying around the world, one simple recipe at a time</span><span class="kk-tag kk-tag-short">Around the world</span></span></a>
     <p class="kk-section-name">Flying BBQ</p>
-    <nav aria-label="KiteKitchen"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/" aria-current="page">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav>
+    <nav class="kk-nav" aria-label="Primary"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/" aria-current="page">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav>
+    <details class="kk-menu"><summary>Menu</summary><nav class="kk-nav" aria-label="Primary"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/" aria-current="page">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav></details>
   </div>
+</header>
   <a class="skip-link" href="#content">Skip to content</a>
   <div class="smoke" aria-hidden="true">
     <span></span><span></span><span></span>
@@ -245,7 +249,7 @@
   <script src="ads-config.js"></script>
   <script type="module" src="assets/js/boot.js"></script>
 <div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
-    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <p id="kk-consent-title">Cookies stay off in the EEA, the UK, and Switzerland until you accept. <a href="/privacy/">Privacy</a></p>
     <div class="kk-row">
       <button type="button" class="kk-button" data-consent="granted">Accept</button>
       <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
@@ -253,5 +257,28 @@
   </div>
 <script src="/config.js"></script>
 <script src="/assets/js/consent.js" defer></script>
+<footer class="kk-footer kk-sitefoot"><div class="kk-wrap kk-foot">
+      <img class="kk-crest" src="/assets/brand/logo-240.webp" alt="" width="96" height="124">
+      <div>
+        <p class="kk-word">Kite Kitchen</p>
+        <p class="kk-tag">Flying around the world, one simple recipe at a time</p>
+        <img class="kk-compass" src="/assets/brand/compass.svg" alt="" width="28" height="28">
+        <nav aria-label="Footer">
+          <a href="/recipes/">Recipes</a>
+          <a href="/flying-sauces/">Flying Sauces</a>
+          <a href="/flying-pancakes/">Flying Pancakes</a>
+          <a href="/flying-bbq/">Flying BBQ</a>
+          <a href="/map/">World Map</a>
+          <a href="/books/">Cookbooks</a>
+          <a href="/shop/">Shop</a>
+          <a href="/about/">About</a>
+          <a href="/credits/">Credits</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <button type="button" class="quiet" data-consent-open>Cookie choices</button>
+        </nav>
+        <p class="kk-fine">Home cooking, not professional advice. The shop is coming soon, and no prices are listed.</p>
+      </div>
+    </div></footer>
 </body>
 </html>

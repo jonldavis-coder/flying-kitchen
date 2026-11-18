@@ -18,14 +18,18 @@
   <meta property="og:image" content="https://kitekitchen.com/flying-sauces/assets/images/hero.svg">
   <link rel="stylesheet" href="/assets/css/kite.css">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/kite-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">
 </head>
 <body data-page="sauce" data-print="full">
-<div class="kk-bar" id="kk-bar">
-    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="28" height="28"><span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag">Flying around the world, one simple recipe at a time</span></span></a>
+<header class="kk-header" id="kk-bar">
+  <div class="kk-header-inner">
+    <a class="kk-brand" href="/"><svg class="kk-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/><path fill="none" stroke="#5c3d12" stroke-width="1.35" stroke-linecap="round" d="M32 51c4 6 12 8 16 11"/><circle cx="32" cy="30" r="1.35" fill="#5c3d12"/></svg><span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag kk-tag-long">Flying around the world, one simple recipe at a time</span><span class="kk-tag kk-tag-short">Around the world</span></span></a>
     <p class="kk-section-name">Flying Sauces</p>
-    <nav aria-label="KiteKitchen"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/" aria-current="page">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav>
+    <nav class="kk-nav" aria-label="Primary"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/" aria-current="page">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav>
+    <details class="kk-menu"><summary>Menu</summary><nav class="kk-nav" aria-label="Primary"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/" aria-current="page">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav></details>
   </div>
+</header>
   <a class="skip-link" href="#content">Skip to content</a>
   <div class="frame">
     <header class="site-header">
@@ -66,9 +70,12 @@
       <article id="sauce-root" class="wrap sauce-layout" data-slug="satsivi">
       <div>
         <p class="print-only print-brand">Flying Sauces of the World</p>
+        <nav class="kk-crumbs" aria-label="Breadcrumb"><a href="/">Kite Kitchen</a><a href="/flying-sauces/">Flying Sauces</a><span aria-current="page">Satsivi</span></nav>
         <p class="eyebrow">Arriving in Georgia</p>
         <p class="meta">Georgia · Caucasus</p>
         <h1 class="sauce-title">Satsivi</h1>
+<div class="kk-mast"><p class="dek">Walnut, garlic, vinegar, and warm spice: thick, tangy, and aromatic.</p>
+<ul class="kk-info" aria-label="Time and servings"><li>25 min prep</li><li>20 min cook</li><li>Serves 6</li><li>about 3 cups</li></ul></div>
 <p class="kk-origin"><svg class="kk-locator" viewBox="0 0 80 40" width="80" height="40" aria-hidden="true"><rect width="80" height="40" fill="none" stroke="#c6a15b" stroke-width="0.8"/><path d="M0 20 H80 M40 0 V40" stroke="#e4ddd2" stroke-width="0.5"/><circle cx="49.6" cy="10.6" r="2.4" fill="#1a1a1a"/></svg> <span>Origin: Georgia · 42° N, 43° E</span></p>
         <figure class="photo-hero">
         <img src="assets/photos/places/ge-960.webp" srcset="assets/photos/places/ge-640.webp 640w, assets/photos/places/ge-960.webp 960w" sizes="(min-width: 900px) 72vw, 100vw" alt="Landscape of Georgia. The photograph shows the region, not Satsivi." width="960" height="640" loading="eager" decoding="async">
@@ -77,12 +84,12 @@
         <p class="voyage-note">The next field stop is a nearby sauce on the same map.</p>
         <p class="next-stop">Next stop: <a href="sauces/tkemali/">Tkemali</a> · Georgia</p>
         
-        <p class="dek">Walnut, garlic, vinegar, and warm spice: thick, tangy, and aromatic.</p>
+        
 <aside class="kk-ad kk-ad-inline" data-ad-slot="after-intro" aria-label="Advertisement">
       <p class="kk-ad-label">Advertisement</p>
       <div class="kk-ad-frame"><p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p></div>
     </aside>
-        <p class="meta recipe-meta">25 min prep · 20 min cook · Serves 6 · about 3 cups</p>
+        
         <p class="meta" id="rating-summary">No ratings yet</p>
         <p class="meta" id="heart-summary">No hearts yet</p>
         <ul class="tag-row">
@@ -114,10 +121,10 @@
       <p class="kk-ad-label">Advertisement</p>
       <div class="kk-ad-frame"><p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p></div>
     </aside>
-        <h2>Ingredients</h2>
+        <div class="kk-method"><h2>Ingredients</h2>
         <ul class="ingredients"><li>2 cups walnuts</li><li>3 garlic cloves</li><li>1 teaspoon ground coriander</li><li>1/2 teaspoon ground cinnamon</li><li>1/4 teaspoon cayenne</li><li>2 tablespoons white wine vinegar</li><li>2 cups chicken broth, cooled</li><li>Salt</li><li>1 egg yolk</li></ul>
         <h2 class="steps-heading">Steps</h2>
-        <ol class="steps"><li>Grind the walnuts and garlic to a paste.</li><li>Stir in the spices, vinegar, and enough broth to make a thick sauce.</li><li>Simmer 10 minutes, stirring.</li><li>Take it off the heat, temper the yolk with a little sauce, and stir it back in. Do not boil.</li><li>Salt, cool completely, and serve over poultry.</li></ol>
+        <ol class="steps"><li>Grind the walnuts and garlic to a paste.</li><li>Stir in the spices, vinegar, and enough broth to make a thick sauce.</li><li>Simmer 10 minutes, stirring.</li><li>Take it off the heat, temper the yolk with a little sauce, and stir it back in. Do not boil.</li><li>Salt, cool completely, and serve over poultry.</li></ol></div>
         
         <p class="note">Refrigerate and use within a few days unless the recipe gives a different time. This is a home recipe, not professional food-safety advice.</p>
         <div class="variations section-rule">
@@ -184,7 +191,7 @@
   <script src="ads-config.js"></script>
   <script type="module" src="assets/js/boot.js"></script>
 <div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
-    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <p id="kk-consent-title">Cookies stay off in the EEA, the UK, and Switzerland until you accept. <a href="/privacy/">Privacy</a></p>
     <div class="kk-row">
       <button type="button" class="kk-button" data-consent="granted">Accept</button>
       <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
@@ -192,5 +199,28 @@
   </div>
 <script src="/config.js"></script>
 <script src="/assets/js/consent.js" defer></script>
+<footer class="kk-footer kk-sitefoot"><div class="kk-wrap kk-foot">
+      <img class="kk-crest" src="/assets/brand/logo-240.webp" alt="" width="96" height="124">
+      <div>
+        <p class="kk-word">Kite Kitchen</p>
+        <p class="kk-tag">Flying around the world, one simple recipe at a time</p>
+        <img class="kk-compass" src="/assets/brand/compass.svg" alt="" width="28" height="28">
+        <nav aria-label="Footer">
+          <a href="/recipes/">Recipes</a>
+          <a href="/flying-sauces/">Flying Sauces</a>
+          <a href="/flying-pancakes/">Flying Pancakes</a>
+          <a href="/flying-bbq/">Flying BBQ</a>
+          <a href="/map/">World Map</a>
+          <a href="/books/">Cookbooks</a>
+          <a href="/shop/">Shop</a>
+          <a href="/about/">About</a>
+          <a href="/credits/">Credits</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <button type="button" class="quiet" data-consent-open>Cookie choices</button>
+        </nav>
+        <p class="kk-fine">Home cooking, not professional advice. The shop is coming soon, and no prices are listed.</p>
+      </div>
+    </div></footer>
 </body>
 </html>

@@ -37,8 +37,12 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("privacy/index.html"), /Google Analytics 4/);
   assert.match(read("privacy/index.html"), new RegExp(GA_MEASUREMENT_ID));
   const home = read("index.html");
-  assert.match(home, /kite-mark-128\.webp/);
+  assert.match(home, /class="kk-mark"/);
   assert.match(home, /Search recipes/);
+  assert.match(home, /The Kite Kitchen shop is coming soon/);
+  assert.match(home, /kk-hero/);
+  assert.match(home, /Atlas plate/);
+  assert.doesNotMatch(home, /Jonathan/);
   assert.doesNotMatch(home, /kk-hero-photo/);
   assert.doesNotMatch(home, /Taste the World/);
   assert.doesNotMatch(home, /googletagmanager\.com\/gtag\/js/);

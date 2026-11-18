@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kite Kitchen mark">
+  <path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/>
+  <path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/>
+  <path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/>
+  <path fill="none" stroke="#5c3d12" stroke-width="1.35" stroke-linecap="round" d="M32 51c4 6 12 8 16 11"/>
+  <circle cx="32" cy="30" r="1.35" fill="#5c3d12"/>
+</svg>
