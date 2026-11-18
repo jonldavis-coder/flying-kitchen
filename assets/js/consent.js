@@ -1,5 +1,5 @@
 /* KiteKitchen consent, GA4, and ads.
-   GA4 follows the same delay as Jonathan's other sites (StateWatchPro):
+   GA4 follows the same delay as the other sites (StateWatchPro):
    the gtag library is not requested until the first pointer, key, or scroll,
    or a short timeout after load, so it stays outside Lighthouse's early window.
    Consent Mode v2 defaults are queued before that library loads.

@@ -38,8 +38,7 @@ function ad(slot, kind) {
   return `<aside class="kk-ad${side ? " kk-ad-sidebar" : " kk-ad-inline"}" data-ad-slot="${slot}" aria-label="Advertisement">
       <p class="kk-ad-label">Advertisement</p>
       <div class="kk-ad-frame">
-        <p class="kk-house-kicker">From Kite Kitchen</p>
-        <p><a href="/shop/">The shop is coming soon</a>. <a href="mailto:${HELLO_EMAIL}?subject=KiteKitchen%20shop">Ask for a note</a> when Jonathan approves it.</p>
+        <p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
       </div>
     </aside>`;
 }
@@ -161,8 +160,7 @@ function orgLd() {
     name: "KiteKitchen",
     url: `${SITE_ORIGIN}/`,
     logo: `${SITE_ORIGIN}/assets/brand/logo-480.png`,
-    email: HELLO_EMAIL,
-    founder: { "@type": "Person", name: "Jonathan Davis" }
+    email: HELLO_EMAIL
   };
 }
 
@@ -254,6 +252,7 @@ function transformSection(dir, name, originFrom) {
     html = html.replace(/href="terms\/"/g, 'href="/terms/"');
     html = html.replace(/href="affiliate\/"/g, 'href="/affiliate/"');
     html = html.replace(/href="guidelines\/"/g, 'href="/guidelines/"');
+    html = html.replace(/<div class="kk-ad-frame">[\s\S]*?Jonathan approves it\.<\/p>\s*<\/div>/g, `<div class="kk-ad-frame"><p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p></div>`);
     if (/data-page="(sauce|pancake|dish)"/.test(html) && !html.includes("kk-origin")) {
       const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
       const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/);
@@ -441,7 +440,7 @@ window.KITE_KITCHEN = ${JSON.stringify({
 
 write("ads.txt", `# KiteKitchen ads.txt placeholder.
 # Ads are disabled. There is no AdSense publisher ID in this file.
-# After AdSense approves kitekitchen.com, replace this comment with the
+# After AdSense provides a publisher line, replace this comment with the
 # single line Google gives you. Do not invent a pub- ID.
 `);
 
@@ -539,9 +538,10 @@ write("index.html", page({
         <input id="home-q" name="q" type="search" placeholder="Pesto, dosa, asado">
         <button class="kk-button" type="submit">Search</button>
       </form>
-      ${ad("home", "inline")}
       <h2>Featured recipes</h2>
       <ul class="kk-recipe-list">${featured}</ul>
+      ${ad("home", "inline")}
+      <p class="kk-shop-strip"><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
       <h2>World map</h2>
       <p class="kk-meta">Countries with recipes are marked. Open one to see what is cooked there.</p>
       <div class="kk-atlas">${homeMap}</div>
@@ -558,7 +558,6 @@ write("index.html", page({
       <h2>Recipe cookbooks</h2>
       <ul class="kk-recipe-list">${cookbookPicks.map((book) => `<li><a href="${book.href}">${escapeHtml(book.title)}</a> <span class="kk-meta">${escapeHtml(book.section)} · Coming soon</span></li>`).join("")}</ul>
       <p class="kk-meta"><a href="/books/">All cookbooks</a></p>
-      <p class="kk-shop-strip"><a href="/shop/">Shop</a> is coming soon.</p>
     </div>`
 }));
 
@@ -603,14 +602,14 @@ write("shop/index.html", page({
   main: `<div class="kk-wrap">
       <p class="kk-pill">Coming soon</p>
       <h1>The KiteKitchen shop</h1>
-      <p class="kk-lede">These are mockups and book titles. Jonathan Davis has to approve the products and any prices before something is sold. There is no checkout on this site.</p>
+      <p class="kk-lede">The Kite Kitchen shop is coming soon. These are mockups and book titles. There is no checkout and no prices.</p>
       ${ad("shop", "inline")}
       <form class="kk-notify" action="mailto:${HELLO_EMAIL}" method="post" enctype="text/plain">
         <label for="notify">What should the note say?</label>
         <input id="notify" name="note" type="text" value="Please tell me when the KiteKitchen shop opens.">
         <button type="submit">Email ${HELLO_EMAIL}</button>
       </form>
-      <p class="kk-note">The form opens your email app. ${HELLO_EMAIL} is a placeholder until Jonathan confirms the mailbox.</p>
+      <p class="kk-note">The form opens your email app and writes to ${HELLO_EMAIL}.</p>
       <h2>Kitchen goods</h2>
       <div class="kk-products">${shopCards.map((item) => `<article class="kk-card">
           <img src="/assets/brand/products/${item.id}.svg" alt="Original mockup of the ${escapeHtml(item.title)}, a gold drawing on black, not a photograph of a finished product" width="800" height="640">
@@ -637,7 +636,7 @@ for (const item of shopCards) {
         <h1>${escapeHtml(item.title)}</h1>
         <img src="/assets/brand/products/${item.id}.svg" alt="Original mockup of the ${escapeHtml(item.title)}" width="800" height="640">
         <p class="kk-lede">${escapeHtml(item.summary)}</p>
-        <p>The picture is an original mockup drawn for this shop. It is not a photograph of a finished product. No price is listed because none has been approved.</p>
+        <p>The picture is an original mockup drawn for this shop. It is not a photograph of a finished product. No price is listed.</p>
         ${ad("product", "inline")}
         <p class="kk-row"><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=${encodeURIComponent(item.title)}">Email about this item</a><a class="kk-button quiet" href="/shop/">All shop items</a></p>
       </article>`
@@ -665,7 +664,7 @@ write("credits/index.html", page({
       <li><a href="/flying-pancakes/credits/">Flying Pancakes credits</a></li>
       <li><a href="/flying-bbq/credits/">Flying BBQ credits</a></li>
     </ul>
-    <p>The crest and the small compass are original artwork for this site. The crest was supplied by Jonathan Davis.</p>
+    <p>The crest and the small compass are original artwork for this site.</p>
   </div>`
 }));
 
@@ -675,10 +674,10 @@ write("about/index.html", page({
   path: "/about/",
   main: `<article class="kk-wrap"><h1>About Kite Kitchen</h1>
     <p>The name Kite Kitchen means flying around the world and tasting different foods. ${TAGLINE}.</p>
-    <p>Jonathan Davis publishes three guides here, under their own names: Flying Sauces, Flying Pancakes, and Flying BBQ. The world map is a way to browse those recipes by country.</p>
+    <p>Three guides are published here under their own names: Flying Sauces, Flying Pancakes, and Flying BBQ. The world map is a way to browse those recipes by country.</p>
     <p>The public address is <a href="${SITE_ORIGIN}/">kitekitchen.com</a>. That origin is the <code>SITE_ORIGIN</code> value in <span class="kk-note">site.config.mjs</span>.</p>
     <p>Counts are the number of entries imported from those guides. This site does not add reviews or star ratings.</p>
-    <p><a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a> is the contact address written into the pages. Jonathan still needs to confirm the mailbox.</p>
+    <p>Write to <a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a>.</p>
   </article>`
 }));
 
@@ -693,17 +692,17 @@ write("advertise/index.html", page({
     <p>Google AdSense is not connected. The ads config ships with <code>enabled: false</code> and an empty publisher ID. A certified consent platform is required before personalized ads run in the EEA or the UK. The banner on this site is not that certified platform.</p>
     <p>Amazon Associates is not connected either. The <a href="/affiliate/">affiliate disclosure</a> is ready for the day a real link exists. There are no affiliate links now.</p>
     <p><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=Advertise%20on%20KiteKitchen">Email ${HELLO_EMAIL}</a></p>
-    <p class="kk-note">That address is a placeholder until Jonathan confirms it.</p>
+    <p class="kk-note">Write to ${HELLO_EMAIL}.</p>
   </article>`
 }));
 
 write("affiliate/index.html", page({
   title: "Affiliate disclosure · KiteKitchen",
-  description: "KiteKitchen has no affiliate links yet. This page is the disclosure text for when Jonathan joins a program such as Amazon Associates.",
+  description: "Kite Kitchen has no affiliate links yet. This page is the disclosure text if an affiliate program is added later.",
   path: "/affiliate/",
   main: `<article class="kk-wrap"><h1>Affiliate disclosure</h1>
     <p>KiteKitchen does not use affiliate links today. No product link on this site is paid, and none is an Amazon Associates link.</p>
-    <p>If that changes, pages with a paid link will say so near the link. A purchase through an affiliate link can earn this site a commission at no extra cost to you. That commission would not change the recipes, the sources, or the decision to show a product. Prices, if a shop ever opens, would still need Jonathan’s approval. Nothing is for sale now.</p>
+    <p>If that changes, pages with a paid link will say so near the link. A purchase through an affiliate link can earn this site a commission at no extra cost to you. That commission would not change the recipes, the sources, or the decision to show a product. The shop is coming soon, and nothing is for sale now.</p>
     <p>Sponsored placements, if a brand buys one, will sit in a slot labeled Advertisement and will not be written as a review.</p>
   </article>`
 }));
@@ -734,9 +733,9 @@ write("terms/index.html", page({
   path: "/terms/",
   main: `<article class="kk-wrap"><h1>Terms</h1>
     <p>KiteKitchen publishes recipes and guides for home cooks. They are not professional food-safety, medical, or dietary advice. Festival pages describe other people’s published sources and then give a home adaptation. Read the note on the recipe before you treat it as the traditional dish.</p>
-    <p>The shop is a preview. A “Coming soon” label is not an offer to sell. There is no price because none has been approved. Do not send payment.</p>
+    <p>The shop is coming soon. A “Coming soon” label is not an offer to sell. No prices are listed. Do not send payment.</p>
     <p>Flying Sauces, Flying Pancakes, and Flying BBQ keep the text imported from those guides.</p>
-    <p>Contact <a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a>. That mailbox is a placeholder until Jonathan confirms it.</p>
+    <p>Contact <a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a>.</p>
   </article>`
 }));
 
