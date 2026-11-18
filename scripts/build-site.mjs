@@ -470,11 +470,31 @@ function regionSlug(name) {
   return String(name || "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+function coordLabel(lat, lon) {
+  const ns = lat >= 0 ? "N" : "S";
+  const ew = lon >= 0 ? "E" : "W";
+  return `${Math.abs(Math.round(lat))}° ${ns}, ${Math.abs(Math.round(lon))}° ${ew}`;
+}
+
+function locatorCard(svg, countryName, lat, lon) {
+  const place = escapeHtml(countryName || "Origin");
+  const coord = Number.isFinite(lat) && Number.isFinite(lon) ? coordLabel(lat, lon) : "";
+  return `<figure class="kk-atlas-card" data-kk-locator>
+      <div class="kk-atlas-card-map">${svg}</div>
+      <figcaption>
+        <p class="kk-kicker">Locator</p>
+        <p class="kk-atlas-place">${place}</p>
+        ${coord ? `<p class="kk-atlas-coord">${coord}</p>` : ""}
+        <p class="kk-caption">No photograph of this dish is on this page.</p>
+      </figcaption>
+    </figure>`;
+}
+
 function locatorFigure(iso, countryName) {
   const place = byIso[iso];
-  const note = `Locator for ${escapeHtml(countryName || "this country")}. This page has no photograph of the dish.`;
+  const name = countryName || "Origin";
   if (!place || !place.outline) {
-    return `<figure class="kk-locator-fallback" data-kk-locator><figcaption class="kk-caption">${note}</figcaption></figure>`;
+    return locatorCard(`<svg viewBox="0 0 320 180" role="img" aria-label="Map"><rect width="320" height="180" fill="#f4f0e8"/></svg>`, name, place?.lat, place?.lon);
   }
   let minX = 180;
   let maxX = -180;
@@ -489,11 +509,12 @@ function locatorFigure(iso, countryName) {
   const spanX = maxX - minX;
   const spanY = maxY - minY;
   if (spanX > 80 || spanY > 50) {
-    return `<figure class="kk-locator-fallback" data-kk-locator>${pinSvg(place.lat, place.lon).replace('aria-hidden="true"', `role="img" aria-label="Map marking ${escapeHtml(countryName || "the country")}"`)}<figcaption class="kk-caption">${note}</figcaption></figure>`;
+    const svg = pinSvg(place.lat, place.lon).replace('aria-hidden="true"', `role="img" aria-label="World map marking ${escapeHtml(name)}"`);
+    return locatorCard(svg, name, place.lat, place.lon);
   }
   const w = 320;
   const h = 180;
-  const pad = 16;
+  const pad = 18;
   const midX = (minX + maxX) / 2;
   const midY = (minY + maxY) / 2;
   const scaleX = Math.max(spanX, 6);
@@ -508,7 +529,8 @@ function locatorFigure(iso, countryName) {
     return `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
   }).join("") + "Z";
   const [cx, cy] = project(place.lon, place.lat);
-  return `<figure class="kk-locator-fallback" data-kk-locator><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Map of ${escapeHtml(countryName || "the country")}"><rect width="${w}" height="${h}" fill="#f4f0e8"/><path d="${d}" fill="#ead7ae" stroke="#1a1a1a" stroke-width="1.2"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6" fill="#e2b007" stroke="#1a1a1a" stroke-width="0.8"/></svg><figcaption class="kk-caption">${note}</figcaption></figure>`;
+  const svg = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Map of ${escapeHtml(name)}"><rect width="${w}" height="${h}" fill="#f4f0e8"/><path d="M0 ${h / 2}H${w}M${w / 2} 0V${h}" stroke="#e4ddd2" stroke-width="0.6"/><path d="${d}" fill="#ead7ae" stroke="#1a1a1a" stroke-width="1.2"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6.5" fill="#e2b007" stroke="#fffdfb" stroke-width="1.6"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6.5" fill="none" stroke="#1a1a1a" stroke-width="0.7"/></svg>`;
+  return locatorCard(svg, name, place.lat, place.lon);
 }
 
 function originMarkup(countryName, lat, lon) {
@@ -697,13 +719,29 @@ const EDITORIAL = {
   bechamel: { id: "bechamel", widths: [640, 1100], w: 16, h: 9, alt: "Béchamel sauce in a saucepan", caption: "Béchamel.", artist: "Saintfevrier", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:B%C3%A9chamel_in_saucepan.jpg" },
   bearnaise: { id: "bearnaise", widths: [640, 1100], w: 16, h: 9, alt: "Béarnaise sauce with tarragon", caption: "Béarnaise.", artist: "Alexander Guy", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:B%C3%A9arnaise_sauce_with_Tarragon_garnish.jpeg" },
   arrabbiata: { id: "arrabbiata", widths: [640, 1100], w: 16, h: 9, alt: "Penne with arrabbiata sauce", caption: "Penne all'arrabbiata.", artist: "Leonhard Lenz", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:Penne_on_plate_with_Arrabbiata_2025-02-12_04.jpg" },
-  adjika: { id: "adjika", widths: [640, 1100], w: 16, h: 9, alt: "Adjika, a red pepper paste, in a bowl", caption: "Adjika.", artist: "Moonsun1981", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Adjika_e-citizen.jpg" }
+  adjika: { id: "adjika", widths: [640, 1100], w: 16, h: 9, alt: "Adjika, a red pepper paste, in a bowl", caption: "Adjika.", artist: "Moonsun1981", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Adjika_e-citizen.jpg" },
+  avgolemono: { id: "avgolemono", widths: [640], w: 16, h: 9, alt: "Avgolemono, a lemon and egg soup", caption: "Avgolemono.", artist: "Missvain", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Avgolemono_-_Sarah_Stierch.jpg" },
+  chirmol: { id: "chirmol", widths: [480], w: 16, h: 9, alt: "Chirmol, a fresh tomato and onion salsa", caption: "Chirmol.", artist: "Arsongt", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Chirmol.jpg" },
+  guacamole: { id: "guacamole", widths: [640], w: 16, h: 9, alt: "Guacamole with avocado and lime", caption: "Guacamole.", artist: "Nikodem Nijaki", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Guacamole_IMGP1256.jpg" },
+  haydari: { id: "haydari", widths: [640], w: 16, h: 9, alt: "Haydari, a yogurt and herb meze", caption: "Haydari.", artist: "E4024", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Haydari_(Turkish_meze).jpg" },
+  "burro-e-salvia": { id: "burro-e-salvia", widths: [480], w: 16, h: 9, alt: "Gnocchi with butter and sage", caption: "Gnocchi with burro e salvia.", artist: "Paoletta S.", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Gnocchi_di_ricotta_burro_e_salvia.jpg" },
+  "cocktail-sauce": { id: "cocktail-sauce", widths: [640], w: 16, h: 9, alt: "Cocktail sauce with shrimp", caption: "Cocktail sauce.", artist: "jeffreyw", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Ice_cold_shrimp_and_cocktail_sauce_(4847681860).jpg" },
+  "caramel-sauce": { id: "caramel-sauce", widths: [640], w: 16, h: 9, alt: "Caramel sauce with Bavarian cream and strawberries", caption: "Caramel sauce.", artist: "SKopp", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Bavarian_cream,_strawberries,_caramel_sauce,_spoon.jpg" },
+  "ata-din-din": { id: "ata-din-din", widths: [640], w: 16, h: 9, alt: "Ata din din, a red pepper sauce, on ekuru", caption: "Ata din din.", artist: "Atimukoh", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Ekuru_and_ata_din_din.jpg" }
 };
 const DISH_PHOTO = {
   bechamel: EDITORIAL.bechamel,
   bearnaise: EDITORIAL.bearnaise,
   arrabbiata: EDITORIAL.arrabbiata,
-  adjika: EDITORIAL.adjika
+  adjika: EDITORIAL.adjika,
+  avgolemono: EDITORIAL.avgolemono,
+  chirmol: EDITORIAL.chirmol,
+  guacamole: EDITORIAL.guacamole,
+  haydari: EDITORIAL.haydari,
+  "burro-e-salvia": EDITORIAL["burro-e-salvia"],
+  "cocktail-sauce": EDITORIAL["cocktail-sauce"],
+  "caramel-sauce": EDITORIAL["caramel-sauce"],
+  "ata-din-din": EDITORIAL["ata-din-din"]
 };
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
@@ -1270,18 +1308,41 @@ function polishRecipes() {
       if (!html.includes("kk-method")) {
         html = html.replace(/(<h2[^>]*>\s*Ingredients\s*<\/h2>\s*<ul class="ingredients">[\s\S]*?<\/ul>\s*<h2 class="steps-heading">[\s\S]*?<\/h2>\s*<ol class="steps">[\s\S]*?<\/ol>)/, `<div class="kk-method">$1</div>`);
       }
-      if (DISH_PHOTO[slug] && !html.includes(`data-photo="${slug}"`)) {
+      if (DISH_PHOTO[slug]) {
         const figure = photoFigure(DISH_PHOTO[slug], { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", `<figure data-photo="${slug}" `);
-        const replaced = html.replace(/<figure class="(?:photo-hero|pancake-hero|stop-hero|kk-locator-fallback)[^"]*"[\s\S]*?<\/figure>/, figure);
+        const replaced = html.replace(/<figure\b[^>]*class="(?:photo-hero|pancake-hero|stop-hero|kk-locator-fallback|kk-shot)[^"]*"[^>]*>[\s\S]*?<\/figure>/, figure);
         if (replaced !== html) html = replaced;
       }
       const notDish = /not the (?:sauce|dish|pancake)|not a photograph of the dish|Place, not the dish|shows the (?:region|place), not/i;
-      if (priority.has(slug) && notDish.test(html) && !html.includes("data-kk-locator") && !html.includes("data-photo=")) {
+      const hero = html.match(/<figure class="(?:photo-hero|pancake-hero|stop-hero)[^"]*"[\s\S]*?<\/figure>/);
+      if (!html.includes("data-photo=") && (html.includes("data-kk-locator") || (hero && notDish.test(hero[0])))) {
         const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
         const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/) || textOf(html, /<p class="meta">([^·<]+)/);
         const figure = locatorFigure(iso, countryName);
-        const replaced = html.replace(/<figure class="(?:photo-hero|pancake-hero|stop-hero)[^"]*"[\s\S]*?<\/figure>/, figure);
+        const replaced = html.includes("data-kk-locator")
+          ? html.replace(/<figure class="kk-(?:locator-fallback|atlas-card)"[\s\S]*?<\/figure>/, figure)
+          : html.replace(/<figure class="(?:photo-hero|pancake-hero|stop-hero)[^"]*"[\s\S]*?<\/figure>/, figure);
         if (replaced !== html) html = replaced;
+      }
+      if (html.includes('class="kk-method"') && !html.includes('id="kk-method"')) {
+        html = html.replace('class="kk-method"', 'class="kk-method" id="kk-method"');
+      }
+      html = html.replace(/<p class="kk-tools[\s\S]*?<\/p>\s*/g, "");
+      if (html.includes("kk-mast")) {
+        html = html.replace(/(<div class="kk-mast">[\s\S]*?<\/div>)/, `$1\n<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-print>Print</button></p>`);
+      }
+      html = html.replace(/<section class="kk-related">[\s\S]*?<\/section>\s*/g, "");
+      const selfHref = `/${dir}/${folder}/${slug}/`;
+      const self = catalog.find((item) => item.href === selfHref);
+      if (self && self.region) {
+        const related = catalog.filter((item) => item.region === self.region && item.href !== selfHref).slice(0, 4);
+        if (related.length) {
+          const block = `<section class="kk-related"><h2>From ${escapeHtml(self.region)}</h2><ul class="kk-recipe-list">${related.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul></section>\n`;
+          html = html.replace(/<\/article>/, `${block}</article>`);
+        }
+      }
+      if (!html.includes("/assets/js/recipe.js")) {
+        html = html.replace("</body>", `<script src="/assets/js/recipe.js" defer></script>\n</body>`);
       }
       if (slug === "mole-poblano" && !html.includes('data-photo="mole"')) {
         html = html.replace(/<figure class="photo-hero">[\s\S]*?<\/figure>/, photoFigure(EDITORIAL.mole, { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", '<figure data-photo="mole" '));

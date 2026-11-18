@@ -48,7 +48,10 @@ test("origin, domain, analytics, and ads stay honest", () => {
     assert.doesNotMatch(home, /hero-1280\.avif/);
   }
   assert.match(read("flying-sauces/sauces/bechamel/index.html"), /data-photo="bechamel"/);
-  assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /data-kk-locator/);
+  assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /kk-atlas-card/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Jump to recipe/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /From Southern Europe/);
   assert.match(read("regions/southern-europe/index.html"), /Countries named on those pages/);
   assert.match(home, /kk-hero/);
   assert.match(home, /Atlas plate/);
