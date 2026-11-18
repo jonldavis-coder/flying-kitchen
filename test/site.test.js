@@ -162,6 +162,10 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("journeys/day-ghana-nigeria-ethiopia/index.html"), /data-photo="nigerian-suya"|Suya/);
   assert.match(read("countries/france/index.html"), /"@type":"ItemList"/);
   assert.match(read("countries/italy/index.html"), /kk-display/);
+  const usSauces = read("countries/united-states-of-america/index.html").split("<h2>Flying Sauces</h2>")[1].split("<h2>")[0];
+  const firstPhoto = usSauces.indexOf('class="kk-shot"');
+  const firstPlate = usSauces.indexOf('class="kk-atlas-card"');
+  assert.ok(firstPhoto !== -1 && firstPlate !== -1 && firstPhoto < firstPlate);
   assert.match(read("countries/italy/index.html"), /Atlas plate/);
   assert.match(read("countries/italy/index.html"), /rel="canonical" href="https:\/\/kitekitchen.com\/countries\/italy\/"/);
   assert.match(read("countries/italy/index.html"), /\/assets\/og\/places\/italy\.jpg/);
