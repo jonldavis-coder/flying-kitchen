@@ -489,6 +489,13 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-stops { list-style: none; margin: 1.5rem 0 0; padding: 0; }
 .kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--gold-line); }
 .kk-stop h2 { margin: 0.2rem 0 0.45rem; }
+.kk-route { width: min(100%, 40rem); height: auto; display: block; margin: 1rem 0 0.4rem; border: 1px solid var(--gold-line); background: #f4f0e8; }
+.kk-day-stop { display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: start; }
+.kk-day-media .kk-shot, .kk-day-media .kk-atlas-card { margin: 0; }
+.kk-week, .kk-day-home { margin: 0.4rem 0 1.4rem; padding: 0.85rem; background: var(--paper-2); border: 1px solid var(--gold-line); }
+.kk-week { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 1rem 1.4rem; align-items: center; }
+.kk-week h3, .kk-day-home h3 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin: 0.15rem 0 0.4rem; }
+.kk-week .kk-shot { margin: 0; }
 .kk-stop p { max-width: 40rem; margin: 0.35rem 0 0; }
 .kk-compass-lg { display: block; width: 6rem; height: 6rem; margin: 0.4rem 0 0.8rem; }
 #kk-land { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -537,6 +544,7 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   .kk-info li { border-right: 0; padding: 0 0.85rem 0 0; }
   .kk-caption, .photo-hero figcaption, .stop-hero figcaption, .pancake-hero figcaption, .photo-credit { font-size: 0.86rem; line-height: 1.45; }
   .kk-hit { grid-template-columns: 5.4rem minmax(0, 1fr); }
+  .kk-week, .kk-day-stop { grid-template-columns: 1fr; }
   .kk-hit strong { font-size: 1.2rem; }
   .kk-foot { grid-template-columns: 1fr; }
   .kk-crest { width: 72px; }
