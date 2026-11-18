@@ -20,7 +20,9 @@
     tip.style.top = Math.max(8, Math.min(y, window.innerHeight - 48)) + "px";
   }
 
+  var list = Array.prototype.slice.call(links);
   links.forEach(function (link) {
+    if (!link.getAttribute("aria-label")) link.setAttribute("aria-label", label(link));
     link.addEventListener("pointerenter", function (ev) {
       tip.textContent = label(link);
       tip.hidden = false;
@@ -38,6 +40,16 @@
       tip.style.top = Math.min(window.innerHeight - 48, box.bottom + 8) + "px";
     });
     link.addEventListener("blur", function () { tip.hidden = true; });
+    link.addEventListener("keydown", function (ev) {
+      var key = ev.key;
+      if (key !== "ArrowRight" && key !== "ArrowLeft" && key !== "ArrowDown" && key !== "ArrowUp") return;
+      var index = list.indexOf(link);
+      var next = key === "ArrowRight" || key === "ArrowDown" ? index + 1 : index - 1;
+      if (next < 0) next = list.length - 1;
+      if (next >= list.length) next = 0;
+      ev.preventDefault();
+      list[next].focus();
+    });
     link.addEventListener("click", function (ev) {
       if (ev.pointerType !== "touch") return;
       if (link.dataset.armed !== "1") {

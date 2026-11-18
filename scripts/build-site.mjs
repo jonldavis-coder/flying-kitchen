@@ -470,7 +470,8 @@ function worldSvg(countries, w, h, hrefFor, simple = false) {
     const y = ((90 - country.lat) / 180) * h;
     const dot = country.count ? `<circle class="kk-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.5"/>` : "";
     if (country.count && hrefFor) {
-      return `<a href="${hrefFor(country.iso)}" data-place="${escapeHtml(country.name)}" data-count="${country.count}">${pathEl}${dot}</a>`;
+      const label = `${country.name}, ${country.count} ${country.count === 1 ? "recipe" : "recipes"}`;
+      return `<a href="${hrefFor(country.iso)}" data-place="${escapeHtml(country.name)}" data-count="${country.count}" aria-label="${escapeHtml(label)}">${pathEl}${dot}</a>`;
     }
     return `${pathEl}${dot}`;
   }).join("");
@@ -1147,6 +1148,16 @@ write("index.html", page({
       </div>
     </section>
     <div class="kk-wrap kk-home">
+      <h2>Featured recipes</h2>
+      <div class="kk-rcards">${featuredItems.map((item) => recipeCard(item)).join("")}</div>
+      <h2>A day around the world</h2>
+      <article class="kk-day-home">
+        <p class="kk-kicker">Journey</p>
+        <h3><a href="/journeys/${featuredDay.slug}/">${escapeHtml(featuredDay.title)}</a></h3>
+        <p>${escapeHtml(featuredDay.lede)}</p>
+        ${routeSvg(featuredDay.stops.map((stop) => catalog.find((entry) => entry.href === stop.href)).map((item) => byIso[item.iso]).filter(Boolean))}
+        <p class="kk-meta"><a href="/journeys/">All journeys</a></p>
+      </article>
       <h2>Recipe of the week</h2>
       <article class="kk-week">
         ${(() => {
@@ -1160,40 +1171,27 @@ write("index.html", page({
           <p class="kk-meta">${escapeHtml([weekRecipe.region, weekRecipe.section].filter(Boolean).join(" · "))}</p>
         </div>
       </article>
-      <h2>A day around the world</h2>
-      <article class="kk-day-home">
-        <p class="kk-kicker">Journey</p>
-        <h3><a href="/journeys/${featuredDay.slug}/">${escapeHtml(featuredDay.title)}</a></h3>
-        <p>${escapeHtml(featuredDay.lede)}</p>
-        ${routeSvg(featuredDay.stops.map((stop) => catalog.find((entry) => entry.href === stop.href)).map((item) => byIso[item.iso]).filter(Boolean))}
-        <p class="kk-meta"><a href="/journeys/">All journeys</a></p>
-      </article>
-      <h2>Featured recipes</h2>
-      <div class="kk-rcards">${featuredItems.map((item) => recipeCard(item)).join("")}</div>
       <h2>Browse by continent</h2>
       <div class="kk-continents">${["Africa", "Americas", "Asia", "Europe", "Oceania"].map((name) => {
         const items = catalog.filter((item) => item.continent === name);
         const regions = new Set(items.map((item) => item.region).filter(Boolean));
         return `<a class="kk-continent" href="/recipes/?continent=${encodeURIComponent(name)}"><span class="kk-kicker">${name}</span><strong>${regions.size} ${regions.size === 1 ? "region" : "regions"}</strong><span>${items.length} recipes</span></a>`;
       }).join("")}</div>
-      ${ad("home", "inline")}
-      <p class="kk-shop-strip"><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
       <h2>The guides</h2>
       <div class="kk-guides">
         ${guideCard("/flying-sauces/", "Flying Sauces", sauceCount, "Flying Sauces", "Sauces from the table, the mortar, and the market.", EDITORIAL.chimichurri)}
         ${guideCard("/flying-pancakes/", "Flying Pancakes", pancakeCount, "Flying Pancakes", "Batters, griddles, and the pancakes that travel with them.", EDITORIAL.crepes)}
         ${guideCard("/flying-bbq/", "Flying BBQ", bbqCount, "Flying BBQ", "Fire, smoke, and the dishes cooked over them.", EDITORIAL.hog)}
       </div>
-      <h2>Journeys</h2>
-      <p class="kk-meta">Reading orders made from recipes already on this site. Each note is the description on that recipe.</p>
-      <div class="kk-rcards">${JOURNEYS.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.length} recipes</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>
-      <h2>World map</h2>
-      <p class="kk-meta">Shaded countries have recipes. Open one to see what is cooked there.</p>
-      ${plate(homeMap, "Atlas plate")}
-      <p class="kk-meta"><a href="/map/">Open the full world map</a></p>
       <h2>Recipe cookbooks</h2>
-      <div class="kk-rcards">${cookbookPicks.map((book) => `<article class="kk-rcard"><p class="kk-kicker">${escapeHtml(book.section)}</p><h3><a href="${book.href}">${escapeHtml(book.title)}</a></h3><p class="kk-meta">Coming soon</p></article>`).join("")}</div>
-      <p class="kk-meta"><a href="/books/">All cookbooks</a></p>
+      <div class="kk-grid kk-books">${cookbookPicks.slice(0, 3).map((book) => {
+        const prefix = book.section === "Flying Sauces" ? "sauces" : book.section === "Flying Pancakes" ? "pancakes" : "bbq";
+        const cover = `/assets/brand/covers/${prefix}-${book.slug}.svg`;
+        return `<article class="kk-card kk-book"><a href="${book.href}"><img class="kk-cover" src="${cover}" alt="Original cover design for ${escapeHtml(book.title)}" width="300" height="400"></a><p class="kk-kicker">${escapeHtml(book.section)}</p><h3><a href="${book.href}">${escapeHtml(book.title)}</a></h3><p class="kk-pill">Coming soon</p></article>`;
+      }).join("")}</div>
+      <p class="kk-meta"><a href="/books/">All cookbooks</a> · <a href="/map/">World map</a></p>
+      ${ad("home", "inline")}
+      <p class="kk-shop-strip"><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
     </div>`
 }));
 
@@ -1309,7 +1307,7 @@ write("books/index.html", page({
         </div>
         <p class="kk-meta" data-kk-count>${guideBooks.length} titles</p>
       </div>
-      <div class="kk-grid kk-books">${guideBooks.map((book) => `<article class="kk-card kk-book" data-continent="${escapeHtml(book.section)}"><a href="${book.href}"><img class="kk-cover" src="${book.cover}" alt="Original cover design for ${escapeHtml(book.title)}" width="300" height="400"></a><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p></article>`).join("")}</div>
+      <div class="kk-grid kk-books">${guideBooks.map((book) => `<article class="kk-card kk-book" data-continent="${escapeHtml(book.section)}"><a href="${book.href}"><img class="kk-cover" src="${book.cover}" alt="Original cover design for ${escapeHtml(book.title)}" width="300" height="400"></a><p class="kk-kicker">${escapeHtml(book.section)}</p><h3><a href="${book.href}">${escapeHtml(book.title)}</a></h3><p class="kk-pill">Coming soon</p></article>`).join("")}</div>
     </section>
   </div>`
 }));

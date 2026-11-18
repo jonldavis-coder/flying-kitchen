@@ -85,7 +85,14 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /From Southern Europe/);
   assert.match(read("regions/southern-europe/index.html"), /Countries named on those pages/);
   assert.match(home, /kk-hero/);
-  assert.match(home, /Atlas plate/);
+  const homeOrder = ["Featured recipes", "A day around the world", "Recipe of the week", "Browse by continent", "The guides", "Recipe cookbooks"];
+  let homeAt = -1;
+  for (const label of homeOrder) {
+    const at = home.indexOf(label);
+    assert.ok(at > homeAt, label);
+    homeAt = at;
+  }
+  assert.match(home, /href="\/map\/"/);
   assert.doesNotMatch(home, /Jonathan/);
   assert.doesNotMatch(home, /kk-hero-photo/);
   assert.doesNotMatch(home, /Taste the World/);
