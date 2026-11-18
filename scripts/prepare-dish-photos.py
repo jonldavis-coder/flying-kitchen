@@ -14,7 +14,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps, ImageStat
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "dish-photos.json"
@@ -65,7 +65,24 @@ def license_ok(value):
     return any(part in text for part in ("cc0", "public domain", "cc by", "creative commons attribution", "pexels", "unsplash"))
 
 
-def crop(image, ratio, focal, out_width):
+def finish(image):
+    """One gentle pass: lift a dark frame, ease a flat one, then a light sharpen.
+
+    The same function runs on every reprocessed photograph. It does not
+    recolor a picture toward a different dish.
+    """
+    luma = image.convert("L")
+    stat = ImageStat.Stat(luma)
+    mean = stat.mean[0]
+    spread = stat.stddev[0]
+    if mean < 105:
+        image = ImageEnhance.Brightness(image).enhance(min(1.24, 112 / max(mean, 48)))
+    if spread < 42:
+        image = ImageEnhance.Contrast(image).enhance(1.08)
+    return image.filter(ImageFilter.UnsharpMask(radius=1.0, percent=26, threshold=4))
+
+
+def crop(image, ratio, focal, out_width, zoom=1.0):
     rw, rh, _ = ratio
     image = ImageOps.exif_transpose(image).convert("RGB")
     width, height = image.size
@@ -76,6 +93,12 @@ def crop(image, ratio, focal, out_width):
     else:
         crop_w = width
         crop_h = int(round(width / target))
+    zoom = min(1.0, max(0.35, float(zoom or 1)))
+    # Never scale a crop up. The window has to stay at least out_width.
+    if crop_w > out_width:
+        zoom = max(zoom, out_width / crop_w)
+    crop_w = int(round(crop_w * zoom))
+    crop_h = int(round(crop_h * zoom))
     if crop_w < 1000 or crop_h < 100:
         return None
     cx = float(focal[0]) * width
@@ -187,8 +210,13 @@ def main():
                         image = Image.open(source_path)
             if reason is None:
                 focal = record.get("focal") or [0.5, 0.5]
-                mast = crop(image, MAST, focal, MAST[2])
-                card = crop(image, CARD, focal, CARD[2])
+                zoom = record.get("zoom") or 1
+                mast = crop(image, MAST, focal, MAST[2], zoom)
+                card = crop(image, CARD, focal, CARD[2], zoom)
+                if mast is not None:
+                    mast = finish(mast)
+                if card is not None:
+                    card = finish(card)
                 if mast is None or card is None:
                     reason = "crop under 1000px"
                 else:
