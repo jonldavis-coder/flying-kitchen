@@ -3357,5 +3357,68 @@
     "mastHeight": 1000,
     "cardWidth": 1200,
     "cardHeight": 900
+  },
+  {
+    "key": "roast-turkey",
+    "id": "roast-turkey",
+    "slug": "roast-turkey",
+    "alt": "A whole roast turkey on a platter",
+    "caption": "Roast turkey.",
+    "artist": "Mark Miller",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2021_roast_turkey.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:2021 roast turkey.jpg",
+    "focal": [
+      0.48,
+      0.52
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "bread-stuffing",
+    "id": "bread-stuffing",
+    "slug": "bread-stuffing",
+    "alt": "Bread stuffing with celery and herbs in a baking dish",
+    "caption": "Bread stuffing.",
+    "artist": "Dorevabelfiore",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stuffing_for_Thanksgiving_Dinner.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Stuffing for Thanksgiving Dinner.jpg",
+    "focal": [
+      0.5,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "pumpkin-pie",
+    "id": "pumpkin-pie",
+    "slug": "pumpkin-pie",
+    "alt": "A pumpkin pie with a ring of pastry leaves",
+    "caption": "Pumpkin pie.",
+    "artist": "Jason Riedy",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pumpkin_pie_with_pastry_leaf_decoration,_November_2005.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Pumpkin pie with pastry leaf decoration, November 2005.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
   }
 ]
