@@ -4,14 +4,96 @@
     if (button) window.print();
   });
 
+  function markable(item, label) {
+    var box = item.querySelector(".kk-check");
+    if (!box) {
+      box = document.createElement("input");
+      box.type = "checkbox";
+      box.className = "kk-check";
+      box.setAttribute("aria-label", label);
+      item.prepend(box);
+    }
+    if (item.dataset.markable) return box;
+    item.dataset.markable = "1";
+    box.addEventListener("change", function () {
+      item.classList.toggle("is-done", box.checked);
+    });
+    item.addEventListener("click", function (event) {
+      if (event.target === box || event.target.closest("a, button")) return;
+      box.checked = !box.checked;
+      item.classList.toggle("is-done", box.checked);
+    });
+    return box;
+  }
+
   document.querySelectorAll(".ingredients li").forEach(function (item) {
-    if (item.querySelector(".kk-check")) return;
-    var box = document.createElement("input");
-    box.type = "checkbox";
-    box.className = "kk-check";
-    box.setAttribute("aria-label", "Mark ingredient");
-    item.prepend(box);
+    markable(item, "Mark ingredient");
   });
+  document.querySelectorAll("ol.steps > li").forEach(function (item) {
+    if (!item.querySelector(".kk-step-text")) {
+      var span = document.createElement("span");
+      span.className = "kk-step-text";
+      while (item.firstChild) span.appendChild(item.firstChild);
+      item.appendChild(span);
+    }
+    markable(item, "Mark step done");
+  });
+
+  var cook = document.querySelector("[data-cook]");
+  var tools = document.querySelector(".kk-tools");
+  if (!cook && tools) {
+    cook = document.createElement("button");
+    cook.type = "button";
+    cook.className = "kk-button quiet";
+    cook.setAttribute("data-cook", "");
+    cook.setAttribute("aria-pressed", "false");
+    cook.textContent = "Cook mode";
+    tools.appendChild(cook);
+  }
+  if (cook) {
+    var note = document.createElement("p");
+    note.className = "kk-cook-note no-print";
+    note.setAttribute("data-cook-note", "");
+    note.hidden = true;
+    note.textContent = "This browser will not hold the screen awake. Leave the display on while you cook.";
+    cook.closest("p").after(note);
+    var sentinel = null;
+    var wanted = false;
+    function showFallback() {
+      note.hidden = false;
+    }
+    function holdScreen() {
+      if (!navigator.wakeLock || !navigator.wakeLock.request) {
+        showFallback();
+        return;
+      }
+      navigator.wakeLock.request("screen").then(function (lock) {
+        sentinel = lock;
+        note.hidden = true;
+        lock.addEventListener("release", function () { sentinel = null; });
+      }).catch(function () {
+        showFallback();
+      });
+    }
+    function setCook(on) {
+      wanted = on;
+      cook.classList.toggle("is-on", on);
+      cook.setAttribute("aria-pressed", on ? "true" : "false");
+      document.body.classList.toggle("kk-cooking", on);
+      if (!on) {
+        note.hidden = true;
+        if (sentinel) sentinel.release();
+        return;
+      }
+      holdScreen();
+    }
+    cook.addEventListener("click", function () {
+      setCook(cook.getAttribute("aria-pressed") !== "true");
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible" && wanted && !sentinel) holdScreen();
+    });
+  }
 
   var serves = Array.prototype.find.call(document.querySelectorAll(".kk-info li"), function (item) {
     return /^Serves\s+\d+/i.test(item.textContent.trim());

@@ -2384,7 +2384,7 @@ function polishRecipes() {
       }
       html = html.replace(/<p class="kk-tools[\s\S]*?<\/p>\s*/g, "");
       if (html.includes("kk-mast")) {
-        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
+        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-cook aria-pressed="false">Cook mode</button> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
         const start = html.indexOf('<div class="kk-mast">');
         let depth = 0;
         let end = -1;
@@ -2422,10 +2422,24 @@ function polishRecipes() {
       if (trips.length) {
         blocks.push(`<section class="kk-also"><h2>From the journey</h2><ul class="kk-recipe-list">${trips.join("")}</ul></section>`);
       }
-      if (self && self.country) {
-        const also = catalog.filter((item) => item.country === self.country && item.href !== selfHref).slice(0, 4);
-        if (also.length) {
-          blocks.push(`<section class="kk-also"><h2>Also from ${escapeHtml(self.country)}</h2><ul class="kk-recipe-list">${also.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul></section>`);
+      if (self && (self.country || self.region)) {
+        const recipeList = (items) => `<ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul>`;
+        const sameCountry = self.country ? catalog.filter((item) => item.country === self.country && item.href !== selfHref) : [];
+        const countryPicks = sameCountry.slice(0, 4);
+        const regionPicks = [];
+        if (countryPicks.length < 4 && self.region) {
+          const used = new Set([selfHref, ...countryPicks.map((item) => item.href)]);
+          for (const item of catalog) {
+            if (regionPicks.length >= 4 - countryPicks.length) break;
+            if (item.region !== self.region || used.has(item.href)) continue;
+            regionPicks.push(item);
+          }
+        }
+        if (countryPicks.length) {
+          blocks.push(`<section class="kk-also"><h2>Also from ${escapeHtml(self.country)}</h2>${recipeList(countryPicks)}</section>`);
+        }
+        if (regionPicks.length) {
+          blocks.push(`<section class="kk-also"><h2>Also from ${escapeHtml(self.region)}</h2>${recipeList(regionPicks)}</section>`);
         }
       }
       if (blocks.length) {
