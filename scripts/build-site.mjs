@@ -971,7 +971,7 @@ function browseBlock(items) {
         <label>Region <select aria-label="Region"><option value="all">All regions</option>${regions.map((region) => `<option value="${escapeHtml(region)}">${escapeHtml(region)}</option>`).join("")}</select></label>
         <p class="kk-meta" data-kk-count>${items.length} recipes</p>
       </div>
-      <div class="kk-rcards">${items.map((item) => recipeCard(item, true)).join("")}</div>
+      <div class="kk-rcards">${photosFirst(items).map((item) => recipeCard(item, true)).join("")}</div>
     </section>
     <script src="/assets/js/filter.js" defer></script>`;
 }
@@ -1011,7 +1011,7 @@ const DAY_JOURNEYS = [
   ]},
   { slug: "day-malaysia-italy-jamaica", title: "Breakfast in Malaysia, lunch in Italy, dinner in Jamaica", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/roti-canai/" },
-    { meal: "Lunch", href: "/flying-sauces/sauces/burro-e-salvia/" },
+    { meal: "Lunch", href: "/flying-sauces/sauces/carbonara/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/jamaican-jerk-chicken/" }
   ]},
   { slug: "day-poland-japan-kansas", title: "Breakfast in Poland, lunch in Japan, dinner in Kansas City", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
@@ -1030,7 +1030,7 @@ const DAY_JOURNEYS = [
     { meal: "Dinner", href: "/flying-bbq/dishes/kalua-pig/" }
   ]},
   { slug: "day-china-elsalvador-mexico", title: "Breakfast in China, lunch in El Salvador, dinner in Mexico", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/shandong-jianbing/" },
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/tianjin-jianbing/" },
     { meal: "Lunch", href: "/flying-pancakes/pancakes/pupusas/" },
     { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
   ]},
@@ -1046,7 +1046,7 @@ const DAY_JOURNEYS = [
   ]},
   { slug: "day-samoa-australia-newzealand", title: "Breakfast in Samoa, lunch in Australia, dinner in New Zealand", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/samoan-panikeke/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/australian-barramundi/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/australian-lamb-chops/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/maori-hangi/" }
   ]},
   { slug: "day-newzealand-fiji", title: "Breakfast in New Zealand, dinner in Fiji", lede: "A sweet breakfast and a coconut dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
@@ -1638,13 +1638,14 @@ for (const [region, items] of byRegion) {
   const continent = CONTINENT[region] || "";
   const named = [...new Set(items.map((item) => item.country).filter(Boolean))].sort();
   const description = `${items.length} recipes filed under ${region}${continent ? `, ${continent}` : ""}.`;
+  const ordered = photosFirst(items);
   write(`regions/${slug}/index.html`, page({
     title: `${region} · Kite Kitchen`,
     description,
     path: `/regions/${slug}/`,
     image: `/assets/og/regions/${slug}.jpg`,
     current: "map",
-    jsonLd: withBreadcrumb(itemListLd(`${region} recipes`, items), [["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/regions/${slug}/`, region]]),
+    jsonLd: withBreadcrumb(itemListLd(`${region} recipes`, ordered), [["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/regions/${slug}/`, region]]),
     scripts: `<script src="/assets/js/atlas.js" defer></script>`,
     main: `<article class="kk-wrap">
       ${crumbs([["/", "Home"], ...(continent ? [[`/recipes/?continent=${encodeURIComponent(continent)}`, continent]] : []), [`/regions/${slug}/`, region]])}
@@ -1656,7 +1657,7 @@ for (const [region, items] of byRegion) {
         <ul class="kk-info" aria-label="This region"><li>${items.length} recipes</li><li>${named.length} ${named.length === 1 ? "country" : "countries"}</li>${continent ? `<li>${escapeHtml(continent)}</li>` : ""}</ul>
       </header>
       <p class="kk-meta"><a href="/map/">Back to the world map</a></p>
-      <ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${item.iso ? `<a href="${countryPath(item.iso)}">${escapeHtml(item.country || item.section)}</a>` : escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul>
+      <ul class="kk-recipe-list">${ordered.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${item.iso ? `<a href="${countryPath(item.iso)}">${escapeHtml(item.country || item.section)}</a>` : escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul>
     </article>`
   }));
 }
@@ -1993,7 +1994,7 @@ for (const collection of COLLECTIONS) {
     description: collection.lede,
     path: `/collections/${collection.slug}/`,
     image: `/assets/og/collections/${collection.slug}.jpg`,
-    jsonLd: itemListLd(collection.title, stops),
+    jsonLd: itemListLd(collection.title, photosFirst(stops)),
     main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/collections/", "Collections"], [`/collections/${collection.slug}/`, collection.title]])}
       <header class="kk-mast">
         <p class="kk-kicker">Collection</p>
@@ -2003,7 +2004,7 @@ for (const collection of COLLECTIONS) {
         <ul class="kk-info" aria-label="This collection">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
       </header>
       ${landDefs(stops)}
-      <div class="kk-rcards">${stops.map((item) => placeCard(item, item.meal)).join("")}</div>
+      <div class="kk-rcards">${photosFirst(stops).map((item) => placeCard(item, item.meal)).join("")}</div>
       <p class="kk-meta"><a href="/collections/">All collections</a></p>
     </article>`
   }));
@@ -2322,7 +2323,7 @@ function buildPantry() {
     const usedContinents = continents.filter((name) => term.recipes.some((item) => item.continent === name));
     const label = term.name.toLowerCase();
     const groups = usedContinents.map((name) => {
-      const items = term.recipes.filter((item) => item.continent === name).slice().sort((a, b) => a.country.localeCompare(b.country) || a.title.localeCompare(b.title));
+      const items = photosFirst(term.recipes.filter((item) => item.continent === name).slice().sort((a, b) => a.country.localeCompare(b.country) || a.title.localeCompare(b.title)));
       return `<section class="kk-pantry-group"><h2>${escapeHtml(name)}</h2><ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml([item.country, item.section].filter(Boolean).join(" · "))}</span></li>`).join("")}</ul></section>`;
     }).join("");
     write(`pantry/${term.slug}/index.html`, page({

@@ -61,7 +61,7 @@
         if (meal !== "all" && (item.meals || []).indexOf(meal) === -1) return false;
         if (!query) return true;
         return (item.title + " " + item.text + " " + item.section + " " + (item.country || "") + " " + (item.region || "") + " " + (item.meals || []).join(" ")).toLowerCase().includes(query);
-      }).slice(0, 36);
+      }).sort(function (a, b) { return (a.thumb ? 0 : 1) - (b.thumb ? 0 : 1); }).slice(0, 36);
       var bits = [];
       if (query) bits.push("“" + raw + "”");
       if (country) bits.push(country);
