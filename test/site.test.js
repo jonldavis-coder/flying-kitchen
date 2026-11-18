@@ -93,8 +93,14 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("assets/js/days.js"), /Surprise me|data-surprise/);
   assert.match(read("404.html"), /kk-compass-lg/);
   assert.match(read("404.html"), /Off the map/);
-  assert.match(read("search/index.html"), /Nothing matches/);
+  assert.match(read("search/index.html"), /Nothing on this route matches/);
+  assert.match(read("search/index.html"), /id="search-country"/);
+  assert.match(read("search/index.html"), /data-meal="Breakfast"/);
   assert.match(read("search/index.html"), /kk-hit|id="results"/);
+  assert.match(read("assets/js/search.js"), /search-country/);
+  assert.match(read("index.html"), /kk-menu-close/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /print-brand/);
+  assert.match(read("assets/css/kite.css"), /kk-menu\[open\]/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /\/assets\/og\/recipes\/sauces-pesto-alla-genovese\.jpg/);
   assert.equal(fs.existsSync(path.join(root, "assets/og/home.jpg")), true);
   assert.equal(fs.existsSync(path.join(root, "assets/og/recipes/bbq-tandoori-chicken.jpg")), true);

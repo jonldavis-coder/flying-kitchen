@@ -116,16 +116,21 @@ function brandLockup() {
   return `<a class="kk-brand" href="/">${KITE_MARK}<span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag kk-tag-long">${TAGLINE}</span><span class="kk-tag kk-tag-short">Around the world</span></span></a>`;
 }
 
+function menuControl(current) {
+  return `<details class="kk-menu">
+      <summary><span class="kk-menu-label">Menu</span><span class="kk-menu-close">Close</span></summary>
+      <p class="kk-menu-kicker">${KITE_MARK}<span>Kite Kitchen</span></p>
+      ${nav(current, "kk-nav")}
+    </details>`;
+}
+
 function header(current) {
   return `<a class="skip-link" href="#content">Skip to content</a>
 <header class="kk-header">
   <div class="kk-header-inner">
     ${brandLockup()}
     ${nav(current, "kk-nav")}
-    <details class="kk-menu">
-      <summary>Menu</summary>
-      ${nav(current, "kk-nav")}
-    </details>
+    ${menuControl(current)}
   </div>
 </header>`;
 }
@@ -250,7 +255,7 @@ function sectionBar(name, currentHref) {
     ${brandLockup()}
     <p class="kk-section-name">${escapeHtml(name)}</p>
     ${nav(current, "kk-nav")}
-    <details class="kk-menu"><summary>Menu</summary>${nav(current, "kk-nav")}</details>
+    ${menuControl(current)}
   </div>
 </header>`;
 }
@@ -301,12 +306,23 @@ function transformSection(dir, name, originFrom) {
     }
     html = html.replace(/<meta name="theme-color" content="[^"]*">/, '<meta name="theme-color" content="#141210">');
     html = html.replaceAll(originFrom, originTo);
-    html = html.replace(/<title>([^<]*)<\/title>/, (m, t) => t.includes("KiteKitchen") ? m : `<title>${t} · KiteKitchen</title>`);
+    html = html.replace(/<title>([^<]*)<\/title>/, (m, t) => {
+      let title = t.includes("KiteKitchen") ? t : `${t} · KiteKitchen`;
+      const kind = rel.includes("/books/") ? "Cookbook"
+        : rel.includes("/journeys/") ? "Journey"
+        : rel.includes("/learn/") ? "Essay"
+        : rel.includes("/explore/") ? "Index"
+        : rel.includes("/places/") ? "Places"
+        : "";
+      if (kind && !title.includes(` · ${kind} ·`)) title = title.replace(" · KiteKitchen", ` · ${kind} · KiteKitchen`);
+      return `<title>${title}</title>`;
+    });
     html = html.replace(/<p class="price">[\s\S]*?<\/p>/g, "");
     html = html.replace(/<p class="eyebrow">Placeholder price[^<]*<\/p>/g, "");
     html = html.replace(/ · Placeholder price \$[\d,.]+, not final/g, "");
     html = html.replace(/Placeholder price \$[\d,.]+, not final/g, "Coming soon");
     html = html.replace(/Prices are placeholders, not final\./g, "Coming soon. Prices are not listed.");
+    html = html.replace(/Prices are placeholders\.?/g, "Prices are not listed.");
     html = html.replace(/Placeholder prices, not final\./g, "Coming soon. No price is listed.");
     html = html.replace(/Save 30%/g, "Coming soon");
     html = html.replace(/The price is 30% off the sum of the individual placeholder prices\./g, "Coming soon. No price is listed.");
@@ -1866,11 +1882,31 @@ write("journeys/index.html", page({
 }));
 writeMoved("cookbooks/index.html", "/books/");
 
+const MEAL_OF = {
+  breakfast: "Breakfast",
+  snack: "Snack",
+  street: "Snack",
+  dessert: "Dessert",
+  feast: "Feast",
+  holiday: "Feast",
+  dipping: "At the table",
+  accompaniment: "At the table"
+};
+function usesMap(file, key) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+  const list = Array.isArray(data) ? data : data[key] || [];
+  return list.map((item) => [item.slug, [...new Set((item.uses || []).map((use) => MEAL_OF[use]).filter(Boolean))]]);
+}
+const mealsBySlug = new Map([
+  ...usesMap("flying-sauces/data/index.json", "sauces"),
+  ...usesMap("flying-pancakes/data/index.json", "pancakes"),
+  ...usesMap("flying-bbq/data/dishes/raw.json")
+]);
 const searchItems = catalog.map((item) => {
   const slug = item.href.split("/").filter(Boolean).at(-1);
   const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
   const place = byIso[item.iso];
-  const width = photo ? photo.widths[photo.widths.length - 1] : 0;
+  const width = photo ? photo.widths[0] : 0;
   return {
     title: item.title,
     href: item.href,
@@ -1878,6 +1914,7 @@ const searchItems = catalog.map((item) => {
     text: item.text,
     country: item.country || "",
     region: item.region || "",
+    meals: mealsBySlug.get(slug) || [],
     thumb: photo ? `/assets/photos/editorial/${photo.id}-${width}.jpg` : "",
     lat: place ? place.lat : null,
     lon: place ? place.lon : null
@@ -1891,11 +1928,20 @@ write("search/index.html", page({
   image: "/assets/og/search.jpg",
   current: "",
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/search/", "Search"]])}
-    <h1>Search</h1>
-    <p class="kk-lede">Type a dish, a country, or a guide. Results stay in the browser.</p>
+    <header class="kk-mast">
+      <p class="kk-kicker">Index</p>
+      <h1 class="kk-display">Search</h1>
+      <p class="dek">A dish, a country, or a guide. The list stays in the browser.</p>
+    </header>
     ${searchForm("q", "Pesto, dosa, asado", "search-form")}
+    <div class="kk-filters">
+      <label>Country <select id="search-country" aria-label="Country"><option value="">All countries</option></select></label>
+      <div class="kk-chips" role="group" aria-label="Meal">
+        ${["All", "Breakfast", "Snack", "Dessert", "Feast", "At the table"].map((name, index) => `<button type="button"${index === 0 ? ' class="is-on"' : ""} data-meal="${name === "All" ? "all" : name}" aria-pressed="${index === 0 ? "true" : "false"}">${name}</button>`).join("")}
+      </div>
+    </div>
     <p id="search-status" class="kk-meta" role="status" aria-live="polite"></p>
-    <p id="search-empty" class="kk-empty" hidden>Nothing matches that search. Try a dish, a country, or a guide.</p>
+    <p id="search-empty" class="kk-empty" hidden>Nothing on this route matches. Try another dish, or clear the country and the meal.</p>
     <div id="results" class="kk-results"></div>
     <svg id="kk-land" hidden><rect width="160" height="80" fill="#f4f0e8"/><path d="M0 40H160M40 0V80M80 0V80M120 0V80" stroke="#e4ddd2" stroke-width="0.45"/><g fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6">${MINI_LANDS}</g></svg>
   </div>
@@ -2032,6 +2078,9 @@ function polishRecipes() {
         html = html.replace(figure, "");
         html = html.replace(/(<p class="dek">[\s\S]*?<\/p>)/, `$1\n${figure}`);
       }
+      const printBrand = `<p class="print-only print-brand">${KITE_MARK}<span>Kite Kitchen</span></p>`;
+      if (html.includes("print-brand")) html = html.replace(/<p class="print-only print-brand">[\s\S]*?<\/p>/, printBrand);
+      else html = html.replace(/<h1\b/, `${printBrand}\n<h1`);
       if (!html.includes("/assets/js/recipe.js")) {
         html = html.replace("</body>", `<script src="/assets/js/recipe.js" defer></script>\n</body>`);
       }
