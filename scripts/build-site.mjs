@@ -1037,59 +1037,59 @@ const DAY_JOURNEYS = [
     { meal: "Lunch", href: "/flying-pancakes/pancakes/pupusas/" },
     { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
   ]},
-  { slug: "day-in-india", title: "A day in India", lede: "Breakfast, lunch, and dinner from Indian recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-india-thailand-vietnam", title: "Breakfast in India, lunch in Thailand, dinner in Vietnam", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/paper-dosa/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/seekh-kebab/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/tandoori-chicken/" }
+    { meal: "Lunch", href: "/flying-sauces/sauces/green-curry/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/vietnamese-bun-cha/" }
   ]},
-  { slug: "day-in-australia", title: "A day in Australia", lede: "Breakfast, lunch, and dinner from Australian recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/australian-pancakes/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/australian-prawns/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/australian-lamb-chops/" }
+  { slug: "day-germany-india-australia", title: "Breakfast in Germany, lunch in India, dinner in Australia", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/german-eierkuchen/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/chicken-tikka/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/australian-prawns/" }
   ]},
-  { slug: "day-samoa-australia-newzealand", title: "Breakfast in Malaysia, lunch in Australia, dinner in New Zealand", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-malaysia-australia-newzealand", title: "Breakfast in Malaysia, lunch in Australia, dinner in New Zealand", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/roti-canai/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/australian-lamb-chops/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/maori-hangi/" }
   ]},
-  { slug: "day-newzealand-fiji", title: "Breakfast in Australia, lunch in Singapore, dinner in Hawaii", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-australia-singapore-malaysia", title: "Breakfast in Australia, lunch in Singapore, dinner in Malaysia", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/australian-pancakes/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/singapore-hawker-satay/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/kalua-pig/" }
+    { meal: "Dinner", href: "/flying-bbq/dishes/malaysian-ikan-bakar/" }
   ]},
-  { slug: "day-ghana-nigeria-ethiopia", title: "Breakfast in Morocco, lunch in Nigeria, dinner in Ethiopia", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-denmark-sweden-norway", title: "Breakfast in Denmark, lunch in Sweden, dinner in Norway", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/aebleskiver/" },
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/raggmunk/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/norwegian-pinnekjott/" }
+  ]},
+  { slug: "day-morocco-spain-portugal", title: "Breakfast in Morocco, lunch in Spain, dinner in Portugal", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/moroccan-baghrir/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/nigerian-suya/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/ethiopian-tibs/" }
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/spanish-tortilla/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/portuguese-sardines/" }
   ]},
-  { slug: "day-in-morocco", title: "A day in Morocco", lede: "Breakfast, lunch, and dinner from Moroccan recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/moroccan-baghrir/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/moroccan-kefta-brochettes/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/moroccan-mechoui/" }
-  ]},
-  { slug: "day-in-south-africa", title: "A day in South Africa", lede: "Breakfast, lunch, and dinner from South African recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/south-african-pannekoek/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/cape-malay-sosaties/" },
+  { slug: "day-unitedkingdom-kenya-southafrica", title: "Breakfast in the United Kingdom, lunch in Kenya, dinner in South Africa", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/english-crumpets/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/kenyan-nyama-choma/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/south-african-boerewors/" }
   ]},
-  { slug: "day-kenya-tanzania", title: "Breakfast in Kenya, lunch in Ethiopia, dinner in Yemen", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-kenya-ethiopia-yemen", title: "Breakfast in Kenya, lunch in Ethiopia, dinner in Yemen", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/kenyan-chapati/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/ethiopian-tibs/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/yemeni-mandi/" }
   ]},
-  { slug: "day-morocco-mali-senegal", title: "Breakfast in Morocco, lunch in Senegal, dinner in Nigeria", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-morocco-senegal-nigeria", title: "Breakfast in Morocco, lunch in Senegal, dinner in Nigeria", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/msemen/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/senegalese-dibi/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/nigerian-suya/" }
   ]},
-  { slug: "day-egypt-mozambique", title: "Breakfast in Turkey, lunch in Egypt, dinner in Mozambique", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-turkey-egypt-mozambique", title: "Breakfast in Turkey, lunch in Egypt, dinner in Mozambique", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/turkish-gozleme/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/egyptian-kofta/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/mozambican-peri-peri-chicken/" }
   ]},
-  { slug: "day-zambia-ghana-zimbabwe", title: "Breakfast in Nigeria, lunch in Mozambique, dinner in Zimbabwe", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-nigeria-southafrica-zimbabwe", title: "Breakfast in Nigeria, lunch in South Africa, dinner in Zimbabwe", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/nigerian-masa/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/mozambican-peri-peri-chicken/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/cape-malay-sosaties/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/zimbabwean-braai-chicken/" }
   ]},
   { slug: "day-jamaica-france-mexico", title: "Breakfast in Jamaica, lunch in France, dinner in Mexico", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
@@ -1097,7 +1097,7 @@ const DAY_JOURNEYS = [
     { meal: "Lunch", href: "/flying-pancakes/pancakes/crepes-suzette/" },
     { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
   ]},
-  { slug: "day-samoa-tonga", title: "Breakfast in China, lunch in Japan, dinner in Korea", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-china-japan-korea", title: "Breakfast in China, lunch in Japan, dinner in Korea", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/tianjin-jianbing/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/japanese-yakitori/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/korean-bulgogi/" }
@@ -1940,6 +1940,23 @@ for (const journey of JOURNEYS) {
       <div class="kk-rcards">${stops.map((item) => placeCard(item, item.meal)).join("")}</div>
     </article>`
   }));
+}
+const DAY_REDIRECTS = [
+  ["day-in-india", "day-india-thailand-vietnam"],
+  ["day-in-australia", "day-germany-india-australia"],
+  ["day-in-morocco", "day-morocco-spain-portugal"],
+  ["day-in-south-africa", "day-unitedkingdom-kenya-southafrica"],
+  ["day-samoa-australia-newzealand", "day-malaysia-australia-newzealand"],
+  ["day-newzealand-fiji", "day-australia-singapore-malaysia"],
+  ["day-samoa-tonga", "day-china-japan-korea"],
+  ["day-ghana-nigeria-ethiopia", "day-denmark-sweden-norway"],
+  ["day-kenya-tanzania", "day-kenya-ethiopia-yemen"],
+  ["day-morocco-mali-senegal", "day-morocco-senegal-nigeria"],
+  ["day-egypt-mozambique", "day-turkey-egypt-mozambique"],
+  ["day-zambia-ghana-zimbabwe", "day-nigeria-southafrica-zimbabwe"]
+];
+for (const [from, to] of DAY_REDIRECTS) {
+  writeMoved(`journeys/${from}/index.html`, `/journeys/${to}/`);
 }
 function dayContinents(journey) {
   const names = new Set();

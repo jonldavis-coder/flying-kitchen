@@ -163,11 +163,11 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("journeys/day-france-italy-argentina/index.html"), /class="dek"/);
   assert.match(read("journeys/day-france-italy-argentina/index.html"), /Route plate/);
   assert.match(read("journeys/day-france-italy-argentina/index.html"), /\/assets\/og\/itineraries\/day-france-italy-argentina\.jpg/);
-  assert.match(read("journeys/day-in-india/index.html"), /Paper dosa/);
+  assert.match(read("journeys/day-india-thailand-vietnam/index.html"), /Paper dosa/);
   assert.match(read("journeys/index.html"), /data-surprise/);
   assert.match(read("journeys/index.html"), /Oceania/);
-  assert.match(read("journeys/day-in-australia/index.html"), /Australian/);
-  assert.match(read("journeys/day-ghana-nigeria-ethiopia/index.html"), /data-photo="nigerian-suya"|Suya/);
+  assert.match(read("journeys/day-germany-india-australia/index.html"), /Australian/);
+  assert.match(read("journeys/day-morocco-senegal-nigeria/index.html"), /data-photo="nigerian-suya"|Suya/);
   assert.match(read("countries/france/index.html"), /"@type":"ItemList"/);
   assert.match(read("countries/italy/index.html"), /kk-display/);
   const south = read("regions/southern-europe/index.html");
@@ -183,20 +183,53 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.doesNotMatch(read("journeys/day-china-elsalvador-mexico/index.html"), /shandong-jianbing/);
   assert.match(read("journeys/day-malaysia-italy-jamaica/index.html"), /Carbonara/);
   assert.doesNotMatch(read("journeys/day-malaysia-italy-jamaica/index.html"), /burro-e-salvia/);
-  assert.match(read("journeys/day-samoa-australia-newzealand/index.html"), /Australian Lamb Chops|Lamb chops/);
-  assert.doesNotMatch(read("journeys/day-samoa-australia-newzealand/index.html"), /australian-barramundi/);
-  assert.match(read("journeys/day-samoa-australia-newzealand/index.html"), /Breakfast in Malaysia, lunch in Australia, dinner in New Zealand/);
-  assert.match(read("journeys/day-zambia-ghana-zimbabwe/index.html"), /Breakfast in Nigeria, lunch in Mozambique, dinner in Zimbabwe/);
-  assert.doesNotMatch(read("journeys/day-zambia-ghana-zimbabwe/index.html"), /zambian-vitumbuwa|ghanaian-kyinkyinga/);
+  assert.match(read("journeys/day-malaysia-australia-newzealand/index.html"), /Australian Lamb Chops|Lamb chops/);
+  assert.doesNotMatch(read("journeys/day-malaysia-australia-newzealand/index.html"), /australian-barramundi/);
+  assert.match(read("journeys/day-malaysia-australia-newzealand/index.html"), /Breakfast in Malaysia, lunch in Australia, dinner in New Zealand/);
+  assert.match(read("journeys/day-nigeria-southafrica-zimbabwe/index.html"), /Breakfast in Nigeria, lunch in South Africa, dinner in Zimbabwe/);
+  assert.doesNotMatch(read("journeys/day-nigeria-southafrica-zimbabwe/index.html"), /zambian-vitumbuwa|ghanaian-kyinkyinga|peri-peri/);
+  assert.doesNotMatch(read("journeys/day-australia-singapore-malaysia/index.html"), /kalua-pig|Hawaii/);
+  const movedDays = [
+    ["day-in-india", "day-india-thailand-vietnam"],
+    ["day-in-australia", "day-germany-india-australia"],
+    ["day-in-morocco", "day-morocco-spain-portugal"],
+    ["day-in-south-africa", "day-unitedkingdom-kenya-southafrica"],
+    ["day-samoa-australia-newzealand", "day-malaysia-australia-newzealand"],
+    ["day-newzealand-fiji", "day-australia-singapore-malaysia"],
+    ["day-samoa-tonga", "day-china-japan-korea"],
+    ["day-ghana-nigeria-ethiopia", "day-denmark-sweden-norway"],
+    ["day-kenya-tanzania", "day-kenya-ethiopia-yemen"],
+    ["day-morocco-mali-senegal", "day-morocco-senegal-nigeria"],
+    ["day-egypt-mozambique", "day-turkey-egypt-mozambique"],
+    ["day-zambia-ghana-zimbabwe", "day-nigeria-southafrica-zimbabwe"]
+  ];
+  const sitemap = read("sitemap.xml");
+  for (const [from, to] of movedDays) {
+    const stub = read(`journeys/${from}/index.html`);
+    assert.match(stub, /content="noindex"/, from);
+    assert.match(stub, new RegExp(`rel="canonical" href="https://kitekitchen.com/journeys/${to}/"`), from);
+    assert.match(stub, new RegExp(`url=/journeys/${to}/`), from);
+    assert.doesNotMatch(sitemap, new RegExp(`/journeys/${from}/`), from);
+    assert.match(sitemap, new RegExp(`/journeys/${to}/`), to);
+  }
+  const dishPhotoSlugs = new Set(dishPhotos.filter((photo) => photo.slug).map((photo) => photo.slug));
   for (const name of fs.readdirSync(path.join(root, "journeys"))) {
     if (!name.startsWith("day-")) continue;
     const day = read(`journeys/${name}/index.html`);
+    if (day.includes('content="noindex"')) continue;
     const cards = day.match(/<article class="kk-rcard">[\s\S]*?<\/article>/g) || [];
-    assert.ok(cards.length >= 2, name);
+    assert.ok(cards.length >= 3, name);
     for (const card of cards) {
       assert.equal(card.includes("kk-atlas-card"), false, name);
       assert.match(card, /\/assets\/photos\/editorial\//, name);
     }
+    const meals = [...day.matchAll(/<p class="kk-kicker">(Breakfast|Lunch|Dinner) · ([^<]+)<\/p>/g)];
+    assert.equal(meals.length, 3, name);
+    const countries = meals.map((match) => match[2]);
+    assert.equal(new Set(countries).size, 3, `${name}: ${countries.join(", ")}`);
+    const hrefs = [...day.matchAll(/<h3><a href="([^"]+)">/g)].map((match) => match[1]);
+    assert.equal(hrefs.length, cards.length, name);
+    for (const href of hrefs) assert.equal(dishPhotoSlugs.has(href.split("/").filter(Boolean).at(-1)), true, href);
   }
   for (const name of ["holiday-table", "weeknight", "breakfast", "street-food", "winter-warmers"]) {
     const page = read(`collections/${name}/index.html`);
