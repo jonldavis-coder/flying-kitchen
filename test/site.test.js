@@ -110,6 +110,12 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /Atlas plate/);
   assert.doesNotMatch(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /No photograph/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Jump to recipe/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /kk-units/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /data-units="metric"/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /"recipeYield":"4 servings \(about 1 cup\)"/);
+  assert.match(read("assets/js/recipe.js"), /data-units/);
+  assert.match(read("flying-bbq/dishes/afghan-tikka/index.html"), /<li>Cook whole cuts of beef/);
+  assert.match(read("flying-sauces/sauces/coconut-chutney/index.html"), /data-photo="coconut-chutney"/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
   assert.match(read("flying-sauces/sauces/arrabbiata/index.html"), /From the journey/);

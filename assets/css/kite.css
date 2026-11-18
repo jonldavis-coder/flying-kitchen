@@ -250,8 +250,10 @@ body:has(.kk-guide-mast) .site-header { display: none; }
 .kk-atlas-place { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.7rem; line-height: 1; }
 .kk-atlas-coord { margin: 0.2rem 0 0; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; color: var(--muted); }
 .kk-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.9rem 0 0.4rem; }
-.kk-servings { display: inline-flex; align-items: center; gap: 0.35rem; }
-.kk-servings button { min-width: 44px; }
+.kk-servings, .kk-units { display: inline-flex; align-items: center; gap: 0.35rem; }
+.kk-servings button, .kk-units button { min-width: 44px; }
+.kk-units { margin: 0.35rem 0 0.35rem 0.75rem; }
+.kk-units button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
 .ingredients li { display: flex; gap: 0.55rem; align-items: flex-start; }
 .kk-check { width: 1.15rem; height: 1.15rem; margin-top: 0.35rem; flex: none; accent-color: #1a1a1a; }
 .kk-related { margin-top: 2rem; }

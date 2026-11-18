@@ -960,6 +960,30 @@ const EDITORIAL = {
   "socca": {"id":"socca","widths":[640,1100],"w":16,"h":9,"alt":"Socca cut into pieces","caption":"Socca.","artist":"Schellack","license":"CC BY 3.0","licenseUrl":"https://creativecommons.org/licenses/by/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Socca_slices_Nice.jpg"},
   "bagna-cauda": {"id":"bagna-cauda","widths":[640,1100],"w":16,"h":9,"alt":"Bagna cauda in a warmer, with a pepper","caption":"Bagna cauda.","artist":"Madaki","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Bagna_cauda1.jpg"},
   "kenyan-chapati": {"id":"kenyan-chapati","widths":[640,1100],"w":16,"h":9,"alt":"A stack of chapati","caption":"Chapati.","artist":"safaritravelplus","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Chapati_kenya.jpg"},
+  "coconut-chutney": {"id":"coconut-chutney","widths":[640,1100],"w":16,"h":9,"alt":"Coconut chutney in a bowl, finished with curry leaves","caption":"Coconut chutney.","artist":"Mailz2kumar","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Coconut_Chutney_-_Home_Made.JPG"},
+  "kadhi": {"id":"kadhi","widths":[640],"w":16,"h":9,"alt":"Gujarati kadhi, a yogurt curry, in a pot","caption":"Kadhi.","artist":"Mowglee","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Gujaratikadhi.jpg"},
+  "chipotle-adobo": {"id":"chipotle-adobo","widths":[640,1100],"w":16,"h":9,"alt":"Chipotle chiles in adobo sauce","caption":"Chipotle in adobo.","artist":"Badagnani","license":"CC BY 3.0","licenseUrl":"https://creativecommons.org/licenses/by/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Chipotlesenadobo.jpg"},
+  "apple-sauce": {"id":"apple-sauce","widths":[525],"w":16,"h":9,"alt":"Apple sauce in a bowl","caption":"Apple sauce.","artist":"Suzette","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Apple_sauce_(6080699832).jpg"},
+  "salsa-golf": {"id":"salsa-golf","widths":[640,1100],"w":16,"h":9,"alt":"Salsa golf in glasses","caption":"Salsa golf.","artist":"dana robinson","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Salsa_golf.jpg"},
+  "banana-ketchup": {"id":"banana-ketchup","widths":[640,1100],"w":16,"h":9,"alt":"Banana ketchup beside a banana","caption":"Banana ketchup.","artist":"Khayri R.R. Woulfe","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Banana_Ketchup.jpg"},
+  "tahini-sauce": {"id":"tahini-sauce","widths":[640,1100],"w":16,"h":9,"alt":"Tahini sauce on a plate, with lemon and garlic","caption":"Tahini sauce.","artist":"Miansari66","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Tahini_Sauce.JPG"},
+  "bindaetteok": {"id":"bindaetteok","widths":[640],"w":16,"h":9,"alt":"Bindaetteok, a mung-bean pancake, in a skillet","caption":"Bindaetteok.","artist":"jetalone","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Korean.food-Bindaetteok-01.jpg"},
+  "raggmunk": {"id":"raggmunk","widths":[640,1100],"w":16,"h":9,"alt":"Raggmunk, a potato pancake, with pork and lingonberry","caption":"Raggmunk.","artist":"Mikaela Börjesson","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Raggmunk_med_fl%C3%A4sk.jpg"},
+  "joppiesaus": {"id":"joppiesaus","widths":[626],"w":16,"h":9,"alt":"Joppiesaus in a tub","caption":"Joppiesaus.","artist":"FakirNL","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Bakje_joppiesaus.jpg"},
+  "cachapas": {"id":"cachapas","widths":[640,1100],"w":16,"h":9,"alt":"Three cachapas on a griddle","caption":"Cachapas.","artist":"Wilfredor","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Cachapas_from_Venezuela.jpg"},
+  "aebleskiver": {"id":"aebleskiver","widths":[640],"w":16,"h":9,"alt":"Aebleskiver dusted with sugar","caption":"Aebleskiver.","artist":"Michael Meinecke","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Aebleskiver1.jpg"},
+  "fesenjan": {"id":"fesenjan","widths":[640,1100],"w":16,"h":9,"alt":"Fesenjan, a walnut and pomegranate stew","caption":"Fesenjan.","artist":"Darafsh","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Fesenjan_7861.jpg"},
+  "placki-ziemniaczane": {"id":"placki-ziemniaczane","widths":[640,1100],"w":16,"h":9,"alt":"Placki ziemniaczane with sour cream","caption":"Placki ziemniaczane.","artist":"Aw58","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Placki_ziemniaczane_ze_%C5%9Bmietan%C4%85.jpg"},
+  "buckwheat-blini": {"id":"buckwheat-blini","widths":[640,1100],"w":16,"h":9,"alt":"Buckwheat blini on a plate","caption":"Buckwheat blini.","artist":"Joey Doll","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Buckwheat_blini_(28309205447).jpg"},
+  "german-eierkuchen": {"id":"german-eierkuchen","widths":[640,1100],"w":16,"h":9,"alt":"Eierkuchen dusted with sugar","caption":"Eierkuchen.","artist":"Jan Homann","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Eierkuchen_mit_Zucker.jpg"},
+  "pebre": {"id":"pebre","widths":[640,1100],"w":16,"h":9,"alt":"Pebre, a tomato and onion salsa, in a bowl","caption":"Pebre.","artist":"Andrea Blankenstijn","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Pebre_y_pan.jpg"},
+  "toyomansi": {"id":"toyomansi","widths":[640,1100],"w":16,"h":9,"alt":"Toyomansi, soy sauce with calamansi and chile","caption":"Toyomansi.","artist":"Obsidian Soul","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Toyo_at_kalamansi_(toyomansi)_with_siling_labuyo_(Philippines)_01.jpg"},
+  "mojo-verde": {"id":"mojo-verde","widths":[640,1100],"w":16,"h":9,"alt":"Mojo verde beside wrinkled potatoes","caption":"Mojo verde.","artist":"Abhay Kumar","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Mojo_verde_y_papas_arrug%C3%A1s.jpg"},
+  "polish-nalesniki": {"id":"polish-nalesniki","widths":[640,1100],"w":16,"h":9,"alt":"Two rolled naleśniki","caption":"Naleśniki.","artist":"Aw58","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Nale%C5%9Bniki_zwijane_z_serem_-_2024.05.28.jpg"},
+  "brazilian-beiju": {"id":"brazilian-beiju","widths":[640,1100],"w":16,"h":9,"alt":"Beiju on banana leaves","caption":"Beiju.","artist":"Riba28-maps","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Beiju_de_folha;_beiju_molhado.JPG"},
+  "chilean-sopaipillas": {"id":"chilean-sopaipillas","widths":[640],"w":16,"h":9,"alt":"Chilean sopaipillas","caption":"Sopaipillas.","artist":"Lin linao","license":"CC BY-SA 3.0","licenseUrl":"http://creativecommons.org/licenses/by-sa/3.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Sopaipillas-reitimiento.JPG"},
+  "haitian-boukannen": {"id":"haitian-boukannen","widths":[640],"w":16,"h":9,"alt":"Mayi boukannen, grilled corn","caption":"Mayi boukannen.","artist":"PAUL FILS","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Mayi_Boukannen_03.jpg"},
+  "skordalia": {"id":"skordalia","widths":[640],"w":16,"h":9,"alt":"Skordalia in a bowl, with fried fish","caption":"Skordalia.","artist":"Christin568","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Bakaliaros2_Skordalia.jpg"},
 };
 const DISH_PHOTO = Object.fromEntries([
   "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
@@ -967,8 +991,15 @@ const DISH_PHOTO = Object.fromEntries([
   "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori",
   "paper-dosa", "malaysian-satay-ayam", "roti-canai", "korean-bulgogi", "jamaican-jerk-chicken", "chimichurri",
   "tianjin-jianbing", "nigerian-suya", "kenyan-nyama-choma", "moroccan-baghrir", "south-african-boerewors", "australian-pancakes", "singapore-hawker-satay",
-  "carbonara", "cacio-e-pepe", "aioli", "hollandaise", "hummus", "tzatziki", "romesco", "massaman-curry", "puttanesca", "muhammara", "zhug", "dorayaki", "english-crumpets", "spanish-tortilla", "brazilian-picanha", "chicken-tikka", "korean-galbi", "korean-samgyeopsal", "provoleta", "paneer-tikka", "seekh-kebab", "ethiopian-tibs", "moroccan-kefta-brochettes", "moroccan-mechoui", "mozambican-peri-peri-chicken", "egyptian-kofta", "msemen", "crepes-bretonnes", "australian-lamb-chops", "amatriciana", "green-curry", "peking-duck", "mexico-city-al-pastor", "harissa", "char-siu", "yucatan-cochinita-pibil", "new-zealand-pikelets", "salsa-criolla", "chakalaka", "farofa", "toum", "aglio-e-olio", "socca", "bagna-cauda", "kenyan-chapati"
+  "carbonara", "cacio-e-pepe", "aioli", "hollandaise", "hummus", "tzatziki", "romesco", "massaman-curry", "puttanesca", "muhammara", "zhug", "dorayaki", "english-crumpets", "spanish-tortilla", "brazilian-picanha", "chicken-tikka", "korean-galbi", "korean-samgyeopsal", "provoleta", "paneer-tikka", "seekh-kebab", "ethiopian-tibs", "moroccan-kefta-brochettes", "moroccan-mechoui", "mozambican-peri-peri-chicken", "egyptian-kofta", "msemen", "crepes-bretonnes", "australian-lamb-chops", "amatriciana", "green-curry", "peking-duck", "mexico-city-al-pastor", "harissa", "char-siu", "yucatan-cochinita-pibil", "new-zealand-pikelets", "salsa-criolla", "chakalaka", "farofa", "toum", "aglio-e-olio", "socca", "bagna-cauda", "kenyan-chapati",
+  "coconut-chutney", "kadhi", "chipotle-adobo", "apple-sauce", "salsa-golf", "banana-ketchup", "tahini-sauce", "bindaetteok", "raggmunk", "joppiesaus", "cachapas", "aebleskiver", "fesenjan", "placki-ziemniaczane", "buckwheat-blini", "german-eierkuchen", "pebre", "toyomansi", "mojo-verde", "polish-nalesniki", "brazilian-beiju", "chilean-sopaipillas", "haitian-boukannen", "skordalia"
 ].map((slug) => [slug, EDITORIAL[slug]]));
+DISH_PHOTO["pesto-alla-genovese"] = EDITORIAL.pesto;
+DISH_PHOTO["crepes-suzette"] = EDITORIAL.crepes;
+DISH_PHOTO["argentine-asado"] = EDITORIAL.asado;
+DISH_PHOTO["mole-poblano"] = EDITORIAL.mole;
+DISH_PHOTO.appam = EDITORIAL.appam;
+DISH_PHOTO["eastern-nc-whole-hog"] = EDITORIAL.hog;
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
   "/flying-pancakes/pancakes/crepes-suzette/": EDITORIAL.crepes,
@@ -1973,6 +2004,124 @@ function prioritySlugs() {
   return picked;
 }
 
+function quantityValue(token) {
+  const mixed = String(token).trim().match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixed) return Number(mixed[1]) + Number(mixed[2]) / Number(mixed[3]);
+  const frac = String(token).trim().match(/^(\d+)\/(\d+)$/);
+  if (frac) return Number(frac[1]) / Number(frac[2]);
+  const value = Number(token);
+  return Number.isFinite(value) ? value : null;
+}
+
+function normalizeIngredient(text) {
+  return text.replace(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:\.\d+)?)\s*(tbsp|tsp|lbs?|oz)\b\.?/gi, (all, num, unit) => {
+    const value = quantityValue(num);
+    const one = value === 1;
+    const key = unit.toLowerCase();
+    const word = key === "tbsp" ? (one ? "tablespoon" : "tablespoons")
+      : key === "tsp" ? (one ? "teaspoon" : "teaspoons")
+      : key === "lb" || key === "lbs" ? (one ? "pound" : "pounds")
+      : (one ? "ounce" : "ounces");
+    return `${num} ${word}`;
+  }).replace(/\s+/g, " ").trim();
+}
+
+function splitStep(text) {
+  const sentences = text.split(/(?<=[.!?])\s+(?=[A-Z“"])/).map((part) => part.trim()).filter(Boolean);
+  if (sentences.length <= 3) return [text];
+  const chunks = [];
+  for (let i = 0; i < sentences.length; i += 3) chunks.push(sentences.slice(i, i + 3).join(" "));
+  return chunks;
+}
+
+function polishMethod(html) {
+  html = html.replace(/<ul class="ingredients">([\s\S]*?)<\/ul>/, (_, inner) => {
+    const items = [...inner.matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => `<li>${normalizeIngredient(match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim())}</li>`);
+    return `<ul class="ingredients">${items.join("")}</ul>`;
+  });
+  html = html.replace(/<ol class="steps">([\s\S]*?)<\/ol>/, (_, inner) => {
+    const next = [];
+    for (const match of inner.matchAll(/<li>([\s\S]*?)<\/li>/g)) {
+      if (/<[a-z]/i.test(match[1])) {
+        next.push(`<li>${match[1]}</li>`);
+        continue;
+      }
+      const plain = match[1].replace(/\s+/g, " ").trim();
+      for (const chunk of splitStep(plain)) next.push(`<li>${chunk}</li>`);
+    }
+    return `<ol class="steps">${next.join("")}</ol>`;
+  });
+  return html;
+}
+
+function durationFrom(label) {
+  if (!label) return null;
+  const hours = label.match(/(\d+)\s*hr/i);
+  const minutes = label.match(/(\d+)\s*min/i);
+  if (!hours && !minutes) return null;
+  const h = hours ? Number(hours[1]) : 0;
+  const m = minutes ? Number(minutes[1]) : 0;
+  if (h && m) return `PT${h}H${m}M`;
+  if (h) return `PT${h}H`;
+  return `PT${m}M`;
+}
+
+function minutesFromDuration(value) {
+  if (!value) return 0;
+  const hours = value.match(/(\d+)H/);
+  const minutes = value.match(/(\d+)M/);
+  return (hours ? Number(hours[1]) * 60 : 0) + (minutes ? Number(minutes[1]) : 0);
+}
+
+function durationFromMinutes(total) {
+  const hours = Math.floor(total / 60);
+  const minutes = total % 60;
+  if (hours && minutes) return `PT${hours}H${minutes}M`;
+  if (hours) return `PT${hours}H`;
+  return `PT${minutes}M`;
+}
+
+function syncRecipeLd(html) {
+  const ingredientBlock = html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/);
+  const ingredients = ingredientBlock ? [...ingredientBlock[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()) : [];
+  const stepBlock = html.match(/<ol class="steps">([\s\S]*?)<\/ol>/);
+  const steps = stepBlock ? [...stepBlock[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()) : [];
+  const info = (html.match(/<ul class="kk-info"[\s\S]*?<\/ul>/) || [""])[0];
+  const bits = [...info.matchAll(/<li>([^<]+)<\/li>/g)].map((match) => match[1].trim());
+  const prep = bits.find((bit) => /prep/i.test(bit));
+  const cook = bits.find((bit) => /cook/i.test(bit));
+  const serves = (info.match(/Serves\s+(\d+)/i) || [])[1];
+  const yieldItem = bits.find((bit) => !/prep|cook|serves/i.test(bit));
+  return html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (full, raw) => {
+    let data;
+    try { data = JSON.parse(raw); } catch { return full; }
+    const list = Array.isArray(data) ? data : [data];
+    let changed = false;
+    for (const node of list) {
+      if (!node || node["@type"] !== "Recipe") continue;
+      if (ingredients.length) {
+        node.recipeIngredient = ingredients;
+        changed = true;
+      }
+      if (steps.length) {
+        node.recipeInstructions = steps.map((text) => ({ "@type": "HowToStep", text }));
+        changed = true;
+      }
+      const prepTime = durationFrom(prep);
+      const cookTime = durationFrom(cook);
+      if (prepTime) node.prepTime = prepTime;
+      if (cookTime) node.cookTime = cookTime;
+      if (prepTime || cookTime) node.totalTime = durationFromMinutes(minutesFromDuration(prepTime) + minutesFromDuration(cookTime));
+      if (serves && yieldItem) node.recipeYield = `${serves} servings (${yieldItem})`;
+      else if (serves) node.recipeYield = `${serves} servings`;
+      else if (yieldItem) node.recipeYield = yieldItem;
+      if (prepTime || cookTime || serves || yieldItem) changed = true;
+    }
+    if (!changed) return full;
+    return `<script type="application/ld+json">${JSON.stringify(Array.isArray(data) ? list : list[0]).replace(/</g, "\\u003c")}</script>`;
+  });
+}
+
 function polishRecipes() {
   const priority = prioritySlugs();
   const sections = [["flying-sauces", "sauces", "Flying Sauces"], ["flying-pancakes", "pancakes", "Flying Pancakes"], ["flying-bbq", "dishes", "Flying BBQ"]];
@@ -2109,6 +2258,14 @@ function polishRecipes() {
         const clean = inner.replace(/<aside class="kk-ad[\s\S]*?<\/aside>/g, "");
         return `${ads.join("\n")}<div class="kk-method" id="kk-method">${clean}</div>`;
       });
+      html = polishMethod(html);
+      html = syncRecipeLd(html);
+      if (!html.includes("kk-units") && html.includes("kk-info")) {
+        const toggle = `<p class="kk-units no-print" role="group" aria-label="Units"><button type="button" class="kk-button quiet is-on" data-units="us" aria-pressed="true">US</button><button type="button" class="kk-button quiet" data-units="metric" aria-pressed="false">Metric</button></p>`;
+        html = html.includes("kk-servings")
+          ? html.replace(/(<p class="kk-servings[\s\S]*?<\/p>)/, `$1\n${toggle}`)
+          : html.replace(/(<ul class="kk-info"[\s\S]*?<\/ul>)/, `$1\n${toggle}`);
+      }
       html = stampOg(html, `/assets/og/recipes/${kind}-${slug}.jpg`);
       fs.writeFileSync(file, html);
     }
