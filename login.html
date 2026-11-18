@@ -3,114 +3,78 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="/flying-kitchen/">
-  <title>Sign in · Flying Kitchen</title>
-  <meta name="description" content="Sign in to leave a heart, a rating, or a comment. Demo mode stays in this browser.">
-  <meta name="theme-color" content="#022d5a">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/images/apple-touch.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&amp;family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <title>Sign in · KiteKitchen</title>
+  <meta name="description" content="KiteKitchen does not run a separate account. Flying Sauces and Flying Pancakes keep their own demo sign-in.">
+  <meta name="theme-color" content="#141210">
   
-  <link rel="canonical" href="https://jonldavis-coder.github.io/flying-kitchen/login.html">
+  <link rel="canonical" href="https://kitekitchen.com/login.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Sign in · Flying Kitchen">
-  <meta property="og:description" content="Sign in to leave a heart, a rating, or a comment. Demo mode stays in this browser.">
-  <meta property="og:url" content="https://jonldavis-coder.github.io/flying-kitchen/login.html">
-  <meta property="og:image" content="https://jonldavis-coder.github.io/flying-kitchen/assets/images/og.jpg">
+  <meta property="og:site_name" content="KiteKitchen">
+  <meta property="og:title" content="Sign in · KiteKitchen">
+  <meta property="og:description" content="KiteKitchen does not run a separate account. Flying Sauces and Flying Pancakes keep their own demo sign-in.">
+  <meta property="og:url" content="https://kitekitchen.com/login.html">
+  <meta property="og:image" content="https://kitekitchen.com/assets/brand/og.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sign in · Flying Kitchen">
-  <meta name="twitter:description" content="Sign in to leave a heart, a rating, or a comment. Demo mode stays in this browser.">
-  <meta name="twitter:image" content="https://jonldavis-coder.github.io/flying-kitchen/assets/images/og.jpg">
-  
+  <meta name="twitter:title" content="Sign in · KiteKitchen">
+  <meta name="twitter:description" content="KiteKitchen does not run a separate account. Flying Sauces and Flying Pancakes keep their own demo sign-in.">
+  <meta name="twitter:image" content="https://kitekitchen.com/assets/brand/og.webp">
+  <link rel="stylesheet" href="/assets/css/kite.css">
   
 </head>
-<body data-page="auth" data-print="full">
+<body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <div class="frame">
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html">
-          <img class="brand-logo" src="assets/images/logo.jpg" alt="Flying Kitchen" width="800" height="800">
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-        <nav id="site-nav" aria-label="Primary">
-          <a href="index.html">Hub</a>
-          <a href="map/">Route map</a>
-          <a href="search/">Search</a>
-          <a href="books/">Books</a>
-          <a href="shop/">Shop</a>
-          <a href="about/">About</a>
-        </nav>
-        <div id="auth-slot"></div>
-      </div>
-      <p class="issue-line">Flying Sauces: 278 sauces · Flying Pancakes: 290 pancakes · Flying BBQ: 302 stops</p>
-    </header>
-    <p id="demo-banner" class="demo-banner" role="status" hidden></p>
-    <noscript>
-      <p class="demo-banner">JavaScript is off. You can still read the hub. Search filtering, the route map, and community notes need JavaScript.</p>
-    </noscript>
-    <main id="content" tabindex="-1">
-      <div class="wrap prose">
-      <h1>Sign in</h1>
-      <p id="auth-status" role="status"></p>
-      <p>Demo mode keeps the account in this browser. It is here so you can try hearts, stars, and comments. It is not a private multi-user service.</p>
-      <h2>Create an account</h2>
-      <form id="signup-form" data-auth class="stack">
-        <label>Display name <input name="displayName" required maxlength="40" autocomplete="nickname"></label>
-        <label>Email <input name="email" type="email" required autocomplete="username"></label>
-        <label>Password <input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
-        <label class="hp">Website <input name="website" tabindex="-1" autocomplete="off"></label>
-        <button type="submit">Create account</button>
-        <p class="form-error" role="alert"></p>
-      </form>
-      <h2>Sign in</h2>
-      <form id="signin-form" data-auth class="stack">
-        <label>Email <input name="email" type="email" required autocomplete="username"></label>
-        <label>Password <input name="password" type="password" required autocomplete="current-password"></label>
-        <label class="hp">Website <input name="website" tabindex="-1" autocomplete="off"></label>
-        <button type="submit">Sign in</button>
-        <p class="form-error" role="alert"></p>
-      </form>
-      <h2>One-time link</h2>
-      <form id="magic-form" data-auth class="stack">
-        <label>Email <input name="email" type="email" required></label>
-        <label class="hp">Website <input name="website" tabindex="-1" autocomplete="off"></label>
-        <button type="submit">Send a one-time link</button>
-        <p class="form-error" role="alert"></p>
-      </form>
-    </div>
-    </main>
-    <footer class="site-footer">
-      <div class="wrap">
-        <nav aria-label="Footer">
-          <a href="shop/">Shop</a>
-          <a href="books/">Books</a>
-          <a href="sauces/">Flying Sauces</a>
-          <a href="pancakes/">Flying Pancakes</a>
-          <a href="bbq/">Flying BBQ</a>
-          <a href="settled/">Who settled the flavor</a>
-          <a href="sources/">Sources</a>
-          <a href="credits/">Photo credits</a>
-          <a href="about/">About</a>
-          <a href="guidelines/">Community guidelines</a>
-          <a href="affiliate/">Affiliate disclosure</a>
-          <a href="privacy/">Privacy</a>
-          <a href="terms/">Terms</a>
-          <a href="submit.html">Suggest a pick</a>
-          <a href="login.html">Sign in</a>
-        </nav>
-        <p id="mode-note"></p>
-        <p>Recipes stay on their own Flying sites. This hub quotes those sites and links to them. It does not invent dishes, customers, or reviews. Shop prices are placeholders. Goods are planned for print-on-demand or private-label sourcing, and the buy buttons say coming soon.</p>
-      </div>
-    </footer>
+<header class="kk-header">
+  <div class="kk-header-inner">
+    <a class="kk-brand" href="/">
+      <img src="/assets/brand/kite-mark-128.webp" alt="" width="44" height="44">
+      <span class="kk-word">KiteKitchen</span>
+    </a>
+    <nav class="kk-nav" aria-label="Primary"><a href="/">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+    <details class="kk-menu">
+      <summary>Menu</summary>
+      <nav class="kk-nav" aria-label="Primary"><a href="/">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+    </details>
   </div>
-  <script src="config.js"></script>
-  <script src="ads-config.js"></script>
-  <script src="shop-config.js"></script>
-  <script type="module" src="assets/js/boot.js"></script>
+</header>
+  <main id="content" tabindex="-1">
+    <article class="kk-wrap"><h1>Sign in</h1><p>KiteKitchen does not keep accounts. The demo sign-in on the two guides is still there, stored in your browser only.</p><p><a href="/flying-sauces/login.html">Flying Sauces sign in</a></p><p><a href="/flying-pancakes/login.html">Flying Pancakes sign in</a></p></article>
+  </main>
+  <footer class="kk-footer">
+    <div class="kk-wrap">
+      <p class="kk-word">KiteKitchen</p>
+      <nav aria-label="Footer">
+        <a href="/recipes/">Recipes</a>
+        <a href="/traditions/">Traditions</a>
+        <a href="/flying-sauces/">Flying Sauces</a>
+        <a href="/flying-pancakes/">Flying Pancakes</a>
+        <a href="/friends/">Friends</a>
+        <a href="/shop/">Shop</a>
+        <a href="/books/">Books</a>
+        <a href="/advertise/">Advertise</a>
+        <a href="/credits/">Photo credits</a>
+        <a href="/sources/">Sources</a>
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/affiliate/">Affiliate disclosure</a>
+        <a href="/guidelines/">Guidelines</a>
+        <button type="button" class="quiet" data-consent-open>Cookie choices</button>
+      </nav>
+      <p>Recipes are for home cooking. They are not medical, dietary, or food-safety advice. The shop is not open. Nothing on this site has a price.</p>
+    </div>
+  </footer>
+  <div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
+    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <div class="kk-row">
+      <button type="button" class="kk-button" data-consent="granted">Accept</button>
+      <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
+    </div>
+  </div>
+  <script src="/config.js"></script>
+  <script src="/assets/js/consent.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,3038 @@
+{
+  "sauces": {
+    "bechamel": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "veloute": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "espagnole": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "sauce-tomate": {
+      "kind": "sauce",
+      "credit": "Arnaud 25",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sauce_tomate_01.jpg",
+      "sourceTitle": "File:Sauce tomate 01.jpg",
+      "files": {
+        "640": "assets/photos/sauces/sauce-tomate-640.webp",
+        "960": "assets/photos/sauces/sauce-tomate-960.webp",
+        "1280": "assets/photos/sauces/sauce-tomate-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "hollandaise": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "mayonnaise": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "bearnaise": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "beurre-blanc": {
+      "kind": "sauce",
+      "credit": "stu_spivack",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Purple_asparagus_in_Beurre_blanc_sauce.jpg",
+      "sourceTitle": "File:Purple asparagus in Beurre blanc sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/beurre-blanc-640.webp",
+        "960": "assets/photos/sauces/beurre-blanc-960.webp",
+        "1280": "assets/photos/sauces/beurre-blanc-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "vinaigrette": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "demi-glace": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "pesto-alla-genovese": {
+      "kind": "sauce",
+      "credit": "AlfonsoLucifredi",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pesto_alla_genovese.jpg",
+      "sourceTitle": "File:Pesto alla genovese.jpg",
+      "files": {
+        "640": "assets/photos/sauces/pesto-alla-genovese-640.webp",
+        "960": "assets/photos/sauces/pesto-alla-genovese-960.webp",
+        "1280": "assets/photos/sauces/pesto-alla-genovese-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "mole-poblano": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "nuoc-cham": {
+      "kind": "place",
+      "countryCode": "VN"
+    },
+    "eastern-north-carolina-bbq-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "kansas-city-bbq-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "alabama-white-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "ketchup": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "american-yellow-mustard": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "burger-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "chimichurri": {
+      "kind": "sauce",
+      "credit": "Dominic Lockyer",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chimichurri_Sauce_Recipe_(13294290615).jpg",
+      "sourceTitle": "File:Chimichurri Sauce Recipe (13294290615).jpg",
+      "files": {
+        "640": "assets/photos/sauces/chimichurri-640.webp",
+        "960": "assets/photos/sauces/chimichurri-960.webp",
+        "1280": "assets/photos/sauces/chimichurri-1280.webp"
+      },
+      "width": 1280,
+      "height": 1589
+    },
+    "pebre": {
+      "kind": "place",
+      "countryCode": "CL"
+    },
+    "aji-amarillo-sauce": {
+      "kind": "place",
+      "countryCode": "PE"
+    },
+    "harissa": {
+      "kind": "place",
+      "countryCode": "TN"
+    },
+    "shito": {
+      "kind": "place",
+      "countryCode": "GH"
+    },
+    "maafe": {
+      "kind": "sauce",
+      "credit": "Nicolas PHULPIN",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maaf%C3%A9.jpg",
+      "sourceTitle": "File:Maafé.jpg",
+      "files": {
+        "640": "assets/photos/sauces/maafe-640.webp",
+        "960": "assets/photos/sauces/maafe-960.webp",
+        "1280": "assets/photos/sauces/maafe-1280.webp"
+      },
+      "width": 1280,
+      "height": 803
+    },
+    "chakalaka": {
+      "kind": "sauce",
+      "credit": "philipp from cape town, south africa",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chakalaka.jpg",
+      "sourceTitle": "File:Chakalaka.jpg",
+      "files": {
+        "640": "assets/photos/sauces/chakalaka-640.webp",
+        "960": "assets/photos/sauces/chakalaka-960.webp",
+        "1280": "assets/photos/sauces/chakalaka-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707
+    },
+    "peri-peri-sauce": {
+      "kind": "place",
+      "countryCode": "MZ"
+    },
+    "moambe": {
+      "kind": "place",
+      "countryCode": "CD"
+    },
+    "hummus": {
+      "kind": "place",
+      "countryCode": "LB"
+    },
+    "satsivi": {
+      "kind": "place",
+      "countryCode": "GE"
+    },
+    "afghan-cilantro-chutney": {
+      "kind": "place",
+      "countryCode": "AF"
+    },
+    "mint-coriander-chutney": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "teriyaki-sauce": {
+      "kind": "sauce",
+      "credit": "David J",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Teriyaki_sauce.jpg",
+      "sourceTitle": "File:Teriyaki sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/teriyaki-sauce-640.webp",
+        "960": "assets/photos/sauces/teriyaki-sauce-960.webp",
+        "1280": "assets/photos/sauces/teriyaki-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "jerk-marinade": {
+      "kind": "place",
+      "countryCode": "JM"
+    },
+    "cuban-mojo": {
+      "kind": "place",
+      "countryCode": "CU"
+    },
+    "bulgogi-sauce": {
+      "kind": "place",
+      "countryCode": "KR"
+    },
+    "creme-anglaise": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "caramel-sauce": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "chocolate-sauce": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "sambal-oelek": {
+      "kind": "sauce",
+      "credit": "Father.Jack from Coventry, UK",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sambal_oelek_(210379470).jpg",
+      "sourceTitle": "File:Sambal oelek (210379470).jpg",
+      "files": {
+        "640": "assets/photos/sauces/sambal-oelek-640.webp",
+        "960": "assets/photos/sauces/sambal-oelek-960.webp",
+        "1280": "assets/photos/sauces/sambal-oelek-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707
+    },
+    "louisiana-hot-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "samoan-miti": {
+      "kind": "place",
+      "countryCode": "WS"
+    },
+    "hawaiian-chili-pepper-water": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "feijoa-chutney": {
+      "kind": "place",
+      "countryCode": "NZ"
+    },
+    "ajvar": {
+      "kind": "sauce",
+      "credit": "Ivana Sokolović",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ajvar_(10844189665).jpg",
+      "sourceTitle": "File:Ajvar (10844189665).jpg",
+      "files": {
+        "640": "assets/photos/sauces/ajvar-640.webp",
+        "960": "assets/photos/sauces/ajvar-960.webp",
+        "1280": "assets/photos/sauces/ajvar-1280.webp"
+      },
+      "width": 1280,
+      "height": 882
+    },
+    "hovmastarsas": {
+      "kind": "place",
+      "countryCode": "SE"
+    },
+    "mornay": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "bordelaise": {
+      "kind": "sauce",
+      "credit": "Ludovic Lambert",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sauce_Bordelaise.jpg",
+      "sourceTitle": "File:Sauce Bordelaise.jpg",
+      "files": {
+        "640": "assets/photos/sauces/bordelaise-640.webp",
+        "960": "assets/photos/sauces/bordelaise-960.webp",
+        "1280": "assets/photos/sauces/bordelaise-1280.webp"
+      },
+      "width": 1280,
+      "height": 720
+    },
+    "peppercorn-sauce": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "rouille": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "aioli": {
+      "kind": "sauce",
+      "credit": "Arnaud 25",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A%C3%AFoli.jpg",
+      "sourceTitle": "File:Aïoli.jpg",
+      "files": {
+        "640": "assets/photos/sauces/aioli-640.webp",
+        "960": "assets/photos/sauces/aioli-960.webp",
+        "1280": "assets/photos/sauces/aioli-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "pistou": {
+      "kind": "sauce",
+      "credit": "120 / V. Mourre",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pistou-3.JPG",
+      "sourceTitle": "File:Pistou-3.JPG",
+      "files": {
+        "640": "assets/photos/sauces/pistou-640.webp",
+        "960": "assets/photos/sauces/pistou-960.webp",
+        "1280": "assets/photos/sauces/pistou-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "sauce-gribiche": {
+      "kind": "sauce",
+      "credit": "Krzysztof Golik",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sauce_gribiche_01.jpg",
+      "sourceTitle": "File:Sauce gribiche 01.jpg",
+      "files": {
+        "640": "assets/photos/sauces/sauce-gribiche-640.webp"
+      },
+      "width": 640,
+      "height": 627
+    },
+    "sauce-vierge": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "tapenade": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "marinara": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "ragu-alla-bolognese": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "aglio-e-olio": {
+      "kind": "sauce",
+      "credit": "Louiesemendez",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aglio_e_Olio.jpg",
+      "sourceTitle": "File:Aglio e Olio.jpg",
+      "files": {
+        "640": "assets/photos/sauces/aglio-e-olio-640.webp",
+        "960": "assets/photos/sauces/aglio-e-olio-960.webp",
+        "1280": "assets/photos/sauces/aglio-e-olio-1280.webp"
+      },
+      "width": 1280,
+      "height": 1920
+    },
+    "arrabbiata": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "puttanesca": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "carbonara": {
+      "kind": "sauce",
+      "credit": "Marife.altabano",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Carbonara_01.jpg",
+      "sourceTitle": "File:Carbonara 01.jpg",
+      "files": {
+        "640": "assets/photos/sauces/carbonara-640.webp",
+        "960": "assets/photos/sauces/carbonara-960.webp",
+        "1280": "assets/photos/sauces/carbonara-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "cacio-e-pepe": {
+      "kind": "sauce",
+      "credit": "T.Tseng",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cacio_e_pepe_(15454950583).jpg",
+      "sourceTitle": "File:Cacio e pepe (15454950583).jpg",
+      "files": {
+        "640": "assets/photos/sauces/cacio-e-pepe-640.webp",
+        "960": "assets/photos/sauces/cacio-e-pepe-960.webp",
+        "1280": "assets/photos/sauces/cacio-e-pepe-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "amatriciana": {
+      "kind": "sauce",
+      "credit": "Applaz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spaghetti_amatriciana.jpg",
+      "sourceTitle": "File:Spaghetti amatriciana.jpg",
+      "files": {
+        "640": "assets/photos/sauces/amatriciana-640.webp",
+        "960": "assets/photos/sauces/amatriciana-960.webp"
+      },
+      "width": 960,
+      "height": 1280
+    },
+    "gricia": {
+      "kind": "sauce",
+      "credit": "Luca Nebuloni from Milan, Italy",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gricia_(7378890110).jpg",
+      "sourceTitle": "File:Gricia (7378890110).jpg",
+      "files": {
+        "640": "assets/photos/sauces/gricia-640.webp",
+        "960": "assets/photos/sauces/gricia-960.webp",
+        "1280": "assets/photos/sauces/gricia-1280.webp"
+      },
+      "width": 1280,
+      "height": 854
+    },
+    "italian-salsa-verde": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "bagna-cauda": {
+      "kind": "sauce",
+      "credit": "Lombroso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bagna_c%C3%A0uda_(2016-01-30).jpg",
+      "sourceTitle": "File:Bagna càuda (2016-01-30).jpg",
+      "files": {
+        "640": "assets/photos/sauces/bagna-cauda-640.webp",
+        "960": "assets/photos/sauces/bagna-cauda-960.webp",
+        "1280": "assets/photos/sauces/bagna-cauda-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "pesto-trapanese": {
+      "kind": "sauce",
+      "credit": "purdman1",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pesto_alla_Trapanese.jpg",
+      "sourceTitle": "File:Pesto alla Trapanese.jpg",
+      "files": {
+        "640": "assets/photos/sauces/pesto-trapanese-640.webp",
+        "960": "assets/photos/sauces/pesto-trapanese-960.webp",
+        "1280": "assets/photos/sauces/pesto-trapanese-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "salsa-di-noci": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "salmoriglio": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "salsa-tonnata": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "agrodolce": {
+      "kind": "sauce",
+      "credit": "Flickr user: thebittenword.com ( https://www.flickr.com/photos/galant/ ).",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Agrodolce.jpg",
+      "sourceTitle": "File:Agrodolce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/agrodolce-640.webp",
+        "960": "assets/photos/sauces/agrodolce-960.webp"
+      },
+      "width": 960,
+      "height": 639
+    },
+    "burro-e-salvia": {
+      "kind": "place",
+      "countryCode": "IT"
+    },
+    "romesco": {
+      "kind": "sauce",
+      "credit": "cyclonebill from Copenhagen, Denmark",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Romesco-sauce_(6917877891).jpg",
+      "sourceTitle": "File:Romesco-sauce (6917877891).jpg",
+      "files": {
+        "640": "assets/photos/sauces/romesco-640.webp",
+        "960": "assets/photos/sauces/romesco-960.webp",
+        "1280": "assets/photos/sauces/romesco-1280.webp"
+      },
+      "width": 1280,
+      "height": 850
+    },
+    "salsa-brava": {
+      "kind": "sauce",
+      "credit": "Rapper Ouriço",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salsa-brava.jpg",
+      "sourceTitle": "File:Salsa-brava.jpg",
+      "files": {
+        "640": "assets/photos/sauces/salsa-brava-640.webp",
+        "960": "assets/photos/sauces/salsa-brava-960.webp",
+        "1280": "assets/photos/sauces/salsa-brava-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "mojo-rojo": {
+      "kind": "place",
+      "countryCode": "ES"
+    },
+    "mojo-verde": {
+      "kind": "place",
+      "countryCode": "ES"
+    },
+    "salsa-vizcaina": {
+      "kind": "place",
+      "countryCode": "ES"
+    },
+    "dijon-mustard": {
+      "kind": "sauce",
+      "credit": "Jon Pallbo (Jon.Pallbo@gmail.com)",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dijon_mustard.jpg",
+      "sourceTitle": "File:Dijon mustard.jpg",
+      "files": {
+        "640": "assets/photos/sauces/dijon-mustard-640.webp",
+        "960": "assets/photos/sauces/dijon-mustard-960.webp",
+        "1280": "assets/photos/sauces/dijon-mustard-1280.webp"
+      },
+      "width": 1280,
+      "height": 2312
+    },
+    "mint-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "bread-sauce": {
+      "kind": "sauce",
+      "credit": "ElinorD",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bread_sauce.jpg",
+      "sourceTitle": "File:Bread sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/bread-sauce-640.webp",
+        "960": "assets/photos/sauces/bread-sauce-960.webp",
+        "1280": "assets/photos/sauces/bread-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 1137
+    },
+    "cumberland-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "worcestershire-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "horseradish-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "apple-sauce": {
+      "kind": "sauce",
+      "credit": "Taken",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Apple-sauce-544676.jpg",
+      "sourceTitle": "File:Apple-sauce-544676.jpg",
+      "files": {
+        "640": "assets/photos/sauces/apple-sauce-640.webp",
+        "960": "assets/photos/sauces/apple-sauce-960.webp",
+        "1280": "assets/photos/sauces/apple-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 720
+    },
+    "onion-gravy": {
+      "kind": "sauce",
+      "credit": "Ben30 from Barnes, United Kingdom",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Roasted_onion_gravy.jpg",
+      "sourceTitle": "File:Roasted onion gravy.jpg",
+      "files": {
+        "640": "assets/photos/sauces/onion-gravy-640.webp",
+        "960": "assets/photos/sauces/onion-gravy-960.webp",
+        "1280": "assets/photos/sauces/onion-gravy-1280.webp"
+      },
+      "width": 1280,
+      "height": 848
+    },
+    "coronation-dressing": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "marie-rose-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "piccalilli": {
+      "kind": "sauce",
+      "credit": "Wikimedia Commons contributor",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Piccalilli.jpg",
+      "sourceTitle": "File:Piccalilli.jpg",
+      "files": {
+        "640": "assets/photos/sauces/piccalilli-640.webp",
+        "960": "assets/photos/sauces/piccalilli-960.webp",
+        "1280": "assets/photos/sauces/piccalilli-1280.webp"
+      },
+      "width": 1280,
+      "height": 720
+    },
+    "chip-shop-curry-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "frankfurter-grune-sosse": {
+      "kind": "sauce",
+      "credit": "Own work",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frankfurter_Gr%C3%BCne_So%C3%9Fe.jpg",
+      "sourceTitle": "File:Frankfurter Grüne Soße.jpg",
+      "files": {
+        "640": "assets/photos/sauces/frankfurter-grune-sosse-640.webp",
+        "960": "assets/photos/sauces/frankfurter-grune-sosse-960.webp",
+        "1280": "assets/photos/sauces/frankfurter-grune-sosse-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "currywurst-sauce": {
+      "kind": "place",
+      "countryCode": "DE"
+    },
+    "svickova": {
+      "kind": "place",
+      "countryCode": "CZ"
+    },
+    "frietsaus": {
+      "kind": "place",
+      "countryCode": "NL"
+    },
+    "sauce-andalouse": {
+      "kind": "place",
+      "countryCode": "BE"
+    },
+    "joppiesaus": {
+      "kind": "place",
+      "countryCode": "NL"
+    },
+    "danish-remoulade": {
+      "kind": "place",
+      "countryCode": "DK"
+    },
+    "lingonberry-sauce": {
+      "kind": "place",
+      "countryCode": "SE"
+    },
+    "tzatziki": {
+      "kind": "place",
+      "countryCode": "GR"
+    },
+    "skordalia": {
+      "kind": "sauce",
+      "credit": "Amymoni",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Skordalia.jpg",
+      "sourceTitle": "File:Skordalia.jpg",
+      "files": {
+        "640": "assets/photos/sauces/skordalia-640.webp",
+        "960": "assets/photos/sauces/skordalia-960.webp",
+        "1280": "assets/photos/sauces/skordalia-1280.webp"
+      },
+      "width": 1280,
+      "height": 1167
+    },
+    "ladolemono": {
+      "kind": "place",
+      "countryCode": "GR"
+    },
+    "avgolemono": {
+      "kind": "place",
+      "countryCode": "GR"
+    },
+    "cacik": {
+      "kind": "sauce",
+      "credit": "CeeGee",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cac%C4%B1k.JPG",
+      "sourceTitle": "File:Cacık.JPG",
+      "files": {
+        "640": "assets/photos/sauces/cacik-640.webp",
+        "960": "assets/photos/sauces/cacik-960.webp",
+        "1280": "assets/photos/sauces/cacik-1280.webp"
+      },
+      "width": 1280,
+      "height": 906
+    },
+    "haydari": {
+      "kind": "place",
+      "countryCode": "TR"
+    },
+    "tkemali": {
+      "kind": "sauce",
+      "credit": "Georgi1",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tkemali.JPG",
+      "sourceTitle": "File:Tkemali.JPG",
+      "files": {
+        "640": "assets/photos/sauces/tkemali-640.webp",
+        "960": "assets/photos/sauces/tkemali-960.webp",
+        "1280": "assets/photos/sauces/tkemali-1280.webp"
+      },
+      "width": 1280,
+      "height": 936
+    },
+    "adjika": {
+      "kind": "place",
+      "countryCode": "GE"
+    },
+    "chermoula": {
+      "kind": "place",
+      "countryCode": "MA"
+    },
+    "toum": {
+      "kind": "sauce",
+      "credit": "Alain Isla",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toum-toum.jpg",
+      "sourceTitle": "File:Toum-toum.jpg",
+      "files": {
+        "640": "assets/photos/sauces/toum-640.webp",
+        "960": "assets/photos/sauces/toum-960.webp",
+        "1280": "assets/photos/sauces/toum-1280.webp"
+      },
+      "width": 1280,
+      "height": 825
+    },
+    "tahini-sauce": {
+      "kind": "sauce",
+      "credit": "Miansari66",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tahini_Sauce.JPG",
+      "sourceTitle": "File:Tahini Sauce.JPG",
+      "files": {
+        "640": "assets/photos/sauces/tahini-sauce-640.webp",
+        "960": "assets/photos/sauces/tahini-sauce-960.webp",
+        "1280": "assets/photos/sauces/tahini-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "muhammara": {
+      "kind": "sauce",
+      "credit": "Bazel",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Muhammara.jpg",
+      "sourceTitle": "File:Muhammara.jpg",
+      "files": {
+        "640": "assets/photos/sauces/muhammara-640.webp",
+        "960": "assets/photos/sauces/muhammara-960.webp",
+        "1280": "assets/photos/sauces/muhammara-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "mutabbal": {
+      "kind": "place",
+      "countryCode": "LB"
+    },
+    "zhug": {
+      "kind": "place",
+      "countryCode": "YE"
+    },
+    "amba": {
+      "kind": "place",
+      "countryCode": "IQ"
+    },
+    "fesenjan": {
+      "kind": "sauce",
+      "credit": "Darafsh",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fesenjan_7861.jpg",
+      "sourceTitle": "File:Fesenjan 7861.jpg",
+      "files": {
+        "640": "assets/photos/sauces/fesenjan-640.webp",
+        "960": "assets/photos/sauces/fesenjan-960.webp",
+        "1280": "assets/photos/sauces/fesenjan-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707
+    },
+    "mast-o-khiar": {
+      "kind": "place",
+      "countryCode": "IR"
+    },
+    "amlou": {
+      "kind": "place",
+      "countryCode": "MA"
+    },
+    "shatta": {
+      "kind": "sauce",
+      "credit": "Taloubant",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shatta_2.jpg",
+      "sourceTitle": "File:Shatta 2.jpg",
+      "files": {
+        "640": "assets/photos/sauces/shatta-640.webp",
+        "960": "assets/photos/sauces/shatta-960.webp",
+        "1280": "assets/photos/sauces/shatta-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "koshari-sauce": {
+      "kind": "place",
+      "countryCode": "EG"
+    },
+    "taleya": {
+      "kind": "place",
+      "countryCode": "EG"
+    },
+    "filfel-chuma": {
+      "kind": "place",
+      "countryCode": "LY"
+    },
+    "yassa": {
+      "kind": "place",
+      "countryCode": "SN"
+    },
+    "ata-din-din": {
+      "kind": "place",
+      "countryCode": "NG"
+    },
+    "egusi-sauce": {
+      "kind": "place",
+      "countryCode": "NG"
+    },
+    "banga-sauce": {
+      "kind": "place",
+      "countryCode": "NG"
+    },
+    "sauce-graine": {
+      "kind": "sauce",
+      "credit": "KONE IF",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sauce_graine_02.jpg",
+      "sourceTitle": "File:Sauce graine 02.jpg",
+      "files": {
+        "640": "assets/photos/sauces/sauce-graine-640.webp",
+        "960": "assets/photos/sauces/sauce-graine-960.webp",
+        "1280": "assets/photos/sauces/sauce-graine-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "awaze": {
+      "kind": "place",
+      "countryCode": "ET"
+    },
+    "niter-kibbeh": {
+      "kind": "place",
+      "countryCode": "ET"
+    },
+    "silsi": {
+      "kind": "place",
+      "countryCode": "ER"
+    },
+    "sakay": {
+      "kind": "place",
+      "countryCode": "MG"
+    },
+    "shata": {
+      "kind": "place",
+      "countryCode": "SD"
+    },
+    "monkey-gland-sauce": {
+      "kind": "place",
+      "countryCode": "ZA"
+    },
+    "cape-malay-chutney": {
+      "kind": "place",
+      "countryCode": "ZA"
+    },
+    "tamarind-date-chutney": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "coconut-chutney": {
+      "kind": "sauce",
+      "credit": "Charles Haynes from Bangalore, India",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coconut_Chutney.jpg",
+      "sourceTitle": "File:Coconut Chutney.jpg",
+      "files": {
+        "640": "assets/photos/sauces/coconut-chutney-640.webp",
+        "960": "assets/photos/sauces/coconut-chutney-960.webp",
+        "1280": "assets/photos/sauces/coconut-chutney-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "mango-chutney": {
+      "kind": "sauce",
+      "credit": "Miansari66",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mango_Chutney.JPG",
+      "sourceTitle": "File:Mango Chutney.JPG",
+      "files": {
+        "640": "assets/photos/sauces/mango-chutney-640.webp",
+        "960": "assets/photos/sauces/mango-chutney-960.webp",
+        "1280": "assets/photos/sauces/mango-chutney-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "raita": {
+      "kind": "sauce",
+      "credit": "Zeel Patel",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cucumber_Raita.JPG",
+      "sourceTitle": "File:Cucumber Raita.JPG",
+      "files": {
+        "640": "assets/photos/sauces/raita-640.webp",
+        "960": "assets/photos/sauces/raita-960.webp",
+        "1280": "assets/photos/sauces/raita-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "kadhi": {
+      "kind": "sauce",
+      "credit": "DreamyFlutura11",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kadhi.jpg",
+      "sourceTitle": "File:Kadhi.jpg",
+      "files": {
+        "640": "assets/photos/sauces/kadhi-640.webp",
+        "960": "assets/photos/sauces/kadhi-960.webp",
+        "1280": "assets/photos/sauces/kadhi-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "makhani-sauce": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "tikka-masala-sauce": {
+      "kind": "place",
+      "countryCode": "GB"
+    },
+    "vindaloo-sauce": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "sambar": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "rasam": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "kasundi": {
+      "kind": "sauce",
+      "credit": "Miansari66",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kasundi.JPG",
+      "sourceTitle": "File:Kasundi.JPG",
+      "files": {
+        "640": "assets/photos/sauces/kasundi-640.webp",
+        "960": "assets/photos/sauces/kasundi-960.webp",
+        "1280": "assets/photos/sauces/kasundi-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "mirchi-ka-salan": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "pol-sambol": {
+      "kind": "sauce",
+      "credit": "Dan arndt",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pol_Sambol.jpg",
+      "sourceTitle": "File:Pol Sambol.jpg",
+      "files": {
+        "640": "assets/photos/sauces/pol-sambol-640.webp",
+        "960": "assets/photos/sauces/pol-sambol-960.webp",
+        "1280": "assets/photos/sauces/pol-sambol-1280.webp"
+      },
+      "width": 1280,
+      "height": 969
+    },
+    "seeni-sambol": {
+      "kind": "place",
+      "countryCode": "LK"
+    },
+    "kiri-hodi": {
+      "kind": "place",
+      "countryCode": "LK"
+    },
+    "cafreal-marinade": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "manchurian-sauce": {
+      "kind": "place",
+      "countryCode": "IN"
+    },
+    "nam-pla-prik": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "nam-jim": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "nam-jim-jaew": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "green-curry": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "red-curry": {
+      "kind": "sauce",
+      "credit": "spurekar",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Thai_red_curry_(49692016398).jpg",
+      "sourceTitle": "File:Thai red curry (49692016398).jpg",
+      "files": {
+        "640": "assets/photos/sauces/red-curry-640.webp",
+        "960": "assets/photos/sauces/red-curry-960.webp",
+        "1280": "assets/photos/sauces/red-curry-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "massaman-curry": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "nam-prik-pao": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "thai-sweet-chili-sauce": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "sriracha": {
+      "kind": "sauce",
+      "credit": "Glane23",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sriracha_sauce.JPG",
+      "sourceTitle": "File:Sriracha sauce.JPG",
+      "files": {
+        "640": "assets/photos/sauces/sriracha-640.webp",
+        "960": "assets/photos/sauces/sriracha-960.webp",
+        "1280": "assets/photos/sauces/sriracha-1280.webp"
+      },
+      "width": 1280,
+      "height": 3923
+    },
+    "pad-thai-sauce": {
+      "kind": "place",
+      "countryCode": "TH"
+    },
+    "sambal-terasi": {
+      "kind": "sauce",
+      "credit": "Windi Utari",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:SAMBAL_TERASI.jpg",
+      "sourceTitle": "File:SAMBAL TERASI.jpg",
+      "files": {
+        "640": "assets/photos/sauces/sambal-terasi-640.webp",
+        "960": "assets/photos/sauces/sambal-terasi-960.webp",
+        "1280": "assets/photos/sauces/sambal-terasi-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "sambal-matah": {
+      "kind": "sauce",
+      "credit": "ちちゃ",
+      "license": "CC BY 2.1 jp",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.1/jp/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sambal_matah.jpg",
+      "sourceTitle": "File:Sambal matah.jpg",
+      "files": {
+        "640": "assets/photos/sauces/sambal-matah-640.webp",
+        "960": "assets/photos/sauces/sambal-matah-960.webp",
+        "1280": "assets/photos/sauces/sambal-matah-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "sambal-belacan": {
+      "kind": "sauce",
+      "credit": "Mdsheth1986",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sambal_Belacan.jpg",
+      "sourceTitle": "File:Sambal Belacan.jpg",
+      "files": {
+        "640": "assets/photos/sauces/sambal-belacan-640.webp",
+        "960": "assets/photos/sauces/sambal-belacan-960.webp",
+        "1280": "assets/photos/sauces/sambal-belacan-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "kecap-manis": {
+      "kind": "place",
+      "countryCode": "ID"
+    },
+    "bumbu-kacang": {
+      "kind": "place",
+      "countryCode": "ID"
+    },
+    "dabu-dabu": {
+      "kind": "place",
+      "countryCode": "ID"
+    },
+    "chili-crab-sauce": {
+      "kind": "place",
+      "countryCode": "SG"
+    },
+    "ginger-scallion-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "lechon-sauce": {
+      "kind": "sauce",
+      "credit": "MannyT1629",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lechon_sauce.jpg",
+      "sourceTitle": "File:Lechon sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/lechon-sauce-640.webp",
+        "960": "assets/photos/sauces/lechon-sauce-960.webp",
+        "1280": "assets/photos/sauces/lechon-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707
+    },
+    "banana-ketchup": {
+      "kind": "sauce",
+      "credit": "John Stephen Dwyer ( HouseOfScandal at en.wikipedia )",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Banana_ketchup.jpg",
+      "sourceTitle": "File:Banana ketchup.jpg",
+      "files": {
+        "640": "assets/photos/sauces/banana-ketchup-640.webp",
+        "960": "assets/photos/sauces/banana-ketchup-960.webp",
+        "1280": "assets/photos/sauces/banana-ketchup-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707
+    },
+    "adobo-sauce": {
+      "kind": "place",
+      "countryCode": "PH"
+    },
+    "toyomansi": {
+      "kind": "place",
+      "countryCode": "PH"
+    },
+    "dumpling-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "mapo-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "yuxiang-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "sweet-and-sour-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "char-siu-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "ponzu": {
+      "kind": "sauce",
+      "credit": "Wikimedia Commons contributor",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ponzu_sauce_%E3%83%9D%E3%83%B3%E9%85%A23.jpg",
+      "sourceTitle": "File:Ponzu sauce ポン酢3.jpg",
+      "files": {
+        "640": "assets/photos/sauces/ponzu-640.webp",
+        "960": "assets/photos/sauces/ponzu-960.webp",
+        "1280": "assets/photos/sauces/ponzu-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "tonkatsu-sauce": {
+      "kind": "place",
+      "countryCode": "JP"
+    },
+    "japanese-curry-sauce": {
+      "kind": "place",
+      "countryCode": "JP"
+    },
+    "ssamjang": {
+      "kind": "sauce",
+      "credit": "leeey",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ssamjang.jpg",
+      "sourceTitle": "File:Ssamjang.jpg",
+      "files": {
+        "640": "assets/photos/sauces/ssamjang-640.webp",
+        "960": "assets/photos/sauces/ssamjang-960.webp",
+        "1280": "assets/photos/sauces/ssamjang-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "yangnyeom-sauce": {
+      "kind": "place",
+      "countryCode": "KR"
+    },
+    "general-tso-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "dan-dan-sauce": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "scallion-oil": {
+      "kind": "place",
+      "countryCode": "CN"
+    },
+    "xo-sauce": {
+      "kind": "sauce",
+      "credit": "David Blaine from Spokane, USA",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:XO_sauce.jpg",
+      "sourceTitle": "File:XO sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/xo-sauce-640.webp",
+        "960": "assets/photos/sauces/xo-sauce-960.webp"
+      },
+      "width": 960,
+      "height": 1280
+    },
+    "goma-dare": {
+      "kind": "place",
+      "countryCode": "JP"
+    },
+    "jaew-bong": {
+      "kind": "place",
+      "countryCode": "LA"
+    },
+    "balachaung": {
+      "kind": "place",
+      "countryCode": "MM"
+    },
+    "salsa-roja": {
+      "kind": "sauce",
+      "credit": "goblinbox_(queen_of_ad_hoc_bento) from Minneapolis, MN, US",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salsa_roja.jpg",
+      "sourceTitle": "File:Salsa roja.jpg",
+      "files": {
+        "640": "assets/photos/sauces/salsa-roja-640.webp",
+        "960": "assets/photos/sauces/salsa-roja-960.webp"
+      },
+      "width": 960,
+      "height": 776
+    },
+    "salsa-verde-tomatillo": {
+      "kind": "sauce",
+      "credit": "No machine-readable author provided. JEDIKNIGHT1970 assumed (based on copyright claims).",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:SALSA_VERDE.jpg",
+      "sourceTitle": "File:SALSA VERDE.jpg",
+      "files": {
+        "640": "assets/photos/sauces/salsa-verde-tomatillo-640.webp",
+        "960": "assets/photos/sauces/salsa-verde-tomatillo-960.webp",
+        "1280": "assets/photos/sauces/salsa-verde-tomatillo-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "pico-de-gallo": {
+      "kind": "sauce",
+      "credit": "Lord Laitinen",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pico_de_Gallo_Homemade_2014.JPG",
+      "sourceTitle": "File:Pico de Gallo Homemade 2014.JPG",
+      "files": {
+        "640": "assets/photos/sauces/pico-de-gallo-640.webp",
+        "960": "assets/photos/sauces/pico-de-gallo-960.webp",
+        "1280": "assets/photos/sauces/pico-de-gallo-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "salsa-macha": {
+      "kind": "sauce",
+      "credit": "BurseraLinanoe",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salsa_macha.jpg",
+      "sourceTitle": "File:Salsa macha.jpg",
+      "files": {
+        "640": "assets/photos/sauces/salsa-macha-640.webp",
+        "960": "assets/photos/sauces/salsa-macha-960.webp",
+        "1280": "assets/photos/sauces/salsa-macha-1280.webp"
+      },
+      "width": 1280,
+      "height": 1920
+    },
+    "guacamole": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "mole-negro": {
+      "kind": "sauce",
+      "credit": "German matus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mole_negro.jpg",
+      "sourceTitle": "File:Mole negro.jpg",
+      "files": {
+        "640": "assets/photos/sauces/mole-negro-640.webp",
+        "960": "assets/photos/sauces/mole-negro-960.webp"
+      },
+      "width": 960,
+      "height": 1048
+    },
+    "pipian-rojo": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "recado-rojo": {
+      "kind": "sauce",
+      "credit": "El Mono Español",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Recado_rojo.jpg",
+      "sourceTitle": "File:Recado rojo.jpg",
+      "files": {
+        "640": "assets/photos/sauces/recado-rojo-640.webp",
+        "960": "assets/photos/sauces/recado-rojo-960.webp",
+        "1280": "assets/photos/sauces/recado-rojo-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "xnipec": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "chipotle-adobo": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "red-enchilada-sauce": {
+      "kind": "sauce",
+      "credit": "PilotChicago",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Red_enchilada_sauce.jpg",
+      "sourceTitle": "File:Red enchilada sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/red-enchilada-sauce-640.webp",
+        "960": "assets/photos/sauces/red-enchilada-sauce-960.webp",
+        "1280": "assets/photos/sauces/red-enchilada-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "new-mexico-red-chile": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "new-mexico-green-chile": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "salsa-veracruzana": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "curtido": {
+      "kind": "sauce",
+      "credit": "The DLC from kansas city, mo",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Curtido_(6292106013).jpg",
+      "sourceTitle": "File:Curtido (6292106013).jpg",
+      "files": {
+        "640": "assets/photos/sauces/curtido-640.webp",
+        "960": "assets/photos/sauces/curtido-960.webp",
+        "1280": "assets/photos/sauces/curtido-1280.webp"
+      },
+      "width": 1280,
+      "height": 1714
+    },
+    "chirmol": {
+      "kind": "place",
+      "countryCode": "GT"
+    },
+    "escovitch": {
+      "kind": "place",
+      "countryCode": "JM"
+    },
+    "trinidad-pepper-sauce": {
+      "kind": "place",
+      "countryCode": "TT"
+    },
+    "green-seasoning": {
+      "kind": "place",
+      "countryCode": "TT"
+    },
+    "sauce-chien": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "haitian-epis": {
+      "kind": "sauce",
+      "credit": "LittleT889",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Haitian_Epis.jpg",
+      "sourceTitle": "File:Haitian Epis.jpg",
+      "files": {
+        "640": "assets/photos/sauces/haitian-epis-640.webp",
+        "960": "assets/photos/sauces/haitian-epis-960.webp",
+        "1280": "assets/photos/sauces/haitian-epis-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707
+    },
+    "pikliz": {
+      "kind": "sauce",
+      "credit": "LittleT889",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pikliz.jpg",
+      "sourceTitle": "File:Pikliz.jpg",
+      "files": {
+        "640": "assets/photos/sauces/pikliz-640.webp",
+        "960": "assets/photos/sauces/pikliz-960.webp",
+        "1280": "assets/photos/sauces/pikliz-1280.webp"
+      },
+      "width": 1280,
+      "height": 1250
+    },
+    "puerto-rican-sofrito": {
+      "kind": "place",
+      "countryCode": "PR"
+    },
+    "wasakaka": {
+      "kind": "place",
+      "countryCode": "DO"
+    },
+    "llajwa": {
+      "kind": "place",
+      "countryCode": "BO"
+    },
+    "salsa-criolla": {
+      "kind": "sauce",
+      "credit": "No machine-readable author provided. Manuel González Olaechea assumed (based on copyright claims).",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salsa_criolla.jpg",
+      "sourceTitle": "File:Salsa criolla.jpg",
+      "files": {
+        "640": "assets/photos/sauces/salsa-criolla-640.webp",
+        "960": "assets/photos/sauces/salsa-criolla-960.webp",
+        "1280": "assets/photos/sauces/salsa-criolla-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "guasacaca": {
+      "kind": "sauce",
+      "credit": "Muago",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Guasacaca.jpg",
+      "sourceTitle": "File:Guasacaca.jpg",
+      "files": {
+        "640": "assets/photos/sauces/guasacaca-640.webp",
+        "960": "assets/photos/sauces/guasacaca-960.webp",
+        "1280": "assets/photos/sauces/guasacaca-1280.webp"
+      },
+      "width": 1280,
+      "height": 959
+    },
+    "hogao": {
+      "kind": "sauce",
+      "credit": "Xemenendura",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hogao.JPG",
+      "sourceTitle": "File:Hogao.JPG",
+      "files": {
+        "640": "assets/photos/sauces/hogao-640.webp",
+        "960": "assets/photos/sauces/hogao-960.webp",
+        "1280": "assets/photos/sauces/hogao-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "aji-colombiano": {
+      "kind": "place",
+      "countryCode": "CO"
+    },
+    "molho-campeiro": {
+      "kind": "place",
+      "countryCode": "BR"
+    },
+    "molho-de-pimenta": {
+      "kind": "place",
+      "countryCode": "BR"
+    },
+    "salsa-golf": {
+      "kind": "sauce",
+      "credit": "dana robinson",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salsa_golf.jpg",
+      "sourceTitle": "File:Salsa golf.jpg",
+      "files": {
+        "640": "assets/photos/sauces/salsa-golf-640.webp",
+        "960": "assets/photos/sauces/salsa-golf-960.webp",
+        "1280": "assets/photos/sauces/salsa-golf-1280.webp"
+      },
+      "width": 1280,
+      "height": 1920
+    },
+    "ocopa": {
+      "kind": "place",
+      "countryCode": "PE"
+    },
+    "dulce-de-leche": {
+      "kind": "place",
+      "countryCode": "AR"
+    },
+    "cajeta": {
+      "kind": "sauce",
+      "credit": "Vaquita marina",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cajeta.jpg",
+      "sourceTitle": "File:Cajeta.jpg",
+      "files": {
+        "640": "assets/photos/sauces/cajeta-640.webp",
+        "960": "assets/photos/sauces/cajeta-960.webp",
+        "1280": "assets/photos/sauces/cajeta-1280.webp"
+      },
+      "width": 1280,
+      "height": 855
+    },
+    "buffalo-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "ranch-dressing": {
+      "kind": "sauce",
+      "credit": "Whitney from Chicago, IL",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ranch_dressing.jpg",
+      "sourceTitle": "File:Ranch dressing.jpg",
+      "files": {
+        "640": "assets/photos/sauces/ranch-dressing-640.webp",
+        "960": "assets/photos/sauces/ranch-dressing-960.webp"
+      },
+      "width": 960,
+      "height": 1285
+    },
+    "blue-cheese-dressing": {
+      "kind": "sauce",
+      "credit": "jules",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blue_cheese_dressing.jpg",
+      "sourceTitle": "File:Blue cheese dressing.jpg",
+      "files": {
+        "640": "assets/photos/sauces/blue-cheese-dressing-640.webp",
+        "960": "assets/photos/sauces/blue-cheese-dressing-960.webp",
+        "1280": "assets/photos/sauces/blue-cheese-dressing-1280.webp"
+      },
+      "width": 1280,
+      "height": 1050
+    },
+    "thousand-island": {
+      "kind": "sauce",
+      "credit": "Rainer Z ...",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Thousand-Island-Dressing.jpg",
+      "sourceTitle": "File:Thousand-Island-Dressing.jpg",
+      "files": {
+        "640": "assets/photos/sauces/thousand-island-640.webp",
+        "960": "assets/photos/sauces/thousand-island-960.webp",
+        "1280": "assets/photos/sauces/thousand-island-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "caesar-dressing": {
+      "kind": "place",
+      "countryCode": "MX"
+    },
+    "green-goddess": {
+      "kind": "sauce",
+      "credit": "Foodista",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Green_goddess_dressing.jpg",
+      "sourceTitle": "File:Green goddess dressing.jpg",
+      "files": {
+        "640": "assets/photos/sauces/green-goddess-640.webp",
+        "960": "assets/photos/sauces/green-goddess-960.webp",
+        "1280": "assets/photos/sauces/green-goddess-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "comeback-sauce": {
+      "kind": "sauce",
+      "credit": "Valereee",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Comeback_sauce.jpg",
+      "sourceTitle": "File:Comeback sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/comeback-sauce-640.webp",
+        "960": "assets/photos/sauces/comeback-sauce-960.webp",
+        "1280": "assets/photos/sauces/comeback-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 1280
+    },
+    "south-carolina-mustard-bbq": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "lexington-bbq-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "memphis-bbq-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "texas-mop-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "nashville-hot-oil": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "fry-sauce": {
+      "kind": "sauce",
+      "credit": "Intothewoods29 ( talk )",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pink_Fry_Sauce.jpg",
+      "sourceTitle": "File:Pink Fry Sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/fry-sauce-640.webp",
+        "960": "assets/photos/sauces/fry-sauce-960.webp",
+        "1280": "assets/photos/sauces/fry-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 893
+    },
+    "tartar-sauce": {
+      "kind": "sauce",
+      "credit": "jeffreyw",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tartar_Sauce.jpg",
+      "sourceTitle": "File:Tartar Sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/tartar-sauce-640.webp",
+        "960": "assets/photos/sauces/tartar-sauce-960.webp",
+        "1280": "assets/photos/sauces/tartar-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 850
+    },
+    "cocktail-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "cranberry-sauce": {
+      "kind": "sauce",
+      "credit": "Jem Stone from Chailey",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cranberry_sauce.jpg",
+      "sourceTitle": "File:Cranberry sauce.jpg",
+      "files": {
+        "640": "assets/photos/sauces/cranberry-sauce-640.webp",
+        "960": "assets/photos/sauces/cranberry-sauce-960.webp",
+        "1280": "assets/photos/sauces/cranberry-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "sausage-gravy": {
+      "kind": "sauce",
+      "credit": "jeffreyw",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Biscuits_and_sausage_gravy_(8006401964).jpg",
+      "sourceTitle": "File:Biscuits and sausage gravy (8006401964).jpg",
+      "files": {
+        "640": "assets/photos/sauces/sausage-gravy-640.webp",
+        "960": "assets/photos/sauces/sausage-gravy-960.webp",
+        "1280": "assets/photos/sauces/sausage-gravy-1280.webp"
+      },
+      "width": 1280,
+      "height": 848
+    },
+    "red-eye-gravy": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "poutine-gravy": {
+      "kind": "place",
+      "countryCode": "CA"
+    },
+    "donair-sauce": {
+      "kind": "place",
+      "countryCode": "CA"
+    },
+    "creole-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "vodka-sauce": {
+      "kind": "sauce",
+      "credit": "Dan Zen from Dundas, Canada",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Seafood_Pasta_in_Vodka_Sauce_(436395621).jpg",
+      "sourceTitle": "File:Seafood Pasta in Vodka Sauce (436395621).jpg",
+      "files": {
+        "640": "assets/photos/sauces/vodka-sauce-640.webp",
+        "960": "assets/photos/sauces/vodka-sauce-960.webp",
+        "1280": "assets/photos/sauces/vodka-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 803
+    },
+    "sunday-gravy": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "white-clam-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "hot-honey": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "lemon-curd": {
+      "kind": "sauce",
+      "credit": "jules",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lemon_curd-2.jpg",
+      "sourceTitle": "File:Lemon curd-2.jpg",
+      "files": {
+        "640": "assets/photos/sauces/lemon-curd-640.webp",
+        "960": "assets/photos/sauces/lemon-curd-960.webp",
+        "1280": "assets/photos/sauces/lemon-curd-1280.webp"
+      },
+      "width": 1280,
+      "height": 852
+    },
+    "louisiana-remoulade": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "honey-mustard": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "russian-dressing": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "zabaglione": {
+      "kind": "sauce",
+      "credit": "Wouter Hagens",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zabaglione.JPG",
+      "sourceTitle": "File:Zabaglione.JPG",
+      "files": {
+        "640": "assets/photos/sauces/zabaglione-640.webp",
+        "960": "assets/photos/sauces/zabaglione-960.webp",
+        "1280": "assets/photos/sauces/zabaglione-1280.webp"
+      },
+      "width": 1280,
+      "height": 790
+    },
+    "panang-curry": {
+      "kind": "sauce",
+      "credit": "Vee Satayamas from Bangkok, Thailand",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Panang_curry_(42943883862).jpg",
+      "sourceTitle": "File:Panang curry (42943883862).jpg",
+      "files": {
+        "640": "assets/photos/sauces/panang-curry-640.webp",
+        "960": "assets/photos/sauces/panang-curry-960.webp",
+        "1280": "assets/photos/sauces/panang-curry-1280.webp"
+      },
+      "width": 1280,
+      "height": 853
+    },
+    "hoisin-sauce": {
+      "kind": "sauce",
+      "credit": "allen watkin from London, UK",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hoisin_sauce_1.jpg",
+      "sourceTitle": "File:Hoisin sauce 1.jpg",
+      "files": {
+        "640": "assets/photos/sauces/hoisin-sauce-640.webp",
+        "960": "assets/photos/sauces/hoisin-sauce-960.webp"
+      },
+      "width": 960,
+      "height": 833
+    },
+    "black-bean-sauce": {
+      "kind": "sauce",
+      "credit": "BrokenSphere",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chicken_with_black_bean_sauce.JPG",
+      "sourceTitle": "File:Chicken with black bean sauce.JPG",
+      "files": {
+        "640": "assets/photos/sauces/black-bean-sauce-640.webp",
+        "960": "assets/photos/sauces/black-bean-sauce-960.webp",
+        "1280": "assets/photos/sauces/black-bean-sauce-1280.webp"
+      },
+      "width": 1280,
+      "height": 960
+    },
+    "raspberry-coulis": {
+      "kind": "place",
+      "countryCode": "FR"
+    },
+    "chocolate-gravy": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "chow-chow": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "sorghum-glaze": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "tomato-gravy": {
+      "kind": "sauce",
+      "credit": "Thamizhpparithi Maari",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tomato_gravy.jpg",
+      "sourceTitle": "File:Tomato gravy.jpg",
+      "files": {
+        "640": "assets/photos/sauces/tomato-gravy-640.webp",
+        "960": "assets/photos/sauces/tomato-gravy-960.webp",
+        "1280": "assets/photos/sauces/tomato-gravy-1280.webp"
+      },
+      "width": 1280,
+      "height": 720
+    },
+    "cajun-brown-gravy": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "drawn-butter": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "hot-bacon-dressing": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "datil-pepper-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "wisconsin-beer-cheese": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "detroit-coney-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "parsley-sauce": {
+      "kind": "place",
+      "countryCode": "IE"
+    },
+    "guinness-gravy": {
+      "kind": "place",
+      "countryCode": "IE"
+    },
+    "irish-whiskey-sauce": {
+      "kind": "place",
+      "countryCode": "IE"
+    },
+    "corned-beef-mustard-sauce": {
+      "kind": "place",
+      "countryCode": "IE"
+    },
+    "cuban-sofrito": {
+      "kind": "place",
+      "countryCode": "CU"
+    },
+    "cuban-salsa-criolla": {
+      "kind": "place",
+      "countryCode": "CU"
+    },
+    "cuban-enchilado": {
+      "kind": "place",
+      "countryCode": "CU"
+    },
+    "ecuadorian-aji": {
+      "kind": "place",
+      "countryCode": "EC"
+    },
+    "cincinnati-chili-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "chicago-giardiniera": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "michigan-olive-burger-sauce": {
+      "kind": "place",
+      "countryCode": "US"
+    },
+    "cho-gochujang": {
+      "kind": "place",
+      "countryCode": "KR"
+    }
+  },
+  "places": {
+    "FR": {
+      "kind": "place",
+      "credit": "RASTAMOQUETTE44",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DJI00392_DxO2a.jpg",
+      "sourceTitle": "File:DJI00392 DxO2a.jpg",
+      "files": {
+        "640": "assets/photos/places/fr-640.webp",
+        "960": "assets/photos/places/fr-960.webp",
+        "1280": "assets/photos/places/fr-1280.webp"
+      },
+      "width": 1280,
+      "height": 720,
+      "country": "France"
+    },
+    "IT": {
+      "kind": "place",
+      "credit": "Julius Silver",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lago_federa.jpg",
+      "sourceTitle": "File:Lago federa.jpg",
+      "files": {
+        "640": "assets/photos/places/it-640.webp"
+      },
+      "width": 640,
+      "height": 415,
+      "country": "Italy"
+    },
+    "MX": {
+      "kind": "place",
+      "credit": "Diego Delso",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amanecer_en_Huitzila,_M%C3%A9xico,_2013-10-10,_DD_02.JPG",
+      "sourceTitle": "File:Amanecer en Huitzila, México, 2013-10-10, DD 02.JPG",
+      "files": {
+        "640": "assets/photos/places/mx-640.webp",
+        "960": "assets/photos/places/mx-960.webp",
+        "1280": "assets/photos/places/mx-1280.webp"
+      },
+      "width": 1280,
+      "height": 551,
+      "country": "Mexico"
+    },
+    "VN": {
+      "kind": "place",
+      "credit": "[Tycho] talk , http://shansov.net",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:S%C6%A1n_La_Dam.JPG",
+      "sourceTitle": "File:Sơn La Dam.JPG",
+      "files": {
+        "640": "assets/photos/places/vn-640.webp",
+        "960": "assets/photos/places/vn-960.webp",
+        "1280": "assets/photos/places/vn-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Vietnam"
+    },
+    "US": {
+      "kind": "place",
+      "credit": "USFWS - Pacific Region",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:USFWS_Improved_Habitat_for_lesser_Sandhill_cranes_(24504171574).jpg",
+      "sourceTitle": "File:USFWS Improved Habitat for lesser Sandhill cranes (24504171574).jpg",
+      "files": {
+        "640": "assets/photos/places/us-640.webp",
+        "960": "assets/photos/places/us-960.webp",
+        "1280": "assets/photos/places/us-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "United States"
+    },
+    "AR": {
+      "kind": "place",
+      "credit": "Argenz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Parana_atardecer.JPG",
+      "sourceTitle": "File:Parana atardecer.JPG",
+      "files": {
+        "640": "assets/photos/places/ar-640.webp",
+        "960": "assets/photos/places/ar-960.webp",
+        "1280": "assets/photos/places/ar-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Argentina"
+    },
+    "CL": {
+      "kind": "place",
+      "credit": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ferrocarril_en_el_salar_de_Carcote,_Chile,_2016-02-09,_DD_70.JPG",
+      "sourceTitle": "File:Ferrocarril en el salar de Carcote, Chile, 2016-02-09, DD 70.JPG",
+      "files": {
+        "640": "assets/photos/places/cl-640.webp",
+        "960": "assets/photos/places/cl-960.webp",
+        "1280": "assets/photos/places/cl-1280.webp"
+      },
+      "width": 1280,
+      "height": 737,
+      "country": "Chile"
+    },
+    "PE": {
+      "kind": "place",
+      "credit": "Rodrigo.Argenton",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Margem_do_Rio_Urubamba_(13).JPG",
+      "sourceTitle": "File:Margem do Rio Urubamba (13).JPG",
+      "files": {
+        "640": "assets/photos/places/pe-640.webp",
+        "960": "assets/photos/places/pe-960.webp",
+        "1280": "assets/photos/places/pe-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707,
+      "country": "Peru"
+    },
+    "TN": {
+      "kind": "place",
+      "credit": "Pratyeka",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Matmata_Panorama.jpg",
+      "sourceTitle": "File:Matmata Panorama.jpg",
+      "files": {
+        "640": "assets/photos/places/tn-640.webp",
+        "960": "assets/photos/places/tn-960.webp",
+        "1280": "assets/photos/places/tn-1280.webp"
+      },
+      "width": 1280,
+      "height": 184,
+      "country": "Tunisia"
+    },
+    "GH": {
+      "kind": "place",
+      "credit": "Laila Seidu",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canoeing_on_the_Lower_Volta_as_the_sun_sets.jpg",
+      "sourceTitle": "File:Canoeing on the Lower Volta as the sun sets.jpg",
+      "files": {
+        "640": "assets/photos/places/gh-640.webp",
+        "960": "assets/photos/places/gh-960.webp",
+        "1280": "assets/photos/places/gh-1280.webp"
+      },
+      "width": 1280,
+      "height": 2275,
+      "country": "Ghana"
+    },
+    "ZA": {
+      "kind": "place",
+      "credit": "Winfried Bruenken ( Amrum )",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nieuwoudtville_Wasserfall_P1010249.JPG",
+      "sourceTitle": "File:Nieuwoudtville Wasserfall P1010249.JPG",
+      "files": {
+        "640": "assets/photos/places/za-640.webp",
+        "960": "assets/photos/places/za-960.webp",
+        "1280": "assets/photos/places/za-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "South Africa"
+    },
+    "MZ": {
+      "kind": "place",
+      "credit": "Stig Nygaard from Copenhagen, Denmark",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Hilux_2.8_D.jpg",
+      "sourceTitle": "File:Toyota Hilux 2.8 D.jpg",
+      "files": {
+        "640": "assets/photos/places/mz-640.webp",
+        "960": "assets/photos/places/mz-960.webp",
+        "1280": "assets/photos/places/mz-1280.webp"
+      },
+      "width": 1280,
+      "height": 813,
+      "country": "Mozambique"
+    },
+    "CD": {
+      "kind": "place",
+      "credit": "MONUSCO Photos",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:FIB_site_in_Sake_about_10_km_from_Goma.jpg",
+      "sourceTitle": "File:FIB site in Sake about 10 km from Goma.jpg",
+      "files": {
+        "640": "assets/photos/places/cd-640.webp",
+        "960": "assets/photos/places/cd-960.webp",
+        "1280": "assets/photos/places/cd-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Democratic Republic of the Congo"
+    },
+    "LB": {
+      "kind": "place",
+      "credit": "https://www.flickr.com/photos/husseinabdallah/",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mleeta,_South_Lebanon.jpg",
+      "sourceTitle": "File:Mleeta, South Lebanon.jpg",
+      "files": {
+        "640": "assets/photos/places/lb-640.webp",
+        "960": "assets/photos/places/lb-960.webp",
+        "1280": "assets/photos/places/lb-1280.webp"
+      },
+      "width": 1280,
+      "height": 850,
+      "country": "Lebanon"
+    },
+    "GE": {
+      "kind": "place",
+      "credit": "Roberto Strauss from Frankfurt am Main, Deutschland",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Georgia_2011_106_(5680702573).jpg",
+      "sourceTitle": "File:Georgia 2011 106 (5680702573).jpg",
+      "files": {
+        "640": "assets/photos/places/ge-640.webp",
+        "960": "assets/photos/places/ge-960.webp"
+      },
+      "width": 960,
+      "height": 640,
+      "country": "Georgia"
+    },
+    "AF": {
+      "kind": "place",
+      "credit": "Sven Dirks, Wien",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Herat_town.jpg",
+      "sourceTitle": "File:Herat town.jpg",
+      "files": {
+        "640": "assets/photos/places/af-640.webp",
+        "960": "assets/photos/places/af-960.webp",
+        "1280": "assets/photos/places/af-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Afghanistan"
+    },
+    "IN": {
+      "kind": "place",
+      "credit": "Sumita Roy Dutta",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_landscape_from_Kartik_Swami_Temple_Rudraprayag.JPG",
+      "sourceTitle": "File:Golden landscape from Kartik Swami Temple Rudraprayag.JPG",
+      "files": {
+        "640": "assets/photos/places/in-640.webp",
+        "960": "assets/photos/places/in-960.webp",
+        "1280": "assets/photos/places/in-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "India"
+    },
+    "JP": {
+      "kind": "place",
+      "credit": "Takashi Hososhima",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Senjogahara_field_(10022692596).jpg",
+      "sourceTitle": "File:Senjogahara field (10022692596).jpg",
+      "files": {
+        "640": "assets/photos/places/jp-640.webp",
+        "960": "assets/photos/places/jp-960.webp",
+        "1280": "assets/photos/places/jp-1280.webp"
+      },
+      "width": 1280,
+      "height": 852,
+      "country": "Japan"
+    },
+    "JM": {
+      "kind": "place",
+      "credit": "Katinka Zuchowicz Photography",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jamaica_Palisadoes_Kingston;_Harbor_View_Photo_Katinka_Zuchowicz_Photography_DSC_8572-2(2).jpg",
+      "sourceTitle": "File:Jamaica Palisadoes Kingston; Harbor View Photo Katinka Zuchowicz Photography DSC 8572-2(2).jpg",
+      "files": {
+        "640": "assets/photos/places/jm-640.webp",
+        "960": "assets/photos/places/jm-960.webp",
+        "1280": "assets/photos/places/jm-1280.webp"
+      },
+      "width": 1280,
+      "height": 857,
+      "country": "Jamaica"
+    },
+    "CU": {
+      "kind": "place",
+      "credit": "LukaszKatlewa",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baracoa_bay_with_El_Yunque_towering_in_the_background.jpg",
+      "sourceTitle": "File:Baracoa bay with El Yunque towering in the background.jpg",
+      "files": {
+        "640": "assets/photos/places/cu-640.webp",
+        "960": "assets/photos/places/cu-960.webp",
+        "1280": "assets/photos/places/cu-1280.webp"
+      },
+      "width": 1280,
+      "height": 281,
+      "country": "Cuba"
+    },
+    "KR": {
+      "kind": "place",
+      "credit": "Robert at Picasa",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Korea-Yeongju-Yonghyeolri-Mountain-01.jpg",
+      "sourceTitle": "File:Korea-Yeongju-Yonghyeolri-Mountain-01.jpg",
+      "files": {
+        "640": "assets/photos/places/kr-640.webp",
+        "960": "assets/photos/places/kr-960.webp"
+      },
+      "width": 960,
+      "height": 640,
+      "country": "South Korea"
+    },
+    "ID": {
+      "kind": "place",
+      "credit": "Lasthib",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Landscape_in_Lombok_7.jpg",
+      "sourceTitle": "File:Landscape in Lombok 7.jpg",
+      "files": {
+        "640": "assets/photos/places/id-640.webp",
+        "960": "assets/photos/places/id-960.webp",
+        "1280": "assets/photos/places/id-1280.webp"
+      },
+      "width": 1280,
+      "height": 720,
+      "country": "Indonesia"
+    },
+    "WS": {
+      "kind": "place",
+      "credit": "Claire Charters",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DSC01145_Ocean_and_landscape_of_Samoa.jpg",
+      "sourceTitle": "File:DSC01145 Ocean and landscape of Samoa.jpg",
+      "files": {
+        "640": "assets/photos/places/ws-640.webp",
+        "960": "assets/photos/places/ws-960.webp",
+        "1280": "assets/photos/places/ws-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Samoa"
+    },
+    "NZ": {
+      "kind": "place",
+      "credit": "Christian Mehlführer",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PancakeRocks_MC.jpg",
+      "sourceTitle": "File:PancakeRocks MC.jpg",
+      "files": {
+        "640": "assets/photos/places/nz-640.webp",
+        "960": "assets/photos/places/nz-960.webp",
+        "1280": "assets/photos/places/nz-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "New Zealand"
+    },
+    "SE": {
+      "kind": "place",
+      "credit": "Pudelek",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Swedish_landscape_near_Mj%C3%B6lby_(by_Pudelek)_02.jpg",
+      "sourceTitle": "File:Swedish landscape near Mjölby (by Pudelek) 02.jpg",
+      "files": {
+        "640": "assets/photos/places/se-640.webp",
+        "960": "assets/photos/places/se-960.webp",
+        "1280": "assets/photos/places/se-1280.webp"
+      },
+      "width": 1280,
+      "height": 902,
+      "country": "Sweden"
+    },
+    "ES": {
+      "kind": "place",
+      "credit": "Tuxyso",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C%C3%B3mpeta_Complete_Panorama_View_Golden_Hour_02_2014.jpg",
+      "sourceTitle": "File:Cómpeta Complete Panorama View Golden Hour 02 2014.jpg",
+      "files": {
+        "640": "assets/photos/places/es-640.webp",
+        "960": "assets/photos/places/es-960.webp",
+        "1280": "assets/photos/places/es-1280.webp"
+      },
+      "width": 1280,
+      "height": 426,
+      "country": "Spain"
+    },
+    "GB": {
+      "kind": "place",
+      "credit": "Miles away",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Portpatrick_start_of_southern_upland_way.JPG",
+      "sourceTitle": "File:Portpatrick start of southern upland way.JPG",
+      "files": {
+        "640": "assets/photos/places/gb-640.webp",
+        "960": "assets/photos/places/gb-960.webp",
+        "1280": "assets/photos/places/gb-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "United Kingdom"
+    },
+    "DE": {
+      "kind": "place",
+      "credit": "Elke Freese",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hochstauden1.jpg",
+      "sourceTitle": "File:Hochstauden1.jpg",
+      "files": {
+        "640": "assets/photos/places/de-640.webp",
+        "960": "assets/photos/places/de-960.webp",
+        "1280": "assets/photos/places/de-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Germany"
+    },
+    "CZ": {
+      "kind": "place",
+      "credit": "Martin Culek",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moravian_Karst_protected_Landscape_area,_north_of_the_Brno_City,_Czechia,_Europe.jpg",
+      "sourceTitle": "File:Moravian Karst protected Landscape area, north of the Brno City, Czechia, Europe.jpg",
+      "files": {
+        "640": "assets/photos/places/cz-640.webp",
+        "960": "assets/photos/places/cz-960.webp",
+        "1280": "assets/photos/places/cz-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707,
+      "country": "Czechia"
+    },
+    "NL": {
+      "kind": "place",
+      "credit": "GROEN, F.A. (Fotograaf)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Uitzicht_op_omringende_landschap_-_Bunnik_-_20446364_-_RCE.jpg",
+      "sourceTitle": "File:Uitzicht op omringende landschap - Bunnik - 20446364 - RCE.jpg",
+      "files": {
+        "640": "assets/photos/places/nl-640.webp",
+        "960": "assets/photos/places/nl-960.webp"
+      },
+      "width": 960,
+      "height": 720,
+      "country": "Netherlands"
+    },
+    "BE": {
+      "kind": "place",
+      "credit": "Luc Viatour",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Field_Hamois_Belgium_Luc_Viatour.jpg",
+      "sourceTitle": "File:Field Hamois Belgium Luc Viatour.jpg",
+      "files": {
+        "640": "assets/photos/places/be-640.webp",
+        "960": "assets/photos/places/be-960.webp",
+        "1280": "assets/photos/places/be-1280.webp"
+      },
+      "width": 1280,
+      "height": 1579,
+      "country": "Belgium"
+    },
+    "DK": {
+      "kind": "place",
+      "credit": "Photographer: Per Bjarne Pedersen",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Solop_gl_laven_2005_11_21_052.jpg",
+      "sourceTitle": "File:Solop gl laven 2005 11 21 052.jpg",
+      "files": {
+        "640": "assets/photos/places/dk-640.webp"
+      },
+      "width": 640,
+      "height": 427,
+      "country": "Denmark"
+    },
+    "GR": {
+      "kind": "place",
+      "credit": "Jebulon",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Landscape_north_Euboea_Greece.jpg",
+      "sourceTitle": "File:Landscape north Euboea Greece.jpg",
+      "files": {
+        "640": "assets/photos/places/gr-640.webp",
+        "960": "assets/photos/places/gr-960.webp",
+        "1280": "assets/photos/places/gr-1280.webp"
+      },
+      "width": 1280,
+      "height": 792,
+      "country": "Greece"
+    },
+    "TR": {
+      "kind": "place",
+      "credit": "Wikimol",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KackarDagi_fromNorth_hory.jpg",
+      "sourceTitle": "File:KackarDagi fromNorth hory.jpg",
+      "files": {
+        "640": "assets/photos/places/tr-640.webp",
+        "960": "assets/photos/places/tr-960.webp",
+        "1280": "assets/photos/places/tr-1280.webp"
+      },
+      "width": 1280,
+      "height": 1707,
+      "country": "Turkey"
+    },
+    "MA": {
+      "kind": "place",
+      "credit": "Laffitte Jean-Claude",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Azrou_4.JPG",
+      "sourceTitle": "File:Azrou 4.JPG",
+      "files": {
+        "640": "assets/photos/places/ma-640.webp",
+        "960": "assets/photos/places/ma-960.webp"
+      },
+      "width": 960,
+      "height": 638,
+      "country": "Morocco"
+    },
+    "YE": {
+      "kind": "place",
+      "credit": "LBM1948",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amran_(Gobernaci%C3%B3n)_1987_03.jpg",
+      "sourceTitle": "File:Amran (Gobernación) 1987 03.jpg",
+      "files": {
+        "640": "assets/photos/places/ye-640.webp"
+      },
+      "width": 640,
+      "height": 436,
+      "country": "Yemen"
+    },
+    "IQ": {
+      "kind": "place",
+      "credit": "Nimir7",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tree_in_my_way.jpg",
+      "sourceTitle": "File:Tree in my way.jpg",
+      "files": {
+        "640": "assets/photos/places/iq-640.webp",
+        "960": "assets/photos/places/iq-960.webp",
+        "1280": "assets/photos/places/iq-1280.webp"
+      },
+      "width": 1280,
+      "height": 1714,
+      "country": "Iraq"
+    },
+    "IR": {
+      "kind": "place",
+      "credit": "Hansueli Krapf",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2009-05-13_Damavand_from_Abbasabad_08.jpg",
+      "sourceTitle": "File:2009-05-13 Damavand from Abbasabad 08.jpg",
+      "files": {
+        "640": "assets/photos/places/ir-640.webp",
+        "960": "assets/photos/places/ir-960.webp",
+        "1280": "assets/photos/places/ir-1280.webp"
+      },
+      "width": 1280,
+      "height": 329,
+      "country": "Iran"
+    },
+    "LY": {
+      "kind": "place",
+      "credit": "Корниенко Виктор",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%A3%D0%B1%D1%80%D0%B0%D0%BD%D0%BE%D0%B5_%D0%BF%D0%BE%D0%BB%D0%B5_%D0%B2_%D0%91%D0%B5%D0%BD%D0%B3%D0%B0%D1%88%D0%B8%D1%80%D0%B5.jpg",
+      "sourceTitle": "File:Убраное поле в Бенгашире.jpg",
+      "files": {
+        "640": "assets/photos/places/ly-640.webp",
+        "960": "assets/photos/places/ly-960.webp",
+        "1280": "assets/photos/places/ly-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Libya"
+    },
+    "SN": {
+      "kind": "place",
+      "credit": "kumar303",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Popenguine2.jpg",
+      "sourceTitle": "File:Popenguine2.jpg",
+      "files": {
+        "640": "assets/photos/places/sn-640.webp",
+        "960": "assets/photos/places/sn-960.webp",
+        "1280": "assets/photos/places/sn-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Senegal"
+    },
+    "NG": {
+      "kind": "place",
+      "credit": "MediaMOF",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ososo_Hill_351.jpg",
+      "sourceTitle": "File:Ososo Hill 351.jpg",
+      "files": {
+        "640": "assets/photos/places/ng-640.webp",
+        "960": "assets/photos/places/ng-960.webp",
+        "1280": "assets/photos/places/ng-1280.webp"
+      },
+      "width": 1280,
+      "height": 855,
+      "country": "Nigeria"
+    },
+    "ET": {
+      "kind": "place",
+      "credit": "A. Davey from Where I Live Now: Pacific Northwest",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Landscape_With_Ruins_(3135636063).jpg",
+      "sourceTitle": "File:Landscape With Ruins (3135636063).jpg",
+      "files": {
+        "640": "assets/photos/places/et-640.webp",
+        "960": "assets/photos/places/et-960.webp",
+        "1280": "assets/photos/places/et-1280.webp"
+      },
+      "width": 1280,
+      "height": 1938,
+      "country": "Ethiopia"
+    },
+    "ER": {
+      "kind": "place",
+      "credit": "Marco Fera",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Keren_Battlefield_19.jpg",
+      "sourceTitle": "File:Keren Battlefield 19.jpg",
+      "files": {
+        "640": "assets/photos/places/er-640.webp",
+        "960": "assets/photos/places/er-960.webp"
+      },
+      "width": 960,
+      "height": 639,
+      "country": "Eritrea"
+    },
+    "MG": {
+      "kind": "place",
+      "credit": "Bernard Gagnon",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Majahilo_River_02.jpg",
+      "sourceTitle": "File:Majahilo River 02.jpg",
+      "files": {
+        "640": "assets/photos/places/mg-640.webp",
+        "960": "assets/photos/places/mg-960.webp",
+        "1280": "assets/photos/places/mg-1280.webp"
+      },
+      "width": 1280,
+      "height": 864,
+      "country": "Madagascar"
+    },
+    "SD": {
+      "kind": "place",
+      "credit": "Matab Hamed",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interstate_transportation.jpg",
+      "sourceTitle": "File:Interstate transportation.jpg",
+      "files": {
+        "640": "assets/photos/places/sd-640.webp",
+        "960": "assets/photos/places/sd-960.webp"
+      },
+      "width": 960,
+      "height": 613,
+      "country": "Sudan"
+    },
+    "LK": {
+      "kind": "place",
+      "credit": "Anuradha Ratnaweera from Sri Lanka",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_from_Ambewela,_Sri_Lanka.jpg",
+      "sourceTitle": "File:View from Ambewela, Sri Lanka.jpg",
+      "files": {
+        "640": "assets/photos/places/lk-640.webp",
+        "960": "assets/photos/places/lk-960.webp"
+      },
+      "width": 960,
+      "height": 720,
+      "country": "Sri Lanka"
+    },
+    "TH": {
+      "kind": "place",
+      "credit": "BerryJ",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Morning_at_Tham_Sakoen.jpg",
+      "sourceTitle": "File:Morning at Tham Sakoen.jpg",
+      "files": {
+        "640": "assets/photos/places/th-640.webp",
+        "960": "assets/photos/places/th-960.webp",
+        "1280": "assets/photos/places/th-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Thailand"
+    },
+    "SG": {
+      "kind": "place",
+      "credit": "Abhi018",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Landscape_001_at_singapore.jpg",
+      "sourceTitle": "File:Landscape 001 at singapore.jpg",
+      "files": {
+        "640": "assets/photos/places/sg-640.webp",
+        "960": "assets/photos/places/sg-960.webp",
+        "1280": "assets/photos/places/sg-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Singapore"
+    },
+    "CN": {
+      "kind": "place",
+      "credit": "Jason Zou",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:QinChengHouShan_WuLongGou.jpg",
+      "sourceTitle": "File:QinChengHouShan WuLongGou.jpg",
+      "files": {
+        "640": "assets/photos/places/cn-640.webp",
+        "960": "assets/photos/places/cn-960.webp",
+        "1280": "assets/photos/places/cn-1280.webp"
+      },
+      "width": 1280,
+      "height": 962,
+      "country": "China"
+    },
+    "PH": {
+      "kind": "place",
+      "credit": "Migueluy666",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Green_Landscape.jpg",
+      "sourceTitle": "File:Green Landscape.jpg",
+      "files": {
+        "640": "assets/photos/places/ph-640.webp",
+        "960": "assets/photos/places/ph-960.webp",
+        "1280": "assets/photos/places/ph-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Philippines"
+    },
+    "LA": {
+      "kind": "place",
+      "credit": "Basile Morin",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Don_Puay_river_bank_landscape_at_sunset.jpg",
+      "sourceTitle": "File:Don Puay river bank landscape at sunset.jpg",
+      "files": {
+        "640": "assets/photos/places/la-640.webp",
+        "960": "assets/photos/places/la-960.webp",
+        "1280": "assets/photos/places/la-1280.webp"
+      },
+      "width": 1280,
+      "height": 720,
+      "country": "Laos"
+    },
+    "MM": {
+      "kind": "place",
+      "credit": "MorkKawnTai",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Loitaileng.jpg",
+      "sourceTitle": "File:Loitaileng.jpg",
+      "files": {
+        "640": "assets/photos/places/mm-640.webp",
+        "960": "assets/photos/places/mm-960.webp",
+        "1280": "assets/photos/places/mm-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Myanmar"
+    },
+    "GT": {
+      "kind": "place",
+      "credit": "Fernando Reyes Palencia",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Playa_del_Remate.JPG",
+      "sourceTitle": "File:Playa del Remate.JPG",
+      "files": {
+        "640": "assets/photos/places/gt-640.webp",
+        "960": "assets/photos/places/gt-960.webp",
+        "1280": "assets/photos/places/gt-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Guatemala"
+    },
+    "TT": {
+      "kind": "place",
+      "credit": "Kalamazadkhan",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mayaro_Beach_3_-_Trinidad_&_Tobago.jpg",
+      "sourceTitle": "File:Mayaro Beach 3 - Trinidad & Tobago.jpg",
+      "files": {
+        "640": "assets/photos/places/tt-640.webp",
+        "960": "assets/photos/places/tt-960.webp",
+        "1280": "assets/photos/places/tt-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Trinidad and Tobago"
+    },
+    "PR": {
+      "kind": "place",
+      "credit": "John Vachon",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ON_THE_COAST_-_NARA_-_546387.jpg",
+      "sourceTitle": "File:ON THE COAST - NARA - 546387.jpg",
+      "files": {
+        "640": "assets/photos/places/pr-640.webp",
+        "960": "assets/photos/places/pr-960.webp",
+        "1280": "assets/photos/places/pr-1280.webp"
+      },
+      "width": 1280,
+      "height": 1901,
+      "country": "Puerto Rico"
+    },
+    "DO": {
+      "kind": "place",
+      "credit": "Luis B. Gómez L.",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fondo_Grande.JPG",
+      "sourceTitle": "File:Fondo Grande.JPG",
+      "files": {
+        "640": "assets/photos/places/do-640.webp",
+        "960": "assets/photos/places/do-960.webp",
+        "1280": "assets/photos/places/do-1280.webp"
+      },
+      "width": 1280,
+      "height": 954,
+      "country": "Dominican Republic"
+    },
+    "BO": {
+      "kind": "place",
+      "credit": "Christian Mehlführer, User:Chmehl",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laguna_Colorada_MC.jpg",
+      "sourceTitle": "File:Laguna Colorada MC.jpg",
+      "files": {
+        "640": "assets/photos/places/bo-640.webp",
+        "960": "assets/photos/places/bo-960.webp",
+        "1280": "assets/photos/places/bo-1280.webp"
+      },
+      "width": 1280,
+      "height": 384,
+      "country": "Bolivia"
+    },
+    "CO": {
+      "kind": "place",
+      "credit": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Santuario_de_Las_Lajas,_Ipiales,_Colombia,_2015-07-21,_DD_01.JPG",
+      "sourceTitle": "File:Santuario de Las Lajas, Ipiales, Colombia, 2015-07-21, DD 01.JPG",
+      "files": {
+        "640": "assets/photos/places/co-640.webp",
+        "960": "assets/photos/places/co-960.webp",
+        "1280": "assets/photos/places/co-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Colombia"
+    },
+    "BR": {
+      "kind": "place",
+      "credit": "Allan Patrick",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chapada_do_Araripe,_Pernambuco.jpg",
+      "sourceTitle": "File:Chapada do Araripe, Pernambuco.jpg",
+      "files": {
+        "640": "assets/photos/places/br-640.webp",
+        "960": "assets/photos/places/br-960.webp"
+      },
+      "width": 960,
+      "height": 640,
+      "country": "Brazil"
+    },
+    "CA": {
+      "kind": "place",
+      "credit": "Kisokj",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%EC%BA%90%EB%82%98%EB%8B%A4_%EC%82%AC%EC%A7%84_122.jpg",
+      "sourceTitle": "File:캐나다 사진 122.jpg",
+      "files": {
+        "640": "assets/photos/places/ca-640.webp",
+        "960": "assets/photos/places/ca-960.webp",
+        "1280": "assets/photos/places/ca-1280.webp"
+      },
+      "width": 1280,
+      "height": 960,
+      "country": "Canada"
+    },
+    "IE": {
+      "kind": "place",
+      "credit": "Christopher Michel",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mystical_ireland_(4705785799).jpg",
+      "sourceTitle": "File:Mystical ireland (4705785799).jpg",
+      "files": {
+        "640": "assets/photos/places/ie-640.webp",
+        "960": "assets/photos/places/ie-960.webp",
+        "1280": "assets/photos/places/ie-1280.webp"
+      },
+      "width": 1280,
+      "height": 698,
+      "country": "Ireland"
+    },
+    "EC": {
+      "kind": "place",
+      "credit": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paisaje_en_Punta_Pitt,_isla_de_San_Crist%C3%B3bal,_islas_Gal%C3%A1pagos,_Ecuador,_2015-07-24,_DD_53.JPG",
+      "sourceTitle": "File:Paisaje en Punta Pitt, isla de San Cristóbal, islas Galápagos, Ecuador, 2015-07-24, DD 53.JPG",
+      "files": {
+        "640": "assets/photos/places/ec-640.webp",
+        "960": "assets/photos/places/ec-960.webp",
+        "1280": "assets/photos/places/ec-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Ecuador"
+    },
+    "EG": {
+      "kind": "place",
+      "credit": "أحمد سبع الليل",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D8%A7%D9%84%D8%A3%D8%B4%D8%AC%D8%A7%D8%B1_%D9%88%D8%A7%D9%84%D8%BA%D8%A7%D8%A8%D8%A7%D8%AA.jpg",
+      "sourceTitle": "File:الأشجار والغابات.jpg",
+      "files": {
+        "640": "assets/photos/places/eg-640.webp",
+        "960": "assets/photos/places/eg-960.webp",
+        "1280": "assets/photos/places/eg-1280.webp"
+      },
+      "width": 1280,
+      "height": 853,
+      "country": "Egypt"
+    }
+  }
+}

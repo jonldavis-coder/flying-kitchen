@@ -3,167 +3,78 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="/flying-kitchen/">
-  <title>Route map · Flying Kitchen</title>
-  <meta name="description" content="A combined world map of the journeys published by the Flying sites. Routes are those sites’ own legs, drawn on Natural Earth country shapes.">
-  <meta name="theme-color" content="#022d5a">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/images/apple-touch.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&amp;family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <title>Maps · KiteKitchen</title>
+  <meta name="description" content="Maps of Flying Sauces and Flying Pancakes, kept inside those sections of KiteKitchen.">
+  <meta name="theme-color" content="#141210">
   
-  <link rel="canonical" href="https://jonldavis-coder.github.io/flying-kitchen/map/">
+  <link rel="canonical" href="https://kitekitchen.com/map/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Route map · Flying Kitchen">
-  <meta property="og:description" content="A combined world map of the journeys published by the Flying sites. Routes are those sites’ own legs, drawn on Natural Earth country shapes.">
-  <meta property="og:url" content="https://jonldavis-coder.github.io/flying-kitchen/map/">
-  <meta property="og:image" content="https://jonldavis-coder.github.io/flying-kitchen/assets/images/og.jpg">
+  <meta property="og:site_name" content="KiteKitchen">
+  <meta property="og:title" content="Maps · KiteKitchen">
+  <meta property="og:description" content="Maps of Flying Sauces and Flying Pancakes, kept inside those sections of KiteKitchen.">
+  <meta property="og:url" content="https://kitekitchen.com/map/">
+  <meta property="og:image" content="https://kitekitchen.com/assets/brand/og.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Route map · Flying Kitchen">
-  <meta name="twitter:description" content="A combined world map of the journeys published by the Flying sites. Routes are those sites’ own legs, drawn on Natural Earth country shapes.">
-  <meta name="twitter:image" content="https://jonldavis-coder.github.io/flying-kitchen/assets/images/og.jpg">
+  <meta name="twitter:title" content="Maps · KiteKitchen">
+  <meta name="twitter:description" content="Maps of Flying Sauces and Flying Pancakes, kept inside those sections of KiteKitchen.">
+  <meta name="twitter:image" content="https://kitekitchen.com/assets/brand/og.webp">
+  <link rel="stylesheet" href="/assets/css/kite.css">
   
-  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
 </head>
-<body data-page="map" data-print="full">
+<body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <div class="frame">
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html">
-          <img class="brand-logo" src="assets/images/logo.jpg" alt="Flying Kitchen" width="800" height="800">
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-        <nav id="site-nav" aria-label="Primary">
-          <a href="index.html">Hub</a>
-          <a href="map/" aria-current="page">Route map</a>
-          <a href="search/">Search</a>
-          <a href="books/">Books</a>
-          <a href="shop/">Shop</a>
-          <a href="about/">About</a>
-        </nav>
-        <div id="auth-slot"></div>
-      </div>
-      <p class="issue-line">Flying Sauces: 278 sauces · Flying Pancakes: 290 pancakes · Flying BBQ: 302 stops</p>
-    </header>
-    <p id="demo-banner" class="demo-banner" role="status" hidden></p>
-    <noscript>
-      <p class="demo-banner">JavaScript is off. You can still read the hub. Search filtering, the route map, and community notes need JavaScript.</p>
-    </noscript>
-    <main id="content" tabindex="-1">
-      <div class="wrap">
-      <p class="eyebrow">Combined routes</p>
-      <h1>World route map</h1>
-      <p class="lede">Balloon, plane, train, and boat legs from every Flying site that has published a journey. The lines are those published legs, not GPS tracks.</p>
-      <aside class="ad-slot" data-ad-slot="map_top" hidden></aside>
-      <div class="tool-row no-print">
-        <label>Site <select id="map-site"><option value="">All sites</option><option value="sauces">Flying Sauces</option><option value="pancakes">Flying Pancakes</option><option value="bbq">Flying BBQ</option></select></label>
-        <label>Vehicle <select id="map-vehicle"><option value="">All vehicles</option><option value="balloon">Hot air balloon</option><option value="plane">Plane</option><option value="train">Train</option><option value="boat">Boat</option></select></label>
-      </div>
-      <p id="map-status" class="meta">Loading the map.</p>
-      <div id="route-map" class="map-canvas" role="region" aria-label="World route map"></div>
-      <h2>The legs</h2>
-      <div class="stack"><article class="card" data-route="sauces:silk-road-by-train">
-        <p class="eyebrow">Flying Sauces · Train</p>
-        <h3><a href="journeys/sauces/silk-road-by-train/">Silk Road by train</a></h3>
-      </article><article class="card" data-route="sauces:caribbean-by-boat">
-        <p class="eyebrow">Flying Sauces · Boat</p>
-        <h3><a href="journeys/sauces/caribbean-by-boat/">Caribbean by boat</a></h3>
-      </article><article class="card" data-route="sauces:across-the-american-south">
-        <p class="eyebrow">Flying Sauces · Train</p>
-        <h3><a href="journeys/sauces/across-the-american-south/">Across the American South</a></h3>
-      </article><article class="card" data-route="sauces:mediterranean-by-balloon">
-        <p class="eyebrow">Flying Sauces · Hot air balloon</p>
-        <h3><a href="journeys/sauces/mediterranean-by-balloon/">Mediterranean by balloon</a></h3>
-      </article><article class="card" data-route="sauces:mexico-to-the-andes">
-        <p class="eyebrow">Flying Sauces · Plane</p>
-        <h3><a href="journeys/sauces/mexico-to-the-andes/">Mexico to the Andes</a></h3>
-      </article><article class="card" data-route="pancakes:who-settled-the-flavor">
-        <p class="eyebrow">Flying Pancakes · Train</p>
-        <h3><a href="journeys/pancakes/who-settled-the-flavor/">Who settled the flavor</a></h3>
-      </article><article class="card" data-route="pancakes:crepes-by-balloon">
-        <p class="eyebrow">Flying Pancakes · Hot air balloon</p>
-        <h3><a href="journeys/pancakes/crepes-by-balloon/">Crepes by balloon</a></h3>
-      </article><article class="card" data-route="pancakes:butter-week-by-plane">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/butter-week-by-plane/">Butter week by plane</a></h3>
-      </article><article class="card" data-route="pancakes:dosas-by-train">
-        <p class="eyebrow">Flying Pancakes · Train</p>
-        <h3><a href="journeys/pancakes/dosas-by-train/">Dosas by train</a></h3>
-      </article><article class="card" data-route="pancakes:east-asia-savory-by-plane">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/east-asia-savory-by-plane/">East Asia&#39;s savory cakes by plane</a></h3>
-      </article><article class="card" data-route="pancakes:africa-coast-to-coast">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/africa-coast-to-coast/">Africa coast to coast</a></h3>
-      </article><article class="card" data-route="pancakes:caribbean-by-boat">
-        <p class="eyebrow">Flying Pancakes · Boat</p>
-        <h3><a href="journeys/pancakes/caribbean-by-boat/">Caribbean by boat</a></h3>
-      </article><article class="card" data-route="pancakes:masa-and-corn-by-plane">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/masa-and-corn-by-plane/">Masa and corn by plane</a></h3>
-      </article><article class="card" data-route="pancakes:potato-road-by-train">
-        <p class="eyebrow">Flying Pancakes · Train</p>
-        <h3><a href="journeys/pancakes/potato-road-by-train/">The potato road by train</a></h3>
-      </article><article class="card" data-route="pancakes:scandinavia-by-boat">
-        <p class="eyebrow">Flying Pancakes · Boat</p>
-        <h3><a href="journeys/pancakes/scandinavia-by-boat/">Scandinavia by boat</a></h3>
-      </article><article class="card" data-route="bbq:american-bbq-belt">
-        <p class="eyebrow">Flying BBQ · Train</p>
-        <h3><a href="journeys/bbq/american-bbq-belt/">The American BBQ Belt by train</a></h3>
-      </article><article class="card" data-route="bbq:caribbean-by-boat">
-        <p class="eyebrow">Flying BBQ · Boat</p>
-        <h3><a href="journeys/bbq/caribbean-by-boat/">Caribbean by boat</a></h3>
-      </article><article class="card" data-route="bbq:asado-by-plane">
-        <p class="eyebrow">Flying BBQ · Plane</p>
-        <h3><a href="journeys/bbq/asado-by-plane/">Asado and churrasco by plane</a></h3>
-      </article><article class="card" data-route="bbq:mediterranean-by-balloon">
-        <p class="eyebrow">Flying BBQ · Hot air balloon</p>
-        <h3><a href="journeys/bbq/mediterranean-by-balloon/">Mediterranean by balloon</a></h3>
-      </article><article class="card" data-route="bbq:africa-by-plane">
-        <p class="eyebrow">Flying BBQ · Plane</p>
-        <h3><a href="journeys/bbq/africa-by-plane/">Africa&#39;s fires by plane</a></h3>
-      </article><article class="card" data-route="bbq:pacific-by-boat">
-        <p class="eyebrow">Flying BBQ · Boat</p>
-        <h3><a href="journeys/bbq/pacific-by-boat/">Pacific earth ovens by boat</a></h3>
-      </article><article class="card" data-route="bbq:asian-grills-by-plane">
-        <p class="eyebrow">Flying BBQ · Plane</p>
-        <h3><a href="journeys/bbq/asian-grills-by-plane/">Asian grills by plane</a></h3>
-      </article></div>
-      <script id="route-data" type="application/json">[{"id":"sauces:silk-road-by-train","site":"sauces","siteName":"Flying Sauces","title":"Silk Road by train","vehicle":"train","vehicleLabel":"Train","points":[[35.7,51.4],[34.5,69.2],[34.3,108.9],[39.9,116.4],[31.2,121.5]],"href":"journeys/sauces/silk-road-by-train/"},{"id":"sauces:caribbean-by-boat","site":"sauces","siteName":"Flying Sauces","title":"Caribbean by boat","vehicle":"boat","vehicleLabel":"Boat","points":[[23.1,-82.4],[18,-76.8],[18.5,-72.3],[18.5,-69.9],[18.4,-66.1],[14.6,-61.1],[10.7,-61.5]],"href":"journeys/sauces/caribbean-by-boat/"},{"id":"sauces:across-the-american-south","site":"sauces","siteName":"Flying Sauces","title":"Across the American South","vehicle":"train","vehicleLabel":"Train","points":[[35.4,-77.9],[35.8,-80.3],[34,-81],[34.6,-87],[35.1,-90],[36.2,-86.8],[32.3,-90.2],[29.95,-90.07],[30.22,-92.02]],"href":"journeys/sauces/across-the-american-south/"},{"id":"sauces:mediterranean-by-balloon","site":"sauces","siteName":"Flying Sauces","title":"Mediterranean by balloon","vehicle":"balloon","vehicleLabel":"Hot air balloon","points":[[41.1,1.25],[43.3,5.4],[44.4,8.9],[37.5,14.2],[33.6,-7.6]],"href":"journeys/sauces/mediterranean-by-balloon/"},{"id":"sauces:mexico-to-the-andes","site":"sauces","siteName":"Flying Sauces","title":"Mexico to the Andes","vehicle":"plane","vehicleLabel":"Plane","points":[[19.04,-98.2],[19.43,-99.13],[20.97,-89.6],[-0.18,-78.47],[-12.05,-77.04],[-16.4,-71.54],[-33.45,-70.66]],"href":"journeys/sauces/mexico-to-the-andes/"},{"id":"pancakes:who-settled-the-flavor","site":"pancakes","siteName":"Flying Pancakes","title":"Who settled the flavor","vehicle":"train","vehicleLabel":"Train","points":[[41.927,-73.9974],[40.0379,-76.3055],[40.5173,-75.7774],[41.4478,-71.5254],[38.9259,-79.8468],[37.1184,-82.8277],[35.0456,-85.3097],[37.5407,-77.436],[32.7765,-79.9311],[29.961,-90.062],[44.9778,-93.265],[35.874,-110.641]],"href":"journeys/pancakes/who-settled-the-flavor/"},{"id":"pancakes:crepes-by-balloon","site":"pancakes","siteName":"Flying Pancakes","title":"Crepes by balloon","vehicle":"balloon","vehicleLabel":"Hot air balloon","points":[[48.11,-1.68],[48.07,-2],[48.11,-1.68],[48.11,-1.68],[49.89,2.3],[49.18,-0.37],[48.86,2.35],[43.71,7.26]],"href":"journeys/pancakes/crepes-by-balloon/"},{"id":"pancakes:butter-week-by-plane","site":"pancakes","siteName":"Flying Pancakes","title":"Butter week by plane","vehicle":"plane","vehicleLabel":"Plane","points":[[52.5,-1.5],[52.42,-3.9],[53.7,-7.7],[42.34,-7.86],[48.11,-1.68],[55.76,37.62],[52.23,21.01],[64.15,-21.94]],"href":"journeys/pancakes/butter-week-by-plane/"},{"id":"pancakes:dosas-by-train","site":"pancakes","siteName":"Flying Pancakes","title":"Dosas by train","vehicle":"train","vehicleLabel":"Train","points":[[13.087,80.278],[12.978,77.592],[13.041,80.234],[12.914,74.856],[13.115,80.287],[16.506,80.648],[9.925,78.12],[9.931,76.267],[28.628,77.219],[22.573,88.364]],"href":"journeys/pancakes/dosas-by-train/"},{"id":"pancakes:east-asia-savory-by-plane","site":"pancakes","siteName":"Flying Pancakes","title":"East Asia's savory cakes by plane","vehicle":"plane","vehicleLabel":"Plane","points":[[39.14,117.2],[31.23,121.474],[34.694,135.502],[34.385,132.455],[37.566,126.978],[37.55,126.99],[37.57,127],[16.054,108.202]],"href":"journeys/pancakes/east-asia-savory-by-plane/"},{"id":"pancakes:africa-coast-to-coast","site":"pancakes","siteName":"Flying Pancakes","title":"Africa coast to coast","vehicle":"plane","vehicleLabel":"Plane","points":[[34.03,-5],[12,8.52],[5.6,-0.19],[9.03,38.74],[2.05,45.34],[-4.04,39.67],[-18.91,47.52],[-33.93,18.42]],"href":"journeys/pancakes/africa-coast-to-coast/"},{"id":"pancakes:caribbean-by-boat","site":"pancakes","siteName":"Flying Pancakes","title":"Caribbean by boat","vehicle":"boat","vehicleLabel":"Boat","points":[[23.1136,-82.3666],[18.0264,-77.8487],[18.4861,-69.9312],[18.454,-69.606],[25.048,-77.3554],[18.4655,-66.1057],[10.6603,-61.5086]],"href":"journeys/pancakes/caribbean-by-boat/"},{"id":"pancakes:masa-and-corn-by-plane","site":"pancakes","siteName":"Flying Pancakes","title":"Masa and corn by plane","vehicle":"plane","vehicleLabel":"Plane","points":[[19.355,-99.162],[21.125,-101.686],[19.264,-99.103],[13.6929,-89.2182],[10.4806,-66.9036],[10.2469,-67.5958],[6.2476,-75.5658],[-8.0476,-34.877]],"href":"journeys/pancakes/masa-and-corn-by-plane/"},{"id":"pancakes:potato-road-by-train","site":"pancakes","siteName":"Flying Pancakes","title":"The potato road by train","vehicle":"train","vehicleLabel":"Train","points":[[53.7,-7.7],[53.76,-2.7],[46.95,7.45],[50.94,6.96],[50.06,19.94],[49.84,24.03],[51.25,22.57],[59.5,15]],"href":"journeys/pancakes/potato-road-by-train/"},{"id":"pancakes:scandinavia-by-boat","site":"pancakes","siteName":"Flying Pancakes","title":"Scandinavia by boat","vehicle":"boat","vehicleLabel":"Boat","points":[[61.12,10.47],[60.39,5.32],[59.33,18.07],[59.33,18.07],[55.68,12.57],[55.4,10.4],[60.17,24.94],[64.15,-21.94]],"href":"journeys/pancakes/scandinavia-by-boat/"},{"id":"bbq:american-bbq-belt","site":"bbq","siteName":"Flying BBQ","title":"The American BBQ Belt by train","vehicle":"train","vehicleLabel":"Train","points":[[35.4724,-77.4164],[35.824,-80.2534],[34.0007,-81.0348],[34.6059,-86.9833],[35.1495,-90.049],[37.7719,-87.1112],[38.627,-90.1994],[41.768,-87.625],[39.0997,-94.5786],[32.5449,-94.3674],[29.8849,-97.67],[25.9018,-97.4975]],"href":"journeys/bbq/american-bbq-belt/"},{"id":"bbq:caribbean-by-boat","site":"bbq","siteName":"Flying BBQ","title":"Caribbean by boat","vehicle":"boat","vehicleLabel":"Boat","points":[[21.929,-79.443],[18.164,-76.332],[18.594,-72.307],[18.486,-69.931],[18.113,-66.166],[10.66,-61.508],[13.063,-59.539]],"href":"journeys/bbq/caribbean-by-boat/"},{"id":"bbq:asado-by-plane","site":"bbq","siteName":"Flying BBQ","title":"Asado and churrasco by plane","vehicle":"plane","vehicleLabel":"Plane","points":[[-34.25,-59.47],[-32.317,-58.076],[-50.338,-72.265],[-33.449,-70.669],[-30.035,-51.218]],"href":"journeys/bbq/asado-by-plane/"},{"id":"bbq:mediterranean-by-balloon","site":"bbq","siteName":"Flying BBQ","title":"Mediterranean by balloon","vehicle":"balloon","vehicleLabel":"Hot air balloon","points":[[36.72,-4.42],[41.29,1.25],[42.58,-2.85],[38.72,-9.14],[37.57,22.8],[37,35.32]],"href":"journeys/bbq/mediterranean-by-balloon/"},{"id":"bbq:africa-by-plane","site":"bbq","siteName":"Flying BBQ","title":"Africa's fires by plane","vehicle":"plane","vehicleLabel":"Plane","points":[[31.63,-8.01],[14.72,-17.47],[12,8.52],[5.56,-0.21],[-1.29,36.82],[-25.97,32.57],[-26.2,28.05]],"href":"journeys/bbq/africa-by-plane/"},{"id":"bbq:pacific-by-boat","site":"bbq","siteName":"Flying BBQ","title":"Pacific earth ovens by boat","vehicle":"boat","vehicleLabel":"Boat","points":[[19.7297,-155.09],[-18.141,178.441],[-13.833,-171.766],[-21.139,-175.205],[-38.137,176.25]],"href":"journeys/bbq/pacific-by-boat/"},{"id":"bbq:asian-grills-by-plane","site":"bbq","siteName":"Flying BBQ","title":"Asian grills by plane","vehicle":"plane","vehicleLabel":"Plane","points":[[43.825,87.617],[39.904,116.407],[23.13,113.264],[37.263,127.029],[35.682,139.759],[15.229,104.857],[2.993,101.788],[10.307,123.886]],"href":"journeys/bbq/asian-grills-by-plane/"}]</script>
-    </div>
-    <script src="assets/vendor/leaflet/leaflet.js"></script>
-    </main>
-    <footer class="site-footer">
-      <div class="wrap">
-        <nav aria-label="Footer">
-          <a href="shop/">Shop</a>
-          <a href="books/">Books</a>
-          <a href="sauces/">Flying Sauces</a>
-          <a href="pancakes/">Flying Pancakes</a>
-          <a href="bbq/">Flying BBQ</a>
-          <a href="settled/">Who settled the flavor</a>
-          <a href="sources/">Sources</a>
-          <a href="credits/">Photo credits</a>
-          <a href="about/">About</a>
-          <a href="guidelines/">Community guidelines</a>
-          <a href="affiliate/">Affiliate disclosure</a>
-          <a href="privacy/">Privacy</a>
-          <a href="terms/">Terms</a>
-          <a href="submit.html">Suggest a pick</a>
-          <a href="login.html">Sign in</a>
-        </nav>
-        <p id="mode-note"></p>
-        <p>Recipes stay on their own Flying sites. This hub quotes those sites and links to them. It does not invent dishes, customers, or reviews. Shop prices are placeholders. Goods are planned for print-on-demand or private-label sourcing, and the buy buttons say coming soon.</p>
-      </div>
-    </footer>
+<header class="kk-header">
+  <div class="kk-header-inner">
+    <a class="kk-brand" href="/">
+      <img src="/assets/brand/kite-mark-128.webp" alt="" width="44" height="44">
+      <span class="kk-word">KiteKitchen</span>
+    </a>
+    <nav class="kk-nav" aria-label="Primary"><a href="/">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+    <details class="kk-menu">
+      <summary>Menu</summary>
+      <nav class="kk-nav" aria-label="Primary"><a href="/">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+    </details>
   </div>
-  <script src="config.js"></script>
-  <script src="ads-config.js"></script>
-  <script src="shop-config.js"></script>
-  <script type="module" src="assets/js/boot.js"></script>
+</header>
+  <main id="content" tabindex="-1">
+    <article class="kk-wrap"><h1>Maps</h1><p>The route maps stay with the guides that drew them.</p><p><a href="/flying-sauces/map/">Flying Sauces map</a></p><p><a href="/flying-pancakes/map/">Flying Pancakes map</a></p></article>
+  </main>
+  <footer class="kk-footer">
+    <div class="kk-wrap">
+      <p class="kk-word">KiteKitchen</p>
+      <nav aria-label="Footer">
+        <a href="/recipes/">Recipes</a>
+        <a href="/traditions/">Traditions</a>
+        <a href="/flying-sauces/">Flying Sauces</a>
+        <a href="/flying-pancakes/">Flying Pancakes</a>
+        <a href="/friends/">Friends</a>
+        <a href="/shop/">Shop</a>
+        <a href="/books/">Books</a>
+        <a href="/advertise/">Advertise</a>
+        <a href="/credits/">Photo credits</a>
+        <a href="/sources/">Sources</a>
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/affiliate/">Affiliate disclosure</a>
+        <a href="/guidelines/">Guidelines</a>
+        <button type="button" class="quiet" data-consent-open>Cookie choices</button>
+      </nav>
+      <p>Recipes are for home cooking. They are not medical, dietary, or food-safety advice. The shop is not open. Nothing on this site has a price.</p>
+    </div>
+  </footer>
+  <div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
+    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <div class="kk-row">
+      <button type="button" class="kk-button" data-consent="granted">Accept</button>
+      <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
+    </div>
+  </div>
+  <script src="/config.js"></script>
+  <script src="/assets/js/consent.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M64.0 64.0 L240.7 159.4 L382.6 150.1 L458.4 150.1 L578.3 151.9 L736.0 223.0 L723.4 296.0" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="64.0" cy="64.0" r="5" fill="#8c2f1e"/><circle cx="240.7" cy="159.4" r="5" fill="#8c2f1e"/><circle cx="382.6" cy="150.1" r="5" fill="#8c2f1e"/><circle cx="458.4" cy="150.1" r="5" fill="#8c2f1e"/><circle cx="578.3" cy="151.9" r="5" fill="#8c2f1e"/><circle cx="736.0" cy="223.0" r="5" fill="#8c2f1e"/><circle cx="723.4" cy="296.0" r="5" fill="#8c2f1e"/>
+  <text x="72.0" y="56.0" font-family="Georgia, serif" font-size="12">Cuba</text><text x="390.6" y="142.1" font-family="Georgia, serif" font-size="12">Haiti</text><text x="586.3" y="143.9" font-family="Georgia, serif" font-size="12">Trinidad and Tobago</text><text x="731.4" y="288.0" font-family="Georgia, serif" font-size="12">Dominican Republic</text>
+</svg>

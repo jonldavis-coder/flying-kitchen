@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <rect width="600" height="800" fill="#1e4d5c"/>
+  <rect x="18" y="18" width="564" height="764" fill="none" stroke="#e2b007" stroke-width="16"/>
+  <text x="48" y="90" fill="#e2b007" font-family="Georgia, serif" font-size="18" letter-spacing="3">Flying Pancakes</text>
+  <text x="48" y="210" fill="#f7f1e4" font-family="Georgia, serif" font-size="34">Flying Pancakes: The</text><text x="48" y="252" fill="#f7f1e4" font-family="Georgia, serif" font-size="34">Top 100 Pancakes of</text><text x="48" y="294" fill="#f7f1e4" font-family="Georgia, serif" font-size="34">the World</text>
+  <path d="M430 268l36-8-16-20 6 22 18 4-22 6 16 20-6-22z" fill="#e2b007"/>
+  <text x="48" y="720" fill="#f7f1e4" font-family="Georgia, serif" font-size="16">Field book · Not a ranking</text>
+</svg>

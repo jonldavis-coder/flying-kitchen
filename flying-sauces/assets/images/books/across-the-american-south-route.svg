@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M736.0 112.6 L604.9 101.0 L566.6 153.2 L238.8 135.8 L74.9 121.3 L249.8 89.4 L64.0 202.5 L72.2 270.6" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="736.0" cy="112.6" r="5" fill="#8c2f1e"/><circle cx="604.9" cy="101.0" r="5" fill="#8c2f1e"/><circle cx="566.6" cy="153.2" r="5" fill="#8c2f1e"/><circle cx="238.8" cy="135.8" r="5" fill="#8c2f1e"/><circle cx="74.9" cy="121.3" r="5" fill="#8c2f1e"/><circle cx="249.8" cy="89.4" r="5" fill="#8c2f1e"/><circle cx="64.0" cy="202.5" r="5" fill="#8c2f1e"/><circle cx="72.2" cy="270.6" r="5" fill="#8c2f1e"/>
+  <text x="744.0" y="104.6" font-family="Georgia, serif" font-size="12">Eastern North Carolina</text><text x="574.6" y="145.2" font-family="Georgia, serif" font-size="12">Midlands of South Carolina</text><text x="82.9" y="113.3" font-family="Georgia, serif" font-size="12">Memphis</text><text x="72.0" y="194.5" font-family="Georgia, serif" font-size="12">Jackson</text><text x="80.2" y="262.6" font-family="Georgia, serif" font-size="12">Louisiana</text>
+</svg>

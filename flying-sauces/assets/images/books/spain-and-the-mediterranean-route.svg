@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M442.0 111.0 L64.0 296.0 L536.2 79.7 L615.7 64.0 L736.0 162.2 L241.1 217.7" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="442.0" cy="111.0" r="5" fill="#8c2f1e"/><circle cx="64.0" cy="296.0" r="5" fill="#8c2f1e"/><circle cx="536.2" cy="79.7" r="5" fill="#8c2f1e"/><circle cx="615.7" cy="64.0" r="5" fill="#8c2f1e"/><circle cx="736.0" cy="162.2" r="5" fill="#8c2f1e"/><circle cx="241.1" cy="217.7" r="5" fill="#8c2f1e"/>
+  <text x="450.0" y="103.0" font-family="Georgia, serif" font-size="12">Tarragona</text><text x="72.0" y="288.0" font-family="Georgia, serif" font-size="12">Madrid and Spanish bars</text><text x="544.2" y="71.7" font-family="Georgia, serif" font-size="12">Canary Islands</text><text x="623.7" y="56.0" font-family="Georgia, serif" font-size="12">Canary Islands</text><text x="744.0" y="154.2" font-family="Georgia, serif" font-size="12">Bizkaia</text><text x="249.1" y="209.7" font-family="Georgia, serif" font-size="12">Provence</text>
+</svg>

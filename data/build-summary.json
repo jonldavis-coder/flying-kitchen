@@ -1,18 +1,11 @@
 {
-  "issue": "Flying Sauces: 278 sauces · Flying Pancakes: 290 pancakes · Flying BBQ: 302 stops",
+  "origin": "https://kitekitchen.com",
   "sauces": 278,
-  "featured": 165,
-  "journeys": 22,
-  "books": 59,
-  "pricedBooks": 59,
-  "boxSet": {
-    "sum": 942,
-    "savings": 282.6,
-    "total": 659.4,
-    "rate": 0.3,
-    "count": 59
-  },
-  "passages": 27,
-  "gear": 10,
-  "pages": 277
+  "pancakes": 290,
+  "sauceBooks": 23,
+  "pancakeBooks": 18,
+  "recipes": 11,
+  "traditions": 5,
+  "products": 9,
+  "sitemap": 835
 }

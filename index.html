@@ -3,518 +3,150 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="/flying-kitchen/">
-  <title>Flying Kitchen</title>
-  <meta name="description" content="The flagship hub for Flying Sauces, Flying Pancakes, and Flying BBQ. Routes, books, and a gear shop that is still coming soon.">
-  <meta name="theme-color" content="#022d5a">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/images/apple-touch.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&amp;family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <title>KiteKitchen · recipes for kite days</title>
+  <meta name="description" content="KiteKitchen is a kite-day recipe site: festival foods with sources, picnic recipes, Flying Sauces, Flying Pancakes, and a shop that is not open yet.">
+  <meta name="theme-color" content="#141210">
   
-  <link rel="canonical" href="https://jonldavis-coder.github.io/flying-kitchen/">
+  <link rel="canonical" href="https://kitekitchen.com/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Flying Kitchen">
-  <meta property="og:description" content="The flagship hub for Flying Sauces, Flying Pancakes, and Flying BBQ. Routes, books, and a gear shop that is still coming soon.">
-  <meta property="og:url" content="https://jonldavis-coder.github.io/flying-kitchen/">
-  <meta property="og:image" content="https://jonldavis-coder.github.io/flying-kitchen/assets/images/og.jpg">
+  <meta property="og:site_name" content="KiteKitchen">
+  <meta property="og:title" content="KiteKitchen · recipes for kite days">
+  <meta property="og:description" content="KiteKitchen is a kite-day recipe site: festival foods with sources, picnic recipes, Flying Sauces, Flying Pancakes, and a shop that is not open yet.">
+  <meta property="og:url" content="https://kitekitchen.com/">
+  <meta property="og:image" content="https://kitekitchen.com/assets/brand/og.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Flying Kitchen">
-  <meta name="twitter:description" content="The flagship hub for Flying Sauces, Flying Pancakes, and Flying BBQ. Routes, books, and a gear shop that is still coming soon.">
-  <meta name="twitter:image" content="https://jonldavis-coder.github.io/flying-kitchen/assets/images/og.jpg">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Flying Kitchen","url":"https://jonldavis-coder.github.io/flying-kitchen/","description":"The flagship hub for the Flying sites.","potentialAction":{"@type":"SearchAction","target":"https://jonldavis-coder.github.io/flying-kitchen/search/?q={query}","query-input":"required name=query"}}</script>
-  
+  <meta name="twitter:title" content="KiteKitchen · recipes for kite days">
+  <meta name="twitter:description" content="KiteKitchen is a kite-day recipe site: festival foods with sources, picnic recipes, Flying Sauces, Flying Pancakes, and a shop that is not open yet.">
+  <meta name="twitter:image" content="https://kitekitchen.com/assets/brand/og.webp">
+  <link rel="stylesheet" href="/assets/css/kite.css">
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"KiteKitchen","url":"https://kitekitchen.com/","logo":"https://kitekitchen.com/assets/brand/logo-480.png","email":"hello@kitekitchen.com","founder":{"@type":"Person","name":"Jonathan Davis"}},{"@context":"https://schema.org","@type":"WebSite","name":"KiteKitchen","url":"https://kitekitchen.com/","description":"Kite-day recipes, kite-festival foods with sources, and the Flying Sauces and Flying Pancakes guides.","publisher":{"@type":"Organization","name":"KiteKitchen","url":"https://kitekitchen.com/"},"potentialAction":{"@type":"SearchAction","target":"https://kitekitchen.com/search/?q={query}","query-input":"required name=query"}}]</script>
 </head>
-<body data-page="home" data-print="full">
+<body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <div class="frame">
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html">
-          <img class="brand-logo" src="assets/images/logo.jpg" alt="Flying Kitchen" width="800" height="800">
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-        <nav id="site-nav" aria-label="Primary">
-          <a href="index.html" aria-current="page">Hub</a>
-          <a href="map/">Route map</a>
-          <a href="search/">Search</a>
-          <a href="books/">Books</a>
-          <a href="shop/">Shop</a>
-          <a href="about/">About</a>
-        </nav>
-        <div id="auth-slot"></div>
-      </div>
-      <p class="issue-line">Flying Sauces: 278 sauces · Flying Pancakes: 290 pancakes · Flying BBQ: 302 stops</p>
-    </header>
-    <p id="demo-banner" class="demo-banner" role="status" hidden></p>
-    <noscript>
-      <p class="demo-banner">JavaScript is off. You can still read the hub. Search filtering, the route map, and community notes need JavaScript.</p>
-    </noscript>
-    <main id="content" tabindex="-1">
-      <section class="hero-stage">
-      <figure class="hero-frame">
-      <img src="assets/photos/hub/balloon.jpg" alt="Several hot air balloons in flight over a pale rocky landscape under a blue sky." width="1600" height="1067">
-      <figcaption class="photo-credit">Hot air balloons over a rocky landscape. ellehem · CC0 · <a href="https://commons.wikimedia.org/wiki/File:Hot_Air_Balloon_Ride_(Unsplash).jpg">Source</a></figcaption>
-    </figure>
-      <div class="wrap hero-card">
-        <p class="eyebrow">Flagship hub · Balloon, plane, train, and boat</p>
-        <h1>Taste the world from one kitchen.</h1>
-        <p class="lede">Flying Kitchen gathers the Flying sites along one route. The recipes stay on their own shelves. This issue carries the journeys, the books, and a gear list that is still being planned.</p>
-        <form class="search-form" action="search/" method="get">
-          <label for="home-q">Search the published shelves</label>
-          <div class="tool-row">
-            <input id="home-q" name="q" type="search" placeholder="Search sauces, pancakes, barbecue">
-            <button class="button" type="submit">Search</button>
-          </div>
-        </form>
-      </div>
-    </section>
-    <section class="wrap">
-      <h2>The way the journal travels</h2>
-      <p>These are photographs of a balloon, a railway, a boat, an airplane, and cast-iron skillets. They are not pictures of a named recipe.</p>
-      <div class="photo-row">
-        <figure class="photo-frame">
-      <img src="assets/photos/hub/train.jpg" alt="Steam locomotives outside the engine shed of the Leek and Rudyard Railway." width="1200" height="800">
-      <figcaption class="photo-credit">Steam locomotives at the Leek and Rudyard Railway. Photograph by Mike Peel ( www.mikepeel.net ). · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:At_Rudyard_Lake_Steam_Railway_2023_030.jpg">Source</a></figcaption>
-    </figure><figure class="photo-frame">
-      <img src="assets/photos/hub/boat.jpg" alt="A wooden sailing boat resting on the shore of a harbor at low tide." width="1200" height="900">
-      <figcaption class="photo-credit">A wooden boat on a harbor shore. Nasehi2277 · CC0 · <a href="https://commons.wikimedia.org/wiki/File:A_traditional_wooden_boat_rests_on_the_harbor_shore.jpg">Source</a></figcaption>
-    </figure><figure class="photo-frame">
-      <img src="assets/photos/hub/plane.jpg" alt="An airplane wing seen through a round window, above clouds at sunset." width="1080" height="1440">
-      <figcaption class="photo-credit">An airplane wing above the clouds at sunset. Salwa Farwaneh Dameh · CC0 · <a href="https://commons.wikimedia.org/wiki/File:Sunset_view_from_an_airplane_window_above_the_clouds.jpg">Source</a></figcaption>
-    </figure><figure class="photo-frame">
-      <img src="assets/photos/hub/skillet.jpg" alt="Two cast-iron skillets on a white cloth, one seasoned dark and one bare metal." width="1113" height="683">
-      <figcaption class="photo-credit">Two cast-iron skillets. FiveRings at English Wikipedia · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Castiron-skillets.jpg">Source</a></figcaption>
-    </figure>
-      </div>
-    </section>
-    <aside class="ad-slot" data-ad-slot="home_after_hero" hidden></aside>
-    <section class="wrap">
-      <h2>The three sites</h2>
-      <div class="sister-band">
-        <a class="sister-card" href="sauces/">
-              <p class="eyebrow">Live</p>
-              <h3>Flying Sauces</h3>
-              <p>A field guide to the world’s sauces: origin, method, and why each one tastes the way it does.</p>
-              <p class="count-stamp"><span>278</span>sauces</p>
-            </a><a class="sister-card" href="pancakes/">
-              <p class="eyebrow">Live</p>
-              <h3>Flying Pancakes</h3>
-              <p>The world’s pancakes and their griddled relatives.</p>
-              <p class="count-stamp"><span>290</span>pancakes</p>
-            </a><a class="sister-card" href="bbq/">
-              <p class="eyebrow">Live</p>
-              <h3>Flying BBQ</h3>
-              <p>Barbecue and live-fire cooking, stop by stop.</p>
-              <p class="count-stamp"><span>302</span>stops</p>
-            </a>
-      </div>
-    </section>
-    <section class="wrap">
-      <p class="eyebrow">From the published journeys</p>
-      <h2>Featured recipes</h2>
-      <p>Each card is a stop on a journey the sister site already published. The link opens the full entry there. A picture is added only when that site publishes a freely licensed photograph of that same entry, with its credit.</p>
-      <div class="grid"><article class="card">
-      
-      <p class="eyebrow">Flying Sauces · Train</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/sauces/fesenjan/">Fesenjan</a></h3>
-      <p>Walnut and pomegranate molasses: earthy, sour, and slightly sweet.</p>
-      <p class="meta">Iran · Silk Road by train</p>
-      <p class="meta"><a href="notes/sauces/fesenjan/">Hub notes</a></p>
-    </article><article class="card">
-      
-      <p class="eyebrow">Flying Pancakes · Train</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/hudson-valley-buckwheat-cakes/">Hudson Valley buckwheat cakes</a></h3>
-      <p>Sour, earthy buckwheat with a molasses edge and a crisp griddle face.</p>
-      <p class="meta">United States · Who settled the flavor</p>
-      <p class="meta"><a href="notes/pancakes/hudson-valley-buckwheat-cakes/">Hub notes</a></p>
-    </article><article class="card">
-      
-      <p class="eyebrow">Flying BBQ · Train</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/dishes/eastern-nc-whole-hog/">Eastern North Carolina Whole Hog</a></h3>
-      <p>Chopped pork, sharp with vinegar and red pepper, both lean and fatty in each bite.</p>
-      <p class="meta">United States · The American BBQ Belt by train</p>
-      <p class="meta"><a href="notes/bbq/eastern-nc-whole-hog/">Hub notes</a></p>
-    </article><article class="card">
-      
-      <p class="eyebrow">Flying Sauces · Train</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/sauces/afghan-cilantro-chutney/">Afghan Cilantro Chutney</a></h3>
-      <p>Cilantro, chile, garlic, and vinegar: bright, hot, and sharp.</p>
-      <p class="meta">Afghanistan · Silk Road by train</p>
-      <p class="meta"><a href="notes/sauces/afghan-cilantro-chutney/">Hub notes</a></p>
-    </article><article class="card">
-      
-      <p class="eyebrow">Flying Pancakes · Train</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/pennsylvania-dutch-potato-pancakes/">Pennsylvania Dutch potato pancakes</a></h3>
-      <p>Shredded potato, onion, and pepper, crisp at the edge and soft in the middle.</p>
-      <p class="meta">United States · Who settled the flavor</p>
-      <p class="meta"><a href="notes/pancakes/pennsylvania-dutch-potato-pancakes/">Hub notes</a></p>
-    </article><article class="card">
-      
-      <p class="eyebrow">Flying BBQ · Train</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/dishes/lexington-pork-shoulder/">Lexington Pork Shoulder</a></h3>
-      <p>Smoked pork shoulder chopped and dressed with a vinegar dip that has a little tomato.</p>
-      <p class="meta">United States · The American BBQ Belt by train</p>
-      <p class="meta"><a href="notes/bbq/lexington-pork-shoulder/">Hub notes</a></p>
-    </article></div>
-      <p class="button-row"><a class="button button-quiet" href="sauces/">Flying Sauces stops</a><a class="button button-quiet" href="pancakes/">Flying Pancakes stops</a><a class="button button-quiet" href="bbq/">Flying BBQ stops</a></p>
-    </section>
-    <section class="wrap">
-      <p class="eyebrow">Hot air balloon, plane, train, boat</p>
-      <h2>Top journeys</h2>
-      <div class="grid"><article class="card">
-        <p class="eyebrow">Flying Sauces · Train</p>
-        <h3><a href="journeys/sauces/silk-road-by-train/">Silk Road by train</a></h3>
-        <p>A rail journey from Persian walnut sauce to the noodle shops of eastern China.</p>
-        <p class="meta">5 stops · <a href="https://jonldavis-coder.github.io/flying-sauces/books/silk-road-by-train/">Open on Flying Sauces</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Sauces · Boat</p>
-        <h3><a href="journeys/sauces/caribbean-by-boat/">Caribbean by boat</a></h3>
-        <p>Island to island: sour orange, allspice, pepper, and herb pastes.</p>
-        <p class="meta">7 stops · <a href="https://jonldavis-coder.github.io/flying-sauces/sauces/cuban-mojo/">Open on Flying Sauces</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Sauces · Train</p>
-        <h3><a href="journeys/sauces/across-the-american-south/">Across the American South</a></h3>
-        <p>Vinegar, mustard, mayonnaise, and pepper, from Carolina to the Gulf.</p>
-        <p class="meta">9 stops · <a href="https://jonldavis-coder.github.io/flying-sauces/books/across-the-american-south/">Open on Flying Sauces</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Sauces · Hot air balloon</p>
-        <h3><a href="journeys/sauces/mediterranean-by-balloon/">Mediterranean by balloon</a></h3>
-        <p>A low, slow pass over nut sauces, basil, oregano, and chermoula.</p>
-        <p class="meta">5 stops · <a href="https://jonldavis-coder.github.io/flying-sauces/sauces/romesco/">Open on Flying Sauces</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Sauces · Plane</p>
-        <h3><a href="journeys/sauces/mexico-to-the-andes/">Mexico to the Andes</a></h3>
-        <p>A flight from mole and achiote to the chile sauces of the Andes.</p>
-        <p class="meta">7 stops · <a href="https://jonldavis-coder.github.io/flying-sauces/sauces/mole-poblano/">Open on Flying Sauces</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Train</p>
-        <h3><a href="journeys/pancakes/who-settled-the-flavor/">Who settled the flavor</a></h3>
-        <p>A rail route across the United States, tasting the cakes settlers, immigrants, and older corn traditions left on the griddle.</p>
-        <p class="meta">12 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/hudson-valley-buckwheat-cakes/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Hot air balloon</p>
-        <h3><a href="journeys/pancakes/crepes-by-balloon/">Crepes by balloon</a></h3>
-        <p>A low, slow pass over Brittany and the north of France, from wheat crepes to buckwheat galettes.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/crepes-bretonnes/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/butter-week-by-plane/">Butter week by plane</a></h3>
-        <p>Shrove Tuesday, Candlemas, and Maslenitsa. The plane is honest about the distance between these fast days.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/english-shrove-pancakes/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Train</p>
-        <h3><a href="journeys/pancakes/dosas-by-train/">Dosas by train</a></h3>
-        <p>A rail journey through rice, urad, and gram-flour batters, from a plain dosa to a Bengali patishapta.</p>
-        <p class="meta">10 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/plain-dosa/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/east-asia-savory-by-plane/">East Asia&#39;s savory cakes by plane</a></h3>
-        <p>Jianbing, scallion pancake, okonomiyaki, and jeon. A flight, because these cities are not a day&#39;s walk apart.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/tianjin-jianbing/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/africa-coast-to-coast/">Africa coast to coast</a></h3>
-        <p>From a Moroccan baghrir to a South African pannekoek, with fermented batters in between.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/books/africa-coast-to-coast/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Boat</p>
-        <h3><a href="journeys/pancakes/caribbean-by-boat/">Caribbean by boat</a></h3>
-        <p>Cassava bread, johnny cakes, and plantain, moving the way these coasts actually met: by sea.</p>
-        <p class="meta">7 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/cuban-torrejas/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Plane</p>
-        <h3><a href="journeys/pancakes/masa-and-corn-by-plane/">Masa and corn by plane</a></h3>
-        <p>Tortillas, pupusas, arepas, and cachapas. Corn is the thread. The plane admits the distance.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/corn-tortilla/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Train</p>
-        <h3><a href="journeys/pancakes/potato-road-by-train/">The potato road by train</a></h3>
-        <p>Boxty, rösti, latkes, and raggmunk. One tuber, many batters, a slow train.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/irish-boxty/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying Pancakes · Boat</p>
-        <h3><a href="journeys/pancakes/scandinavia-by-boat/">Scandinavia by boat</a></h3>
-        <p>Lefse, svele, plättar, and aebleskiver, harbor to harbor.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-pancakes/pancakes/norwegian-lefse/">Open on Flying Pancakes</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Train</p>
-        <h3><a href="journeys/bbq/american-bbq-belt/">The American BBQ Belt by train</a></h3>
-        <p>Vinegar, mustard, white sauce, and post oak, from eastern North Carolina to South Texas.</p>
-        <p class="meta">12 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/books/american-bbq-belt/">Open on Flying BBQ</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Boat</p>
-        <h3><a href="journeys/bbq/caribbean-by-boat/">Caribbean by boat</a></h3>
-        <p>Mojo, jerk, and island pigs, harbor to harbor.</p>
-        <p class="meta">7 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/dishes/cuban-lechon-asado/">Open on Flying BBQ</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Plane</p>
-        <h3><a href="journeys/bbq/asado-by-plane/">Asado and churrasco by plane</a></h3>
-        <p>A flight across the southern fires, from the parrilla to picanha.</p>
-        <p class="meta">5 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/dishes/argentine-asado/">Open on Flying BBQ</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Hot air balloon</p>
-        <h3><a href="journeys/bbq/mediterranean-by-balloon/">Mediterranean by balloon</a></h3>
-        <p>A low pass over sardines, calçots, vine shoots, and a spit.</p>
-        <p class="meta">6 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/dishes/spanish-espetos/">Open on Flying BBQ</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Plane</p>
-        <h3><a href="journeys/bbq/africa-by-plane/">Africa&#39;s fires by plane</a></h3>
-        <p>Mechoui, dibi, suya, nyama choma, and a braai.</p>
-        <p class="meta">7 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/dishes/moroccan-mechoui/">Open on Flying BBQ</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Boat</p>
-        <h3><a href="journeys/bbq/pacific-by-boat/">Pacific earth ovens by boat</a></h3>
-        <p>Imu, lovo, umu, and hāngi. Related heat, separate peoples.</p>
-        <p class="meta">5 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/dishes/kalua-pig/">Open on Flying BBQ</a></p>
-      </article><article class="card">
-        <p class="eyebrow">Flying BBQ · Plane</p>
-        <h3><a href="journeys/bbq/asian-grills-by-plane/">Asian grills by plane</a></h3>
-        <p>Cumin lamb, char siu, galbi, yakitori, gai yang, satay, and lechón.</p>
-        <p class="meta">8 stops · <a href="https://jonldavis-coder.github.io/flying-bbq/dishes/xinjiang-lamb-skewers/">Open on Flying BBQ</a></p>
-      </article></div>
-      <p><a class="button" href="map/">Combined route map</a></p>
-    </section>
-    <section class="wrap highlight">
-      <p class="eyebrow">Quoted from the sister sites</p>
-      <h2>Who settled the flavor</h2>
-      <p>These lines are the sister sites’ own words about settlement, migration, and the kitchens that carried the flavor. Flying Kitchen does not add a story of its own.</p>
-      <div class="passage-list"><blockquote>
-        <p>Enslaved West African cooks and their descendants shaped Southern pits and pepper sauces. English and Scottish settlers brought vinegar habits. German settlement in the Midlands is the usual account of the mustard sauce. This book follows that route and does not pretend one gravy belongs to one people only.</p>
-        <footer><a href="https://jonldavis-coder.github.io/flying-sauces/books/across-the-american-south/">Across the American South</a> · Flying Sauces</footer>
-      </blockquote><blockquote>
-        <p>Scots-Irish and English settlers brought biscuit and vinegar habits into the mountains in the eighteenth century. German-speaking settlers, often by way of Pennsylvania, brought sweet-sour pickling. Enslaved people and later Black Appalachian cooks worked the same farms and kitchens. Their labor is part of this food, not a footnote.</p>
-        <footer><a href="https://jonldavis-coder.github.io/flying-sauces/books/appalachian-sauces/">Appalachian Sauces</a> · Flying Sauces</footer>
-      </blockquote><blockquote>
-        <p>Creole cooking in New Orleans drew on French and Spanish colonial kitchens, West African cooking carried by enslaved people, Caribbean links, and Native American ingredients such as filé. Cajun cooking grew among Acadian exiles in rural southwest Louisiana. The usual distinction is city tomato and butter against a darker rural roux. It is a useful distinction, not a wall.</p>
-        <footer><a href="https://jonldavis-coder.github.io/flying-sauces/books/cajun-and-creole/">Cajun &amp; Creole Louisiana</a> · Flying Sauces</footer>
-      </blockquote></div>
-      <p><a class="button button-quiet" href="settled/">All of these passages</a></p>
-    </section>
-    <aside class="ad-slot" data-ad-slot="home_mid" hidden></aside>
-    <section class="wrap">
-      <p class="eyebrow">A reading route, not a prize list</p>
-      <h2>Top 100 books</h2>
-      <div class="grid"><article class="card">
-      <p class="eyebrow">Flying Sauces · Top shelf</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/books/top-100-sauces/">Flying Sauces: The Top 100 Sauces of the World</a></h3>
-      <p>A reading route through a hundred sauces chosen for reach and usefulness, not a prize list.</p>
-      <p class="meta">100 entries · Placeholder price $24.00, not final</p>
-      <p class="meta"><a href="shop/books/sauces/top-100-sauces/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Pancakes · Top shelf</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/books/top-100-pancakes/">Flying Pancakes: The Top 100 Pancakes of the World</a></h3>
-      <p>A reading route through a hundred pancakes chosen for reach and usefulness, not a prize list.</p>
-      <p class="meta">100 entries · Placeholder price $24.00, not final</p>
-      <p class="meta"><a href="shop/books/pancakes/top-100-pancakes/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Top shelf</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/top-100-bbq/">Flying BBQ: The Top 100 Barbecue Dishes of the World</a></h3>
-      <p>A reading route through a hundred live-fire dishes chosen for reach and usefulness, not a prize list.</p>
-      <p class="meta">100 entries · Placeholder price $24.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/top-100-bbq/">Shop page</a></p>
-    </article></div>
-    </section>
-    <section class="wrap">
-      <h2>Editor’s picks</h2>
-      <p>The flagship books each live site already chose. Another editor would pack a different bag.</p>
-      <div class="grid"><article class="card">
-      <p class="eyebrow">Flying Sauces · Top shelf</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/books/top-100-sauces/">Flying Sauces: The Top 100 Sauces of the World</a></h3>
-      <p>A reading route through a hundred sauces chosen for reach and usefulness, not a prize list.</p>
-      <p class="meta">100 entries · Placeholder price $24.00, not final</p>
-      <p class="meta"><a href="shop/books/sauces/top-100-sauces/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Sauces · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/books/across-the-american-south/">Across the American South</a></h3>
-      <p>A train route of vinegar, mustard, pepper, and Gulf sauces.</p>
-      <p class="meta">12 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/sauces/across-the-american-south/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Sauces · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/books/silk-road-by-train/">The Silk Road by Train</a></h3>
-      <p>Walnut and pomegranate, then chile, soy, and scallion oil.</p>
-      <p class="meta">7 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/sauces/silk-road-by-train/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Sauces · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/books/island-hopping-by-boat/">Island Hopping by Boat</a></h3>
-      <p>Caribbean and Pacific sauces that moved by sea.</p>
-      <p class="meta">10 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/sauces/island-hopping-by-boat/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Sauces · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-sauces/books/fire-and-heat/">Fire &amp; Heat: Hot Sauces of the World</a></h3>
-      <p>A short book of hot sauces chosen for how widely they are used.</p>
-      <p class="meta">14 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/sauces/fire-and-heat/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Pancakes · Top shelf</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/books/top-100-pancakes/">Flying Pancakes: The Top 100 Pancakes of the World</a></h3>
-      <p>A reading route through a hundred pancakes chosen for reach and usefulness, not a prize list.</p>
-      <p class="meta">100 entries · Placeholder price $24.00, not final</p>
-      <p class="meta"><a href="shop/books/pancakes/top-100-pancakes/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Pancakes · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/books/across-the-american-south/">Across the American South</a></h3>
-      <p>A train of buttermilk, corn, rice, and the Gulf, from the Piedmont toward New Orleans.</p>
-      <p class="meta">10 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/pancakes/across-the-american-south/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Pancakes · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/books/africa-coast-to-coast/">Africa Coast to Coast</a></h3>
-      <p>Fermented batters, plantain, and a cinnamon pannekoek, from the Atlantic to the Horn and south.</p>
-      <p class="meta">18 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/pancakes/africa-coast-to-coast/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Pancakes · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/books/latin-america-and-the-caribbean/">Latin America &amp; the Caribbean</a></h3>
-      <p>Masa, fresh corn, cassava, and the hotcake that arrived later.</p>
-      <p class="meta">25 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/pancakes/latin-america-and-the-caribbean/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying Pancakes · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-pancakes/books/shrove-tuesday-around-the-world/">Shrove Tuesday Around the World</a></h3>
-      <p>The late-winter custom of using eggs and fat, with each feast day named honestly.</p>
-      <p class="meta">12 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/pancakes/shrove-tuesday-around-the-world/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Top shelf</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/top-100-bbq/">Flying BBQ: The Top 100 Barbecue Dishes of the World</a></h3>
-      <p>A reading route through a hundred live-fire dishes chosen for reach and usefulness, not a prize list.</p>
-      <p class="meta">100 entries · Placeholder price $24.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/top-100-bbq/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/appalachian-smoke/">Appalachian Smoke</a></h3>
-      <p>Hickory shoulder, sorghum chops, a bought country-ham steak, and the pots that sit beside them.</p>
-      <p class="meta">9 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/appalachian-smoke/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/across-the-american-south/">Across the American South</a></h3>
-      <p>Whole hog, chopped pork, ribs, mutton, and the Gulf, told as a southern route.</p>
-      <p class="meta">40 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/across-the-american-south/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/american-bbq-belt/">The American BBQ Belt</a></h3>
-      <p>A train route from eastern North Carolina vinegar to South Texas barbacoa.</p>
-      <p class="meta">12 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/american-bbq-belt/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/asado-and-churrasco/">Asado &amp; Churrasco</a></h3>
-      <p>Parrillas, spits, and Saturday fires from the pampas to Brazil.</p>
-      <p class="meta">19 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/asado-and-churrasco/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/asian-grills/">Asian Grills</a></h3>
-      <p>Tandoor, charcoal, table grills, and satay, from the Punjab to the Philippines.</p>
-      <p class="meta">27 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/asian-grills/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/africas-fires/">Africa&#39;s Fires</a></h3>
-      <p>Suya, dibi, nyama choma, mechoui, and the braai.</p>
-      <p class="meta">32 entries · Placeholder price $18.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/africas-fires/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/caribbean-jerk-and-island-roasts/">Caribbean Jerk &amp; Island Roasts</a></h3>
-      <p>Jerk, lechón, and the harbor fires of the islands.</p>
-      <p class="meta">15 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/caribbean-jerk-and-island-roasts/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/british-and-irish-fires/">Britain &amp; Ireland at the Fire</a></h3>
-      <p>A hog on a spit, mackerel, salt-marsh lamb, and mint sauce.</p>
-      <p class="meta">7 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/british-and-irish-fires/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/middle-eastern-grills/">Middle Eastern Grills</a></h3>
-      <p>Adana, kofte, masgouf, koobideh, shuwa, and mandi.</p>
-      <p class="meta">11 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/middle-eastern-grills/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/india-tandoor-and-seekh/">India: Tandoor &amp; Seekh</a></h3>
-      <p>Clay-oven chicken, minced seekh, and the kebabs of the north.</p>
-      <p class="meta">13 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/india-tandoor-and-seekh/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/east-asian-grills/">East Asian Grills</a></h3>
-      <p>Char siu, galbi, yakitori, and the table grill.</p>
-      <p class="meta">21 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/east-asian-grills/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/mexico-and-the-pit/">Mexico and the Pit</a></h3>
-      <p>Pibil, pastor, carne asada, and barbacoa’s home country.</p>
-      <p class="meta">11 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/mexico-and-the-pit/">Shop page</a></p>
-    </article><article class="card">
-      <p class="eyebrow">Flying BBQ · Flagship</p>
-      <h3><a href="https://jonldavis-coder.github.io/flying-bbq/books/oceania-fires/">Oceania&#39;s Fires</a></h3>
-      <p>Earth ovens of the Pacific and the backyard grills of Australia and Aotearoa.</p>
-      <p class="meta">13 entries · Placeholder price $16.00, not final</p>
-      <p class="meta"><a href="shop/books/bbq/oceania-fires/">Shop page</a></p>
-    </article></div>
-      <p><a class="button button-quiet" href="books/">Every book</a></p>
-    </section>
-    <section class="wrap">
-      <p class="eyebrow">Flying Kitchen Gear</p>
-      <h2>The shop is being planned</h2>
-      <p>Aprons, tools, boards, skillets, tins, thermometers, gloves, a branding iron, tumblers, and hats. The pictures are original mockups. Prices are placeholders. Buying is coming soon.</p>
-      <div class="gear-grid"><a class="gear-card" href="shop/apron/">
-        <img src="assets/images/gear/apron.jpg" alt="Original mockup of the Flying Kitchen Apron" width="1100" height="1100">
-        <h3>Flying Kitchen Apron</h3>
-        <p>Placeholder price $36.00, not final</p>
-      </a><a class="gear-card" href="shop/grill-tools/">
-        <img src="assets/images/gear/grill-tools.jpg" alt="Original mockup of the Flying Kitchen Grill Tool Set" width="1100" height="1100">
-        <h3>Flying Kitchen Grill Tool Set</h3>
-        <p>Placeholder price $48.00, not final</p>
-      </a><a class="gear-card" href="shop/cutting-board/">
-        <img src="assets/images/gear/cutting-board.jpg" alt="Original mockup of the Flying Kitchen Cutting Board" width="1100" height="1100">
-        <h3>Flying Kitchen Cutting Board</h3>
-        <p>Placeholder price $42.00, not final</p>
-      </a></div>
-      <p><a class="button" href="shop/">Open the shop</a></p>
-    </section>
-    </main>
-    <footer class="site-footer">
-      <div class="wrap">
-        <nav aria-label="Footer">
-          <a href="shop/">Shop</a>
-          <a href="books/">Books</a>
-          <a href="sauces/">Flying Sauces</a>
-          <a href="pancakes/">Flying Pancakes</a>
-          <a href="bbq/">Flying BBQ</a>
-          <a href="settled/">Who settled the flavor</a>
-          <a href="sources/">Sources</a>
-          <a href="credits/">Photo credits</a>
-          <a href="about/">About</a>
-          <a href="guidelines/">Community guidelines</a>
-          <a href="affiliate/">Affiliate disclosure</a>
-          <a href="privacy/">Privacy</a>
-          <a href="terms/">Terms</a>
-          <a href="submit.html">Suggest a pick</a>
-          <a href="login.html">Sign in</a>
-        </nav>
-        <p id="mode-note"></p>
-        <p>Recipes stay on their own Flying sites. This hub quotes those sites and links to them. It does not invent dishes, customers, or reviews. Shop prices are placeholders. Goods are planned for print-on-demand or private-label sourcing, and the buy buttons say coming soon.</p>
-      </div>
-    </footer>
+<header class="kk-header">
+  <div class="kk-header-inner">
+    <a class="kk-brand" href="/">
+      <img src="/assets/brand/kite-mark-128.webp" alt="" width="44" height="44">
+      <span class="kk-word">KiteKitchen</span>
+    </a>
+    <nav class="kk-nav" aria-label="Primary"><a href="/" aria-current="page">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+    <details class="kk-menu">
+      <summary>Menu</summary>
+      <nav class="kk-nav" aria-label="Primary"><a href="/" aria-current="page">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+    </details>
   </div>
-  <script src="config.js"></script>
-  <script src="ads-config.js"></script>
-  <script src="shop-config.js"></script>
-  <script type="module" src="assets/js/boot.js"></script>
+</header>
+  <main id="content" tabindex="-1">
+    <section class="kk-hero">
+      <div class="kk-hero-inner">
+        <img class="kk-crest" src="/assets/brand/logo-360.webp" srcset="/assets/brand/logo-240.webp 240w, /assets/brand/logo-360.webp 360w, /assets/brand/logo-480.webp 480w" sizes="(min-width: 800px) 280px, 70vw" alt="KiteKitchen crest: a gold kite, spatula, and fork on a black and gold shield" width="360" height="467" fetchpriority="high">
+        <div class="kk-hero-copy">
+          <p class="kk-kicker">Recipes for kite days</p>
+          <h1>Food for the hour the kite goes up.</h1>
+          <p class="kk-lede">KiteKitchen cooks from real kite festivals, and from the picnic you pack for the park. Flying Sauces and Flying Pancakes live here under their own names. The KiteKitchen shop is coming soon.</p>
+          <p class="kk-row"><a class="kk-button" href="/traditions/">Festival foods</a><a class="kk-button quiet" href="/recipes/">All recipes</a></p>
+        </div>
+      </div>
+    </section>
+    <figure class="kk-hero-photo">
+      <img src="/assets/photos/kite/sumpango-800.webp" srcset="/assets/photos/kite/sumpango-800.webp 800w, /assets/photos/kite/sumpango-1600.webp 1600w" sizes="(min-width: 900px) 70vw, 100vw" alt="Crowd in front of enormous circular tissue-paper kites at the Sumpango festival under a blue sky." width="1600" height="1200" fetchpriority="high" decoding="async">
+      <figcaption>Giant kites at the Sumpango festival in Guatemala, on the Day of the Saints. The photograph shows the kites, not a plate of food. Photograph by SantiagoGG. CC BY-SA 4.0. <a href="https://creativecommons.org/licenses/by-sa/4.0">License</a>. <a href="https://commons.wikimedia.org/wiki/File%3AFestival_Barriletes_en_Sumpango.jpg">Wikimedia Commons</a>.</figcaption>
+    </figure>
+    <div class="kk-wrap"><aside class="kk-ad kk-ad-inline" data-ad-slot="home" aria-label="Advertisement">
+      <p class="kk-ad-label">Advertisement</p>
+      <div class="kk-ad-frame">
+        <p class="kk-house-kicker">From KiteKitchen</p>
+        <p><a href="/shop/">The shop is coming soon</a>. <a href="mailto:hello@kitekitchen.com?subject=KiteKitchen%20shop">Ask for a note</a> when Jonathan approves it.</p>
+      </div>
+    </aside></div>
+    <section class="kk-wrap">
+      <h2>Festival foods</h2>
+      <p>Each tradition page says what the sources support, and links those sources. The recipes are home adaptations, labeled as such.</p>
+      <div class="kk-grid cards-3"><article class="kk-card">
+          <p class="kk-kicker">Bermuda · Good Friday</p>
+          <h3><a href="/traditions/bermuda-good-friday/">Bermuda Good Friday kites</a></h3>
+          <p>Good Friday in Bermuda is a kite day. Families build tissue-paper kites and, alongside them, eat codfish cakes and hot cross buns. The pairing is described by Bermudian sources as …</p>
+        </article><article class="kk-card">
+          <p class="kk-kicker">Gujarat · about 14 January</p>
+          <h3><a href="/traditions/gujarat-uttarayan/">Gujarat’s Uttarayan</a></h3>
+          <p>In Gujarat, Makar Sankranti is Uttarayan, a public kite festival around 14 January. The foods repeatedly named with it are undhiyu, chikki, and jalebi.…</p>
+        </article><article class="kk-card">
+          <p class="kk-kicker">Maharashtra · 14 January</p>
+          <h3><a href="/traditions/maharashtra-makar-sankranti/">Maharashtra’s Makar Sankranti</a></h3>
+          <p>Maharashtra Tourism describes Makar Sankranti, on 14 January, as a harvest festival of sesame-and-jaggery sweets and kite flying. The sentence people say while sharing the sweet is…</p>
+        </article><article class="kk-card">
+          <p class="kk-kicker">Guatemala · 1 November</p>
+          <h3><a href="/traditions/guatemala-giant-kites/">Giant kites in Sumpango and Santiago Sacatepéquez</a></h3>
+          <p>On the Day of the Saints, 1 November, communities in Santiago Sacatepéquez and Sumpango build and exhibit giant tissue-paper kites. Fiambre, a cold mixed salad, is the dish Guatema…</p>
+        </article><article class="kk-card">
+          <p class="kk-kicker">China · early April</p>
+          <h3><a href="/traditions/qingming-kites/">Qingming kites and qingtuan</a></h3>
+          <p>Qingming, the Pure Brightness festival around 4 or 5 April, is a day for tending graves and then going outside. Smithsonian and the Shanghai government both name kite flying among …</p>
+        </article></div>
+    </section>
+    <section class="kk-wrap">
+      <h2>Two guides, still under their own names</h2>
+      <div class="kk-grid">
+        <article class="kk-card">
+          <p class="kk-kicker">Section</p>
+          <h3><a href="/flying-sauces/">Flying Sauces</a></h3>
+          <p>278 sauces, with the journeys, books, and photo credits imported from that guide.</p>
+        </article>
+        <article class="kk-card">
+          <p class="kk-kicker">Section</p>
+          <h3><a href="/flying-pancakes/">Flying Pancakes</a></h3>
+          <p>290 pancakes and their griddled relatives, imported the same way.</p>
+        </article>
+      </div>
+      <p class="kk-note">Flying BBQ stays on its own site. It is listed with <a href="/friends/#flying-bbq">Friends of KiteKitchen</a>.</p>
+    </section>
+    <section class="kk-wrap">
+      <h2>Picnic originals</h2>
+      <p>These are KiteKitchen shapes for a park day. They are not traditional festival dishes.</p>
+      <div class="kk-grid"><article class="kk-card"><h3><a href="/recipes/kite-sandwiches/">Kite sandwiches</a></h3><p>KiteKitchen original. Diamond sandwiches with a bread tail, for a park picnic. Not a festival tradition.</p></article><article class="kk-card"><h3><a href="/recipes/kite-sugar-cookies/">Kite sugar cookies</a></h3><p>KiteKitchen original. Diamond sugar cookies with icing spars and a small tail. Not a traditional recipe.</p></article><article class="kk-card"><h3><a href="/recipes/kite-hand-pies/">Kite hand pies</a></h3><p>KiteKitchen original. Diamond jam hand pies with a pastry tail, to carry to a kite field.</p></article><article class="kk-card"><h3><a href="/recipes/park-kite-mix/">Park kite mix</a></h3><p>KiteKitchen original. A salty-sweet tin of chickpeas, peanuts, seeds, and dried mango to take to the field.</p></article></div>
+    </section>
+    <section class="kk-wrap">
+      <h2>The shop is not open</h2>
+      <p>Utensils, an apron, a tote, and a kite-day cookbook are drawn as mockups. There are no prices and no checkout. Jonathan has to approve the goods before anything is sold.</p>
+      <p><a class="kk-button" href="/shop/">Look at the shop</a></p>
+    </section>
+  </main>
+  <footer class="kk-footer">
+    <div class="kk-wrap">
+      <p class="kk-word">KiteKitchen</p>
+      <nav aria-label="Footer">
+        <a href="/recipes/">Recipes</a>
+        <a href="/traditions/">Traditions</a>
+        <a href="/flying-sauces/">Flying Sauces</a>
+        <a href="/flying-pancakes/">Flying Pancakes</a>
+        <a href="/friends/">Friends</a>
+        <a href="/shop/">Shop</a>
+        <a href="/books/">Books</a>
+        <a href="/advertise/">Advertise</a>
+        <a href="/credits/">Photo credits</a>
+        <a href="/sources/">Sources</a>
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/affiliate/">Affiliate disclosure</a>
+        <a href="/guidelines/">Guidelines</a>
+        <button type="button" class="quiet" data-consent-open>Cookie choices</button>
+      </nav>
+      <p>Recipes are for home cooking. They are not medical, dietary, or food-safety advice. The shop is not open. Nothing on this site has a price.</p>
+    </div>
+  </footer>
+  <div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
+    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <div class="kk-row">
+      <button type="button" class="kk-button" data-consent="granted">Accept</button>
+      <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
+    </div>
+  </div>
+  <script src="/config.js"></script>
+  <script src="/assets/js/consent.js" defer></script>
 </body>
 </html>

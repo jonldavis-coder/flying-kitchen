@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M224.2 155.6 L211.2 156.4 L224.2 155.6 L388.6 141.6 L386.5 122.5 L277.6 135.7 L224.2 155.6 L588.8 237.5" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="224.2" cy="155.6" r="5" fill="#8c2f1e"/><circle cx="211.2" cy="156.4" r="5" fill="#8c2f1e"/><circle cx="224.2" cy="155.6" r="5" fill="#8c2f1e"/><circle cx="388.6" cy="141.6" r="5" fill="#8c2f1e"/><circle cx="386.5" cy="122.5" r="5" fill="#8c2f1e"/><circle cx="277.6" cy="135.7" r="5" fill="#8c2f1e"/><circle cx="224.2" cy="155.6" r="5" fill="#8c2f1e"/><circle cx="588.8" cy="237.5" r="5" fill="#8c2f1e"/>
+  <text x="232.2" y="147.6" font-family="Georgia, serif" font-size="14">Brittany</text><text x="394.5" y="114.5" font-family="Georgia, serif" font-size="14">Amiens, Picardy</text><text x="596.8" y="229.5" font-family="Georgia, serif" font-size="14">Nice</text>
+</svg>

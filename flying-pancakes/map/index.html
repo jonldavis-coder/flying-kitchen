@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/flying-pancakes/">
+  <title>Route map · Flying Pancakes · KiteKitchen</title>
+  <meta name="description" content="A route map of pancake journeys. Each leg is marked with a balloon, plane, train, or boat. Choose a country to list its pancakes.">
+  <meta name="theme-color" content="#141210">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <link rel="canonical" href="https://kitekitchen.com/flying-pancakes/map/">
+  
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css"><meta property="og:title" content="Pancake route map">
+  <meta property="og:description" content="Route map of pancake journeys with a vehicle on each leg.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kitekitchen.com/flying-pancakes/map/">
+  <meta property="og:image" content="https://kitekitchen.com/flying-pancakes/assets/photos/hopewell-rocks1-jpg-800.webp">
+  <link rel="stylesheet" href="/assets/css/kite.css">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">
+</head>
+<body data-page="map" data-print="full">
+<div class="kk-bar" id="kk-bar">
+    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="36" height="36"><span class="kk-word">KiteKitchen</span></a>
+    <p class="kk-section-name">Flying Pancakes</p>
+    <nav aria-label="KiteKitchen"><a href="/">Home</a><a href="/recipes/">Recipes</a><a href="/traditions/">Traditions</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/" aria-current="page">Flying Pancakes</a><a href="/shop/">Shop</a></nav>
+  </div>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="frame">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="8" fill="#e2b007"/>
+            <rect x="6" y="6" width="52" height="52" fill="#1e4d5c"/>
+            <circle cx="34" cy="36" r="12" fill="none" stroke="#f7f1e4" stroke-width="2"/>
+            <path d="M12 20l16-3-10-12 3 14 12 2-14 3 10 12-3-14z" fill="#f7f1e4"/>
+          </svg>
+          <span class="brand-text">
+            <span class="brand-name">Flying Pancakes</span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" aria-label="Primary">
+          <a href="index.html">Journal</a>
+          <a href="map/" aria-current="page">Route map</a>
+          <a href="journeys/">Journeys</a>
+          <a href="explore/">Explore</a>
+          <a href="books/">Recipe books</a>
+          <a href="shop/">Shop</a>
+          <a href="learn/pancake-101/">Pancake 101</a>
+          <a href="submit.html">Submit a pancake</a>
+          <a href="about/">About</a>
+        </nav>
+        <div id="auth-slot"></div>
+      </div>
+      <p class="issue-line">290 pancakes in this issue · Growing to 1,000</p>
+    </header>
+    <p id="demo-banner" class="demo-banner" role="status" hidden></p>
+    <noscript>
+      <p class="demo-banner">JavaScript is off. You can still read the journal. Search, the route map, and community notes need JavaScript.</p>
+    </noscript>
+    <main id="content" tabindex="-1">
+      <div class="wrap">
+      <aside class="kk-ad kk-ad-inline" data-ad-slot="section-slot" aria-label="Advertisement">
+      <p class="kk-ad-label">Advertisement</p>
+      <div class="kk-ad-frame">
+        <p class="kk-house-kicker">From KiteKitchen</p>
+        <p><a href="/shop/">The shop is coming soon</a>. <a href="mailto:hello@kitekitchen.com?subject=KiteKitchen%20shop">Ask for a note</a> when Jonathan approves it.</p>
+      </div>
+    </aside>
+      <p class="eyebrow">Route map</p>
+      <h1>The voyage, leg by leg</h1>
+      <p class="lede">Colored lines are curated journeys. A balloon, plane, train, or boat sits on each leg. Countries are shaded by how many journal pancakes name them. The lists under the map work without JavaScript. This is a schematic, not a navigation chart.</p>
+      <div id="route-legend" class="route-legend"></div>
+      <form id="filters" class="filters" role="search">
+      <div class="filter-grid">
+        <label>Search
+          <input name="q" type="search" placeholder="Dosa, Appalachia, buckwheat…" autocomplete="off">
+        </label>
+        <label>Region
+          <select name="region"><option value="">All regions</option><option value="North Africa">North Africa</option><option value="West Africa">West Africa</option><option value="Central Africa">Central Africa</option><option value="East Africa">East Africa</option><option value="Southern Africa">Southern Africa</option><option value="Middle East">Middle East</option><option value="Caucasus">Caucasus</option><option value="Central Asia">Central Asia</option><option value="South Asia">South Asia</option><option value="Southeast Asia">Southeast Asia</option><option value="East Asia">East Asia</option><option value="Western Europe">Western Europe</option><option value="Northern Europe">Northern Europe</option><option value="Eastern Europe">Eastern Europe</option><option value="Southern Europe">Southern Europe</option><option value="North America">North America</option><option value="Mexico &amp; Central America">Mexico &amp; Central America</option><option value="Caribbean">Caribbean</option><option value="South America">South America</option><option value="Oceania">Oceania</option></select>
+        </label>
+        <label>Base type
+          <select name="type"><option value="">All types</option><option value="wheat-batter">Wheat batter</option><option value="crepe">Crepe</option><option value="buckwheat">Buckwheat</option><option value="yeasted">Yeasted cake</option><option value="fermented-batter">Fermented batter</option><option value="rice-batter">Rice batter</option><option value="lentil-batter">Lentil batter</option><option value="cornmeal">Cornmeal cake</option><option value="masa">Masa cake</option><option value="potato">Potato cake</option><option value="oat">Oat cake</option><option value="egg-cake">Egg skillet cake</option><option value="stuffed">Stuffed pancake</option><option value="fritter">Pan-fried fritter</option><option value="flatbread">Griddled flatbread</option><option value="mold-cake">Molded batter cake</option><option value="oven-pancake">Oven pancake</option></select>
+        </label>
+        <label>Heat
+          <select name="heat"><option value="">Any heat</option><option value="none">No chili heat</option><option value="mild">Mild</option><option value="medium">Medium</option><option value="hot">Hot</option><option value="extra-hot">Extra hot</option></select>
+        </label>
+        <label>Use
+          <select name="use"><option value="">Any use</option><option value="breakfast">Breakfast</option><option value="savory">Savory meal</option><option value="dessert">Dessert</option><option value="street">Street food</option><option value="feast">Feast or fast day</option><option value="snack">Snack</option><option value="accompaniment">Accompaniment to a meal</option></select>
+        </label>
+        <label>Diet
+          <select name="diet"><option value="">Any diet</option><option value="vegetarian">Vegetarian</option><option value="vegan">Vegan</option><option value="gluten-free">Gluten-free</option><option value="dairy-free">Dairy-free</option><option value="nut-free">Nut-free</option></select>
+        </label>
+        <label>Country
+          <select name="country"><option value="">All countries</option><option value="AF">Afghanistan</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AU">Australia</option><option value="AT">Austria</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BD">Bangladesh</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BO">Bolivia</option><option value="BR">Brazil</option><option value="BG">Bulgaria</option><option value="KH">Cambodia</option><option value="CA">Canada</option><option value="CL">Chile</option><option value="CN">China</option><option value="CO">Colombia</option><option value="CR">Costa Rica</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="CZ">Czechia</option><option value="DK">Denmark</option><option value="DJ">Djibouti</option><option value="DO">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="ER">Eritrea</option><option value="EE">Estonia</option><option value="ET">Ethiopia</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GR">Greece</option><option value="GY">Guyana</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IE">Ireland</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="KE">Kenya</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LT">Lithuania</option><option value="MG">Madagascar</option><option value="MY">Malaysia</option><option value="MQ">Martinique</option><option value="MU">Mauritius</option><option value="MX">Mexico</option><option value="MA">Morocco</option><option value="MM">Myanmar</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NG">Nigeria</option><option value="MK">North Macedonia</option><option value="NO">Norway</option><option value="PK">Pakistan</option><option value="PS">Palestine</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="RO">Romania</option><option value="RU">Russia</option><option value="WS">Samoa</option><option value="SA">Saudi Arabia</option><option value="RS">Serbia</option><option value="SG">Singapore</option><option value="SK">Slovakia</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="KR">South Korea</option><option value="SS">South Sudan</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SD">Sudan</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="UG">Uganda</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="UY">Uruguay</option><option value="VE">Venezuela</option><option value="VN">Vietnam</option><option value="YE">Yemen</option><option value="ZM">Zambia</option></select>
+        </label>
+      </div>
+    </form>
+      <p id="map-status" class="results-count" role="status">290 pancakes for all countries.</p>
+      <div id="world-map" role="application" aria-label="Route map of pancake journeys"></div>
+      <div id="journey-list" class="section-rule">
+        <h2>Journeys</h2>
+        <section><h3>Who settled the flavor</h3><p>A rail route across the United States, tasting the cakes settlers, immigrants, and older corn traditions left on the griddle. By Train.</p><ol><li><a href="pancakes/hudson-valley-buckwheat-cakes/">Hudson Valley buckwheat cakes</a> · Kingston</li><li><a href="pancakes/pennsylvania-dutch-potato-pancakes/">Pennsylvania Dutch potato pancakes</a> · Lancaster</li><li><a href="pancakes/pennsylvania-dutch-funnel-cakes/">Pennsylvania Dutch funnel cakes</a> · Kutztown</li><li><a href="pancakes/rhode-island-johnnycakes/">Rhode Island johnnycakes</a> · South Kingstown</li><li><a href="pancakes/appalachian-buckwheat-cakes/">Appalachian buckwheat cakes</a> · Elkins</li><li><a href="pancakes/appalachian-sorghum-pancakes/">Appalachian sorghum pancakes</a> · Whitesburg</li><li><a href="pancakes/southeastern-corn-griddle-cakes/">Southeastern corn griddle cakes</a> · Tennessee River valley</li><li><a href="pancakes/southern-hoecakes/">Southern hoecakes</a> · Richmond</li><li><a href="pancakes/lowcountry-rice-griddle-cakes/">Lowcountry rice griddle cakes</a> · Charleston</li><li><a href="pancakes/new-orleans-calas/">New Orleans calas</a> · New Orleans</li><li><a href="pancakes/upper-midwest-swedish-pancakes/">Upper Midwest Swedish pancakes</a> · Minneapolis</li><li><a href="pancakes/hopi-piki/">Hopi piki</a> · Hopi mesas</li></ol><p><a href="journeys/who-settled-the-flavor/">Read the journey</a></p></section>
+<section><h3>Crepes by balloon</h3><p>A low, slow pass over Brittany and the north of France, from wheat crepes to buckwheat galettes. By Hot air balloon.</p><ol><li><a href="pancakes/crepes-bretonnes/">Breton crepes</a> · Brittany</li><li><a href="pancakes/galette-de-sarrasin/">Buckwheat galette</a> · Brittany</li><li><a href="pancakes/galette-complete/">Galette complète</a> · Brittany</li><li><a href="pancakes/galette-saucisse/">Galette-saucisse</a> · Rennes, Brittany</li><li><a href="pancakes/ficelle-picarde/">Ficelle picarde</a> · Amiens, Picardy</li><li><a href="pancakes/normandy-apple-crepes/">Normandy apple crepes</a> · Normandy</li><li><a href="pancakes/crepes-suzette/">Crêpes Suzette</a> · Paris</li><li><a href="pancakes/socca/">Socca</a> · Nice</li></ol><p><a href="journeys/crepes-by-balloon/">Read the journey</a></p></section>
+<section><h3>Butter week by plane</h3><p>Shrove Tuesday, Candlemas, and Maslenitsa. The plane is honest about the distance between these fast days. By Plane.</p><ol><li><a href="pancakes/english-shrove-pancakes/">English Shrove pancakes</a> · England</li><li><a href="pancakes/welsh-crempog/">Welsh crempog</a> · Wales</li><li><a href="pancakes/irish-boxty/">Irish boxty</a> · Ireland</li><li><a href="pancakes/filloas/">Filloas</a> · Galicia</li><li><a href="pancakes/crepes-bretonnes/">Breton crepes</a> · Brittany</li><li><a href="pancakes/russian-blini/">Russian blini</a> · Russia</li><li><a href="pancakes/polish-nalesniki/">Polish naleśniki</a> · Poland</li><li><a href="pancakes/icelandic-ponnukokur/">Icelandic pönnukökur</a> · Iceland</li></ol><p><a href="journeys/butter-week-by-plane/">Read the journey</a></p></section>
+<section><h3>Dosas by train</h3><p>A rail journey through rice, urad, and gram-flour batters, from a plain dosa to a Bengali patishapta. By Train.</p><ol><li><a href="pancakes/plain-dosa/">Plain dosa</a> · Chennai, Tamil Nadu</li><li><a href="pancakes/masala-dosa/">Masala dosa</a> · Bengaluru, Karnataka</li><li><a href="pancakes/rava-dosa/">Rava dosa</a> · Chennai, Tamil Nadu</li><li><a href="pancakes/neer-dosa/">Neer dosa</a> · Mangaluru, Karnataka</li><li><a href="pancakes/uttapam/">Uttapam</a> · Chennai, Tamil Nadu</li><li><a href="pancakes/pesarattu/">Pesarattu</a> · Vijayawada, Andhra Pradesh</li><li><a href="pancakes/adai/">Adai</a> · Madurai, Tamil Nadu</li><li><a href="pancakes/appam/">Appam</a> · Kochi, Kerala</li><li><a href="pancakes/besan-cheela/">Besan cheela</a> · Delhi</li><li><a href="pancakes/patishapta/">Patishapta</a> · Kolkata, West Bengal</li></ol><p><a href="journeys/dosas-by-train/">Read the journey</a></p></section>
+<section><h3>East Asia&#39;s savory cakes by plane</h3><p>Jianbing, scallion pancake, okonomiyaki, and jeon. A flight, because these cities are not a day&#39;s walk apart. By Plane.</p><ol><li><a href="pancakes/tianjin-jianbing/">Tianjin jianbing</a> · Tianjin</li><li><a href="pancakes/cong-you-bing/">Cong you bing</a> · Shanghai</li><li><a href="pancakes/osaka-okonomiyaki/">Osaka okonomiyaki</a> · Osaka</li><li><a href="pancakes/hiroshima-okonomiyaki/">Hiroshima okonomiyaki</a> · Hiroshima</li><li><a href="pancakes/pajeon/">Pajeon</a> · Seoul</li><li><a href="pancakes/kimchi-jeon/">Kimchi jeon</a> · Seoul</li><li><a href="pancakes/bindaetteok/">Bindaetteok</a> · Seoul</li><li><a href="pancakes/banh-xeo/">Banh xeo</a> · Da Nang</li></ol><p><a href="journeys/east-asia-savory-by-plane/">Read the journey</a></p></section>
+<section><h3>Africa coast to coast</h3><p>From a Moroccan baghrir to a South African pannekoek, with fermented batters in between. By Plane.</p><ol><li><a href="pancakes/moroccan-baghrir/">Moroccan baghrir</a> · Fez</li><li><a href="pancakes/nigerian-masa/">Nigerian masa</a> · Kano</li><li><a href="pancakes/ghanaian-tatale/">Ghanaian tatale</a> · Accra</li><li><a href="pancakes/injera/">Injera</a> · Addis Ababa</li><li><a href="pancakes/somali-canjeero/">Somali canjeero</a> · Mogadishu</li><li><a href="pancakes/kenyan-vitumbua/">Kenyan vitumbua</a> · Mombasa</li><li><a href="pancakes/malagasy-mofo-gasy/">Mofo gasy</a> · Antananarivo</li><li><a href="pancakes/south-african-pannekoek/">South African pannekoek</a> · Cape Town</li></ol><p><a href="journeys/africa-coast-to-coast/">Read the journey</a></p></section>
+<section><h3>Caribbean by boat</h3><p>Cassava bread, johnny cakes, and plantain, moving the way these coasts actually met: by sea. By Boat.</p><ol><li><a href="pancakes/cuban-torrejas/">Cuban torrejas</a> · Havana</li><li><a href="pancakes/jamaican-bammy/">Jamaican bammy</a> · Black River</li><li><a href="pancakes/dominican-casabe/">Dominican casabe</a> · Santo Domingo</li><li><a href="pancakes/dominican-yaniqueques/">Dominican yaniqueques</a> · Boca Chica</li><li><a href="pancakes/bahamian-johnnycake/">Bahamian johnnycake</a> · Nassau</li><li><a href="pancakes/puerto-rican-almojabanas/">Puerto Rican almojábanas</a> · San Juan</li><li><a href="pancakes/trinidadian-dhalpuri/">Trinidadian dhalpuri roti</a> · Port of Spain</li></ol><p><a href="journeys/caribbean-by-boat/">Read the journey</a></p></section>
+<section><h3>Masa and corn by plane</h3><p>Tortillas, pupusas, arepas, and cachapas. Corn is the thread. The plane admits the distance. By Plane.</p><ol><li><a href="pancakes/corn-tortilla/">Corn tortillas</a> · Mexico City</li><li><a href="pancakes/gorditas/">Gorditas</a> · León</li><li><a href="pancakes/tlacoyos/">Tlacoyos</a> · Xochimilco</li><li><a href="pancakes/pupusas/">Pupusas</a> · San Salvador</li><li><a href="pancakes/venezuelan-arepas/">Venezuelan arepas</a> · Caracas</li><li><a href="pancakes/cachapas/">Cachapas</a> · Maracay</li><li><a href="pancakes/colombian-arepas/">Colombian arepas</a> · Medellín</li><li><a href="pancakes/brazilian-tapioca/">Brazilian tapioca crepes</a> · Recife</li></ol><p><a href="journeys/masa-and-corn-by-plane/">Read the journey</a></p></section>
+<section><h3>The potato road by train</h3><p>Boxty, rösti, latkes, and raggmunk. One tuber, many batters, a slow train. By Train.</p><ol><li><a href="pancakes/irish-boxty/">Irish boxty</a> · Ireland</li><li><a href="pancakes/lancashire-potato-cakes/">Lancashire potato cakes</a> · Lancashire</li><li><a href="pancakes/swiss-rosti/">Swiss rösti</a> · Bern</li><li><a href="pancakes/kartoffelpuffer/">Kartoffelpuffer</a> · the Rhineland</li><li><a href="pancakes/placki-ziemniaczane/">Placki ziemniaczane</a> · Kraków</li><li><a href="pancakes/deruny/">Deruny</a> · Ukraine</li><li><a href="pancakes/potato-latkes/">Potato latkes</a> · Ashkenazi Poland</li><li><a href="pancakes/raggmunk/">Raggmunk</a> · Sweden</li></ol><p><a href="journeys/potato-road-by-train/">Read the journey</a></p></section>
+<section><h3>Scandinavia by boat</h3><p>Lefse, svele, plättar, and aebleskiver, harbor to harbor. By Boat.</p><ol><li><a href="pancakes/norwegian-lefse/">Norwegian lefse</a> · eastern Norway</li><li><a href="pancakes/svele/">Svele</a> · Vestland</li><li><a href="pancakes/swedish-pannkakor/">Swedish pannkakor</a> · Sweden</li><li><a href="pancakes/swedish-plattar/">Swedish plättar</a> · Sweden</li><li><a href="pancakes/danish-pandekager/">Danish pandekager</a> · Denmark</li><li><a href="pancakes/aebleskiver/">Aebleskiver</a> · Denmark</li><li><a href="pancakes/finnish-lettu/">Finnish lettu</a> · Finland</li><li><a href="pancakes/icelandic-ponnukokur/">Icelandic pönnukökur</a> · Iceland</li></ol><p><a href="journeys/scandinavia-by-boat/">Read the journey</a></p></section>
+      </div>
+      <div id="country-results" class="section-rule"></div>
+    </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav aria-label="Footer">
+          <a href="shop/">Shop</a>
+          <a href="books/">Recipe books</a>
+          <a href="journeys/">Journeys</a>
+          <a href="learn/who-settled-the-flavor/">Who settled the flavor</a>
+          <a href="about/">About</a>
+          <a href="learn/pancake-101/">Pancake 101</a>
+          <a href="learn/glossary/">Glossary</a>
+          <a href="/guidelines/">Community guidelines</a>
+          <a href="/affiliate/">Affiliate disclosure</a>
+          <a href="credits/">Photo credits</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="submit.html">Submit a pancake</a>
+        </nav>
+        <p id="mode-note"></p>
+        <p>Recipes are for home cooking. They are not professional food-safety, medical, or dietary advice. The journal is growing toward 1,000 pancakes. Counts on this site are the edited entries in this issue, nothing else.</p>
+      </div>
+    <p class="kk-partof">Flying Pancakes is a section of <a href="/">KiteKitchen</a>.</p></footer>
+  </div>
+  <script src="assets/vendor/leaflet/leaflet.js"></script>
+  <script src="config.js"></script>
+  <script src="ads-config.js"></script>
+  <script type="module" src="assets/js/boot.js"></script>
+<div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
+    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <div class="kk-row">
+      <button type="button" class="kk-button" data-consent="granted">Accept</button>
+      <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
+    </div>
+  </div>
+<script src="/config.js"></script>
+<script src="/assets/js/consent.js" defer></script>
+</body>
+</html>

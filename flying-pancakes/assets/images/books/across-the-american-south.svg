@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <rect width="600" height="800" fill="#1e4d5c"/>
+  <rect x="18" y="18" width="564" height="764" fill="none" stroke="#e2b007" stroke-width="16"/>
+  <text x="48" y="90" fill="#e2b007" font-family="Georgia, serif" font-size="18" letter-spacing="3">Flying Pancakes</text>
+  <text x="48" y="210" fill="#f7f1e4" font-family="Georgia, serif" font-size="34">Across the American</text><text x="48" y="252" fill="#f7f1e4" font-family="Georgia, serif" font-size="34">South</text>
+  <rect x="430" y="250" width="430" height="28" rx="4" fill="#f7f1e4"/><circle cx="86" cy="282" r="6" fill="#1c1915"/><circle cx="124" cy="282" r="6" fill="#1c1915"/>
+  <text x="48" y="720" fill="#f7f1e4" font-family="Georgia, serif" font-size="16">Field book · Not a ranking</text>
+</svg>

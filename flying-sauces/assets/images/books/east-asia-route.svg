@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M64.0 215.7 L736.0 144.3 L539.6 196.2" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="64.0" cy="215.7" r="5" fill="#8c2f1e"/><circle cx="736.0" cy="144.3" r="5" fill="#8c2f1e"/><circle cx="539.6" cy="196.2" r="5" fill="#8c2f1e"/>
+  <text x="72.0" y="207.7" font-family="Georgia, serif" font-size="12">Chengdu</text><text x="744.0" y="136.3" font-family="Georgia, serif" font-size="12">Japan</text><text x="547.6" y="188.2" font-family="Georgia, serif" font-size="12">Korea</text>
+</svg>

@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://jonldavis-coder.github.io/flying-kitchen/sitemap.xml
+
+Sitemap: https://kitekitchen.com/sitemap.xml

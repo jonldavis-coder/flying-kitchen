@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M209.8 111.7 L506.9 218.3 L455.5 186.6 L423.1 226.5 L607.1 158.4 L299.7 252.6 L486.6 210.4 L505.9 257.6 L417.9 219.6 L473.2 203.1 L411.9 218.1 L204.1 214.6 L192.9 118.9 L233.4 102.4 L594.0 160.8" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="209.8" cy="111.7" r="5" fill="#8c2f1e"/><circle cx="506.9" cy="218.3" r="5" fill="#8c2f1e"/><circle cx="455.5" cy="186.6" r="5" fill="#8c2f1e"/><circle cx="423.1" cy="226.5" r="5" fill="#8c2f1e"/><circle cx="607.1" cy="158.4" r="5" fill="#8c2f1e"/><circle cx="299.7" cy="252.6" r="5" fill="#8c2f1e"/><circle cx="486.6" cy="210.4" r="5" fill="#8c2f1e"/><circle cx="505.9" cy="257.6" r="5" fill="#8c2f1e"/><circle cx="417.9" cy="219.6" r="5" fill="#8c2f1e"/><circle cx="473.2" cy="203.1" r="5" fill="#8c2f1e"/><circle cx="411.9" cy="218.1" r="5" fill="#8c2f1e"/><circle cx="204.1" cy="214.6" r="5" fill="#8c2f1e"/><circle cx="192.9" cy="118.9" r="5" fill="#8c2f1e"/><circle cx="233.4" cy="102.4" r="5" fill="#8c2f1e"/><circle cx="594.0" cy="160.8" r="5" fill="#8c2f1e"/>
+  <text x="217.8" y="103.7" font-family="Georgia, serif" font-size="14">Denmark</text><text x="431.1" y="218.5" font-family="Georgia, serif" font-size="14">Colombo</text><text x="494.6" y="202.4" font-family="Georgia, serif" font-size="14">Bangkok</text><text x="602.0" y="152.8" font-family="Georgia, serif" font-size="14">Osaka</text>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M335.1 185.3 L318.4 185.9 L292.0 176.8 L317.7 160.4 L290.8 257.6 L304.8 250.4 L333.8 216.6 L607.1 162.1 L491.6 187.2 L192.9 102.4 L432.9 162.7 L471.1 136.7" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="335.1" cy="185.3" r="5" fill="#8c2f1e"/><circle cx="318.4" cy="185.9" r="5" fill="#8c2f1e"/><circle cx="292.0" cy="176.8" r="5" fill="#8c2f1e"/><circle cx="317.7" cy="160.4" r="5" fill="#8c2f1e"/><circle cx="290.8" cy="257.6" r="5" fill="#8c2f1e"/><circle cx="304.8" cy="250.4" r="5" fill="#8c2f1e"/><circle cx="333.8" cy="216.6" r="5" fill="#8c2f1e"/><circle cx="607.1" cy="162.1" r="5" fill="#8c2f1e"/><circle cx="491.6" cy="187.2" r="5" fill="#8c2f1e"/><circle cx="192.9" cy="102.4" r="5" fill="#8c2f1e"/><circle cx="432.9" cy="162.7" r="5" fill="#8c2f1e"/><circle cx="471.1" cy="136.7" r="5" fill="#8c2f1e"/>
+  <text x="343.1" y="177.3" font-family="Georgia, serif" font-size="14">England</text><text x="200.9" y="94.4" font-family="Georgia, serif" font-size="14">Iceland</text><text x="479.1" y="128.7" font-family="Georgia, serif" font-size="14">Sweden</text>
+</svg>
