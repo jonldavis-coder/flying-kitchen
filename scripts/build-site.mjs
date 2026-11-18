@@ -153,6 +153,7 @@ function footInner() {
           <a href="/flying-bbq/">Flying BBQ</a>
           <a href="/map/">World Map</a>
           <a href="/journeys/">Journeys</a>
+          <a href="/collections/">Collections</a>
           <a href="/books/">Cookbooks</a>
           <a href="/shop/">Shop</a>
           <a href="/about/">About</a>
@@ -776,7 +777,9 @@ function collectEntries(dir, folder, section) {
     const html = fs.readFileSync(path.join(root, dir, folder, slug, "index.html"), "utf8");
     const iso = (html.match(/country=([A-Z]{2})/) || [])[1] || "";
     const meta = textOf(html, /<p class="meta recipe-meta">([\s\S]*?)<\/p>/);
-    const bits = meta.split("·").map((part) => part.trim()).filter(Boolean);
+    const info = html.match(/<ul class="kk-info"[^>]*>[\s\S]*?<\/ul>/);
+    const infoBits = info ? [...info[0].matchAll(/<li>([^<]+)<\/li>/g)].map((match) => match[1].trim()) : [];
+    const bits = infoBits.length ? infoBits : meta.split("·").map((part) => part.trim()).filter(Boolean);
     const region = textOf(html, /<dt>Region<\/dt>\s*<dd>([\s\S]*?)<\/dd>/);
     items.push({
       title: textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug,
@@ -845,7 +848,7 @@ function coverSvg(book) {
 </svg>`;
 }
 
-function routeSvg(points) {
+function routeSvg(points, label = "Route between the stops on this journey") {
   const w = 640;
   const h = 360;
   const mapH = 320;
@@ -857,7 +860,7 @@ function routeSvg(points) {
   });
   const path = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("");
   const dots = coords.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="#e2b007" stroke="#fffdfb" stroke-width="2.2"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>`).join("");
-  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="Route between the stops on this journey"><rect width="${w}" height="${h}" fill="#f4f0e8"/><rect x="16" y="16" width="608" height="328" fill="none" stroke="#c6a15b" stroke-width="1.25"/><g transform="translate(0 ${oy}) scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.45">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-dasharray="2 5" stroke-linecap="round"/>${dots}</svg>`;
+  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeHtml(label)}"><rect width="${w}" height="${h}" fill="#f4f0e8"/><rect x="16" y="16" width="608" height="328" fill="none" stroke="#c6a15b" stroke-width="1.25"/><g transform="translate(0 ${oy}) scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.45">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-dasharray="2 5" stroke-linecap="round"/>${dots}</svg>`;
 }
 
 function pinSvg(lat, lon) {
@@ -984,6 +987,13 @@ const EDITORIAL = {
   "chilean-sopaipillas": {"id":"chilean-sopaipillas","widths":[640],"w":16,"h":9,"alt":"Chilean sopaipillas","caption":"Sopaipillas.","artist":"Lin linao","license":"CC BY-SA 3.0","licenseUrl":"http://creativecommons.org/licenses/by-sa/3.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Sopaipillas-reitimiento.JPG"},
   "haitian-boukannen": {"id":"haitian-boukannen","widths":[640],"w":16,"h":9,"alt":"Mayi boukannen, grilled corn","caption":"Mayi boukannen.","artist":"PAUL FILS","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Mayi_Boukannen_03.jpg"},
   "skordalia": {"id":"skordalia","widths":[640],"w":16,"h":9,"alt":"Skordalia in a bowl, with fried fish","caption":"Skordalia.","artist":"Christin568","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Bakaliaros2_Skordalia.jpg"},
+  "cranberry-sauce": {"id":"cranberry-sauce","widths":[640,1100],"w":16,"h":9,"alt":"Whole-berry cranberry sauce in a white bowl","caption":"Cranberry sauce.","artist":"Burkhard Mücke","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Cranberry_sauce_for_roast_turkey.jpg"},
+  "norwegian-pinnekjott": {"id":"norwegian-pinnekjott","widths":[640,1100],"w":16,"h":9,"alt":"Pinnekjøtt, salted lamb ribs, with potatoes and rutabaga","caption":"Pinnekjøtt.","artist":"Bernt Rostad","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Pinnekj%C3%B8tt_med_k%C3%A5lrabistappe,_2012.jpg"},
+  "satsivi": {"id":"satsivi","widths":[640,1100],"w":16,"h":9,"alt":"Satsivi, a walnut sauce, with chicken and herbs","caption":"Satsivi.","artist":"Francesc Fort","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Satsivi_-_Batumi.jpg"},
+  "persian-kuku-sabzi": {"id":"persian-kuku-sabzi","widths":[640],"w":16,"h":9,"alt":"Kuku sabzi, a green herb frittata, with tomato","caption":"Kuku sabzi.","artist":"Shannon Badiee","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Kuku_Sabzi_Platter.jpg"},
+  "turnip-cake": {"id":"turnip-cake","widths":[640,1100],"w":16,"h":9,"alt":"A round turnip cake with bits of cured meat","caption":"Turnip cake.","artist":"Peachyeung316","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:A_turnip_cake_in_Chinese_New_Year.jpg"},
+  "elote": {"id":"elote","widths":[640,1100],"w":16,"h":9,"alt":"Elote, corn on a stick with cheese, chile, and lime","caption":"Elote.","artist":"Daniela Velarde","license":"Pexels License","licenseUrl":"https://www.pexels.com/license/","sourceUrl":"https://www.pexels.com/photo/elote-on-a-wooden-plate-6133869/","source":"Pexels"},
+  "portuguese-sardines": {"id":"portuguese-sardines","widths":[640,1100],"w":16,"h":9,"alt":"Grilled sardines with lemon","caption":"Grilled sardines.","artist":"Haci Hüseyin Erol","license":"Pexels License","licenseUrl":"https://www.pexels.com/license/","sourceUrl":"https://www.pexels.com/photo/appetizing-sardines-with-lemon-on-ceramic-plate-34038236/","source":"Pexels"},
 };
 const DISH_PHOTO = Object.fromEntries([
   "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
@@ -992,7 +1002,8 @@ const DISH_PHOTO = Object.fromEntries([
   "paper-dosa", "malaysian-satay-ayam", "roti-canai", "korean-bulgogi", "jamaican-jerk-chicken", "chimichurri",
   "tianjin-jianbing", "nigerian-suya", "kenyan-nyama-choma", "moroccan-baghrir", "south-african-boerewors", "australian-pancakes", "singapore-hawker-satay",
   "carbonara", "cacio-e-pepe", "aioli", "hollandaise", "hummus", "tzatziki", "romesco", "massaman-curry", "puttanesca", "muhammara", "zhug", "dorayaki", "english-crumpets", "spanish-tortilla", "brazilian-picanha", "chicken-tikka", "korean-galbi", "korean-samgyeopsal", "provoleta", "paneer-tikka", "seekh-kebab", "ethiopian-tibs", "moroccan-kefta-brochettes", "moroccan-mechoui", "mozambican-peri-peri-chicken", "egyptian-kofta", "msemen", "crepes-bretonnes", "australian-lamb-chops", "amatriciana", "green-curry", "peking-duck", "mexico-city-al-pastor", "harissa", "char-siu", "yucatan-cochinita-pibil", "new-zealand-pikelets", "salsa-criolla", "chakalaka", "farofa", "toum", "aglio-e-olio", "socca", "bagna-cauda", "kenyan-chapati",
-  "coconut-chutney", "kadhi", "chipotle-adobo", "apple-sauce", "salsa-golf", "banana-ketchup", "tahini-sauce", "bindaetteok", "raggmunk", "joppiesaus", "cachapas", "aebleskiver", "fesenjan", "placki-ziemniaczane", "buckwheat-blini", "german-eierkuchen", "pebre", "toyomansi", "mojo-verde", "polish-nalesniki", "brazilian-beiju", "chilean-sopaipillas", "haitian-boukannen", "skordalia"
+  "coconut-chutney", "kadhi", "chipotle-adobo", "apple-sauce", "salsa-golf", "banana-ketchup", "tahini-sauce", "bindaetteok", "raggmunk", "joppiesaus", "cachapas", "aebleskiver", "fesenjan", "placki-ziemniaczane", "buckwheat-blini", "german-eierkuchen", "pebre", "toyomansi", "mojo-verde", "polish-nalesniki", "brazilian-beiju", "chilean-sopaipillas", "haitian-boukannen", "skordalia",
+  "cranberry-sauce", "norwegian-pinnekjott", "satsivi", "persian-kuku-sabzi", "turnip-cake", "elote", "portuguese-sardines"
 ].map((slug) => [slug, EDITORIAL[slug]]));
 DISH_PHOTO["pesto-alla-genovese"] = EDITORIAL.pesto;
 DISH_PHOTO["crepes-suzette"] = EDITORIAL.crepes;
@@ -1016,13 +1027,14 @@ function photoFigure(photo, { eager = false, sizes = "100vw", frame = "kk-shot" 
   const first = photo.widths[0];
   const height = Math.round(first * photo.h / photo.w);
   const priority = eager ? 'fetchpriority="high"' : 'loading="lazy"';
+  const source = photo.source || "Wikimedia Commons";
   return `<figure class="${frame}">
       <picture>
         <source type="image/avif" srcset="${photoSrcset(photo, "avif")}" sizes="${sizes}">
         <source type="image/webp" srcset="${photoSrcset(photo, "webp")}" sizes="${sizes}">
         <img src="/assets/photos/editorial/${photo.id}-${first}.jpg" srcset="${photoSrcset(photo, "jpg")}" sizes="${sizes}" width="${first}" height="${height}" alt="${escapeHtml(photo.alt)}" ${priority} decoding="async">
       </picture>
-      <figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(photo.caption)}</span><span class="kk-credit">Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</span></figcaption>
+      <figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(photo.caption)}</span><span class="kk-credit">Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">${escapeHtml(source)}</a>.</span></figcaption>
     </figure>`;
 }
 
@@ -1269,6 +1281,103 @@ const JOURNEYS = [
   }
 ];
 
+function recipeMinutes(item) {
+  const parts = String(item?.time || "").split("·");
+  let total = 0;
+  let found = false;
+  for (const part of parts) {
+    const hours = part.match(/(\d+)\s*hr/i);
+    const minutes = part.match(/(\d+)\s*min/i);
+    if (!hours && !minutes) continue;
+    found = true;
+    total += (hours ? Number(hours[1]) * 60 : 0) + (minutes ? Number(minutes[1]) : 0);
+  }
+  return found ? total : null;
+}
+
+// Change this slug to rotate the home-page feature.
+const HOME_FEATURE = "holiday-table";
+const COLLECTIONS = [
+  {
+    slug: "holiday-table",
+    title: "Holiday table around the world",
+    when: "Thanksgiving, November 26",
+    lede: "A reading order for the week of Thanksgiving, November 26. Every recipe is already on this site. Each page already describes the dish as food for a holiday or a celebration. The note under each title is that recipe’s own description.",
+    stops: [
+      { href: "/flying-sauces/sauces/cranberry-sauce/", seat: "Thanksgiving table" },
+      { href: "/flying-bbq/dishes/hickory-smoked-turkey/", seat: "Holiday roast" },
+      { href: "/flying-sauces/sauces/bread-sauce/", seat: "Christmas and Sunday roast sauce" },
+      { href: "/flying-bbq/dishes/norwegian-pinnekjott/", seat: "Christmas dish" },
+      { href: "/flying-pancakes/pancakes/portuguese-rabanadas/", seat: "Christmas fried bread" },
+      { href: "/flying-pancakes/pancakes/aebleskiver/", seat: "Advent and Christmas" },
+      { href: "/flying-pancakes/pancakes/goan-alebele/", seat: "Served at Christmas" },
+      { href: "/flying-sauces/sauces/satsivi/", seat: "New Year" },
+      { href: "/flying-bbq/dishes/moroccan-mechoui/", seat: "Eid al-Adha" },
+      { href: "/flying-bbq/dishes/omani-shuwa/", seat: "Cooked for Eid" },
+      { href: "/flying-pancakes/pancakes/turnip-cake/", seat: "Lunar New Year" },
+      { href: "/flying-pancakes/pancakes/persian-kuku-sabzi/", seat: "Nowruz" }
+    ]
+  },
+  {
+    slug: "weeknight",
+    title: "Weeknight around the world",
+    when: "30 minutes or less",
+    maxMinutes: 30,
+    lede: "Recipes already on this site whose pages list 30 minutes or less once prep and cook are added. The time under each title is that page’s own time.",
+    stops: [
+      { href: "/flying-sauces/sauces/carbonara/" },
+      { href: "/flying-bbq/dishes/korean-samgyeopsal/" },
+      { href: "/flying-pancakes/pancakes/cachapas/" },
+      { href: "/flying-pancakes/pancakes/syrniki/" },
+      { href: "/flying-bbq/dishes/australian-lamb-chops/" },
+      { href: "/flying-bbq/dishes/japanese-sanma-shioyaki/" },
+      { href: "/flying-bbq/dishes/cape-snoek-braai/" },
+      { href: "/flying-bbq/dishes/elote/" },
+      { href: "/flying-bbq/dishes/portuguese-sardines/" },
+      { href: "/flying-sauces/sauces/hummus/" }
+    ]
+  }
+];
+
+function collectionStops(collection) {
+  return collection.stops.map((stop) => {
+    const item = catalog.find((entry) => entry.href === stop.href);
+    if (!item) throw new Error(`Missing collection recipe ${stop.href}`);
+    const minutes = recipeMinutes(item);
+    if (collection.maxMinutes != null && (minutes == null || minutes > collection.maxMinutes)) {
+      throw new Error(`${item.title} is ${minutes == null ? "untimed" : `${minutes} min`}, past the ${collection.maxMinutes} minute line for ${collection.title}`);
+    }
+    const meal = stop.seat || (minutes != null ? `${minutes} min` : "");
+    return { ...item, meal, minutes };
+  });
+}
+
+function collectionPlate(stops) {
+  const places = routePlaces(stops);
+  const names = orderedCountries(stops);
+  if (places.length < 2) return locatorFigure(stops[0]?.iso, names[0] || stops[0]?.country, "", { hero: true });
+  return `<figure class="kk-shot kk-hero-shot kk-route-shot">${routeSvg(places, "Map of the countries in this collection")}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(names.join(" · "))}.</span><span class="kk-credit">Map plate. The marks follow the reading order.</span></figcaption></figure>`;
+}
+
+function featureHome(collection) {
+  const stops = collectionStops(collection);
+  const places = routePlaces(stops);
+  const names = orderedCountries(stops);
+  const plate = places.length >= 2
+    ? `<figure class="kk-shot kk-route-shot">${routeSvg(places, "Map of the countries in this collection")}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(names.join(" · "))}.</span><span class="kk-credit">Map plate.</span></figcaption></figure>`
+    : "";
+  return `<section class="kk-feature" data-feature="${escapeHtml(collection.slug)}">
+        <div>
+          <p class="kk-kicker">This week</p>
+          <h2><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h2>
+          <p>${escapeHtml(collection.lede)}</p>
+          <p class="kk-meta">${stops.length} recipes${collection.when ? ` · ${escapeHtml(collection.when)}` : ""}</p>
+          <p class="kk-meta"><a href="/collections/">All collections</a></p>
+        </div>
+        ${plate}
+      </section>`;
+}
+
 const featuredItems = [
   "/flying-sauces/sauces/pesto-alla-genovese/",
   "/flying-pancakes/pancakes/crepes-suzette/",
@@ -1300,6 +1409,7 @@ write("index.html", page({
       </div>
     </section>
     <div class="kk-wrap kk-home">
+      ${featureHome(COLLECTIONS.find((item) => item.slug === HOME_FEATURE))}
       <h2>Featured recipes</h2>
       <div class="kk-rcards">${featuredItems.map((item) => recipeCard(item)).join("")}</div>
       <h2>A day around the world</h2>
@@ -1477,7 +1587,7 @@ write("credits/index.html", page({
       <li><a href="/flying-bbq/credits/">Flying BBQ credits</a></li>
     </ul>
     <h2>Photographs on the home page</h2>
-    <ul class="kk-sources">${Object.values(EDITORIAL).map((photo) => `<li>${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</li>`).join("")}</ul>
+    <ul class="kk-sources">${Object.values(EDITORIAL).map((photo) => `<li>${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">${escapeHtml(photo.source || "Wikimedia Commons")}</a>.</li>`).join("")}</ul>
     <p>The crest, the cookbook covers, and the small compass are original artwork for this site. Recipe photographs are credited above.</p>
   </div>`
 }));
@@ -1913,6 +2023,54 @@ write("journeys/index.html", page({
 }));
 writeMoved("cookbooks/index.html", "/books/");
 
+for (const collection of COLLECTIONS) {
+  const stops = collectionStops(collection);
+  const names = orderedCountries(stops);
+  const facts = [
+    `${stops.length} recipes`,
+    `${names.length} ${names.length === 1 ? "country" : "countries"}`,
+    collection.when || ""
+  ].filter(Boolean);
+  write(`collections/${collection.slug}/index.html`, page({
+    title: `${collection.title} · Kite Kitchen`,
+    description: collection.lede,
+    path: `/collections/${collection.slug}/`,
+    image: `/assets/og/collections/${collection.slug}.jpg`,
+    jsonLd: itemListLd(collection.title, stops),
+    main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/collections/", "Collections"], [`/collections/${collection.slug}/`, collection.title]])}
+      <header class="kk-mast">
+        <p class="kk-kicker">Collection</p>
+        <h1 class="kk-display">${escapeHtml(collection.title)}</h1>
+        <p class="dek">${escapeHtml(collection.lede)}</p>
+        ${collectionPlate(stops)}
+        <ul class="kk-info" aria-label="This collection">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
+      </header>
+      ${landDefs(stops)}
+      <div class="kk-rcards">${stops.map((item) => placeCard(item, item.meal)).join("")}</div>
+      <p class="kk-meta"><a href="/collections/">All collections</a></p>
+    </article>`
+  }));
+}
+const featuredCollection = COLLECTIONS.find((item) => item.slug === HOME_FEATURE);
+write("collections/index.html", page({
+  title: "Collections · Kite Kitchen",
+  description: "Reading orders through recipes already on Kite Kitchen. One collection is featured on the home page.",
+  path: "/collections/",
+  image: "/assets/og/collections/holiday-table.jpg",
+  main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/collections/", "Collections"]])}
+    <header class="kk-mast">
+      <p class="kk-kicker">Reading orders</p>
+      <h1 class="kk-display">Collections</h1>
+      <p class="dek">Recipes already on this site, gathered for a week. The home page features one collection at a time.</p>
+    </header>
+    <div class="kk-rcards">${COLLECTIONS.map((collection) => {
+      const stops = collectionStops(collection);
+      const onHome = collection.slug === featuredCollection.slug;
+      return `<article class="kk-rcard"><p class="kk-kicker">${escapeHtml(collection.when || "Collection")}${onHome ? " · On the home page" : ""}</p><h3><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h3><p>${escapeHtml(collection.lede)}</p><p class="kk-meta">${stops.length} recipes</p></article>`;
+    }).join("")}</div>
+  </div>`
+}));
+
 const MEAL_OF = {
   breakfast: "Breakfast",
   snack: "Snack",
@@ -2187,6 +2345,14 @@ function polishRecipes() {
       const selfHref = `/${dir}/${folder}/${slug}/`;
       const self = catalog.find((item) => item.href === selfHref);
       const blocks = [];
+      const tables = COLLECTIONS.flatMap((collection) => collection.stops.flatMap((stop) => {
+        if (stop.href !== selfHref) return [];
+        const label = stop.seat || collection.when || "";
+        return [`<li><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a>${label ? ` <span class="kk-meta">${escapeHtml(label)}</span>` : ""}</li>`];
+      }));
+      if (tables.length) {
+        blocks.push(`<section class="kk-also"><h2>In this collection</h2><ul class="kk-recipe-list">${tables.join("")}</ul></section>`);
+      }
       const trips = JOURNEYS.flatMap((journey) => journey.stops.flatMap((stop) => {
         const href = typeof stop === "string" ? stop : stop.href;
         if (href !== selfHref) return [];
@@ -2359,6 +2525,18 @@ for (const item of catalog) {
     kicker: item.section,
     line: [item.country, item.region].filter(Boolean).join(" · "),
     photo: photoFile(photo),
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
+  });
+}
+for (const collection of COLLECTIONS) {
+  const stops = collectionStops(collection);
+  const place = byIso[stops[0]?.iso];
+  ogJobs.push({
+    out: `assets/og/collections/${collection.slug}.jpg`,
+    title: collection.title,
+    kicker: "Collection",
+    line: collection.when || orderedCountries(stops).slice(0, 4).join(" · "),
     lat: place ? place.lat : null,
     lon: place ? place.lon : null
   });
