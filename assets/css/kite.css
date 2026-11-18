@@ -188,6 +188,23 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   border-bottom: 1px solid var(--line);
 }
 .kk-hero-inner { max-width: 76rem; margin: 0 auto; padding: 3.2rem 1.25rem 2.6rem; }
+.kk-shot { margin: 0.9rem 0 0.2rem; }
+.kk-shot img, .photo-hero img, .stop-hero img, .pancake-hero img, .pancake-photo img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-2);
+}
+.kk-shot.kk-hero-shot img, .photo-hero img, .stop-hero img, .pancake-hero img, .pancake-photo img { aspect-ratio: 16 / 9; }
+.kk-caption, .photo-hero figcaption, .stop-hero figcaption, .pancake-hero figcaption, .photo-credit {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.kk-rcard .kk-shot { margin: -0.95rem -1rem 0.75rem; }
+.kk-guide .kk-shot { margin: -0.95rem -1rem 0.7rem; }
 .kk-hero h1 { font-size: clamp(3.4rem, 8vw, 6rem); letter-spacing: -0.02em; }
 .kk-hero .kk-lede { font-size: clamp(1.15rem, 2vw, 1.4rem); max-width: 36rem; }
 

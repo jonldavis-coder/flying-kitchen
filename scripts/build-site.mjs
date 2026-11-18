@@ -60,7 +60,7 @@ const consent = `<div id="kk-consent" class="kk-consent no-print" role="dialog" 
     </div>
   </div>`;
 
-function headBits(title, description, url, jsonLd, robots) {
+function headBits(title, description, url, jsonLd, robots, extraHead = "") {
   const ld = jsonLd ? `<script type="application/ld+json">${safeJsonLd(jsonLd)}</script>` : "";
   return `<!DOCTYPE html>
 <html lang="en">
@@ -88,6 +88,7 @@ function headBits(title, description, url, jsonLd, robots) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${SITE_ORIGIN}/assets/brand/og.webp">
   <link rel="stylesheet" href="/assets/css/kite.css">
+  ${extraHead}
   ${ld}
 </head>`;
 }
@@ -160,9 +161,9 @@ function footer() {
   <script src="/assets/js/consent.js" defer></script>`;
 }
 
-function page({ title, description, path: pagePath, main, jsonLd, current = "", robots = "", scripts = "" }) {
+function page({ title, description, path: pagePath, main, jsonLd, current = "", robots = "", scripts = "", extraHead = "" }) {
   const url = `${SITE_ORIGIN}${pagePath}`;
-  return `${headBits(title, description, url, jsonLd, robots)}
+  return `${headBits(title, description, url, jsonLd, robots, extraHead)}
 <body>
   ${header(current)}
   <main id="content" tabindex="-1">
@@ -602,11 +603,49 @@ function pinSvg(lat, lon) {
   const y = ((90 - lat) / 180) * 80;
   return `<svg class="kk-pin" viewBox="0 0 160 80" width="156" height="78" aria-hidden="true"><rect width="160" height="80" fill="#f4f0e8"/><path d="M0 40H160M40 0V80M80 0V80M120 0V80" stroke="#e4ddd2" stroke-width="0.45"/><g fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6">${MINI_LANDS}</g><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.4" fill="#e2b007" stroke="#fffdfb" stroke-width="1.7"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.4" fill="none" stroke="#1a1a1a" stroke-width="0.6"/></svg>`;
 }
+const EDITORIAL = {
+  hero: { id: "hero", widths: [768, 1280, 1920], w: 16, h: 9, alt: "Dried chiles and spices hanging in a market stall at the Spice Bazaar in Istanbul", caption: "Dried chiles at the Spice Bazaar, Istanbul.", artist: "Rachel Dalby", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Dried_chillies_in_Spice_Bazaar_Istanbul.jpg" },
+  pesto: { id: "pesto", widths: [480, 800], w: 4, h: 3, alt: "Pesto alla Genovese in a marble mortar", caption: "Pesto alla Genovese.", artist: "AlfonsoLucifredi", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Pesto_alla_genovese.jpg" },
+  crepes: { id: "crepes", widths: [480], w: 4, h: 3, alt: "Crêpes Suzette on a plate", caption: "Crêpes Suzette.", artist: "Ka23 13", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CrepeSuzette_20220506_202934.jpg" },
+  asado: { id: "asado", widths: [480, 800], w: 4, h: 3, alt: "Argentine asado, meat cooked over a fire", caption: "Argentine asado.", artist: "Robertaleotta2020", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Asado_(argentine_meat)_2019.jpg" },
+  mole: { id: "mole", widths: [480, 800, 1200], w: 4, h: 3, alt: "Mole poblano with sesame seeds, served with rice and pasta", caption: "Mole poblano.", artist: "Pabliotecario", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Mole_poblano_de_fiesta.jpg" },
+  appam: { id: "appam", widths: [480], w: 4, h: 3, alt: "Palappam, a lacy fermented rice hopper, with chicken curry", caption: "Palappam, the bowl-shaped appam.", artist: "Haneyljacob", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Palappam_and_Chicken_curry_in_Kerala.jpg" },
+  hog: { id: "hog", widths: [480, 800, 1100], w: 4, h: 3, alt: "A whole hog on a barbecue grate", caption: "Whole hog barbecue.", artist: "IReallyLikeYorhshirePuddding", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Whole_Hog_BBQ.jpg" },
+  chimichurri: { id: "chimichurri", widths: [480, 800, 1200], w: 4, h: 3, alt: "Chimichurri in a white bowl", caption: "Chimichurri.", artist: "Dominic Lockyer", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Chimichurri_Sauce_Recipe_(13294290615).jpg" }
+};
+const CARD_PHOTO = {
+  "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
+  "/flying-pancakes/pancakes/crepes-suzette/": EDITORIAL.crepes,
+  "/flying-bbq/dishes/argentine-asado/": EDITORIAL.asado,
+  "/flying-sauces/sauces/mole-poblano/": EDITORIAL.mole,
+  "/flying-pancakes/pancakes/appam/": EDITORIAL.appam,
+  "/flying-bbq/dishes/eastern-nc-whole-hog/": EDITORIAL.hog
+};
+
+function photoSrcset(photo, ext) {
+  return photo.widths.map((width) => `/assets/photos/editorial/${photo.id}-${width}.${ext} ${width}w`).join(", ");
+}
+function photoFigure(photo, { eager = false, sizes = "100vw", frame = "kk-shot" } = {}) {
+  const biggest = photo.widths[photo.widths.length - 1];
+  const height = Math.round(biggest * photo.h / photo.w);
+  const priority = eager ? 'fetchpriority="high"' : 'loading="lazy"';
+  return `<figure class="${frame}">
+      <picture>
+        <source type="image/avif" srcset="${photoSrcset(photo, "avif")}" sizes="${sizes}">
+        <source type="image/webp" srcset="${photoSrcset(photo, "webp")}" sizes="${sizes}">
+        <img src="/assets/photos/editorial/${photo.id}-${biggest}.jpg" srcset="${photoSrcset(photo, "jpg")}" sizes="${sizes}" width="${biggest}" height="${height}" alt="${escapeHtml(photo.alt)}" ${priority} decoding="async">
+      </picture>
+      <figcaption class="kk-caption">${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</figcaption>
+    </figure>`;
+}
+
 function recipeCard(item, compact = false) {
   const place = !compact && item.iso && byIso[item.iso];
   const pin = place ? pinSvg(place.lat, place.lon) : `<span class="kk-band" aria-hidden="true"></span>`;
+  const photo = !compact ? CARD_PHOTO[item.href] : null;
   const facts = [item.time, item.serves].filter(Boolean).join(" · ");
   return `<article class="kk-rcard" data-continent="${escapeHtml(item.continent)}" data-region="${escapeHtml(item.region)}">
+      ${photo ? photoFigure(photo, { sizes: "(min-width: 1100px) 22rem, (min-width: 700px) 46vw, 92vw" }) : ""}
       <div class="kk-rcard-top">${pin}<div><p class="kk-kicker">${escapeHtml(item.country || item.section)}</p><p class="kk-region">${escapeHtml(item.region || item.section)}</p></div></div>
       <h3><a href="${item.href}">${escapeHtml(item.title)}</a></h3>
       <p>${escapeHtml(item.text)}</p>
@@ -646,8 +685,13 @@ function dotMap(section) {
   }).join("");
   return `<svg class="kk-map kk-dots" viewBox="0 0 ${w} ${h}" aria-hidden="true"><rect class="kk-map-ocean" width="${w}" height="${h}"/><g class="kk-graticule">${lines.join("")}</g>${dots}</svg>`;
 }
-function guideCard(href, title, count, section, blurb) {
-  return `<a class="kk-guide" href="${href}"><div class="kk-atlas kk-atlas-mini">${dotMap(section)}</div><p class="kk-kicker">Guide</p><h3>${escapeHtml(title)}</h3><p>${count} recipes</p><p class="kk-meta">${escapeHtml(blurb)}</p></a>`;
+function guideCard(href, title, count, section, blurb, photo) {
+  return `<article class="kk-guide">
+      <a href="${href}">${photoFigure(photo, { sizes: "(min-width: 900px) 28vw, 92vw", frame: "kk-shot kk-shot-plain" }).replace(/<figcaption[\s\S]*?<\/figcaption>/, "")}
+        <p class="kk-kicker">Guide</p><h3>${escapeHtml(title)}</h3><p>${count} recipes</p><p class="kk-meta">${escapeHtml(blurb)}</p>
+      </a>
+      <p class="kk-caption">${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>.</p>
+    </article>`;
 }
 function browseBlock(items) {
   const regions = [...new Set(items.map((item) => item.region).filter(Boolean))].sort();
@@ -685,12 +729,14 @@ write("index.html", page({
   current: "home",
   jsonLd: homeLd,
   scripts: `<script src="/assets/js/atlas.js" defer></script>`,
+  extraHead: `<link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/hero-1280.avif" imagesrcset="/assets/photos/editorial/hero-768.avif 768w, /assets/photos/editorial/hero-1280.avif 1280w, /assets/photos/editorial/hero-1920.avif 1920w" imagesizes="100vw">`,
   main: `<section class="kk-hero">
       <div class="kk-hero-inner">
         <p class="kk-kicker">World recipes</p>
         <h1>Kite Kitchen</h1>
         <p class="kk-lede">${TAGLINE}.</p>
         ${searchForm("home-q", "Pesto, dosa, asado")}
+        ${photoFigure(EDITORIAL.hero, { eager: true, sizes: "100vw", frame: "kk-shot kk-hero-shot" })}
       </div>
     </section>
     <div class="kk-wrap kk-home">
@@ -700,9 +746,9 @@ write("index.html", page({
       <p class="kk-shop-strip"><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
       <h2>The guides</h2>
       <div class="kk-guides">
-        ${guideCard("/flying-sauces/", "Flying Sauces", sauceCount, "Flying Sauces", "Sauces from the table, the mortar, and the market.")}
-        ${guideCard("/flying-pancakes/", "Flying Pancakes", pancakeCount, "Flying Pancakes", "Batters, griddles, and the pancakes that travel with them.")}
-        ${guideCard("/flying-bbq/", "Flying BBQ", bbqCount, "Flying BBQ", "Fire, smoke, and the dishes cooked over them.")}
+        ${guideCard("/flying-sauces/", "Flying Sauces", sauceCount, "Flying Sauces", "Sauces from the table, the mortar, and the market.", EDITORIAL.chimichurri)}
+        ${guideCard("/flying-pancakes/", "Flying Pancakes", pancakeCount, "Flying Pancakes", "Batters, griddles, and the pancakes that travel with them.", EDITORIAL.crepes)}
+        ${guideCard("/flying-bbq/", "Flying BBQ", bbqCount, "Flying BBQ", "Fire, smoke, and the dishes cooked over them.", EDITORIAL.hog)}
       </div>
       <h2>World map</h2>
       <p class="kk-meta">Shaded countries have recipes. Open one to see what is cooked there.</p>
@@ -812,7 +858,9 @@ write("credits/index.html", page({
       <li><a href="/flying-pancakes/credits/">Flying Pancakes credits</a></li>
       <li><a href="/flying-bbq/credits/">Flying BBQ credits</a></li>
     </ul>
-    <p>The crest and the small compass are original artwork for this site.</p>
+    <h2>Photographs on the home page</h2>
+    <ul class="kk-sources">${Object.values(EDITORIAL).map((photo) => `<li>${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</li>`).join("")}</ul>
+    <p>The crest and the small compass are original artwork for this site. The home photograph is cropped 16:9. The cards are cropped 4:3.</p>
   </div>`
 }));
 
@@ -1057,6 +1105,12 @@ function polishRecipes() {
       }
       if (!html.includes("kk-method")) {
         html = html.replace(/(<h2[^>]*>\s*Ingredients\s*<\/h2>\s*<ul class="ingredients">[\s\S]*?<\/ul>\s*<h2 class="steps-heading">[\s\S]*?<\/h2>\s*<ol class="steps">[\s\S]*?<\/ol>)/, `<div class="kk-method">$1</div>`);
+      }
+      if (slug === "mole-poblano" && !html.includes('data-photo="mole"')) {
+        html = html.replace(/<figure class="photo-hero">[\s\S]*?<\/figure>/, photoFigure(EDITORIAL.mole, { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", '<figure data-photo="mole" '));
+      }
+      if (slug === "appam" && !html.includes('data-photo="appam"')) {
+        html = html.replace(/<figure class="pancake-hero[\s\S]*?<\/figure>/, photoFigure(EDITORIAL.appam, { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", '<figure data-photo="appam" '));
       }
       if (!html.includes("kk-mast")) {
         const dek = html.match(/<p class="dek">[\s\S]*?<\/p>/);

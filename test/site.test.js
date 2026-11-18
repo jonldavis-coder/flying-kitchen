@@ -40,6 +40,8 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(home, /class="kk-mark"/);
   assert.match(home, /Search recipes/);
   assert.equal((home.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
+  assert.match(home, /hero-1280\.avif/);
+  assert.match(home, /rel="preload"/);
   assert.match(home, /kk-hero/);
   assert.match(home, /Atlas plate/);
   assert.doesNotMatch(home, /Jonathan/);
