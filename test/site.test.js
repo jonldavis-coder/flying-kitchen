@@ -166,6 +166,17 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("assets/js/passport.js"), /localStorage/);
   assert.doesNotMatch(read("assets/js/passport.js"), /gtag|analytics/);
   assert.match(read("sitemap.xml"), /\/passport\//);
+  assert.match(read("pantry/index.html"), /Pantry atlas/);
+  assert.match(read("pantry/garlic/index.html"), /recipes list garlic/);
+  assert.match(read("pantry/garlic/index.html"), /Atlas plate/);
+  assert.match(read("pantry/garlic/index.html"), /<h2>Europe<\/h2>/);
+  assert.doesNotMatch(read("pantry/garlic/index.html"), /<h2>History<\/h2>/);
+  assert.match(read("pantry/coconut-milk/index.html"), /coconut milk/);
+  assert.match(read("pantry/rice/index.html"), /list rice/);
+  assert.match(read("pantry/chilies/index.html"), /list chilies/);
+  assert.match(read("flying-sauces/sauces/carbonara/index.html"), /class="kk-pantry" href="\/pantry\/black-pepper\/"/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /class="kk-pantry" href="\/pantry\/garlic\/"/);
+  assert.match(read("sitemap.xml"), /\/pantry\/garlic\//);
   assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
   assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
   assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
