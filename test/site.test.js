@@ -82,7 +82,10 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /kk-atlas-card/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Jump to recipe/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
-  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /From Southern Europe/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
+  assert.match(read("flying-sauces/sauces/arrabbiata/index.html"), /From the journey/);
+  assert.match(read("flying-sauces/sauces/arrabbiata/index.html"), /\/journeys\/day-france-italy-argentina\//);
+  assert.match(read("assets/css/kite.css"), /counter\(kkstep/);
   assert.match(read("regions/southern-europe/index.html"), /Countries named on those pages/);
   assert.match(home, /kk-hero/);
   const homeOrder = ["Featured recipes", "A day around the world", "Recipe of the week", "Browse by continent", "The guides", "Recipe cookbooks"];
