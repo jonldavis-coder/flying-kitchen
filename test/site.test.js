@@ -52,6 +52,17 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("books/index.html"), /kk-cover/);
   assert.match(read("about/index.html"), /logo-full/);
   assert.match(read("about/index.html"), /flying around the world/);
+  assert.match(read("about/index.html"), /<p class="kk-contact"><a href="mailto:hello@kitekitchen.com">hello@kitekitchen.com<\/a><\/p>/);
+  assert.equal((read("about/index.html").match(/class="kk-contact"/g) || []).length, 2);
+  assert.match(read("flying-sauces/index.html"), /kk-guide-mast/);
+  assert.match(read("flying-sauces/index.html"), /Start here/);
+  assert.match(read("flying-pancakes/index.html"), /Start here/);
+  assert.match(read("flying-bbq/index.html"), /Start here/);
+  assert.match(read("books/index.html"), /kk-catalog/);
+  assert.match(read("books/index.html"), /class="dek"/);
+  assert.match(read("books/index.html"), /\d+ recipes/);
+  assert.equal((read("books/index.html").match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
+  assert.doesNotMatch(read("books/index.html"), /\$\d/);
   assert.match(read("journeys/index.html"), /A week of street food in Asia/);
   assert.match(read("journeys/street-food-asia/index.html"), /Turmeric chicken skewers with a warm peanut sauce/);
   assert.match(read("cookbooks/index.html"), /url=\/books\//);
