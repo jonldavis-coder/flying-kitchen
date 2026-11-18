@@ -59,19 +59,44 @@ def cover(photo_path, box):
     return im.crop((left, top, left + tw, top + th))
 
 
-def graticule(draw, lat, lon, box):
-    x0, y0, w, h = box
-    draw.rectangle((x0, y0, x0 + w, y0 + h), fill=(244, 240, 232), outline=GOLD, width=2)
+LANDS = [
+    "M5.3 11.1 12.9 8.9 23.1 8.9 33.3 7.1 40.9 7.6 48.9 9.8 55.1 16.4 50.7 20.4 46.7 24.4 44 28.9 40 32.9 36.9 32.9 32.9 30.2 30.2 28.4 28 25.8 24.9 22.2 24.4 18.2 19.6 14.7 12.4 13.8 6.2 13.3",
+    "M44.4 35.6 48.9 34.7 53.3 36.4 57.8 39.1 64.4 42.2 62.7 49.8 58.7 52.4 52.4 63.1 48 63.1 46.2 57.8 44.4 43.6 45.3 37.3",
+    "M75.6 24 76 20.9 76.4 14.2 80 12.4 83.6 11.6 88.9 8.9 92.4 8.4 94.2 13.3 92.4 19.6 88 22.2 83.6 23.6 77.8 24",
+    "M72.4 30.7 72.9 27.6 74.7 24.4 80 23.6 84.4 23.6 91.1 25.8 94.2 26.2 99.1 34.7 102.7 35.1 98.7 47.1 95.6 51.6 88.9 55.6 85.3 48 83.6 38.2 77.3 37.8 73.8 33.8",
+    "M97.8 15.6 101.3 8.9 115.6 7.1 133.3 7.6 151.1 9.8 159.1 10.7 154.7 13.3 148.9 17.8 143.1 21.3 137.8 25.8 134.2 30.2 128.4 36.4 126.2 39.6 122.2 32.9 115.6 37.3 110.2 29.8 106.7 28.4 101.3 22.2 98.7 17.8",
+    "M130.7 49.8 136.9 45.8 143.1 44.9 144.9 48 148 51.6 146.7 56.9 140.4 55.6 135.1 54.7 130.7 55.1 130.2 51.6",
+]
+
+
+def path_points(path):
+    nums = [float(n) for n in __import__("re").findall(r"-?\d+(?:\.\d+)?", path)]
+    return list(zip(nums[0::2], nums[1::2]))
+
+
+def atlas_plate(lat, lon):
+    w, h = 460, 470
+    plate = Image.new("RGB", (w, h), (244, 240, 232))
+    pen = ImageDraw.Draw(plate)
+    pen.rectangle((10, 10, w - 11, h - 11), outline=GOLD, width=3)
+    pen.rectangle((18, 18, w - 19, h - 19), outline=GOLD, width=1)
+    mx, my, mw, mh = 40, 46, 380, 300
     for i in range(1, 4):
-        draw.line((x0, y0 + h * i / 4, x0 + w, y0 + h * i / 4), fill=(228, 221, 210), width=1)
-        draw.line((x0 + w * i / 4, y0, x0 + w * i / 4, y0 + h), fill=(228, 221, 210), width=1)
-    if lat is None or lon is None:
-        cx, cy = x0 + w / 2, y0 + h / 2
-    else:
-        cx = x0 + ((float(lon) + 180) / 360) * w
-        cy = y0 + ((90 - float(lat)) / 180) * h
-    r = 8
-    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(226, 176, 7), outline=INK, width=2)
+        pen.line((mx, my + mh * i / 4, mx + mw, my + mh * i / 4), fill=(228, 221, 210), width=1)
+        pen.line((mx + mw * i / 4, my, mx + mw * i / 4, my + mh), fill=(228, 221, 210), width=1)
+    scale = min(mw / 160, mh / 80)
+    ox = mx + (mw - 160 * scale) / 2
+    oy = my + (mh - 80 * scale) / 2
+    for land in LANDS:
+        pen.polygon([(ox + x * scale, oy + y * scale) for x, y in path_points(land)], fill=(234, 215, 174), outline=INK)
+    if lat is not None and lon is not None:
+        cx = ox + ((float(lon) + 180) / 360) * 160 * scale
+        cy = oy + ((90 - float(lat)) / 180) * 80 * scale
+        r = 9
+        pen.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(226, 176, 7), outline=(255, 253, 251), width=3)
+        pen.ellipse((cx - r, cy - r, cx + r, cy + r), outline=INK, width=1)
+    pen.text((40, 400), "Atlas plate", font=font(22), fill=INK)
+    return plate
 
 
 def draw_card(job):
@@ -103,9 +128,9 @@ def draw_card(job):
     if has_photo:
         frame = cover(photo, (460, 470))
         im.paste(frame, (690, 80))
-        draw.rectangle((688, 78, 1152, 552), outline=GOLD, width=2)
     else:
-        graticule(draw, job.get("lat"), job.get("lon"), (820, 180, 280, 160))
+        im.paste(atlas_plate(job.get("lat"), job.get("lon")), (690, 80))
+    draw.rectangle((688, 78, 1152, 552), outline=GOLD, width=2)
     out = ROOT / job["out"]
     out.parent.mkdir(parents=True, exist_ok=True)
     im.save(out, "JPEG", quality=68, optimize=True, progressive=True)

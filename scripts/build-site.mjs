@@ -131,6 +131,7 @@ function header(current) {
   <div class="kk-header-inner">
     ${brandLockup()}
     ${nav(current, "kk-nav")}
+    <a class="kk-passport" href="/passport/"${current === "passport" ? ' aria-current="page"' : ""}>Passport</a>
     ${menuControl(current)}
   </div>
 </header>`;
@@ -155,6 +156,7 @@ function footInner() {
           <a href="/map/">World Map</a>
           <a href="/journeys/">Journeys</a>
           <a href="/collections/">Collections</a>
+          <a href="/passport/">Passport</a>
           <a href="/books/">Cookbooks</a>
           <a href="/shop/">Shop</a>
           <a href="/about/">About</a>
@@ -2131,6 +2133,40 @@ write("collections/index.html", page({
   </div>`
 }));
 
+const passportPlate = worldSvg(countries.map((country) => ({ ...country, count: 0 })), 640, 360, null, true, 14)
+  .replace('aria-label="World map. Countries with recipes can be opened."', 'aria-label="Atlas plate for saved recipes"')
+  .replace("</svg>", `<g id="kk-stamps"></g></svg>`);
+write("assets/passport-index.json", JSON.stringify(catalog.map((item) => {
+  const place = byIso[item.iso];
+  return {
+    href: item.href,
+    title: item.title,
+    country: item.country || "",
+    section: item.section,
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
+  };
+})));
+write("passport/index.html", page({
+  title: "My passport · Kite Kitchen",
+  description: "Recipes saved in this browser, stamped on a world plate. Nothing is sent to a server.",
+  path: "/passport/",
+  image: "/assets/og/passport.jpg",
+  current: "passport",
+  scripts: `<script src="/assets/js/passport.js" defer></script>`,
+  main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/passport/", "Passport"]])}
+    <header class="kk-mast">
+      <p class="kk-kicker">This browser</p>
+      <h1 class="kk-display">My passport</h1>
+      <p class="dek" data-passport-lede>Save a recipe and it earns a stamp. The list stays in this browser. Nothing is sent on.</p>
+      <p class="kk-meta" data-passport-count hidden></p>
+    </header>
+    <figure class="kk-shot kk-hero-shot kk-passport-plate">${passportPlate}<figcaption class="kk-caption"><span class="kk-cap-line" data-passport-caption>No stamps yet.</span><span class="kk-credit">Atlas plate. A stamp marks a country with a saved recipe.</span></figcaption></figure>
+    <p class="kk-passport-empty" data-passport-empty>Open a recipe and press Save. The stamp appears here.</p>
+    <ul class="kk-recipe-list" data-passport-list hidden></ul>
+  </article>`
+}));
+
 const MEAL_OF = {
   breakfast: "Breakfast",
   snack: "Snack",
@@ -2384,7 +2420,7 @@ function polishRecipes() {
       }
       html = html.replace(/<p class="kk-tools[\s\S]*?<\/p>\s*/g, "");
       if (html.includes("kk-mast")) {
-        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-cook aria-pressed="false">Cook mode</button> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
+        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-save aria-pressed="false">Save</button> <button type="button" class="kk-button quiet" data-cook aria-pressed="false">Cook mode</button> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
         const start = html.indexOf('<div class="kk-mast">');
         let depth = 0;
         let end = -1;
@@ -2472,6 +2508,9 @@ function polishRecipes() {
       else html = html.replace(/<h1\b/, `${printBrand}\n<h1`);
       if (!html.includes("/assets/js/recipe.js")) {
         html = html.replace("</body>", `<script src="/assets/js/recipe.js" defer></script>\n</body>`);
+      }
+      if (!html.includes("/assets/js/passport.js")) {
+        html = html.replace("</body>", `<script src="/assets/js/passport.js" defer></script>\n</body>`);
       }
       if (slug === "mole-poblano" && !html.includes('data-photo="mole"')) {
         html = html.replace(/<figure class="photo-hero">[\s\S]*?<\/figure>/, photoFigure(EDITORIAL.mole, { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", '<figure data-photo="mole" '));
@@ -2585,6 +2624,7 @@ const ogJobs = [
   { out: "assets/og/shop.jpg", title: "The shop is coming soon", kicker: "Kite Kitchen", line: "No prices and no checkout." },
   { out: "assets/og/search.jpg", title: "Search", kicker: "Kite Kitchen", line: "A dish, a country, or a guide." },
   { out: "assets/og/journeys.jpg", title: "Journeys", kicker: "Kite Kitchen", line: "Reading orders through recipes already on this site." },
+  { out: "assets/og/passport.jpg", title: "My passport", kicker: "Kite Kitchen", line: "Saved in this browser. Nothing is sent on." },
   { out: "assets/og/lost.jpg", title: "That page is not here", kicker: "Off the map", line: "The route does not match a recipe." }
 ];
 for (const item of catalog) {
