@@ -3210,5 +3210,68 @@
     "mastHeight": 1000,
     "cardWidth": 1200,
     "cardHeight": 900
+  },
+  {
+    "key": "senegalese-dibi",
+    "id": "senegalese-dibi",
+    "slug": "senegalese-dibi",
+    "alt": "Grilled meat with onion, the Senegalese dibi",
+    "caption": "Dibi.",
+    "artist": "Yvonneberthe",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ADibi_du_s%C3%A9n%C3%A9gal_01.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Dibi du s\u00e9n\u00e9gal 01.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "cape-malay-sosaties",
+    "id": "cape-malay-sosaties",
+    "slug": "cape-malay-sosaties",
+    "alt": "Sosaties, meat and pepper on skewers",
+    "caption": "Sosaties.",
+    "artist": "Anrie",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASosaties.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Sosaties.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "zimbabwean-braai-chicken",
+    "id": "zimbabwean-braai-chicken",
+    "slug": "zimbabwean-braai-chicken",
+    "alt": "Chicken on a braai grate",
+    "caption": "Braai chicken.",
+    "artist": "Ossewa",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AChicken_braai.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Chicken braai.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
   }
 ]
