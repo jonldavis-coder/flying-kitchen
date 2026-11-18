@@ -122,6 +122,13 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.equal(featureForDate(new Date("2026-10-31T12:00:00Z")), "weeknight");
   assert.match(read("index.html"), new RegExp(`data-feature="${featureForDate(new Date())}"`));
   assert.match(read("index.html"), /Map plate/);
+  const homeHtml = read("index.html");
+  const homeFeature = homeHtml.slice(homeHtml.indexOf("kk-feature"), homeHtml.indexOf("Featured recipes"));
+  const homeFeatured = homeHtml.slice(homeHtml.indexOf("Featured recipes"), homeHtml.indexOf("A day around the world"));
+  assert.doesNotMatch(homeFeature, /Map plate|kk-atlas-card/);
+  assert.match(homeFeatured, /\/assets\/photos\/editorial\//);
+  assert.doesNotMatch(homeFeatured, /kk-atlas-card/);
+  assert.ok(homeHtml.indexOf("Featured recipes") < homeHtml.indexOf("Map plate"));
   assert.match(read("collections/index.html"), /kk-collection-catalog/);
   assert.match(read("collections/index.html"), /through November 30/);
   assert.match(read("collections/index.html"), /Breakfast around the world/);
@@ -178,6 +185,37 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.doesNotMatch(read("journeys/day-malaysia-italy-jamaica/index.html"), /burro-e-salvia/);
   assert.match(read("journeys/day-samoa-australia-newzealand/index.html"), /Australian Lamb Chops|Lamb chops/);
   assert.doesNotMatch(read("journeys/day-samoa-australia-newzealand/index.html"), /australian-barramundi/);
+  assert.match(read("journeys/day-samoa-australia-newzealand/index.html"), /Breakfast in Malaysia, lunch in Australia, dinner in New Zealand/);
+  assert.match(read("journeys/day-zambia-ghana-zimbabwe/index.html"), /Breakfast in Nigeria, lunch in Mozambique, dinner in Zimbabwe/);
+  assert.doesNotMatch(read("journeys/day-zambia-ghana-zimbabwe/index.html"), /zambian-vitumbuwa|ghanaian-kyinkyinga/);
+  for (const name of fs.readdirSync(path.join(root, "journeys"))) {
+    if (!name.startsWith("day-")) continue;
+    const day = read(`journeys/${name}/index.html`);
+    const cards = day.match(/<article class="kk-rcard">[\s\S]*?<\/article>/g) || [];
+    assert.ok(cards.length >= 2, name);
+    for (const card of cards) {
+      assert.equal(card.includes("kk-atlas-card"), false, name);
+      assert.match(card, /\/assets\/photos\/editorial\//, name);
+    }
+  }
+  for (const name of ["holiday-table", "weeknight", "breakfast", "street-food", "winter-warmers"]) {
+    const page = read(`collections/${name}/index.html`);
+    const cards = page.match(/<article class="kk-rcard">[\s\S]*?<\/article>/g) || [];
+    assert.ok(cards.length >= 3, name);
+    for (const card of cards.slice(0, 3)) {
+      assert.equal(card.includes("kk-atlas-card"), false, name);
+      assert.match(card, /\/assets\/photos\/editorial\//, name);
+    }
+    assert.ok(page.indexOf("Map plate") > page.indexOf("kk-rcards"), name);
+  }
+  for (const name of ["flying-sauces", "flying-pancakes", "flying-bbq"]) {
+    const page = read(`${name}/index.html`);
+    assert.ok(page.indexOf("Start here") < page.indexOf("Atlas plate"), name);
+    const start = page.slice(page.indexOf("Start here"), page.indexOf("Atlas plate"));
+    const cards = start.match(/<article class="kk-rcard">[\s\S]*?<\/article>/g) || [];
+    assert.equal(cards.length, 3, name);
+    for (const card of cards) assert.match(card, /\/assets\/photos\/editorial\//, name);
+  }
   const usSauces = read("countries/united-states-of-america/index.html").split("<h2>Flying Sauces</h2>")[1].split("<h2>")[0];
   const firstPhoto = usSauces.indexOf('class="kk-shot"');
   const firstPlate = usSauces.indexOf('class="kk-atlas-card"');
