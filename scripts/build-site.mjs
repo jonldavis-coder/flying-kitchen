@@ -753,6 +753,19 @@ function coverSvg(book) {
 </svg>`;
 }
 
+function routeSvg(points) {
+  const w = 640;
+  const h = 320;
+  const coords = points.map((point) => {
+    const x = ((point.lon + 180) / 360) * w;
+    const y = ((90 - point.lat) / 180) * h;
+    return [x, y];
+  });
+  const path = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("");
+  const dots = coords.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="#e2b007" stroke="#fffdfb" stroke-width="1.4"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>`).join("");
+  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="World map with a gold route between the stops"><rect width="${w}" height="${h}" fill="#f4f0e8"/><g transform="scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.4">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="1.5" stroke-dasharray="1.5 3.5" stroke-linecap="round"/>${dots}</svg>`;
+}
+
 function pinSvg(lat, lon) {
   const x = ((lon + 180) / 360) * 160;
   const y = ((90 - lat) / 180) * 80;
@@ -907,7 +920,71 @@ function browseBlock(items) {
 }
 const homeMap = worldSvg(countries, 960, 480, (iso) => `/map/#${iso}`, true);
 const atlasMap = worldSvg(countries, 960, 480, (iso) => `#${iso}`);
+const DAY_JOURNEYS = [
+  { slug: "day-france-italy-argentina", title: "Breakfast in France, lunch in Italy, dinner in Argentina", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/crepes-suzette/" },
+    { meal: "Lunch", href: "/flying-sauces/sauces/arrabbiata/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/argentine-asado/" },
+    { meal: "At the table", href: "/flying-sauces/sauces/chimichurri/" }
+  ]},
+  { slug: "day-india-malaysia-korea", title: "Breakfast in India, lunch in Malaysia, dinner in Korea", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/masala-dosa/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/malaysian-satay-ayam/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/korean-bulgogi/" }
+  ]},
+  { slug: "day-china-greece-carolina", title: "Breakfast in China, lunch in Greece, dinner in North Carolina", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/tianjin-jianbing/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/greek-souvlaki/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/eastern-nc-whole-hog/" }
+  ]},
+  { slug: "day-ethiopia-singapore-mexico", title: "Breakfast in Ethiopia, lunch in Singapore, dinner in Mexico", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/injera/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/singapore-hawker-satay/" },
+    { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
+  ]},
+  { slug: "day-netherlands-japan-india", title: "Breakfast in the Netherlands, lunch in Japan, dinner in India", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/poffertjes/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/japanese-yakitori/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/tandoori-chicken/" }
+  ]},
+  { slug: "day-russia-elsalvador-argentina", title: "Breakfast in Russia, lunch in El Salvador, dinner in Argentina", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/syrniki/" },
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/pupusas/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/argentine-vacio/" }
+  ]},
+  { slug: "day-malaysia-italy-jamaica", title: "Breakfast in Malaysia, lunch in Italy, dinner in Jamaica", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/roti-canai/" },
+    { meal: "Lunch", href: "/flying-sauces/sauces/burro-e-salvia/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/jamaican-jerk-chicken/" }
+  ]},
+  { slug: "day-poland-japan-kansas", title: "Breakfast in Poland, lunch in Japan, dinner in Kansas City", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/potato-latkes/" },
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/osaka-okonomiyaki/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/kansas-city-burnt-ends/" }
+  ]},
+  { slug: "day-kerala-colombia-argentina", title: "Breakfast in Kerala, lunch in Colombia, dinner in Argentina", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/appam/" },
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/colombian-arepas/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/choripan/" }
+  ]},
+  { slug: "day-colombia-india-hawaii", title: "Breakfast in Colombia, lunch in India, dinner in Hawaii", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/arepa-boyacense/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/seekh-kebab/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/kalua-pig/" }
+  ]},
+  { slug: "day-china-elsalvador-mexico", title: "Breakfast in China, lunch in El Salvador, dinner in Mexico", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/shandong-jianbing/" },
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/pupusas/" },
+    { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
+  ]},
+  { slug: "day-in-india", title: "A day in India", lede: "Breakfast, lunch, and dinner from Indian recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/paper-dosa/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/seekh-kebab/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/tandoori-chicken/" }
+  ]}
+];
 const JOURNEYS = [
+  ...DAY_JOURNEYS,
   {
     slug: "street-food-asia",
     title: "A week of street food in Asia",
@@ -959,6 +1036,8 @@ const featuredItems = [
   "/flying-pancakes/pancakes/appam/",
   "/flying-bbq/dishes/eastern-nc-whole-hog/"
 ].map((href) => catalog.find((item) => item.href === href)).filter(Boolean);
+const weekRecipe = featuredItems[Math.floor(Date.now() / 604800000) % featuredItems.length];
+const featuredDay = DAY_JOURNEYS[0];
 const cookbookPicks = guideBooks.filter((book) => /top-100|flagship|american-bbq-belt|crepes-of-france|top 100/i.test(`${book.slug} ${book.title}`)).slice(0, 6);
 
 write("index.html", page({
@@ -980,6 +1059,27 @@ write("index.html", page({
       </div>
     </section>
     <div class="kk-wrap kk-home">
+      <h2>Recipe of the week</h2>
+      <article class="kk-week">
+        ${(() => {
+          const photo = CARD_PHOTO[weekRecipe.href] || DISH_PHOTO[weekRecipe.href.split("/").filter(Boolean).at(-1)];
+          return photo ? photoFigure(photo, { eager: true, sizes: "(min-width: 800px) 34rem, 92vw", frame: "kk-shot" }) : "";
+        })()}
+        <div>
+          <p class="kk-kicker">${escapeHtml(weekRecipe.country || weekRecipe.section)}</p>
+          <h3><a href="${weekRecipe.href}">${escapeHtml(weekRecipe.title)}</a></h3>
+          <p>${escapeHtml(weekRecipe.text)}</p>
+          <p class="kk-meta">${escapeHtml([weekRecipe.region, weekRecipe.section].filter(Boolean).join(" · "))}</p>
+        </div>
+      </article>
+      <h2>A day around the world</h2>
+      <article class="kk-day-home">
+        <p class="kk-kicker">Journey</p>
+        <h3><a href="/journeys/${featuredDay.slug}/">${escapeHtml(featuredDay.title)}</a></h3>
+        <p>${escapeHtml(featuredDay.lede)}</p>
+        ${routeSvg(featuredDay.stops.map((stop) => catalog.find((entry) => entry.href === stop.href)).map((item) => byIso[item.iso]).filter(Boolean))}
+        <p class="kk-meta"><a href="/journeys/">All journeys</a></p>
+      </article>
       <h2>Featured recipes</h2>
       <div class="kk-rcards">${featuredItems.map((item) => recipeCard(item)).join("")}</div>
       <h2>Browse by continent</h2>
@@ -1380,13 +1480,26 @@ for (const rel of legacy) {
   write(rel, html);
 }
 
-for (const journey of JOURNEYS) {
-  const stops = journey.stops.map((href) => {
+function journeyStops(journey) {
+  return journey.stops.map((stop, index) => {
+    const href = typeof stop === "string" ? stop : stop.href;
+    const meal = typeof stop === "string" ? `Recipe ${index + 1}` : stop.meal;
     const item = catalog.find((entry) => entry.href === href);
     if (!item) throw new Error(`Missing journey recipe ${href}`);
-    return item;
+    return { ...item, meal };
   });
-  const list = stops.map((item, index) => `<li class="kk-stop"><p class="kk-kicker">Recipe ${index + 1}</p><h2><a href="${item.href}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.text)}</p><p class="kk-meta">${escapeHtml([item.country, item.region, item.section].filter(Boolean).join(" · "))}</p></li>`).join("");
+}
+function stopFigure(item) {
+  const slug = item.href.split("/").filter(Boolean).at(-1);
+  const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
+  if (photo) return photoFigure(photo, { sizes: "(min-width: 800px) 18rem, 92vw", frame: "kk-shot" });
+  return locatorFigure(item.iso, item.country);
+}
+for (const journey of JOURNEYS) {
+  const stops = journeyStops(journey);
+  const places = stops.map((item) => byIso[item.iso]).filter((place) => place && Number.isFinite(place.lat));
+  const route = places.length >= 2 ? routeSvg(places) : "";
+  const list = stops.map((item) => `<li class="kk-stop kk-day-stop"><div class="kk-day-media">${stopFigure(item)}</div><div><p class="kk-kicker">${escapeHtml(item.meal)} · ${escapeHtml(item.country || item.section)}</p><h2><a href="${item.href}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.text)}</p><p class="kk-meta">${escapeHtml([item.region, item.section].filter(Boolean).join(" · "))}</p></div></li>`).join("");
   write(`journeys/${journey.slug}/index.html`, page({
     title: `${journey.title} · Kite Kitchen`,
     description: journey.lede,
@@ -1397,23 +1510,30 @@ for (const journey of JOURNEYS) {
       <p class="kk-kicker">Journey</p>
       <h1>${escapeHtml(journey.title)}</h1>
       <p class="kk-lede">${escapeHtml(journey.lede)}</p>
+      ${route}
       <ol class="kk-stops">${list}</ol>
     </article>`
   }));
 }
+const dayCards = DAY_JOURNEYS.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.map((stop) => stop.meal).slice(0, 3).join(" · ")}</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("");
+const routeCards = JOURNEYS.filter((journey) => !DAY_JOURNEYS.includes(journey)).map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.length} recipes</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("");
 write("journeys/index.html", page({
   title: "Journeys · Kite Kitchen",
-  description: "Reading orders made from recipes already on Kite Kitchen. Each note is the description on that recipe.",
+  description: "A day around the world, and longer reading orders, from recipes already on Kite Kitchen.",
   path: "/journeys/",
   image: "/assets/og/journeys.jpg",
   current: "journeys",
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/journeys/", "Journeys"]])}
-    <p class="kk-kicker">Reading orders</p>
+    <p class="kk-kicker">Itineraries</p>
     <h1>Journeys</h1>
-    <p class="kk-lede">These are short reading orders through recipes already published here. Nothing in the notes is new. Each line is the description on that recipe page.</p>
-    <div class="kk-rcards">${JOURNEYS.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.length} recipes</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>
+    <p class="kk-lede">A day is breakfast, lunch, and dinner from recipes already published here. The note under each stop is that recipe’s own description.</p>
+    <h2>A day around the world</h2>
+    <div class="kk-rcards">${dayCards}</div>
+    <h2>Longer routes</h2>
+    <div class="kk-rcards">${routeCards}</div>
   </div>`
 }));
+writeMoved("cookbooks/index.html", "/books/");
 
 const searchItems = catalog.map((item) => {
   const slug = item.href.split("/").filter(Boolean).at(-1);
@@ -1549,6 +1669,11 @@ function polishRecipes() {
         }
       }
       const kind = folder === "sauces" ? "sauces" : folder === "pancakes" ? "pancakes" : "bbq";
+      html = html.replace(/<div class="kk-method" id="kk-method">([\s\S]*?)<\/div>/, (_, inner) => {
+        const ads = [...inner.matchAll(/<aside class="kk-ad[\s\S]*?<\/aside>/g)].map((match) => match[0]);
+        const clean = inner.replace(/<aside class="kk-ad[\s\S]*?<\/aside>/g, "");
+        return `${ads.join("\n")}<div class="kk-method" id="kk-method">${clean}</div>`;
+      });
       html = stampOg(html, `/assets/og/recipes/${kind}-${slug}.jpg`);
       fs.writeFileSync(file, html);
     }

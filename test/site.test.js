@@ -54,6 +54,12 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("about/index.html"), /flying around the world/);
   assert.match(read("journeys/index.html"), /A week of street food in Asia/);
   assert.match(read("journeys/street-food-asia/index.html"), /Turmeric chicken skewers with a warm peanut sauce/);
+  assert.match(read("cookbooks/index.html"), /url=\/books\//);
+  assert.match(read("index.html"), /Recipe of the week/);
+  assert.match(read("index.html"), /A day around the world/);
+  assert.match(read("journeys/day-france-italy-argentina/index.html"), /Breakfast/);
+  assert.match(read("journeys/day-france-italy-argentina/index.html"), /kk-route/);
+  assert.match(read("journeys/day-in-india/index.html"), /Paper dosa/);
   assert.match(read("404.html"), /kk-compass-lg/);
   assert.match(read("404.html"), /Off the map/);
   assert.match(read("search/index.html"), /Nothing matches/);
@@ -121,6 +127,9 @@ test("recipe pages keep ads out of the method and printable", () => {
   assert.ok(slots.length >= 1 && slots.length <= 3);
   const ingredients = recipe.slice(recipe.indexOf('<ul class="ingredients">'), recipe.indexOf("</ul>"));
   assert.equal(ingredients.includes("kk-ad"), false);
+  const methodStart = recipe.indexOf('id="kk-method"');
+  const method = recipe.slice(methodStart, recipe.indexOf("</ol>", methodStart));
+  assert.equal(method.includes("kk-ad"), false);
   assert.match(recipe, /"@type":"Recipe"/);
   assert.match(recipe, /kk-origin/);
   assert.equal((recipe.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
