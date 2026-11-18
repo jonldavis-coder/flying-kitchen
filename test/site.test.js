@@ -157,6 +157,15 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /data-cook/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /data-save/);
+  assert.match(read("index.html"), /class="kk-passport" href="\/passport\/"/);
+  assert.match(read("passport/index.html"), /My passport/);
+  assert.match(read("passport/index.html"), /No stamps yet/);
+  assert.match(read("passport/index.html"), /Nothing is sent on/);
+  assert.match(read("passport/index.html"), /id="kk-stamps"/);
+  assert.match(read("assets/js/passport.js"), /localStorage/);
+  assert.doesNotMatch(read("assets/js/passport.js"), /gtag|analytics/);
+  assert.match(read("sitemap.xml"), /\/passport\//);
   assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
   assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
   assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
@@ -188,6 +197,39 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("friends/index.html"), /flying-bbq/);
   assert.match(read("shop/index.html"), /Coming soon/);
   assert.doesNotMatch(read("shop/index.html"), /\$\d/);
+});
+
+function jpegSize(buffer) {
+  let offset = 2;
+  while (offset + 8 < buffer.length) {
+    if (buffer[offset] !== 0xff) break;
+    const marker = buffer[offset + 1];
+    const length = buffer.readUInt16BE(offset + 2);
+    if (marker === 0xc0 || marker === 0xc2) {
+      return { height: buffer.readUInt16BE(offset + 5), width: buffer.readUInt16BE(offset + 7) };
+    }
+    offset += 2 + length;
+  }
+  return null;
+}
+
+test("every recipe share image is a branded card", () => {
+  const kinds = [["flying-sauces", "sauces", "sauces"], ["flying-pancakes", "pancakes", "pancakes"], ["flying-bbq", "dishes", "bbq"]];
+  let count = 0;
+  for (const [dir, folder, kind] of kinds) {
+    for (const slug of fs.readdirSync(path.join(root, dir, folder))) {
+      const html = read(`${dir}/${folder}/${slug}/index.html`);
+      const image = `/assets/og/recipes/${kind}-${slug}.jpg`;
+      assert.match(html, new RegExp(`property="og:image" content="${SITE_ORIGIN}${image}"`));
+      const size = jpegSize(fs.readFileSync(path.join(root, image.slice(1))));
+      assert.equal(size && size.width, 1200, slug);
+      assert.equal(size && size.height, 630, slug);
+      count += 1;
+    }
+  }
+  assert.ok(count > 800);
+  assert.equal(jpegSize(fs.readFileSync(path.join(root, "assets/og/recipes/sauces-carbonara.jpg"))).width, 1200);
+  assert.equal(jpegSize(fs.readFileSync(path.join(root, "assets/og/recipes/pancakes-acadian-ployes.jpg"))).width, 1200);
 });
 
 test("the unpublished mailbox is not in the build", () => {
