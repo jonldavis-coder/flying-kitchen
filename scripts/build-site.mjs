@@ -306,6 +306,43 @@ function transformSection(dir, name, originFrom) {
     } else {
       html = html.replace(/<\/body>/, `<footer class="kk-footer kk-sitefoot">${footInner()}</footer>\n</body>`);
     }
+    if (/data-page="(sauce|pancake|dish)"/.test(html)) {
+      html = html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (full, raw) => {
+        let data;
+        try { data = JSON.parse(raw); } catch { return full; }
+        const list = Array.isArray(data) ? data : [data];
+        let changed = false;
+        for (const node of list) {
+          if (!node || node["@type"] !== "Recipe") continue;
+          if (!node.author) {
+            node.author = { "@type": "Organization", name: "Kite Kitchen" };
+            changed = true;
+          }
+          if (!node.publisher) {
+            node.publisher = { "@type": "Organization", name: "Kite Kitchen", url: `${SITE_ORIGIN}/` };
+            changed = true;
+          }
+          if (!node.mainEntityOfPage && node.url) {
+            node.mainEntityOfPage = node.url;
+            changed = true;
+          }
+        }
+        if (!changed) return full;
+        return `<script type="application/ld+json">${JSON.stringify(Array.isArray(data) ? list : list[0]).replace(/</g, "\\u003c")}</script>`;
+      });
+    }
+    if (/data-page="(sauce|pancake|dish)"/.test(html)) {
+      html = html.replace(/<p class="kk-place-links">[\s\S]*?<\/p>\s*/g, "");
+      const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
+      const region = textOf(html, /<dt>Region<\/dt>\s*<dd>([\s\S]*?)<\/dd>/);
+      const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/);
+      if (iso && countryName) {
+        const regionLink = region ? ` · <a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a>` : "";
+        const links = `<p class="kk-place-links"><a href="/map/#${iso}">${escapeHtml(countryName)} on the world map</a>${regionLink}</p>`;
+        if (html.includes("kk-origin")) html = html.replace(/(<p class="kk-origin">[\s\S]*?<\/p>)/, `$1\n${links}`);
+        else html = html.replace(/<\/h1>/, `</h1>\n${links}`);
+      }
+    }
     if (/data-page="(sauce|pancake|dish)"/.test(html) && !html.includes("kk-origin")) {
       const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
       const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/);
@@ -427,6 +464,10 @@ function worldSvg(countries, w, h, hrefFor, simple = false) {
     <g class="kk-graticule">${lines.join("")}</g>
     <g class="kk-lands">${lands}</g>
   </svg>`;
+}
+
+function regionSlug(name) {
+  return String(name || "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 function originMarkup(countryName, lat, lon) {
@@ -843,7 +884,23 @@ write("books/index.html", page({
   description: "Cookbooks from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon, with no prices.",
   path: "/books/",
   current: "",
-  main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/books/", "Cookbooks"]])}<h1>Recipe cookbooks</h1><p class="kk-lede">Titles from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon. Nothing here has a price.</p><div class="kk-grid">${guideBooks.map((book) => `<article class="kk-card"><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p></article>`).join("")}</div></div>`
+  scripts: `<script src="/assets/js/filter.js" defer></script>`,
+  main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/books/", "Cookbooks"]])}
+    <h1>Recipe cookbooks</h1>
+    <p class="kk-lede">Titles imported with Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon. Nothing here has a price.</p>
+    <section data-kk-filter>
+      <div class="kk-filters">
+        <div class="kk-chips" role="group" aria-label="Guide">
+          <button type="button" class="is-on" data-continent-value="all" aria-pressed="true">All</button>
+          <button type="button" data-continent-value="Flying Sauces" aria-pressed="false">Flying Sauces</button>
+          <button type="button" data-continent-value="Flying Pancakes" aria-pressed="false">Flying Pancakes</button>
+          <button type="button" data-continent-value="Flying BBQ" aria-pressed="false">Flying BBQ</button>
+        </div>
+        <p class="kk-meta" data-kk-count>${guideBooks.length} titles</p>
+      </div>
+      <div class="kk-grid">${guideBooks.map((book) => `<article class="kk-card" data-continent="${escapeHtml(book.section)}"><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p><p class="kk-meta"><a href="${book.href.replace(/books\/.*$/, "")}">Open the guide</a></p></article>`).join("")}</div>
+    </section>
+  </div>`
 }));
 
 const creditItems = Object.values(photos);
@@ -947,12 +1004,39 @@ write("guidelines/index.html", page({
   </article>`
 }));
 
+const byRegion = new Map();
+for (const item of catalog) {
+  if (!item.region) continue;
+  if (!byRegion.has(item.region)) byRegion.set(item.region, []);
+  byRegion.get(item.region).push(item);
+}
+const regionLinks = [...byRegion.keys()].sort().map((region) => `<li><a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a> <span class="kk-meta">${byRegion.get(region).length}</span></li>`).join("");
+for (const [region, items] of byRegion) {
+  const slug = regionSlug(region);
+  const continent = CONTINENT[region] || "";
+  write(`regions/${slug}/index.html`, page({
+    title: `${region} · Kite Kitchen`,
+    description: `${items.length} recipes filed under ${region}${continent ? `, ${continent}` : ""}.`,
+    path: `/regions/${slug}/`,
+    current: "map",
+    main: `<div class="kk-wrap">
+      ${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"], [`/regions/${slug}/`, region]])}
+      <p class="kk-kicker">${escapeHtml(continent || "Recipes")}</p>
+      <h1>${escapeHtml(region)}</h1>
+      <p class="kk-lede">${items.length} recipes from the three guides are filed in this region. The list uses the region already printed on each recipe.</p>
+      <p class="kk-meta"><a href="/map/">Back to the world map</a></p>
+      <ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul>
+    </div>`
+  }));
+}
 const countryBlocks = [...byCountry.entries()].sort((a, b) => byIso[a[0]].name.localeCompare(byIso[b[0]].name)).map(([iso, items]) => {
   const place = byIso[iso];
   const ns = place.lat >= 0 ? "N" : "S";
   const ew = place.lon >= 0 ? "E" : "W";
   const label = `${Math.abs(Math.round(place.lat))}° ${ns}, ${Math.abs(Math.round(place.lon))}° ${ew}`;
-  return `<section id="${iso}" class="kk-country"><h2>${escapeHtml(place.name)}</h2><p class="kk-meta">${label}</p><ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul></section>`;
+  const regions = [...new Set(items.map((item) => item.region).filter(Boolean))];
+  const regionHtml = regions.map((region) => `<a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a>`).join(", ");
+  return `<section id="${iso}" class="kk-country"><h2>${escapeHtml(place.name)}</h2><p class="kk-meta">${label}${regionHtml ? ` · ${regionHtml}` : ""}</p><ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul></section>`;
 }).join("");
 write("map/index.html", page({
   title: "World map · Kite Kitchen",
@@ -965,6 +1049,8 @@ write("map/index.html", page({
     <p class="kk-lede">Flying around the world, one recipe at a time. Shaded countries have recipes. The shapes are a simplified public-domain country map.</p>
     ${ad("map", "inline", true)}
     ${plate(atlasMap, "Atlas plate")}
+    <h2>Regions</h2>
+    <ul class="kk-recipe-list">${regionLinks}</ul>
     ${countryBlocks}
   </div>`
 }));

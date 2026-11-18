@@ -101,6 +101,11 @@ test("recipe pages keep ads out of the method and printable", () => {
   assert.equal((recipe.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
   assert.match(read("traditions/bermuda-good-friday/index.html"), /noindex/);
   assert.match(read("flying-bbq/index.html"), /Flying BBQ/);
+  assert.match(read("regions/southern-europe/index.html"), /Pesto alla Genovese/);
+  assert.match(read("map/index.html"), /\/regions\/southern-europe\//);
+  assert.match(read("books/index.html"), /data-kk-filter/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /"publisher":\{"@type":"Organization","name":"Kite Kitchen"/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /kk-place-links/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /noindex/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /flying-sauces\/sauces\/pesto-alla-genovese/);
 });
