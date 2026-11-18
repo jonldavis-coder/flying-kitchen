@@ -197,6 +197,7 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   background: var(--paper-2);
 }
 .kk-shot.kk-hero-shot img, .photo-hero img, .stop-hero img, .pancake-hero img, .pancake-photo img { aspect-ratio: 16 / 9; }
+.kk-locator-fallback svg { width: min(100%, 36rem); height: auto; display: block; border: 1px solid var(--gold-line); background: #f4f0e8; }
 .kk-caption, .photo-hero figcaption, .stop-hero figcaption, .pancake-hero figcaption, .photo-credit {
   margin: 0.4rem 0 0;
   font-size: 0.78rem;

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS } from "../site.config.mjs";
+import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -40,8 +40,16 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(home, /class="kk-mark"/);
   assert.match(home, /Search recipes/);
   assert.equal((home.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
-  assert.match(home, /hero-1280\.avif/);
-  assert.match(home, /rel="preload"/);
+  assert.equal(home_hero_photo, true);
+  if (home_hero_photo) {
+    assert.match(home, /hero-1280\.avif/);
+    assert.match(home, /rel="preload"/);
+  } else {
+    assert.doesNotMatch(home, /hero-1280\.avif/);
+  }
+  assert.match(read("flying-sauces/sauces/bechamel/index.html"), /data-photo="bechamel"/);
+  assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /data-kk-locator/);
+  assert.match(read("regions/southern-europe/index.html"), /Countries named on those pages/);
   assert.match(home, /kk-hero/);
   assert.match(home, /Atlas plate/);
   assert.doesNotMatch(home, /Jonathan/);

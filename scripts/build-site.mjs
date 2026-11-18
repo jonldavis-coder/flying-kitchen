@@ -3,7 +3,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { cpSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, HELLO_EMAIL } from "../site.config.mjs";
+import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, HELLO_EMAIL, home_hero_photo } from "../site.config.mjs";
 import { escapeHtml, safeJsonLd } from "../assets/js/lib/escape.js";
 import { traditions, recipes, products } from "../content/kite.mjs";
 
@@ -470,6 +470,47 @@ function regionSlug(name) {
   return String(name || "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+function locatorFigure(iso, countryName) {
+  const place = byIso[iso];
+  const note = `Locator for ${escapeHtml(countryName || "this country")}. This page has no photograph of the dish.`;
+  if (!place || !place.outline) {
+    return `<figure class="kk-locator-fallback" data-kk-locator><figcaption class="kk-caption">${note}</figcaption></figure>`;
+  }
+  let minX = 180;
+  let maxX = -180;
+  let minY = 90;
+  let maxY = -90;
+  for (const pt of place.outline) {
+    minX = Math.min(minX, pt[0]);
+    maxX = Math.max(maxX, pt[0]);
+    minY = Math.min(minY, pt[1]);
+    maxY = Math.max(maxY, pt[1]);
+  }
+  const spanX = maxX - minX;
+  const spanY = maxY - minY;
+  if (spanX > 80 || spanY > 50) {
+    return `<figure class="kk-locator-fallback" data-kk-locator>${pinSvg(place.lat, place.lon).replace('aria-hidden="true"', `role="img" aria-label="Map marking ${escapeHtml(countryName || "the country")}"`)}<figcaption class="kk-caption">${note}</figcaption></figure>`;
+  }
+  const w = 320;
+  const h = 180;
+  const pad = 16;
+  const midX = (minX + maxX) / 2;
+  const midY = (minY + maxY) / 2;
+  const scaleX = Math.max(spanX, 6);
+  const scaleY = Math.max(spanY, 4);
+  const project = (lon, lat) => {
+    const x = ((lon - midX) / scaleX + 0.5) * (w - pad * 2) + pad;
+    const y = ((midY - lat) / scaleY + 0.5) * (h - pad * 2) + pad;
+    return [x, y];
+  };
+  const d = place.outline.map((pt, index) => {
+    const [x, y] = project(pt[0], pt[1]);
+    return `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
+  }).join("") + "Z";
+  const [cx, cy] = project(place.lon, place.lat);
+  return `<figure class="kk-locator-fallback" data-kk-locator><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Map of ${escapeHtml(countryName || "the country")}"><rect width="${w}" height="${h}" fill="#f4f0e8"/><path d="${d}" fill="#ead7ae" stroke="#1a1a1a" stroke-width="1.2"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6" fill="#e2b007" stroke="#1a1a1a" stroke-width="0.8"/></svg><figcaption class="kk-caption">${note}</figcaption></figure>`;
+}
+
 function originMarkup(countryName, lat, lon) {
   const ns = lat >= 0 ? "N" : "S";
   const ew = lon >= 0 ? "E" : "W";
@@ -652,7 +693,17 @@ const EDITORIAL = {
   mole: { id: "mole", widths: [480, 800, 1200], w: 4, h: 3, alt: "Mole poblano with sesame seeds, served with rice and pasta", caption: "Mole poblano.", artist: "Pabliotecario", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Mole_poblano_de_fiesta.jpg" },
   appam: { id: "appam", widths: [480], w: 4, h: 3, alt: "Palappam, a lacy fermented rice hopper, with chicken curry", caption: "Palappam, the bowl-shaped appam.", artist: "Haneyljacob", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Palappam_and_Chicken_curry_in_Kerala.jpg" },
   hog: { id: "hog", widths: [480, 800, 1100], w: 4, h: 3, alt: "A whole hog on a barbecue grate", caption: "Whole hog barbecue.", artist: "IReallyLikeYorhshirePuddding", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Whole_Hog_BBQ.jpg" },
-  chimichurri: { id: "chimichurri", widths: [480, 800, 1200], w: 4, h: 3, alt: "Chimichurri in a white bowl", caption: "Chimichurri.", artist: "Dominic Lockyer", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Chimichurri_Sauce_Recipe_(13294290615).jpg" }
+  chimichurri: { id: "chimichurri", widths: [480, 800, 1200], w: 4, h: 3, alt: "Chimichurri in a white bowl", caption: "Chimichurri.", artist: "Dominic Lockyer", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Chimichurri_Sauce_Recipe_(13294290615).jpg" },
+  bechamel: { id: "bechamel", widths: [640, 1100], w: 16, h: 9, alt: "Béchamel sauce in a saucepan", caption: "Béchamel.", artist: "Saintfevrier", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:B%C3%A9chamel_in_saucepan.jpg" },
+  bearnaise: { id: "bearnaise", widths: [640, 1100], w: 16, h: 9, alt: "Béarnaise sauce with tarragon", caption: "Béarnaise.", artist: "Alexander Guy", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:B%C3%A9arnaise_sauce_with_Tarragon_garnish.jpeg" },
+  arrabbiata: { id: "arrabbiata", widths: [640, 1100], w: 16, h: 9, alt: "Penne with arrabbiata sauce", caption: "Penne all'arrabbiata.", artist: "Leonhard Lenz", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:Penne_on_plate_with_Arrabbiata_2025-02-12_04.jpg" },
+  adjika: { id: "adjika", widths: [640, 1100], w: 16, h: 9, alt: "Adjika, a red pepper paste, in a bowl", caption: "Adjika.", artist: "Moonsun1981", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Adjika_e-citizen.jpg" }
+};
+const DISH_PHOTO = {
+  bechamel: EDITORIAL.bechamel,
+  bearnaise: EDITORIAL.bearnaise,
+  arrabbiata: EDITORIAL.arrabbiata,
+  adjika: EDITORIAL.adjika
 };
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
@@ -770,14 +821,14 @@ write("index.html", page({
   current: "home",
   jsonLd: homeLd,
   scripts: `<script src="/assets/js/atlas.js" defer></script>`,
-  extraHead: `<link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/hero-1280.avif" imagesrcset="/assets/photos/editorial/hero-768.avif 768w, /assets/photos/editorial/hero-1280.avif 1280w, /assets/photos/editorial/hero-1920.avif 1920w" imagesizes="100vw">`,
+  extraHead: home_hero_photo ? `<link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/hero-1280.avif" imagesrcset="/assets/photos/editorial/hero-768.avif 768w, /assets/photos/editorial/hero-1280.avif 1280w, /assets/photos/editorial/hero-1920.avif 1920w" imagesizes="100vw">` : "",
   main: `<section class="kk-hero">
       <div class="kk-hero-inner">
         <p class="kk-kicker">World recipes</p>
         <h1>Kite Kitchen</h1>
         <p class="kk-lede">${TAGLINE}.</p>
         ${searchForm("home-q", "Pesto, dosa, asado")}
-        ${photoFigure(EDITORIAL.hero, { eager: true, sizes: "100vw", frame: "kk-shot kk-hero-shot" })}
+        ${home_hero_photo ? photoFigure(EDITORIAL.hero, { eager: true, sizes: "100vw", frame: "kk-shot kk-hero-shot" }) : ""}
       </div>
     </section>
     <div class="kk-wrap kk-home">
@@ -1004,6 +1055,14 @@ write("guidelines/index.html", page({
   </article>`
 }));
 
+function regionIntro(region, items) {
+  const counts = new Map();
+  for (const item of items) counts.set(item.section, (counts.get(item.section) || 0) + 1);
+  const parts = [...counts.entries()].map(([section, count]) => `${count} from ${section}`);
+  const countries = [...new Set(items.map((item) => item.country).filter(Boolean))].sort();
+  return `${items.length} recipes are filed under ${region}: ${parts.join(", ")}. Countries named on those pages: ${countries.join(", ")}.`;
+}
+
 const byRegion = new Map();
 for (const item of catalog) {
   if (!item.region) continue;
@@ -1019,11 +1078,13 @@ for (const [region, items] of byRegion) {
     description: `${items.length} recipes filed under ${region}${continent ? `, ${continent}` : ""}.`,
     path: `/regions/${slug}/`,
     current: "map",
+    scripts: `<script src="/assets/js/atlas.js" defer></script>`,
     main: `<div class="kk-wrap">
       ${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"], [`/regions/${slug}/`, region]])}
       <p class="kk-kicker">${escapeHtml(continent || "Recipes")}</p>
       <h1>${escapeHtml(region)}</h1>
-      <p class="kk-lede">${items.length} recipes from the three guides are filed in this region. The list uses the region already printed on each recipe.</p>
+      <p class="kk-lede">${regionIntro(region, items)}</p>
+      ${plate(worldSvg(Object.values(byIso).map((country) => ({ ...country, count: items.some((item) => item.iso === country.iso) ? items.filter((item) => item.iso === country.iso).length : 0 })), 640, 320, (iso) => `/map/#${iso}`, true), `${region} on the world map`)}
       <p class="kk-meta"><a href="/map/">Back to the world map</a></p>
       <ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul>
     </div>`
@@ -1171,7 +1232,24 @@ if (!fs.existsSync(path.join(root, "flying-sauces/explore/type/curry-paste/index
   }));
 }
 
+function prioritySlugs() {
+  const picked = new Set([
+    "pesto-alla-genovese", "mole-poblano", "crepes-suzette", "appam", "argentine-asado", "eastern-nc-whole-hog"
+  ]);
+  const files = [
+    ["flying-sauces/data/index.json", "sauces"],
+    ["flying-pancakes/data/index.json", "pancakes"],
+    ["flying-bbq/data/index.json", "dishes"]
+  ];
+  for (const [file, key] of files) {
+    const data = JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+    for (const item of (data[key] || []).slice(0, 30)) picked.add(item.slug);
+  }
+  return picked;
+}
+
 function polishRecipes() {
+  const priority = prioritySlugs();
   const sections = [["flying-sauces", "sauces", "Flying Sauces"], ["flying-pancakes", "pancakes", "Flying Pancakes"], ["flying-bbq", "dishes", "Flying BBQ"]];
   for (const [dir, folder, name] of sections) {
     for (const slug of dirs(`${dir}/${folder}`)) {
@@ -1191,6 +1269,19 @@ function polishRecipes() {
       }
       if (!html.includes("kk-method")) {
         html = html.replace(/(<h2[^>]*>\s*Ingredients\s*<\/h2>\s*<ul class="ingredients">[\s\S]*?<\/ul>\s*<h2 class="steps-heading">[\s\S]*?<\/h2>\s*<ol class="steps">[\s\S]*?<\/ol>)/, `<div class="kk-method">$1</div>`);
+      }
+      if (DISH_PHOTO[slug] && !html.includes(`data-photo="${slug}"`)) {
+        const figure = photoFigure(DISH_PHOTO[slug], { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", `<figure data-photo="${slug}" `);
+        const replaced = html.replace(/<figure class="(?:photo-hero|pancake-hero|stop-hero|kk-locator-fallback)[^"]*"[\s\S]*?<\/figure>/, figure);
+        if (replaced !== html) html = replaced;
+      }
+      const notDish = /not the (?:sauce|dish|pancake)|not a photograph of the dish|Place, not the dish|shows the (?:region|place), not/i;
+      if (priority.has(slug) && notDish.test(html) && !html.includes("data-kk-locator") && !html.includes("data-photo=")) {
+        const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
+        const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/) || textOf(html, /<p class="meta">([^·<]+)/);
+        const figure = locatorFigure(iso, countryName);
+        const replaced = html.replace(/<figure class="(?:photo-hero|pancake-hero|stop-hero)[^"]*"[\s\S]*?<\/figure>/, figure);
+        if (replaced !== html) html = replaced;
       }
       if (slug === "mole-poblano" && !html.includes('data-photo="mole"')) {
         html = html.replace(/<figure class="photo-hero">[\s\S]*?<\/figure>/, photoFigure(EDITORIAL.mole, { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", '<figure data-photo="mole" '));
