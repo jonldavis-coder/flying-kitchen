@@ -371,6 +371,14 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   cursor: pointer;
 }
 .kk-chips button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.kk-chips button:focus-visible,
+.kk-button:focus-visible,
+.kk-continent:focus-visible,
+.kk-lands a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.kk-lands a:focus-visible path { stroke: #1a1a1a; stroke-width: 1.8px; }
 .kk-filters select { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding-right: 0.8rem; }
 
 .kk-footer { border-top: 3px solid var(--gold-line); background: var(--paper-2); padding: 1.75rem 0 2rem; }
