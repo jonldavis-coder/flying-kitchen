@@ -259,7 +259,17 @@ body:has(.kk-guide-mast) .site-header { display: none; }
 .kk-units { margin: 0.35rem 0 0.35rem 0.75rem; }
 .kk-units button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
 .ingredients li { display: flex; gap: 0.55rem; align-items: flex-start; }
-.kk-check { width: 1.15rem; height: 1.15rem; margin-top: 0.35rem; flex: none; accent-color: #1a1a1a; }
+.kk-check { width: 1.15rem; height: 1.15rem; margin-top: 0.35rem; flex: none; accent-color: var(--gold-line); }
+.kk-tools [data-cook].is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.kk-cook-note { margin: 0.35rem 0 0; max-width: 36rem; font-size: 0.92rem; color: var(--gold); }
+.ingredients > li.is-done,
+ol.steps > li.is-done .kk-step-text { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--gold-line); text-decoration-thickness: 1px; }
+.kk-cooking .ingredients > li,
+.kk-cooking ol.steps > li { background: var(--paper-2); padding-left: 0.75rem; padding-right: 0.75rem; }
+ol.steps > li:has(.kk-check) { grid-template-columns: 1.4rem 2.5rem minmax(0, 1fr); }
+ol.steps > li:has(.kk-check) .kk-check { grid-column: 1; grid-row: 1; align-self: center; margin-top: 0; }
+ol.steps > li:has(.kk-check)::before { grid-column: 2; grid-row: 1; }
+ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-related { margin-top: 2rem; }
 .kk-rcard .kk-atlas-card { max-width: none; margin: -0.95rem -1rem 0.75rem; }
 .kk-rcard .kk-atlas-card .kk-plate-svg,

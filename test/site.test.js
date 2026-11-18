@@ -156,6 +156,13 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("flying-sauces/sauces/coconut-chutney/index.html"), /data-photo="coconut-chutney"/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /data-cook/);
+  assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
+  assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
+  assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
+  assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Eastern Europe/);
+  assert.match(read("assets/js/recipe.js"), /wakeLock/);
+  assert.match(read("assets/css/kite.css"), /kk-cooking/);
   assert.match(read("flying-sauces/sauces/arrabbiata/index.html"), /From the journey/);
   assert.match(read("flying-sauces/sauces/arrabbiata/index.html"), /\/journeys\/day-france-italy-argentina\//);
   assert.match(read("assets/css/kite.css"), /counter\(kkstep/);
