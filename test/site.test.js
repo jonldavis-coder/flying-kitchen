@@ -3,7 +3,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
-import { featureForDate, isoWeekSerial, weekPick } from "../scripts/feature-calendar.mjs";
+import { featureForDate, isoWeekSerial, weekPick, extendWeekSchedule } from "../scripts/feature-calendar.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -81,7 +81,16 @@ test("origin, domain, analytics, and ads stay honest", () => {
     assert.equal(seen.has(href), false);
     seen.add(href);
   }
-  assert.match(read("index.html"), new RegExp(`data-week="${weekPick(photoHrefs, new Date()).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  const schedule = JSON.parse(read("data/week-schedule.json"));
+  const nowSerial = isoWeekSerial(new Date());
+  const currentWeek = schedule.find((row) => row.serial === nowSerial);
+  assert.equal(currentWeek.slug, "pupusas");
+  const horizon = schedule.filter((row) => row.serial >= nowSerial && row.serial < nowSerial + 26);
+  assert.equal(horizon.length, 26);
+  assert.equal(new Set(horizon.map((row) => row.slug)).size, 26);
+  const unchanged = extendWeekSchedule(schedule, [...photoHrefs.map((href) => href.split("/").filter(Boolean).at(-1)), "zzzz-extra-photo"], schedule.at(-1).serial);
+  assert.deepEqual(unchanged, schedule);
+  assert.match(read("index.html"), /data-week="\/flying-pancakes\/pancakes\/pupusas\/"/);
   const dishPhotos = JSON.parse(read("data/dish-photos.json"));
   assert.ok(dishPhotos.filter((photo) => photo.slug).length >= 130);
   for (const photo of dishPhotos) {
