@@ -100,15 +100,15 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem 1.25rem;
+  gap: 0.25rem 1.1rem;
   max-width: 76rem;
   margin: 0 auto;
-  padding: 0.65rem 1.25rem;
+  padding: 0.35rem 1.25rem;
 }
-.kk-brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--ink); min-height: 44px; }
-.kk-mark { width: 42px; height: 42px; flex: none; display: block; }
-.kk-brand-text { display: flex; flex-direction: column; gap: 0.12rem; min-width: 0; }
-.kk-word { font-size: 1.7rem; line-height: 0.95; letter-spacing: 0.055em; }
+.kk-brand { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; color: var(--ink); min-height: 44px; }
+.kk-mark { width: 34px; height: 34px; flex: none; display: block; }
+.kk-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
+.kk-word { font-size: 1.55rem; line-height: 0.95; letter-spacing: 0.01em; }
 .kk-tag, .kk-tag-long, .kk-tag-short {
   font-family: var(--sans);
   font-size: 0.72rem;
@@ -141,12 +141,16 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   list-style: none;
   background: transparent;
   color: var(--ink);
-  border: 1px solid var(--line);
+  border: 1px solid var(--gold-line);
   min-height: 44px;
-  padding: 0.35rem 0.8rem;
+  padding: 0.35rem 0.85rem;
   cursor: pointer;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
 }
 .kk-menu summary::-webkit-details-marker { display: none; }
+.kk-menu-close, .kk-menu-kicker { display: none; }
 
 .kk-wrap { max-width: 76rem; margin: 0 auto; padding: 1.5rem 1.25rem 3.5rem; }
 .kk-lede { font-size: 1.25rem; margin: 0.35rem 0 0; max-width: 38rem; color: var(--ink); }
@@ -603,11 +607,12 @@ ol.steps > li::before {
 .kk-book { padding: 0.55rem 0.55rem 0.9rem; }
 .kk-book h2 { margin: 0.45rem 0.35rem 0.2rem; font-size: 1.35rem; }
 .kk-results { display: grid; gap: 0.7rem; margin-top: 0.8rem; }
-.kk-hit { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.75rem; align-items: center; padding: 0.55rem; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--gold-line); color: inherit; text-decoration: none; }
-.kk-hit img, .kk-hit .kk-pin, .kk-hit .kk-plate-svg { width: 7.5rem; height: 4.22rem; object-fit: cover; }
-.kk-hit strong { display: block; font-family: var(--serif); font-size: 1.35rem; font-weight: 500; line-height: 1.15; }
+.kk-hit { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.85rem 1rem; align-items: center; padding: 0.55rem; background: #fff; border: 1px solid var(--line); border-top: 1px solid var(--gold-line); color: inherit; text-decoration: none; }
+.kk-hit img, .kk-hit .kk-pin, .kk-hit .kk-plate-svg { width: 11rem; height: 6.2rem; object-fit: cover; }
+.kk-hit strong { display: block; font-family: var(--serif); font-size: 1.65rem; font-weight: 500; line-height: 1.05; }
+.kk-hit .kk-dek { display: block; margin-top: 0.25rem; font-family: var(--serif); font-size: 1.05rem; line-height: 1.35; color: var(--ink); }
 .kk-hit .kk-meta { display: block; margin-top: 0.15rem; }
-.kk-empty { margin: 0.8rem 0; padding: 1rem 1.1rem; border: 1px dashed var(--gold-line); background: var(--paper-2); }
+.kk-empty { margin: 1rem 0; padding: 1.2rem 1.25rem; border: 1px solid var(--gold-line); background: var(--paper-2); font-family: var(--serif); font-size: 1.35rem; line-height: 1.35; max-width: 36rem; }
 .kk-missing { max-width: 40rem; }
 .kk-stops { list-style: none; margin: 1.5rem 0 0; padding: 0; }
 .kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--gold-line); }
@@ -654,12 +659,40 @@ ol.steps > li::before {
 @media (max-width: 799px) {
   .kk-header-inner > .kk-nav { display: none; }
   .kk-header .kk-menu { display: block; }
-  .kk-menu .kk-nav { display: flex; flex-direction: column; padding: 0.35rem 0 0.6rem; }
+  .kk-menu[open] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: var(--paper);
+    padding: 1.15rem 1.35rem 2.5rem;
+    overflow: auto;
+  }
+  .kk-menu[open] summary {
+    position: absolute;
+    top: 0.85rem;
+    right: 1rem;
+    border: 0;
+    background: transparent;
+  }
+  .kk-menu[open] .kk-menu-kicker { display: flex; align-items: center; gap: 0.55rem; margin: 0.15rem 0 0.8rem; font-family: var(--serif); font-size: 1.45rem; }
+  .kk-menu-kicker .kk-mark { width: 32px; height: 32px; }
+  .kk-menu:not([open]) .kk-menu-close { display: none; }
+  .kk-menu[open] .kk-menu-label { display: none; }
+  .kk-menu[open] .kk-menu-close { display: inline; }
+  .kk-menu .kk-nav { display: flex; flex-direction: column; gap: 0; padding: 0.4rem 0 1rem; }
+  .kk-menu .kk-nav a {
+    font-family: var(--serif);
+    font-size: 2.05rem;
+    letter-spacing: -0.02em;
+    border-bottom: 1px solid var(--gold-line);
+    min-height: 3.15rem;
+    box-shadow: none;
+  }
   .kk-tag-long { display: none; }
   .kk-tag-short { display: block; }
-  .kk-word { font-size: 1.45rem; letter-spacing: 0.04em; }
-  .kk-mark { width: 36px; height: 36px; }
-  .kk-section-name { flex-basis: 100%; }
+  .kk-word { font-size: 1.35rem; letter-spacing: 0.01em; }
+  .kk-mark { width: 30px; height: 30px; }
+  .kk-section-name { display: none; }
   .kk-hero-inner { padding: 2rem 1.05rem 1.5rem; }
   .kk-hero h1 { font-size: clamp(2.55rem, 12vw, 3.3rem); }
   .kk-wrap { padding: 1.15rem 1.05rem 2.8rem; }
@@ -673,7 +706,8 @@ ol.steps > li::before {
   .kk-info { flex-wrap: wrap; row-gap: 0.35rem; }
   .kk-info li { border-right: 0; padding: 0 0.85rem 0 0; }
   .kk-caption, .photo-hero figcaption, .stop-hero figcaption, .pancake-hero figcaption, .photo-credit { font-size: 0.86rem; line-height: 1.45; }
-  .kk-hit { grid-template-columns: 5.4rem minmax(0, 1fr); }
+  .kk-hit { grid-template-columns: 6.4rem minmax(0, 1fr); }
+  .kk-hit img, .kk-hit .kk-plate-svg { width: 6.4rem; height: 3.6rem; }
   .kk-week, .kk-day-stop { grid-template-columns: 1fr; }
   .kk-hit strong { font-size: 1.2rem; }
   .kk-foot { grid-template-columns: 1fr; }
@@ -682,11 +716,19 @@ ol.steps > li::before {
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 @media print {
-  .kk-bar, .kk-header, .kk-footer, .kk-ad, .kk-consent, .kk-menu, .no-print, .ad-slot, .site-header, .site-footer, .kk-shop-strip, .kk-tip { display: none !important; }
+  .kk-bar, .kk-header, .kk-footer, .kk-ad, .kk-consent, .kk-menu, .no-print, .ad-slot, .site-header, .site-footer, .kk-shop-strip, .kk-tip,
+  .kk-crumbs, .kk-tools, .kk-servings, .kk-more, .kk-origin, .kk-place-links, .kk-info, .story-block, .fun-facts, .variations, .pairings,
+  .tag-row, .photo-hero, .pancake-hero, .stop-hero, .kk-shot, .kk-atlas-card, .kk-route-shot, .eyebrow, .arrival, .next-stop, .voyage-note,
+  .demo-banner, .issue-line, #rating-summary, #heart-summary, .nav-toggle, #auth-slot { display: none !important; }
+  .print-only, .print-brand { display: flex !important; align-items: center; gap: 0.45rem; }
+  .print-brand .kk-mark { width: 28px; height: 28px; }
+  .print-brand span { font-family: "Cormorant Garamond", Georgia, serif; font-size: 16pt; }
   .frame { border: 0 !important; margin: 0 !important; background: white !important; }
   body { background: white !important; color: black !important; font-size: 12pt; }
   h1, h2, h3, a { color: black !important; text-decoration: none; }
-  .kk-method { display: block; }
+  .kk-method, .sauce-layout, .pancake-layout, .dish-layout, .wrap { display: block !important; }
+  .kk-method { columns: 1; }
+  ol.steps > li { break-inside: avoid; }
 }
 
 .price { display: none !important; }
