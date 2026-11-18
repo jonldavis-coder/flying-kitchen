@@ -762,8 +762,8 @@ function routeSvg(points) {
     return [x, y];
   });
   const path = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("");
-  const dots = coords.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="#e2b007" stroke="#fffdfb" stroke-width="1.4"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>`).join("");
-  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="World map with a gold route between the stops"><rect width="${w}" height="${h}" fill="#f4f0e8"/><g transform="scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.4">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="1.5" stroke-dasharray="1.5 3.5" stroke-linecap="round"/>${dots}</svg>`;
+  const dots = coords.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="#e2b007" stroke="#fffdfb" stroke-width="2.2"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>`).join("");
+  return `<svg class="kk-route" viewBox="0 0 ${w} ${h}" role="img" aria-label="World map with a gold route between the stops"><rect width="${w}" height="${h}" fill="#f4f0e8"/><g transform="scale(4)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.45">${MINI_LANDS}</g><path d="${path}" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-dasharray="2 5" stroke-linecap="round"/>${dots}</svg>`;
 }
 
 function pinSvg(lat, lon) {
@@ -813,13 +813,21 @@ const EDITORIAL = {
   "malaysian-satay-ayam": { id: "malaysian-satay-ayam", widths: [640], w: 16, h: 9, alt: "Chicken satay on skewers with peanut sauce", caption: "Chicken satay.", artist: "Elly Suhailee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CHICKEN_SATAY.jpg" },
   "roti-canai": { id: "roti-canai", widths: [640], w: 16, h: 9, alt: "Roti canai, a flaky flatbread, on a metal plate", caption: "Roti canai.", artist: "Alpha", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Fluffy_close-up_-_Roti_Canai_-_Mega_Curry_House_MYR1.30_(4573123653).jpg" },
   "korean-bulgogi": { id: "bulgogi", widths: [640], w: 16, h: 9, alt: "Bulgogi, marinated beef with sesame, served with rice", caption: "Bulgogi.", artist: "Andy Li", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:Bulgogi_(Marinated_beef._Served_with_rice)_-_Kogi_2023-09-11.jpg" },
-  "jamaican-jerk-chicken": { id: "jerk", widths: [640], w: 16, h: 9, alt: "Jerk chicken with rice and cabbage", caption: "Jerk chicken.", artist: "naotakem", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Jerk_Chicken_Plate.jpg" }
+  "jamaican-jerk-chicken": { id: "jerk", widths: [640], w: 16, h: 9, alt: "Jerk chicken with rice and cabbage", caption: "Jerk chicken.", artist: "naotakem", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Jerk_Chicken_Plate.jpg" },
+  "tianjin-jianbing": { id: "tianjin-jianbing", widths: [640], w: 16, h: 9, alt: "Jianbing cooking on a round griddle", caption: "Jianbing.", artist: "Jmps2016", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Jianbing.jpg" },
+  "nigerian-suya": { id: "nigerian-suya", widths: [640], w: 16, h: 9, alt: "Suya, spiced beef, grilling over coals", caption: "Suya.", artist: "Ewatomi1", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:An_Hausa_man_producing_suya_at_suya_production_site_in_Nigeria_06.jpg" },
+  "kenyan-nyama-choma": { id: "kenyan-nyama-choma", widths: [480], w: 16, h: 9, alt: "Nyama choma, grilled meat on skewers", caption: "Nyama choma.", artist: "Zizounyc", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Nyama_Choma_at_Coco_Beach..jpg" },
+  "moroccan-baghrir": { id: "moroccan-baghrir", widths: [640], w: 16, h: 9, alt: "Baghrir, spongy semolina pancakes", caption: "Baghrir.", artist: "Sabah HAANA", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Baghrir_1.jpg" },
+  "south-african-boerewors": { id: "south-african-boerewors", widths: [640], w: 16, h: 9, alt: "Boerewors coils on a grill over coals", caption: "Boerewors.", artist: "Ossewa", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Boerewors_braai.jpg" },
+  "australian-pancakes": { id: "australian-pancakes", widths: [640], w: 16, h: 9, alt: "A folded pancake with strawberries and cream", caption: "Australian pancakes.", artist: "Earlyspatz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Wikipedia_for_Peace_Berlin_Australian_Pancakes.jpg" },
+  "singapore-hawker-satay": { id: "malaysian-satay-ayam", widths: [640], w: 16, h: 9, alt: "Chicken satay on skewers with peanut sauce", caption: "Chicken satay.", artist: "Elly Suhailee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CHICKEN_SATAY.jpg" }
 };
 const DISH_PHOTO = Object.fromEntries([
   "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
   "injera", "masala-dosa", "poffertjes", "potato-latkes", "pupusas", "syrniki", "osaka-okonomiyaki", "arepa-boyacense", "colombian-arepas", "jamaican-festival",
   "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori",
-  "paper-dosa", "malaysian-satay-ayam", "roti-canai", "korean-bulgogi", "jamaican-jerk-chicken"
+  "paper-dosa", "malaysian-satay-ayam", "roti-canai", "korean-bulgogi", "jamaican-jerk-chicken", "chimichurri",
+  "tianjin-jianbing", "nigerian-suya", "kenyan-nyama-choma", "moroccan-baghrir", "south-african-boerewors", "australian-pancakes", "singapore-hawker-satay"
 ].map((slug) => [slug, EDITORIAL[slug]]));
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
@@ -981,6 +989,68 @@ const DAY_JOURNEYS = [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/paper-dosa/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/seekh-kebab/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/tandoori-chicken/" }
+  ]},
+  { slug: "day-in-australia", title: "A day in Australia", lede: "Breakfast, lunch, and dinner from Australian recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/australian-pancakes/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/australian-prawns/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/australian-lamb-chops/" }
+  ]},
+  { slug: "day-samoa-australia-newzealand", title: "Breakfast in Samoa, lunch in Australia, dinner in New Zealand", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/samoan-panikeke/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/australian-barramundi/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/maori-hangi/" }
+  ]},
+  { slug: "day-newzealand-fiji", title: "Breakfast in New Zealand, dinner in Fiji", lede: "A sweet breakfast and a coconut dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/new-zealand-pikelets/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/fijian-lovo/" }
+  ]},
+  { slug: "day-ghana-nigeria-ethiopia", title: "Breakfast in Ghana, lunch in Nigeria, dinner in Ethiopia", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/ghanaian-tatale/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/nigerian-suya/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/ethiopian-tibs/" }
+  ]},
+  { slug: "day-in-morocco", title: "A day in Morocco", lede: "Breakfast, lunch, and dinner from Moroccan recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/moroccan-baghrir/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/moroccan-kefta-brochettes/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/moroccan-mechoui/" }
+  ]},
+  { slug: "day-in-south-africa", title: "A day in South Africa", lede: "Breakfast, lunch, and dinner from South African recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/south-african-pannekoek/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/cape-malay-sosaties/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/south-african-boerewors/" }
+  ]},
+  { slug: "day-kenya-tanzania", title: "Breakfast in Kenya, lunch in Tanzania, dinner in Kenya", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/kenyan-chapati/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/tanzanian-mishkaki/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/kenyan-nyama-choma/" }
+  ]},
+  { slug: "day-morocco-mali-senegal", title: "Breakfast in Morocco, lunch in Mali, dinner in Senegal", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/msemen/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/mali-lamb-brochettes/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/senegalese-dibi/" }
+  ]},
+  { slug: "day-egypt-mozambique", title: "Lunch in Egypt, dinner in Mozambique", lede: "A grilled lunch and a charcoal dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Lunch", href: "/flying-bbq/dishes/egyptian-kofta/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/mozambican-peri-peri-chicken/" }
+  ]},
+  { slug: "day-zambia-ghana-zimbabwe", title: "Breakfast in Zambia, lunch in Ghana, dinner in Zimbabwe", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/zambian-vitumbuwa/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/ghanaian-kyinkyinga/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/zimbabwean-braai-chicken/" }
+  ]},
+  { slug: "day-jamaica-france-mexico", title: "Breakfast in Jamaica, lunch in France, dinner in Mexico", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/jamaican-festival/" },
+    { meal: "Lunch", href: "/flying-pancakes/pancakes/crepes-suzette/" },
+    { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
+  ]},
+  { slug: "day-samoa-tonga", title: "Breakfast in Samoa, dinner in Tonga", lede: "A fried breakfast and a steamed dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/samoan-panikeke/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/tongan-umu/" }
+  ]},
+  { slug: "day-poland-italy-argentina", title: "Breakfast in Poland, lunch in Italy, dinner in Argentina", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/potato-latkes/" },
+    { meal: "Lunch", href: "/flying-sauces/sauces/arrabbiata/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/argentine-vacio/" }
   ]}
 ];
 const JOURNEYS = [
@@ -1515,7 +1585,19 @@ for (const journey of JOURNEYS) {
     </article>`
   }));
 }
-const dayCards = DAY_JOURNEYS.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.map((stop) => stop.meal).slice(0, 3).join(" · ")}</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("");
+function dayContinents(journey) {
+  const names = new Set();
+  for (const stop of journey.stops) {
+    const href = typeof stop === "string" ? stop : stop.href;
+    const item = catalog.find((entry) => entry.href === href);
+    if (item && item.continent) names.add(item.continent);
+  }
+  return [...names];
+}
+const dayCards = DAY_JOURNEYS.map((journey) => {
+  const continents = dayContinents(journey);
+  return `<article class="kk-rcard" data-day data-continents="${escapeHtml(continents.join(" "))}"><p class="kk-kicker">${escapeHtml(continents.join(" · "))}</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`;
+}).join("");
 const routeCards = JOURNEYS.filter((journey) => !DAY_JOURNEYS.includes(journey)).map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.length} recipes</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("");
 write("journeys/index.html", page({
   title: "Journeys · Kite Kitchen",
@@ -1528,7 +1610,15 @@ write("journeys/index.html", page({
     <h1>Journeys</h1>
     <p class="kk-lede">A day is breakfast, lunch, and dinner from recipes already published here. The note under each stop is that recipe’s own description.</p>
     <h2>A day around the world</h2>
-    <div class="kk-rcards">${dayCards}</div>
+    <div class="kk-filters">
+      <div class="kk-chips" role="group" aria-label="Continent">
+        ${["All", "Africa", "Americas", "Asia", "Europe", "Oceania"].map((name, index) => `<button type="button"${index === 0 ? ' class="is-on"' : ""} data-day-continent="${name === "All" ? "all" : name}" aria-pressed="${index === 0 ? "true" : "false"}">${name}</button>`).join("")}
+      </div>
+      <button type="button" class="kk-button" data-surprise>Surprise me</button>
+      <p class="kk-meta" data-day-count></p>
+    </div>
+    <div class="kk-rcards" id="kk-days">${dayCards}</div>
+    <script src="/assets/js/days.js" defer></script>
     <h2>Longer routes</h2>
     <div class="kk-rcards">${routeCards}</div>
   </div>`
