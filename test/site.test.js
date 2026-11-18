@@ -82,6 +82,27 @@ test("origin, domain, analytics, and ads stay honest", () => {
     seen.add(href);
   }
   assert.match(read("index.html"), new RegExp(`data-week="${weekPick(photoHrefs, new Date()).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  const dishPhotos = JSON.parse(read("data/dish-photos.json"));
+  assert.ok(dishPhotos.filter((photo) => photo.slug).length >= 130);
+  for (const photo of dishPhotos) {
+    assert.ok(photo.mastWidth >= 1000, photo.id);
+    assert.ok(photo.cardWidth >= 1000, photo.id);
+    assert.ok(Math.abs(photo.mastWidth / photo.mastHeight - 1.5) < 0.02, photo.id);
+    assert.ok(Math.abs(photo.cardWidth / photo.cardHeight - 4 / 3) < 0.02, photo.id);
+    assert.equal(fs.existsSync(path.join(root, `assets/photos/editorial/${photo.id}-mast-${photo.mastWidth}.jpg`)), true, photo.id);
+    assert.equal(fs.existsSync(path.join(root, `assets/photos/editorial/${photo.id}-card-${photo.cardWidth}.jpg`)), true, photo.id);
+  }
+  const carbonaraHero = read("flying-sauces/sauces/carbonara/index.html").match(/kk-hero-shot[\s\S]*?width="(\d+)" height="(\d+)"/);
+  assert.ok(Number(carbonaraHero[1]) >= 1000);
+  assert.ok(Math.abs(Number(carbonaraHero[1]) / Number(carbonaraHero[2]) - 1.5) < 0.02);
+  const weekCard = read("index.html").match(/class="kk-week"[\s\S]*?width="(\d+)" height="(\d+)"/);
+  assert.ok(Number(weekCard[1]) >= 1000);
+  assert.ok(Math.abs(Number(weekCard[1]) / Number(weekCard[2]) - 4 / 3) < 0.02);
+  assert.match(read("flying-sauces/sauces/ssamjang/index.html"), /data-photo="ssamjang"/);
+  assert.match(read("flying-sauces/sauces/ssamjang/index.html"), /Photograph by leeey/);
+  assert.match(read("credits/index.html"), /Ssamjang\./);
+  assert.match(read("flying-pancakes/pancakes/banh-xeo/index.html"), /data-photo="banh-xeo"/);
+  assert.match(read("assets/css/kite.css"), /aspect-ratio: 3 \/ 2/);
   assert.equal(featureForDate(new Date("2026-11-18T15:00:00Z")), "holiday-table");
   assert.equal(featureForDate(new Date("2026-11-30T23:00:00Z")), "holiday-table");
   assert.equal(featureForDate(new Date("2026-12-01T00:30:00Z")), "winter-warmers");

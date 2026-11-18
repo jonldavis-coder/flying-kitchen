@@ -209,10 +209,11 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   width: 100%;
   display: block;
   object-fit: cover;
+  object-position: center;
   aspect-ratio: 4 / 3;
   background: var(--paper-2);
 }
-.kk-shot.kk-hero-shot img, .photo-hero img, .stop-hero img, .pancake-hero img, .pancake-photo img { aspect-ratio: 16 / 9; }
+.kk-shot.kk-hero-shot img, .photo-hero img, .stop-hero img, .pancake-hero img, .pancake-photo img { aspect-ratio: 3 / 2; object-position: center; }
 .kk-atlas-card, .kk-locator-fallback {
   display: block;
   max-width: 44rem;
