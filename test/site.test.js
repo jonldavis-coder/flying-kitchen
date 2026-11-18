@@ -47,7 +47,8 @@ test("origin, domain, analytics, and ads stay honest", () => {
     assert.match(home, /rel="preload"/);
   } else {
     assert.doesNotMatch(home, /hero-1280\.avif/);
-    assert.doesNotMatch(home, /rel="preload"/);
+    assert.match(home, /rel="preload" href="\/assets\/fonts\/source-sans-3-latin\.woff2"/);
+    assert.doesNotMatch(home, /rel="preload" as="image"/);
   }
   assert.match(home, /Browse by continent/);
   assert.match(read("books/index.html"), /kk-cover/);

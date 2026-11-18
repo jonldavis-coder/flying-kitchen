@@ -80,6 +80,7 @@ function headBits(title, description, url, jsonLd, robots, extraHead = "", image
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="KiteKitchen">
   <meta property="og:title" content="${escapeHtml(title)}">
@@ -300,7 +301,9 @@ function transformSection(dir, name, originFrom) {
       html = html.replace(/<body([^>]*)>/, `<body$1>\n${bar}`);
     }
     if (!html.includes("/assets/css/kite.css")) {
-      html = html.replace(/<\/head>/, `  <link rel="stylesheet" href="/assets/css/kite.css">\n</head>`);
+      html = html.replace(/<\/head>/, `  <link rel="preload" href="/assets/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin>\n  <link rel="stylesheet" href="/assets/css/kite.css">\n</head>`);
+    } else if (!html.includes("source-sans-3-latin.woff2")) {
+      html = html.replace(/<\/head>/, `  <link rel="preload" href="/assets/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin>\n</head>`);
     }
     html = html.replace(/<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">\s*/g, "");
     html = html.replace(/<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com" crossorigin>\s*/g, "");
@@ -2452,7 +2455,7 @@ function polishRecipes() {
       }
       html = html.replace(/<p class="kk-tools[\s\S]*?<\/p>\s*/g, "");
       if (html.includes("kk-mast")) {
-        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-save aria-pressed="false">Save</button> <button type="button" class="kk-button quiet" data-cook aria-pressed="false">Cook mode</button> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
+        const tools = `<p class="kk-tools no-print"><a class="kk-button" href="#kk-method"><span class="kk-tool-long">Jump to recipe</span><span class="kk-tool-short">Recipe</span></a> <button type="button" class="kk-button quiet" data-save aria-pressed="false">Save</button> <button type="button" class="kk-button quiet" data-cook aria-pressed="false">Cook mode</button> <button type="button" class="kk-button quiet" data-print>Print</button></p>`;
         const start = html.indexOf('<div class="kk-mast">');
         let depth = 0;
         let end = -1;

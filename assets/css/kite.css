@@ -7,6 +7,23 @@
   src: url("/assets/fonts/cormorant-garamond-medium.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2026, U+2032, U+2039-203A, U+2044, U+20AC, U+2122, U+2212;
 }
+/* Source Sans 3, SIL Open Font License. Latin subset, one weight. */
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/source-sans-3-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2026, U+2032, U+2039-203A, U+2044, U+20AC, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Kite Text Fallback";
+  src: local("Segoe UI"), local("Helvetica Neue"), local("Arial");
+  size-adjust: 100%;
+  ascent-override: 100%;
+  descent-override: 32.6%;
+  line-gap-override: 0%;
+}
 
 :root {
   --ink: #1a1a1a;
@@ -18,7 +35,7 @@
   --gold-line: #c6a15b;
   --focus: #1a1a1a;
   --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --sans: "Segoe UI", system-ui, sans-serif;
+  --sans: "Source Sans 3", "Kite Text Fallback", "Segoe UI", system-ui, sans-serif;
   color-scheme: light;
 }
 
@@ -263,6 +280,7 @@ body:has(.kk-guide-mast) .site-header { display: none; }
 .kk-atlas-place { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.7rem; line-height: 1; }
 .kk-atlas-coord { margin: 0.2rem 0 0; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; color: var(--muted); }
 .kk-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.9rem 0 0.4rem; }
+.kk-tool-short { display: none; }
 a.kk-pantry { color: inherit; text-decoration: none; border-bottom: 1px solid var(--gold-line); }
 a.kk-pantry:hover { color: var(--gold); }
 .kk-pantry-index { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; grid-template-columns: 1fr; }
@@ -702,6 +720,7 @@ ol.steps > li::before {
   .kk-rcards { grid-template-columns: 1fr 1fr 1fr; }
 }
 @media (max-width: 799px) {
+  .kk-header-inner { padding: 0 1.05rem; }
   .kk-header-inner > .kk-nav { display: none; }
   .kk-header .kk-menu { display: block; }
   .kk-menu[open] {
@@ -733,9 +752,19 @@ ol.steps > li::before {
     min-height: 3.15rem;
     box-shadow: none;
   }
-  .kk-tag-long { display: none; }
-  .kk-tag-short { display: block; }
+  .kk-tag-long, .kk-tag-short { display: none; }
   .kk-word { font-size: 1.35rem; letter-spacing: 0.01em; }
+  .kk-crumbs a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.15rem; }
+  .kk-tools { display: grid; grid-template-columns: 1.15fr 0.85fr 1.2fr 0.8fr; gap: 0.4rem; }
+  .kk-tools .kk-button { width: 100%; padding: 0.35rem 0.3rem; font-size: 0.84rem; }
+  .kk-tool-long { display: none; }
+  .kk-tool-short { display: inline; }
+  .sauce-layout > div, .pancake-layout > div, .dish-layout > div { display: flex; flex-direction: column; }
+  .kk-method { order: 2; }
+  .safety, .note { order: 3; }
+  .story-block, .fun-facts { order: 4; }
+  .variations, .pairings, .section-rule { order: 5; }
+  .kk-rcard h3 a { min-height: 44px; display: inline-flex; align-items: center; }
   .kk-mark { width: 30px; height: 30px; }
   .kk-section-name { display: none; }
   .kk-hero-inner { padding: 2rem 1.05rem 1.5rem; }
