@@ -18,6 +18,8 @@
       var noun = root.getAttribute("data-kk-noun") || "recipe";
       var label = shown === 1 ? noun : (noun === "title" ? "titles" : "recipes");
       if (status) status.textContent = shown + " " + label;
+      var heading = document.querySelector("[data-kk-heading]");
+      if (heading) heading.textContent = continent === "all" ? heading.getAttribute("data-kk-heading") : continent;
     }
 
     var wanted = new URLSearchParams(location.search).get("continent");
