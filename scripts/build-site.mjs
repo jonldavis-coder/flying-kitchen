@@ -910,7 +910,7 @@ function recipeCard(item, compact = false) {
   const place = !compact && item.iso && byIso[item.iso];
   const pin = place ? pinSvg(place.lat, place.lon) : `<span class="kk-band" aria-hidden="true"></span>`;
   const slug = item.href.split("/").filter(Boolean).at(-1);
-  const photo = !compact ? (DISH_PHOTO[slug] || CARD_PHOTO[item.href] || null) : null;
+  const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href] || null;
   const facts = [item.time, item.serves].filter(Boolean).join(" · ");
   return `<article class="kk-rcard" data-continent="${escapeHtml(item.continent)}" data-region="${escapeHtml(item.region)}">
       ${photo ? photoFigure(photo, { sizes: "(min-width: 1100px) 22rem, (min-width: 700px) 46vw, 92vw" }) : ""}
@@ -1047,17 +1047,18 @@ const DAY_JOURNEYS = [
     { meal: "Lunch", href: "/flying-bbq/dishes/australian-prawns/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/australian-lamb-chops/" }
   ]},
-  { slug: "day-samoa-australia-newzealand", title: "Breakfast in Samoa, lunch in Australia, dinner in New Zealand", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/samoan-panikeke/" },
+  { slug: "day-samoa-australia-newzealand", title: "Breakfast in Malaysia, lunch in Australia, dinner in New Zealand", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/roti-canai/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/australian-lamb-chops/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/maori-hangi/" }
   ]},
-  { slug: "day-newzealand-fiji", title: "Breakfast in New Zealand, dinner in Fiji", lede: "A sweet breakfast and a coconut dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/new-zealand-pikelets/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/fijian-lovo/" }
+  { slug: "day-newzealand-fiji", title: "Breakfast in Australia, lunch in Singapore, dinner in Hawaii", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/australian-pancakes/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/singapore-hawker-satay/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/kalua-pig/" }
   ]},
-  { slug: "day-ghana-nigeria-ethiopia", title: "Breakfast in Ghana, lunch in Nigeria, dinner in Ethiopia", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/ghanaian-tatale/" },
+  { slug: "day-ghana-nigeria-ethiopia", title: "Breakfast in Morocco, lunch in Nigeria, dinner in Ethiopia", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/moroccan-baghrir/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/nigerian-suya/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/ethiopian-tibs/" }
   ]},
@@ -1071,23 +1072,24 @@ const DAY_JOURNEYS = [
     { meal: "Lunch", href: "/flying-bbq/dishes/cape-malay-sosaties/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/south-african-boerewors/" }
   ]},
-  { slug: "day-kenya-tanzania", title: "Breakfast in Kenya, lunch in Tanzania, dinner in Kenya", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-kenya-tanzania", title: "Breakfast in Kenya, lunch in Ethiopia, dinner in Yemen", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/kenyan-chapati/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/tanzanian-mishkaki/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/kenyan-nyama-choma/" }
+    { meal: "Lunch", href: "/flying-bbq/dishes/ethiopian-tibs/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/yemeni-mandi/" }
   ]},
-  { slug: "day-morocco-mali-senegal", title: "Breakfast in Morocco, lunch in Mali, dinner in Senegal", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-morocco-mali-senegal", title: "Breakfast in Morocco, lunch in Senegal, dinner in Nigeria", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/msemen/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/mali-lamb-brochettes/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/senegalese-dibi/" }
+    { meal: "Lunch", href: "/flying-bbq/dishes/senegalese-dibi/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/nigerian-suya/" }
   ]},
-  { slug: "day-egypt-mozambique", title: "Lunch in Egypt, dinner in Mozambique", lede: "A grilled lunch and a charcoal dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+  { slug: "day-egypt-mozambique", title: "Breakfast in Turkey, lunch in Egypt, dinner in Mozambique", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/turkish-gozleme/" },
     { meal: "Lunch", href: "/flying-bbq/dishes/egyptian-kofta/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/mozambican-peri-peri-chicken/" }
   ]},
-  { slug: "day-zambia-ghana-zimbabwe", title: "Breakfast in Zambia, lunch in Ghana, dinner in Zimbabwe", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/zambian-vitumbuwa/" },
-    { meal: "Lunch", href: "/flying-bbq/dishes/ghanaian-kyinkyinga/" },
+  { slug: "day-zambia-ghana-zimbabwe", title: "Breakfast in Nigeria, lunch in Mozambique, dinner in Zimbabwe", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/nigerian-masa/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/mozambican-peri-peri-chicken/" },
     { meal: "Dinner", href: "/flying-bbq/dishes/zimbabwean-braai-chicken/" }
   ]},
   { slug: "day-jamaica-france-mexico", title: "Breakfast in Jamaica, lunch in France, dinner in Mexico", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
@@ -1095,9 +1097,10 @@ const DAY_JOURNEYS = [
     { meal: "Lunch", href: "/flying-pancakes/pancakes/crepes-suzette/" },
     { meal: "Dinner", href: "/flying-sauces/sauces/mole-poblano/" }
   ]},
-  { slug: "day-samoa-tonga", title: "Breakfast in Samoa, dinner in Tonga", lede: "A fried breakfast and a steamed dinner from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
-    { meal: "Breakfast", href: "/flying-pancakes/pancakes/samoan-panikeke/" },
-    { meal: "Dinner", href: "/flying-bbq/dishes/tongan-umu/" }
+  { slug: "day-samoa-tonga", title: "Breakfast in China, lunch in Japan, dinner in Korea", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
+    { meal: "Breakfast", href: "/flying-pancakes/pancakes/tianjin-jianbing/" },
+    { meal: "Lunch", href: "/flying-bbq/dishes/japanese-yakitori/" },
+    { meal: "Dinner", href: "/flying-bbq/dishes/korean-bulgogi/" }
   ]},
   { slug: "day-poland-italy-argentina", title: "Breakfast in Poland, lunch in Italy, dinner in Argentina", lede: "Three meals from recipes already on this site. The note under each stop is that recipe’s own description.", stops: [
     { meal: "Breakfast", href: "/flying-pancakes/pancakes/potato-latkes/" },
@@ -1287,11 +1290,6 @@ function collectionPlate(stops) {
 
 function featureHome(collection) {
   const stops = collectionStops(collection);
-  const places = routePlaces(stops);
-  const names = orderedCountries(stops);
-  const plate = places.length >= 2
-    ? `<figure class="kk-shot kk-route-shot">${routeSvg(places, "Map of the countries in this collection")}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(names.join(" · "))}.</span><span class="kk-credit">Map plate.</span></figcaption></figure>`
-    : "";
   return `<section class="kk-feature" data-feature="${escapeHtml(collection.slug)}">
         <div>
           <p class="kk-kicker">Now</p>
@@ -1300,7 +1298,6 @@ function featureHome(collection) {
           <p class="kk-meta">${stops.length} recipes${collection.when ? ` · ${escapeHtml(collection.when)}` : ""}</p>
           <p class="kk-meta"><a href="/collections/">All collections</a></p>
         </div>
-        ${plate}
       </section>`;
 }
 
@@ -1357,7 +1354,7 @@ write("index.html", page({
         <p class="kk-kicker">Journey</p>
         <h3><a href="/journeys/${featuredDay.slug}/">${escapeHtml(featuredDay.title)}</a></h3>
         <p>${escapeHtml(featuredDay.lede)}</p>
-        ${routeSvg(featuredDay.stops.map((stop) => catalog.find((entry) => entry.href === stop.href)).map((item) => byIso[item.iso]).filter(Boolean))}
+        <figure class="kk-shot kk-route-shot">${routeSvg(featuredDay.stops.map((stop) => catalog.find((entry) => entry.href === stop.href)).map((item) => byIso[item.iso]).filter(Boolean), featuredDay.title)}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(featuredDay.title)}.</span><span class="kk-credit">Map plate.</span></figcaption></figure>
         <p class="kk-meta"><a href="/journeys/">All journeys</a></p>
       </article>
       <h2>Recipe of the week</h2>
@@ -2003,11 +2000,11 @@ for (const collection of COLLECTIONS) {
         <p class="kk-kicker">Collection</p>
         <h1 class="kk-display">${escapeHtml(collection.title)}</h1>
         <p class="dek">${escapeHtml(collection.lede)}</p>
-        ${collectionPlate(stops)}
         <ul class="kk-info" aria-label="This collection">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
       </header>
       ${landDefs(stops)}
       <div class="kk-rcards">${photosFirst(stops).map((item) => placeCard(item, item.meal)).join("")}</div>
+      ${collectionPlate(stops)}
       <p class="kk-meta"><a href="/collections/">All collections</a></p>
     </article>`
   }));
@@ -2614,11 +2611,11 @@ function guideMast(name, items) {
       <p class="kk-kicker">Guide</p>
       <h1 class="kk-display">${escapeHtml(name)}</h1>
       <p class="dek">${escapeHtml(opening.dek)}</p>
-      <figure class="kk-shot kk-hero-shot kk-route-shot">${plate}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(name)}.</span><span class="kk-credit">Atlas plate. Shaded countries have recipes in this guide.</span></figcaption></figure>
       <ul class="kk-info" aria-label="This guide"><li>${items.length} recipes</li><li>${countries.size} countries</li><li>${continents.length} continents</li></ul>
     </header>
     <h2>Start here</h2>
-    <div class="kk-rcards">${picks.map((item) => placeCard(item)).join("")}</div>`;
+    <div class="kk-rcards">${picks.map((item) => placeCard(item)).join("")}</div>
+    <figure class="kk-shot kk-route-shot">${plate}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(name)}.</span><span class="kk-credit">Atlas plate. Shaded countries have recipes in this guide.</span></figcaption></figure>`;
 }
 
 function mountBrowse(rel, items, name) {
@@ -2627,7 +2624,7 @@ function mountBrowse(rel, items, name) {
   const block = browseBlock(items);
   const mast = guideMast(name, items);
   if (html.includes("kk-guide-mast")) {
-    html = html.replace(/<header class="kk-mast kk-guide-mast">[\s\S]*?<\/header>\s*<h2>Start here<\/h2>\s*<div class="kk-rcards">[\s\S]*?<\/div>/, mast);
+    html = html.replace(/<header class="kk-mast kk-guide-mast">[\s\S]*?<\/header>\s*<h2>Start here<\/h2>\s*<div class="kk-rcards">[\s\S]*?<\/div>(?:\s*<figure class="kk-shot kk-route-shot">[\s\S]*?<\/figure>)?/, mast);
   } else {
     html = html.replace(/<section class="hero">[\s\S]*?<\/section>/, mast);
   }
