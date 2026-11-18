@@ -508,9 +508,18 @@ test("recipe times, temperatures, units, and repeated doneness lines stay consis
         assert.equal(durationMinutes(recipe.totalTime), minutes(prep) + minutes(cook), `${name} total time`);
       }
       const plain = html.replace(/<[^>]+>/g, " ");
+      const ovenFahrenheit = new Set([225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500]);
       for (const match of plain.matchAll(/(\d+(?:\.\d+)?)\s*°\s*F\s*\(\s*(\d+(?:\.\d+)?)\s*°\s*C\s*\)/g)) {
-        const expect = Math.round((Number(match[1]) - 32) * 5 / 9);
-        assert.ok(Math.abs(expect - Number(match[2])) <= 1, `${name} ${match[0]}`);
+        const fahrenheit = Number(match[1]);
+        const celsius = Number(match[2]);
+        const exact = (fahrenheit - 32) * 5 / 9;
+        const delta = Math.abs(exact - celsius);
+        if (ovenFahrenheit.has(fahrenheit)) {
+          assert.equal(celsius % 5, 0, `${name} ${match[0]} should use a Celsius dial mark`);
+          assert.ok(delta <= 8, `${name} ${match[0]} is ${delta.toFixed(1)}° from ${exact.toFixed(1)}°C`);
+        } else {
+          assert.ok(delta <= 1, `${name} ${match[0]} internal temperature should stay within 1° of ${exact.toFixed(1)}°C`);
+        }
       }
       const ingredients = ((html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/) || [null, ""])[1]).replace(/<[^>]+>/g, " ");
       assert.doesNotMatch(ingredients, /(?<!\d )(?<!\d)(?:1|1\/2|1\/3|1\/4|1\/8|2\/3|3\/4)\s+(?:cups|tablespoons|teaspoons|pounds|ounces)\b/, name);
