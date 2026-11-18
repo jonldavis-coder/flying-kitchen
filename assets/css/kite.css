@@ -33,6 +33,7 @@
   --line: #e4dccf;
   --gold: #5c3d12;
   --gold-line: #c6a15b;
+  --brass: #8a6a32;
   --focus: #1a1a1a;
   --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", "Kite Text Fallback", "Segoe UI", system-ui, sans-serif;
@@ -206,7 +207,7 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-crumbs span + span::before {
   content: "›";
   margin-right: 0.45rem;
-  color: var(--gold-line);
+  color: var(--brass);
 }
 
 .kk-hero {
@@ -636,7 +637,11 @@ ol.steps > li::before {
   font-family: var(--serif);
   font-size: 1.65rem;
   line-height: 1;
-  color: var(--gold-line);
+  color: var(--brass);
+}
+.badge, .badge-inline {
+  background: var(--gold-line);
+  color: var(--ink);
 }
 .kk-more {
   grid-column: 1 / -1;

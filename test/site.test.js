@@ -201,7 +201,8 @@ test("origin, domain, analytics, and ads stay honest", () => {
     ["day-kenya-tanzania", "day-kenya-ethiopia-yemen"],
     ["day-morocco-mali-senegal", "day-morocco-senegal-nigeria"],
     ["day-egypt-mozambique", "day-turkey-egypt-mozambique"],
-    ["day-zambia-ghana-zimbabwe", "day-nigeria-southafrica-zimbabwe"]
+    ["day-zambia-ghana-zimbabwe", "day-nigeria-southafrica-zimbabwe"],
+    ["day-colombia-india-hawaii", "day-colombia-india-unitedstates"]
   ];
   const sitemap = read("sitemap.xml");
   for (const [from, to] of movedDays) {
