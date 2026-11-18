@@ -19,6 +19,7 @@ const types = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
+  ".avif": "image/avif",
   ".ico": "image/x-icon"
 };
 

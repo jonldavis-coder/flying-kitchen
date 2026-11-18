@@ -23,10 +23,13 @@
   list.querySelectorAll("li").forEach(function (item) {
     item.dataset.base = item.textContent.replace(/\s+/g, " ").trim();
   });
-  var control = document.createElement("p");
-  control.className = "kk-servings no-print";
-  control.innerHTML = '<button type="button" class="kk-button quiet" data-serves="-1" aria-label="Fewer servings">−</button><span data-serves-count></span><button type="button" class="kk-button quiet" data-serves="1" aria-label="More servings">+</button>';
-  serves.closest(".kk-info").after(control);
+  var control = document.querySelector(".kk-servings");
+  if (!control) {
+    control = document.createElement("p");
+    control.className = "kk-servings no-print";
+    control.innerHTML = '<button type="button" class="kk-button quiet" data-serves="-1" aria-label="Fewer servings">−</button><span data-serves-count></span><button type="button" class="kk-button quiet" data-serves="1" aria-label="More servings">+</button>';
+    serves.closest(".kk-info").after(control);
+  }
   var count = control.querySelector("[data-serves-count]");
 
   function parseAmount(token) {

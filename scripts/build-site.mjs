@@ -839,14 +839,60 @@ const EDITORIAL = {
   "moroccan-baghrir": { id: "moroccan-baghrir", widths: [640], w: 16, h: 9, alt: "Baghrir, spongy semolina pancakes", caption: "Baghrir.", artist: "Sabah HAANA", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Baghrir_1.jpg" },
   "south-african-boerewors": { id: "south-african-boerewors", widths: [640], w: 16, h: 9, alt: "Boerewors coils on a grill over coals", caption: "Boerewors.", artist: "Ossewa", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Boerewors_braai.jpg" },
   "australian-pancakes": { id: "australian-pancakes", widths: [640], w: 16, h: 9, alt: "A folded pancake with strawberries and cream", caption: "Australian pancakes.", artist: "Earlyspatz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Wikipedia_for_Peace_Berlin_Australian_Pancakes.jpg" },
-  "singapore-hawker-satay": { id: "malaysian-satay-ayam", widths: [640], w: 16, h: 9, alt: "Chicken satay on skewers with peanut sauce", caption: "Chicken satay.", artist: "Elly Suhailee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CHICKEN_SATAY.jpg" }
+  "singapore-hawker-satay": { id: "malaysian-satay-ayam", widths: [640], w: 16, h: 9, alt: "Chicken satay on skewers with peanut sauce", caption: "Chicken satay.", artist: "Elly Suhailee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CHICKEN_SATAY.jpg" },
+  "carbonara": {"id":"carbonara","widths":[640,1100],"w":16,"h":9,"alt":"Spaghetti alla carbonara with cured pork and cheese","caption":"Spaghetti alla carbonara.","artist":"Tamorlan","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Spaghetti_alla_Carbonara_(Madrid).JPG"},
+  "cacio-e-pepe": {"id":"cacio-e-pepe","widths":[640,1100],"w":16,"h":9,"alt":"Spaghetti cacio e pepe","caption":"Cacio e pepe.","artist":"Blackcat","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Spaghetto_cacio_e_pepe_Roma_2018.jpg"},
+  "aioli": {"id":"aioli","widths":[640,1100],"w":16,"h":9,"alt":"Aïoli in a white bowl","caption":"Aïoli.","artist":"CNEcija12345","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Aioli_sauce.jpg"},
+  "hollandaise": {"id":"hollandaise","widths":[640,1100],"w":16,"h":9,"alt":"Hollandaise sauce over eggs","caption":"Hollandaise.","artist":"Mark Miller","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Hollandaise_sauce.jpg"},
+  "hummus": {"id":"hummus","widths":[640,1100],"w":16,"h":9,"alt":"Hummus with chickpeas","caption":"Hummus.","artist":"Silar","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:02021_0752_(2)_Hummus,_Vegan_food_in_Poland.jpg"},
+  "tzatziki": {"id":"tzatziki","widths":[640,1100],"w":16,"h":9,"alt":"Tzatziki with cucumber, olive oil, and mint","caption":"Tzatziki.","artist":"Nikodem Nijaki","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Tzatziki_meze_or_appetizer,_also_used_as_a_sauce.jpg"},
+  "romesco": {"id":"romesco","widths":[640,1100],"w":16,"h":9,"alt":"Romesco sauce in a bowl","caption":"Romesco.","artist":"cyclonebill","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Romesco-sauce_(6917877891).jpg"},
+  "massaman-curry": {"id":"massaman-curry","widths":[640,1100],"w":16,"h":9,"alt":"Massaman curry with potato and meat","caption":"Massaman curry.","artist":"Vee Satayamas","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Massaman_curry,_Bang_Kapi,_Bangkok.jpg"},
+  "puttanesca": {"id":"puttanesca","widths":[640,1100],"w":16,"h":9,"alt":"Spaghetti puttanesca with olives and capers","caption":"Pasta puttanesca.","artist":"Popo le Chien","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Pasta_Puttanesca.jpg"},
+  "muhammara": {"id":"muhammara","widths":[640,1100],"w":16,"h":9,"alt":"Muhammara with pomegranate seeds","caption":"Muhammara.","artist":"Karen and Brad Emerson","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Muhumarra_w_foccacia_(3967177145).jpg"},
+  "zhug": {"id":"zhug","widths":[640,1100],"w":16,"h":9,"alt":"Green zhug with chiles and garlic","caption":"Zhug.","artist":"Mushki Brichta","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Zhug,_Skhug.jpg"},
+  "dorayaki": {"id":"dorayaki","widths":[640,1100],"w":16,"h":9,"alt":"Dorayaki cut open to show the red bean filling","caption":"Dorayaki.","artist":"Ocdp","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Dorayaki_003.jpg"},
+  "english-crumpets": {"id":"english-crumpets","widths":[640,1100],"w":16,"h":9,"alt":"Crumpets cooling on a rack","caption":"Crumpets.","artist":"Kolforn","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:-2017-03-16_Homemade_crumpets,_Trimingham.JPG"},
+  "spanish-tortilla": {"id":"spanish-tortilla","widths":[640,1100],"w":16,"h":9,"alt":"Tortilla de patatas","caption":"Spanish tortilla.","artist":"Kent Wang","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Tortilla_de_patata_-_San_Sebastián.jpg"},
+  "brazilian-picanha": {"id":"brazilian-picanha","widths":[640,1100],"w":16,"h":9,"alt":"Sliced picanha with a dark crust","caption":"Picanha.","artist":"Sepato","license":"CC BY 3.0","licenseUrl":"https://creativecommons.org/licenses/by/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Picanha_brazil.JPG"},
+  "chicken-tikka": {"id":"chicken-tikka","widths":[640,1100],"w":16,"h":9,"alt":"Chicken tikka on skewers","caption":"Chicken tikka.","artist":"Satdeep Gill","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Chicken_tikka_in_Araku_Valley,_Andhra_Pradesh_01.jpg"},
+  "korean-galbi": {"id":"korean-galbi","widths":[640,1100],"w":16,"h":9,"alt":"Galbi, scored beef short ribs, on a grill","caption":"Galbi.","artist":"김태경","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Galbi-gui_1.jpg"},
+  "korean-samgyeopsal": {"id":"korean-samgyeopsal","widths":[640,1100],"w":16,"h":9,"alt":"Grilled samgyeopsal, pork belly","caption":"Samgyeopsal.","artist":"jinsoo jang","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Samgyeopsal-gui.jpg"},
+  "provoleta": {"id":"provoleta","widths":[640,1100],"w":16,"h":9,"alt":"Provoleta, a round of grilled provolone with herbs","caption":"Provoleta.","artist":"Horacio Cambeiro","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Provoleta_argentina.jpg"},
+  "paneer-tikka": {"id":"paneer-tikka","widths":[640,1100],"w":16,"h":9,"alt":"Paneer tikka with onion, tomato, and lime","caption":"Paneer tikka.","artist":"Rutvi Mistry","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Paneer_Tikka_in_India.jpg"},
+  "seekh-kebab": {"id":"seekh-kebab","widths":[640,1100],"w":16,"h":9,"alt":"Seekh kebabs over coals","caption":"Seekh kebab.","artist":"Sumitmalhotra","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Seekh_Kebabs_on_Fire.JPG"},
+  "ethiopian-tibs": {"id":"ethiopian-tibs","widths":[640,1100],"w":16,"h":9,"alt":"Tibs with peppers, served with injera","caption":"Tibs.","artist":"ShanaliCT","license":"CC BY 4.0","licenseUrl":"https://creativecommons.org/licenses/by/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Mutton_tibs_and_injera.jpg"},
+  "moroccan-kefta-brochettes": {"id":"moroccan-kefta-brochettes","widths":[640,1100],"w":16,"h":9,"alt":"Grilled kefta brochettes","caption":"Kefta brochettes.","artist":"Samira hiba","license":"CC BY 4.0","licenseUrl":"https://creativecommons.org/licenses/by/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Plat_brochette_Kefta.jpg"},
+  "moroccan-mechoui": {"id":"moroccan-mechoui","widths":[640,1100],"w":16,"h":9,"alt":"Mechoui, roasted lamb","caption":"Mechoui.","artist":"إيان","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:لحم_خروف_مشوي.jpg"},
+  "mozambican-peri-peri-chicken": {"id":"mozambican-peri-peri-chicken","widths":[640,1100],"w":16,"h":9,"alt":"Grilled peri-peri chicken","caption":"Peri-peri chicken.","artist":"Andrés Moreno","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Mozambican_Chicken_piri_piri.jpg"},
+  "egyptian-kofta": {"id":"egyptian-kofta","widths":[640,1100],"w":16,"h":9,"alt":"Grilled kofta on skewers","caption":"Kofta.","artist":"Strawberrypotato","license":"CC BY 4.0","licenseUrl":"https://creativecommons.org/licenses/by/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Grilled_Kefta_Skewers.jpg"},
+  "msemen": {"id":"msemen","widths":[640,1100],"w":16,"h":9,"alt":"Msemen on a griddle","caption":"Msemen.","artist":"Popo le Chien","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Msemmem.jpg"},
+  "crepes-bretonnes": {"id":"crepes-bretonnes","widths":[640,1100],"w":16,"h":9,"alt":"Buckwheat crepes","caption":"Breton crepes.","artist":"Trizek","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Crêpes_de_blé_noir_de_Basse_Bretagne.jpg"},
+  "australian-lamb-chops": {"id":"australian-lamb-chops","widths":[640,1100],"w":16,"h":9,"alt":"Lamb loin chops on a grill pan","caption":"Lamb chops.","artist":"Kolforn","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:-2022-01-06_Lamb_loin_chops,_Trimingham,_Norfolk.JPG"},
+  "amatriciana": {"id":"amatriciana","widths":[640,1100],"w":16,"h":9,"alt":"Bucatini all'amatriciana with tomato and cured pork","caption":"Bucatini all'amatriciana.","artist":"stu_spivack","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Bucatini_(amatriciana_rossa).jpg"},
+  "green-curry": {"id":"green-curry","widths":[640,1100],"w":16,"h":9,"alt":"Thai green curry with vegetables","caption":"Green curry.","artist":"Guilhem Vellut","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Green_Curry,_Siam_House,_Paris_001.jpg"},
+  "peking-duck": {"id":"peking-duck","widths":[640,1100],"w":16,"h":9,"alt":"Peking duck with scallion in a pancake","caption":"Peking duck.","artist":"J. Patrick Fischer","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Peking_duck_pancake.jpg"},
+  "mexico-city-al-pastor": {"id":"mexico-city-al-pastor","widths":[640],"w":16,"h":9,"alt":"A taco al pastor with pineapple and cilantro","caption":"Taco al pastor.","artist":"Javier Lastras","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:O1_Taco_al_Pastor.jpg"},
+  "harissa": {"id":"harissa","widths":[640,1100],"w":16,"h":9,"alt":"Harissa in a jar","caption":"Harissa.","artist":"Jules","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Harissa_in_a_jar.jpg"},
+  "char-siu": {"id":"char-siu","widths":[640,1100],"w":16,"h":9,"alt":"Char siu, glazed roast pork, with rice","caption":"Char siu.","artist":"Banej","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Roast_pork_and_Char_Siu_Rice,_Singapore_September_2017.jpg"},
+  "yucatan-cochinita-pibil": {"id":"yucatan-cochinita-pibil","widths":[640,1100],"w":16,"h":9,"alt":"Cochinita pibil in banana leaves, with pickled onion","caption":"Cochinita pibil.","artist":"Petrvs III","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Cochinita_Pibil_Casera,_México.jpg"},
+  "new-zealand-pikelets": {"id":"new-zealand-pikelets","widths":[640,1100],"w":16,"h":9,"alt":"Pikelets in a pan","caption":"Pikelets.","artist":"jules","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Pikelets.jpg"},
+  "salsa-criolla": {"id":"salsa-criolla","widths":[640,1100],"w":16,"h":9,"alt":"Salsa criolla of onion and chile","caption":"Salsa criolla.","artist":"Manuel González Olaechea","license":"CC BY 3.0","licenseUrl":"https://creativecommons.org/licenses/by/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Salsa_criolla.jpg"},
+  "chakalaka": {"id":"chakalaka","widths":[640,1100],"w":16,"h":9,"alt":"Chakalaka, a tomato and vegetable relish","caption":"Chakalaka.","artist":"philipp","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Chakalaka.jpg"},
+  "farofa": {"id":"farofa","widths":[640,1100],"w":16,"h":9,"alt":"Farofa, toasted cassava flour","caption":"Farofa.","artist":"Carioca","license":"CC BY-SA 3.0","licenseUrl":"http://creativecommons.org/licenses/by-sa/3.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Farofa_brazil.jpg"},
+  "toum": {"id":"toum","widths":[640,1100],"w":16,"h":9,"alt":"Toum, a garlic sauce","caption":"Toum.","artist":"Miansari66","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Toum_(Lebanese_Garlic_Sauce).JPG"},
+  "aglio-e-olio": {"id":"aglio-e-olio","widths":[640,1100],"w":16,"h":9,"alt":"Spaghetti aglio e olio with garlic and chile","caption":"Aglio e olio.","artist":"matsuyuki","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Spaghetti_agll'_aglio,_olio_e_peperoncino_by_matsuyuki.jpg"},
+  "socca": {"id":"socca","widths":[640,1100],"w":16,"h":9,"alt":"Socca cut into pieces","caption":"Socca.","artist":"Schellack","license":"CC BY 3.0","licenseUrl":"https://creativecommons.org/licenses/by/3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Socca_slices_Nice.jpg"},
+  "bagna-cauda": {"id":"bagna-cauda","widths":[640,1100],"w":16,"h":9,"alt":"Bagna cauda in a warmer, with a pepper","caption":"Bagna cauda.","artist":"Madaki","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","sourceUrl":"https://commons.wikimedia.org/wiki/File:Bagna_cauda1.jpg"},
+  "kenyan-chapati": {"id":"kenyan-chapati","widths":[640,1100],"w":16,"h":9,"alt":"A stack of chapati","caption":"Chapati.","artist":"safaritravelplus","license":"CC0","licenseUrl":"http://creativecommons.org/publicdomain/zero/1.0/deed.en","sourceUrl":"https://commons.wikimedia.org/wiki/File:Chapati_kenya.jpg"},
 };
 const DISH_PHOTO = Object.fromEntries([
   "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
   "injera", "masala-dosa", "poffertjes", "potato-latkes", "pupusas", "syrniki", "osaka-okonomiyaki", "arepa-boyacense", "colombian-arepas", "jamaican-festival",
   "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori",
   "paper-dosa", "malaysian-satay-ayam", "roti-canai", "korean-bulgogi", "jamaican-jerk-chicken", "chimichurri",
-  "tianjin-jianbing", "nigerian-suya", "kenyan-nyama-choma", "moroccan-baghrir", "south-african-boerewors", "australian-pancakes", "singapore-hawker-satay"
+  "tianjin-jianbing", "nigerian-suya", "kenyan-nyama-choma", "moroccan-baghrir", "south-african-boerewors", "australian-pancakes", "singapore-hawker-satay",
+  "carbonara", "cacio-e-pepe", "aioli", "hollandaise", "hummus", "tzatziki", "romesco", "massaman-curry", "puttanesca", "muhammara", "zhug", "dorayaki", "english-crumpets", "spanish-tortilla", "brazilian-picanha", "chicken-tikka", "korean-galbi", "korean-samgyeopsal", "provoleta", "paneer-tikka", "seekh-kebab", "ethiopian-tibs", "moroccan-kefta-brochettes", "moroccan-mechoui", "mozambican-peri-peri-chicken", "egyptian-kofta", "msemen", "crepes-bretonnes", "australian-lamb-chops", "amatriciana", "green-curry", "peking-duck", "mexico-city-al-pastor", "harissa", "char-siu", "yucatan-cochinita-pibil", "new-zealand-pikelets", "salsa-criolla", "chakalaka", "farofa", "toum", "aglio-e-olio", "socca", "bagna-cauda", "kenyan-chapati"
 ].map((slug) => [slug, EDITORIAL[slug]]));
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
@@ -861,16 +907,16 @@ function photoSrcset(photo, ext) {
   return photo.widths.map((width) => `/assets/photos/editorial/${photo.id}-${width}.${ext} ${width}w`).join(", ");
 }
 function photoFigure(photo, { eager = false, sizes = "100vw", frame = "kk-shot" } = {}) {
-  const biggest = photo.widths[photo.widths.length - 1];
-  const height = Math.round(biggest * photo.h / photo.w);
+  const first = photo.widths[0];
+  const height = Math.round(first * photo.h / photo.w);
   const priority = eager ? 'fetchpriority="high"' : 'loading="lazy"';
   return `<figure class="${frame}">
       <picture>
         <source type="image/avif" srcset="${photoSrcset(photo, "avif")}" sizes="${sizes}">
         <source type="image/webp" srcset="${photoSrcset(photo, "webp")}" sizes="${sizes}">
-        <img src="/assets/photos/editorial/${photo.id}-${biggest}.jpg" srcset="${photoSrcset(photo, "jpg")}" sizes="${sizes}" width="${biggest}" height="${height}" alt="${escapeHtml(photo.alt)}" ${priority} decoding="async">
+        <img src="/assets/photos/editorial/${photo.id}-${first}.jpg" srcset="${photoSrcset(photo, "jpg")}" sizes="${sizes}" width="${first}" height="${height}" alt="${escapeHtml(photo.alt)}" ${priority} decoding="async">
       </picture>
-      <figcaption class="kk-caption">${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</figcaption>
+      <figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(photo.caption)}</span><span class="kk-credit">Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</span></figcaption>
     </figure>`;
 }
 
@@ -1799,15 +1845,50 @@ function polishRecipes() {
       if (html.includes("kk-mast")) {
         html = html.replace(/(<div class="kk-mast">[\s\S]*?<\/div>)/, `$1\n<p class="kk-tools no-print"><a class="kk-button" href="#kk-method">Jump to recipe</a> <button type="button" class="kk-button quiet" data-print>Print</button></p>`);
       }
+      html = html.replace(/<div class="kk-more">[\s\S]*?<\/div>\s*/g, "");
       html = html.replace(/<section class="kk-related">[\s\S]*?<\/section>\s*/g, "");
       const selfHref = `/${dir}/${folder}/${slug}/`;
       const self = catalog.find((item) => item.href === selfHref);
-      if (self && self.region) {
-        const related = catalog.filter((item) => item.region === self.region && item.href !== selfHref).slice(0, 4);
-        if (related.length) {
-          const block = `<section class="kk-related"><h2>From ${escapeHtml(self.region)}</h2><ul class="kk-recipe-list">${related.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul></section>\n`;
-          html = html.replace(/<\/article>/, `${block}</article>`);
+      const blocks = [];
+      const trips = JOURNEYS.flatMap((journey) => journey.stops.flatMap((stop) => {
+        const href = typeof stop === "string" ? stop : stop.href;
+        if (href !== selfHref) return [];
+        const meal = typeof stop === "string" ? "" : stop.meal;
+        return [`<li><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a>${meal ? ` <span class="kk-meta">${escapeHtml(meal)}</span>` : ""}</li>`];
+      }));
+      if (trips.length) {
+        blocks.push(`<section class="kk-also"><h2>From the journey</h2><ul class="kk-recipe-list">${trips.join("")}</ul></section>`);
+      }
+      if (self && self.country) {
+        const also = catalog.filter((item) => item.country === self.country && item.href !== selfHref).slice(0, 4);
+        if (also.length) {
+          blocks.push(`<section class="kk-also"><h2>Also from ${escapeHtml(self.country)}</h2><ul class="kk-recipe-list">${also.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul></section>`);
         }
+      }
+      if (blocks.length) {
+        html = html.replace(/<\/article>/, `<div class="kk-more">${blocks.join("")}</div>\n</article>`);
+      }
+      html = html.replace(/<figure\b[^>]*class="(?:photo-hero|pancake-hero|stop-hero)[^"]*"[\s\S]*?<\/figure>/g, (figure) => figure.replace(/<figcaption>([\s\S]*?)<\/figcaption>/, (_, inner) => {
+        if (inner.includes("kk-cap-line")) return `<figcaption>${inner}</figcaption>`;
+        const note = inner.match(/<span class="photo-note">([\s\S]*?)<\/span>/);
+        const title = note ? note[1].trim() : "";
+        const rest = inner.replace(/<span class="photo-note">[\s\S]*?<\/span>/, "").trim();
+        return `<figcaption class="kk-caption">${title ? `<span class="kk-cap-line">${title}</span>` : ""}<span class="kk-credit">${rest}</span></figcaption>`;
+      }));
+      if (!html.includes("kk-servings")) {
+        const serves = html.match(/<li>Serves\s+(\d+)/i);
+        if (serves) {
+          const count = Number(serves[1]);
+          const label = `${count} ${count === 1 ? "serving" : "servings"}`;
+          const control = `<p class="kk-servings no-print"><button type="button" class="kk-button quiet" data-serves="-1" aria-label="Fewer servings">−</button><span data-serves-count>${label}</span><button type="button" class="kk-button quiet" data-serves="1" aria-label="More servings">+</button></p>`;
+          html = html.replace(/(<ul class="kk-info"[\s\S]*?<\/ul>)/, `$1\n${control}`);
+        }
+      }
+      const heroFig = html.match(/<figure\b[^>]*class="(?:photo-hero|pancake-hero|stop-hero|kk-shot|kk-atlas-card|kk-locator-fallback)[^"]*"[\s\S]*?<\/figure>/);
+      if (heroFig && html.includes('<p class="dek">')) {
+        const figure = heroFig[0];
+        html = html.replace(figure, "");
+        html = html.replace(/(<p class="dek">[\s\S]*?<\/p>)/, `$1\n${figure}`);
       }
       if (!html.includes("/assets/js/recipe.js")) {
         html = html.replace("</body>", `<script src="/assets/js/recipe.js" defer></script>\n</body>`);
@@ -1825,6 +1906,11 @@ function polishRecipes() {
           html = html.replace(dek[0], "").replace(info[0], "");
           html = html.replace(/<\/h1>/, `</h1>\n<div class="kk-mast">${dek[0]}\n${info[0]}</div>`);
         }
+      }
+      const avif = html.match(/<source type="image\/avif" srcset="([^"]+)" sizes="([^"]+)"/);
+      if (avif && !html.includes('rel="preload" as="image"')) {
+        const href = avif[1].split(",")[0].trim().split(/\s+/)[0];
+        html = html.replace("</head>", `<link rel="preload" as="image" type="image/avif" href="${href}" imagesrcset="${avif[1]}" imagesizes="${avif[2]}">\n</head>`);
       }
       const kind = folder === "sauces" ? "sauces" : folder === "pancakes" ? "pancakes" : "bbq";
       html = html.replace(/<div class="kk-method" id="kk-method">([\s\S]*?)<\/div>/, (_, inner) => {
