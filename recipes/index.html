@@ -45,7 +45,7 @@
   <main id="content" tabindex="-1">
     <div class="kk-wrap">
     <nav class="kk-crumbs" aria-label="Breadcrumb"><a href="/">Kite Kitchen</a><span aria-current="page">Recipes</span></nav>
-    <h1>Recipes</h1>
+    <h1 data-kk-heading="Recipes">Recipes</h1>
     <p class="kk-lede">Flying around the world, one simple recipe at a time.</p>
     <form class="kk-search" action="/search/" method="get">
       <label class="sr-only" for="recipes-q">Search recipes</label>
@@ -53,10 +53,6 @@
       <input id="recipes-q" name="q" type="search" placeholder="Name or place" autocomplete="off">
       <button class="kk-button" type="submit">Search</button>
     </form>
-    <aside class="kk-ad kk-ad-inline" data-ad-slot="recipes-top" aria-label="Advertisement, recipes-top">
-      <p class="kk-ad-label">Advertisement</p>
-      <div class="kk-ad-frame"><p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p></div>
-    </aside>
     <section id="kk-browse" class="kk-browse" data-kk-filter>
       <h2>Browse by place</h2>
       <div class="kk-filters">
@@ -6463,6 +6459,10 @@
     </article></div>
     </section>
     <script src="/assets/js/filter.js" defer></script>
+    <aside class="kk-ad kk-ad-inline" data-ad-slot="recipes-top" aria-label="Advertisement, recipes-top">
+      <p class="kk-ad-label">Advertisement</p>
+      <div class="kk-ad-frame"><p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p></div>
+    </aside>
     <p class="kk-meta"><a href="/map/">Or start from the world map</a></p>
   </div>
   </main>

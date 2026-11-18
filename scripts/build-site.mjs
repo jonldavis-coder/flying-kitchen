@@ -714,12 +714,14 @@ const bbqCount = dirs("flying-bbq/dishes").length;
 function readBook(dir, slug, section) {
   const html = fs.readFileSync(path.join(root, dir, "books", slug, "index.html"), "utf8");
   const contents = html.match(/<ol class="contents">([\s\S]*?)<\/ol>/);
+  const leads = [...html.matchAll(/href="((?:sauces|pancakes|dishes)\/[a-z0-9-]+\/)"/g)].map((match) => `/${dir}/${match[1]}`);
   return {
     slug,
     title: textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug,
     dek: textOf(html, /<p class="dek">([\s\S]*?)<\/p>/),
     count: contents ? (contents[1].match(/<li\b/g) || []).length : 0,
     href: `/${dir}/books/${slug}/`,
+    leads,
     section
   };
 }
@@ -907,6 +909,18 @@ const CARD_PHOTO = {
   "/flying-bbq/dishes/eastern-nc-whole-hog/": EDITORIAL.hog
 };
 
+function leadFigure(photo, sizes) {
+  if (!photo) return "";
+  return photoFigure(photo, { sizes }).replace(/<figcaption[\s\S]*?<\/figcaption>/, "");
+}
+function bookPhoto(book) {
+  for (const href of book.leads || []) {
+    const slug = href.split("/").filter(Boolean).at(-1);
+    const photo = DISH_PHOTO[slug] || CARD_PHOTO[href];
+    if (photo) return photo;
+  }
+  return null;
+}
 function photoFigure(photo, { eager = false, sizes = "100vw", frame = "kk-shot" } = {}) {
   const mast = frame.includes("hero");
   const width = mast ? photo.mastWidth : photo.cardWidth;
@@ -1433,11 +1447,11 @@ write("recipes/index.html", page({
   current: "recipes",
   main: `<div class="kk-wrap">
     ${crumbs([["/", "Kite Kitchen"], ["/recipes/", "Recipes"]])}
-    <h1>Recipes</h1>
+    <h1 data-kk-heading="Recipes">Recipes</h1>
     <p class="kk-lede">${TAGLINE}.</p>
     ${searchForm("recipes-q", "Name or place")}
-    ${ad("recipes-top", "inline", true)}
     ${browseBlock(catalog)}
+    ${ad("recipes-top", "inline", true)}
     <p class="kk-meta"><a href="/map/">Or start from the world map</a></p>
   </div>`
 }));
@@ -1537,7 +1551,12 @@ write("books/index.html", page({
         </div>
         <p class="kk-meta" data-kk-count>${guideBooks.length} titles</p>
       </div>
-      <div class="kk-catalog">${guideBooks.map((book) => `<article class="kk-book" data-continent="${escapeHtml(book.section)}"><a href="${book.href}"><img class="kk-cover" src="${book.cover}" alt="Original cover design for ${escapeHtml(book.title)}" width="300" height="400"></a><div><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2>${book.dek ? `<p class="dek">${escapeHtml(book.dek)}</p>` : ""}<p class="kk-meta">${book.count ? `${book.count} ${book.count === 1 ? "recipe" : "recipes"}` : "Contents on the title page"}</p></div></article>`).join("")}</div>
+      <div class="kk-catalog">${guideBooks.map((book) => {
+        const photo = bookPhoto(book);
+        const figure = leadFigure(photo, "(min-width: 800px) 14rem, 42vw");
+        const cover = `<img class="kk-cover${figure ? " kk-cover-mark" : ""}" src="${book.cover}" alt="${figure ? "" : `Original cover design for ${escapeHtml(book.title)}`}" width="${figure ? 48 : 300}" height="${figure ? 64 : 400}">`;
+        return `<article class="kk-book" data-continent="${escapeHtml(book.section)}">${figure ? `<a href="${book.href}">${figure}</a>` : `<a href="${book.href}">${cover}</a>`}<div><p class="kk-kicker">${figure ? cover : ""}${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2>${book.dek ? `<p class="dek">${escapeHtml(book.dek)}</p>` : ""}<p class="kk-meta">${book.count ? `${book.count} ${book.count === 1 ? "recipe" : "recipes"}` : "Contents on the title page"}</p></div></article>`;
+      }).join("")}</div>
     </section>
   </div>`
 }));
@@ -1554,7 +1573,8 @@ write("credits/index.html", page({
       <li><a href="/flying-pancakes/credits/">Flying Pancakes credits</a></li>
       <li><a href="/flying-bbq/credits/">Flying BBQ credits</a></li>
     </ul>
-    <h2>Photographs on the home page</h2>
+    <h2>Recipe photographs</h2>
+    <div class="kk-rcards">${[EDITORIAL.pesto, EDITORIAL.crepes, EDITORIAL.asado, EDITORIAL.hog].filter(Boolean).map((photo) => leadFigure(photo, "(min-width: 1100px) 18rem, 46vw")).join("")}</div>
     <ul class="kk-sources">${dishPhotos.filter((photo, index, list) => list.findIndex((item) => item.sourceUrl === photo.sourceUrl) === index).map((photo) => `<li>${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">${escapeHtml(photo.source || "Wikimedia Commons")}</a>.</li>`).join("")}</ul>
     <p>The crest, the cookbook covers, and the small compass are original artwork for this site. Recipe photographs are credited above.</p>
   </div>`
@@ -1684,9 +1704,11 @@ for (const [region, items] of byRegion) {
         <p class="kk-kicker">${escapeHtml(continent || "Recipes")}</p>
         <h1 class="kk-display">${escapeHtml(region)}</h1>
         <p class="dek">${escapeHtml(regionIntro(region, items))}</p>
-        <figure class="kk-shot kk-hero-shot kk-route-shot">${worldSvg(Object.values(byIso).map((country) => ({ ...country, count: items.some((item) => item.iso === country.iso) ? items.filter((item) => item.iso === country.iso).length : 0 })), 640, 360, (iso) => countryPath(iso), true, 28)}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(region)}.</span><span class="kk-credit">Atlas plate. Shaded countries have recipes filed here.</span></figcaption></figure>
         <ul class="kk-info" aria-label="This region"><li>${items.length} recipes</li><li>${named.length} ${named.length === 1 ? "country" : "countries"}</li>${continent ? `<li>${escapeHtml(continent)}</li>` : ""}</ul>
       </header>
+      <h2>Recipes</h2>
+      <div class="kk-rcards">${ordered.filter((item) => itemPhoto(item)).slice(0, 6).map((item) => placeCard(item)).join("")}</div>
+      <figure class="kk-shot kk-route-shot">${worldSvg(Object.values(byIso).map((country) => ({ ...country, count: items.some((item) => item.iso === country.iso) ? items.filter((item) => item.iso === country.iso).length : 0 })), 640, 360, (iso) => countryPath(iso), true, 28)}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(region)}.</span><span class="kk-credit">Atlas plate. Shaded countries have recipes filed here.</span></figcaption></figure>
       <p class="kk-meta"><a href="/map/">Back to the world map</a></p>
       <ul class="kk-recipe-list">${ordered.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${item.iso ? `<a href="${countryPath(item.iso)}">${escapeHtml(item.country || item.section)}</a>` : escapeHtml(item.country || item.section)}</span></li>`).join("")}</ul>
     </article>`
@@ -1765,13 +1787,13 @@ for (const [iso, items] of byCountry) {
         <p class="kk-kicker">${escapeHtml(continent || "Country")}</p>
         <h1 class="kk-display">${escapeHtml(place.name)}</h1>
         <p class="dek">${escapeHtml(description)}</p>
-        ${locatorFigure(iso, place.name, "", { hero: true })}
-        <ul class="kk-info" aria-label="This country"><li>${items.length} ${items.length === 1 ? "recipe" : "recipes"}</li>${guideNames ? `<li>${escapeHtml(guideNames)}</li>` : ""}<li>${escapeHtml(coordLabel(place.lat, place.lon))}</li></ul>
+        <ul class="kk-info" aria-label="This country"><li>${items.length} ${items.length === 1 ? "recipe" : "recipes"}</li>${guideNames ? `<li>${escapeHtml(guideNames)}</li>` : ""}</ul>
       </header>
       <p class="kk-meta"><a href="/map/#${iso}">Open ${escapeHtml(place.name)} on the world map</a>${regions.length ? ` · ${regions.map((region) => `<a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a>`).join(", ")}` : ""}</p>
       ${landDefs(items)}
       ${guides.map((group) => `<h2>${escapeHtml(group.section)}</h2><div class="kk-rcards">${photosFirst(group.items).map((item) => placeCard(item)).join("")}</div>`).join("")}
       ${through.length ? `<h2>Journeys through ${escapeHtml(place.name)}</h2><div class="kk-rcards">${through.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">Journey</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>` : ""}
+      ${locatorFigure(iso, place.name, "", { hero: true })}
     </article>`
   }));
 }
@@ -2076,8 +2098,9 @@ write("collections/index.html", page({
       const stops = collectionStops(collection);
       const names = orderedCountries(stops);
       const onHome = collection.slug === featuredCollection.slug;
-      const plate = routeSvg(routePlaces(stops), `Map of ${collection.title}`);
-      return `<article class="kk-book"><a class="kk-catalog-map" href="/collections/${collection.slug}/">${plate}</a><div><p class="kk-kicker">${escapeHtml(collection.when || "Collection")}${onHome ? " · On the home page" : ""}</p><h2><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h2><p class="dek">${escapeHtml(collection.lede)}</p><p class="kk-meta">${stops.length} recipes · ${names.length} ${names.length === 1 ? "country" : "countries"}</p></div></article>`;
+      const lead = stops.find((item) => itemPhoto(item));
+      const media = lead ? leadFigure(itemPhoto(lead), "(min-width: 800px) 22rem, 92vw") : `<span class="kk-catalog-map">${routeSvg(routePlaces(stops), `Map of ${collection.title}`)}</span>`;
+      return `<article class="kk-book"><a href="/collections/${collection.slug}/">${media}</a><div><p class="kk-kicker">${escapeHtml(collection.when || "Collection")}${onHome ? " · On the home page" : ""}</p><h2><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h2><p class="dek">${escapeHtml(collection.lede)}</p><p class="kk-meta">${stops.length} recipes · ${names.length} ${names.length === 1 ? "country" : "countries"}</p></div></article>`;
     }).join("")}</div>
   </div>`
 }));
@@ -2111,7 +2134,9 @@ write("passport/index.html", page({
       <p class="kk-meta" data-passport-count hidden></p>
     </header>
     <figure class="kk-shot kk-hero-shot kk-passport-plate">${passportPlate}<figcaption class="kk-caption"><span class="kk-cap-line" data-passport-caption>No stamps yet.</span><span class="kk-credit">Atlas plate. A stamp marks a country with a saved recipe.</span></figcaption></figure>
-    <p class="kk-passport-empty" data-passport-empty>Open a recipe and press Save. The stamp appears here.</p>
+      <p class="kk-passport-empty" data-passport-empty>Open a recipe and press Save. The stamp appears here.</p>
+    <h2>Open a recipe</h2>
+    <div class="kk-rcards">${["/flying-sauces/sauces/pesto-alla-genovese/", "/flying-pancakes/pancakes/crepes-suzette/", "/flying-bbq/dishes/argentine-asado/"].map((href) => catalog.find((item) => item.href === href)).filter(Boolean).map((item) => placeCard(item)).join("")}</div>
     <ul class="kk-recipe-list" data-passport-list hidden></ul>
   </article>`
 }));
@@ -2388,6 +2413,8 @@ function buildPantry() {
           <p class="kk-kicker">Pantry</p>
           <h1 class="kk-display">${escapeHtml(term.name)}</h1>
           <p class="dek">${term.recipes.length} ${term.recipes.length === 1 ? "recipe lists" : "recipes list"} ${escapeHtml(label)}.</p>
+          <h2>Recipes</h2>
+          <div class="kk-rcards">${photosFirst(term.recipes).filter((item) => itemPhoto(item)).slice(0, 3).map((item) => placeCard(item)).join("")}</div>
           <figure class="kk-shot kk-pantry-plate">${plate}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(term.name)}.</span><span class="kk-credit">Atlas plate. Shaded countries have a recipe that lists ${escapeHtml(label)}.</span></figcaption></figure>
           <ul class="kk-info" aria-label="This ingredient"><li>${term.recipes.length} ${term.recipes.length === 1 ? "recipe" : "recipes"}</li><li>${countries.size} ${countries.size === 1 ? "country" : "countries"}</li><li>${usedContinents.length} ${usedContinents.length === 1 ? "continent" : "continents"}</li></ul>
         </header>

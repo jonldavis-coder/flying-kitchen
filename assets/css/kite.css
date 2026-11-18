@@ -594,7 +594,7 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 }
 .kk-info li {
   padding: 0 0.95rem;
-  border-right: 1px solid var(--gold-line);
+  border-right: 1px solid var(--line);
   font-size: 0.72rem;
   line-height: 1.35;
   color: var(--ink);
@@ -664,7 +664,12 @@ ol.steps > li::before {
 .kk-continent { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.85rem 0.9rem; background: transparent; border: 1px solid var(--line); color: inherit; text-decoration: none; }
 .kk-continent strong { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; }
 .kk-continent span:last-child { color: var(--muted); font-size: 0.92rem; }
-.kk-cover { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; background: #f6f1e6; border: 1px solid var(--gold-line); }
+.kk-cover { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; background: #f6f1e6; border: 1px solid var(--line); }
+.kk-catalog .kk-cover-mark { width: 2.15rem; height: auto; aspect-ratio: 3 / 4; display: inline-block; vertical-align: -0.35rem; margin-right: 0.45rem; }
+.kk-catalog .kk-book:has(.kk-shot) { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); align-items: center; }
+@media (max-width: 799px) {
+  .kk-catalog .kk-cover-mark { display: none; }
+}
 .kk-book { padding: 0.55rem 0.55rem 0.9rem; }
 .kk-book h2 { margin: 0.45rem 0.35rem 0.2rem; font-size: 1.35rem; }
 .kk-results { display: grid; gap: 0.7rem; margin-top: 0.8rem; }
@@ -673,7 +678,7 @@ ol.steps > li::before {
 .kk-hit strong { display: block; font-family: var(--serif); font-size: 1.65rem; font-weight: 500; line-height: 1.05; }
 .kk-hit .kk-dek { display: block; margin-top: 0.25rem; font-family: var(--serif); font-size: 1.05rem; line-height: 1.35; color: var(--ink); }
 .kk-hit .kk-meta { display: block; margin-top: 0.15rem; }
-.kk-empty { margin: 1rem 0; padding: 1.2rem 1.25rem; border: 1px solid var(--gold-line); background: var(--paper-2); font-family: var(--serif); font-size: 1.35rem; line-height: 1.35; max-width: 36rem; }
+.kk-empty { margin: 1rem 0; padding: 1.2rem 1.25rem; border: 1px solid var(--line); background: transparent; font-family: var(--serif); font-size: 1.35rem; line-height: 1.35; max-width: 36rem; }
 .kk-missing { max-width: 40rem; }
 .kk-stops { list-style: none; margin: 1.5rem 0 0; padding: 0; }
 .kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--line); }
@@ -695,7 +700,34 @@ ol.steps > li::before {
 .kk-stop p { max-width: 40rem; margin: 0.35rem 0 0; }
 .kk-compass-lg { display: block; width: 6rem; height: 6rem; margin: 0.4rem 0 0.8rem; }
 #kk-land { position: absolute; width: 0; height: 0; overflow: hidden; }
-.photo-hero img, .hero-media img { border: 1px solid var(--gold-line); }
+.photo-hero img, .hero-media img { border: 0; }
+.kk-rcard:has(img) .kk-pin { display: none; }
+.kk-about-crest { border: 0; padding: 0; background: transparent; }
+.kk-sources { max-width: 40rem; padding: 0; }
+.kk-sources li { padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
+.kk-catalog .kk-book > a .kk-shot,
+.kk-catalog.kk-collection-catalog .kk-shot { margin: 0; }
+body[data-page="book"] .issue-line { display: none; }
+body[data-page="book"] .photo-hero { max-width: 44rem; }
+body[data-page="book"] .book-hero {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem 1.25rem;
+  align-items: start;
+  max-width: 44rem;
+  margin: 1rem 0 0.2rem;
+}
+body[data-page="book"] .book-hero .kk-cover { width: 100%; }
+body[data-page="book"] .buy-box { display: none; }
+body[data-page="book"] h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.03em; }
+body[data-page="book"] .contents,
+body[data-page="book"] .book-recipe { max-width: 44rem; }
+body[data-page="book"] .book-recipe { border-top: 1px solid var(--line); padding-top: 0.85rem; }
+@media screen {
+  body[data-page="book"] .route-map,
+  body[data-page="book"] .book-recipe .story-block,
+  body[data-page="book"] .book-recipe .fun-facts { display: none; }
+}
 .dek { font-size: 1.25rem; max-width: 40rem; color: var(--ink); }
 #rating-summary, #heart-summary { display: none; }
 
@@ -754,7 +786,7 @@ ol.steps > li::before {
     font-family: var(--serif);
     font-size: 2.05rem;
     letter-spacing: -0.02em;
-    border-bottom: 1px solid var(--gold-line);
+    border-bottom: 1px solid var(--line);
     min-height: 3.15rem;
     box-shadow: none;
   }
