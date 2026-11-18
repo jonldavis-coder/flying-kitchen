@@ -52,6 +52,13 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("books/index.html"), /kk-cover/);
   assert.match(read("about/index.html"), /logo-full/);
   assert.match(read("about/index.html"), /flying around the world/);
+  assert.match(read("404.html"), /kk-compass-lg/);
+  assert.match(read("404.html"), /Off the map/);
+  assert.match(read("search/index.html"), /Nothing matches/);
+  assert.match(read("search/index.html"), /kk-hit|id="results"/);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /\/assets\/og\/recipes\/sauces-pesto-alla-genovese\.jpg/);
+  assert.equal(fs.existsSync(path.join(root, "assets/og/home.jpg")), true);
+  assert.equal(fs.existsSync(path.join(root, "assets/og/recipes/bbq-tandoori-chicken.jpg")), true);
   assert.match(read("flying-sauces/sauces/bechamel/index.html"), /data-photo="bechamel"/);
   assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /kk-atlas-card/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Jump to recipe/);

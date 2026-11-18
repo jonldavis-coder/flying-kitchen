@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page not found · KiteKitchen</title>
-  <meta name="description" content="That KiteKitchen page is not here.">
+  <meta name="description" content="That page is not on Kite Kitchen.">
   <meta name="theme-color" content="#141210">
   <meta name="robots" content="noindex">
   <link rel="canonical" href="https://kitekitchen.com/404.html">
@@ -16,13 +16,13 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="KiteKitchen">
   <meta property="og:title" content="Page not found · KiteKitchen">
-  <meta property="og:description" content="That KiteKitchen page is not here.">
+  <meta property="og:description" content="That page is not on Kite Kitchen.">
   <meta property="og:url" content="https://kitekitchen.com/404.html">
-  <meta property="og:image" content="https://kitekitchen.com/assets/brand/og.webp">
+  <meta property="og:image" content="https://kitekitchen.com/assets/og/lost.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Page not found · KiteKitchen">
-  <meta name="twitter:description" content="That KiteKitchen page is not here.">
-  <meta name="twitter:image" content="https://kitekitchen.com/assets/brand/og.webp">
+  <meta name="twitter:description" content="That page is not on Kite Kitchen.">
+  <meta name="twitter:image" content="https://kitekitchen.com/assets/og/lost.jpg">
   <link rel="stylesheet" href="/assets/css/kite.css">
   
   
@@ -40,7 +40,19 @@
   </div>
 </header>
   <main id="content" tabindex="-1">
-    <article class="kk-wrap"><h1>That page is not here</h1><p><a href="/">Back to KiteKitchen</a></p></article>
+    <article class="kk-wrap kk-missing">
+    <img class="kk-compass-lg" src="/assets/brand/compass.svg" alt="" width="96" height="96">
+    <p class="kk-kicker">Off the map</p>
+    <h1>That page is not here</h1>
+    <p class="kk-lede">The route does not match a recipe on Kite Kitchen.</p>
+    <form class="kk-search" action="/search/" method="get">
+      <label class="sr-only" for="missing-q">Search recipes</label>
+      <span class="kk-search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 15.5 20 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <input id="missing-q" name="q" type="search" placeholder="Pesto, dosa, asado" autocomplete="off">
+      <button class="kk-button" type="submit">Search</button>
+    </form>
+    <p class="kk-row"><a class="kk-button" href="/">Back to Kite Kitchen</a><a class="kk-button quiet" href="/map/">World map</a><a class="kk-button quiet" href="/recipes/">Recipes</a></p>
+  </article>
   </main>
   <footer class="kk-footer"><div class="kk-wrap kk-foot">
       <img class="kk-crest" src="/assets/brand/logo-240.webp" alt="" width="96" height="124">

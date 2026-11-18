@@ -60,7 +60,8 @@ const consent = `<div id="kk-consent" class="kk-consent no-print" role="dialog" 
     </div>
   </div>`;
 
-function headBits(title, description, url, jsonLd, robots, extraHead = "") {
+function headBits(title, description, url, jsonLd, robots, extraHead = "", image = "/assets/og/home.jpg") {
+  const og = image.startsWith("http") ? image : `${SITE_ORIGIN}${image}`;
   const ld = jsonLd ? `<script type="application/ld+json">${safeJsonLd(jsonLd)}</script>` : "";
   return `<!DOCTYPE html>
 <html lang="en">
@@ -82,11 +83,11 @@ function headBits(title, description, url, jsonLd, robots, extraHead = "") {
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${escapeHtml(url)}">
-  <meta property="og:image" content="${SITE_ORIGIN}/assets/brand/og.webp">
+  <meta property="og:image" content="${escapeHtml(og)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${SITE_ORIGIN}/assets/brand/og.webp">
+  <meta name="twitter:image" content="${escapeHtml(og)}">
   <link rel="stylesheet" href="/assets/css/kite.css">
   ${extraHead}
   ${ld}
@@ -161,9 +162,19 @@ function footer() {
   <script src="/assets/js/consent.js" defer></script>`;
 }
 
-function page({ title, description, path: pagePath, main, jsonLd, current = "", robots = "", scripts = "", extraHead = "" }) {
+function stampOg(html, imagePath) {
+  const abs = `${SITE_ORIGIN}${imagePath}`;
+  if (/property="og:image"/.test(html)) html = html.replace(/<meta property="og:image" content="[^"]*">/g, `<meta property="og:image" content="${abs}">`);
+  else html = html.replace("</head>", `  <meta property="og:image" content="${abs}">\n</head>`);
+  if (/name="twitter:image"/.test(html)) html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, `<meta name="twitter:image" content="${abs}">`);
+  else html = html.replace("</head>", `  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:image" content="${abs}">\n</head>`);
+  if (!/name="twitter:card"/.test(html)) html = html.replace("</head>", `  <meta name="twitter:card" content="summary_large_image">\n</head>`);
+  return html;
+}
+
+function page({ title, description, path: pagePath, main, jsonLd, current = "", robots = "", scripts = "", extraHead = "", image = "/assets/og/home.jpg" }) {
   const url = `${SITE_ORIGIN}${pagePath}`;
-  return `${headBits(title, description, url, jsonLd, robots, extraHead)}
+  return `${headBits(title, description, url, jsonLd, robots, extraHead, image)}
 <body>
   ${header(current)}
   <main id="content" tabindex="-1">
@@ -782,12 +793,16 @@ const EDITORIAL = {
   "tandoori-chicken": { id: "tandoori-chicken", widths: [640], w: 16, h: 9, alt: "Tandoori chicken with lime", caption: "Tandoori chicken.", artist: "Saimmx", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:20251121_133209_Tandoori_chicken.jpg" },
   "kansas-city-burnt-ends": { id: "kansas-city-burnt-ends", widths: [640], w: 16, h: 9, alt: "Burnt ends, cubed brisket with a dark crust", caption: "Burnt ends.", artist: "Gatorfan252525", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Beef_brisket_burnt_ends.jpg" },
   "greek-souvlaki": { id: "greek-souvlaki", widths: [640], w: 16, h: 9, alt: "Souvlaki, grilled pork skewers with onion and pepper", caption: "Souvlaki.", artist: "Kolforn", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:2017-04-17_Souvlaki_(Barbequed_Pork_belly_kebab),_Trimingham.JPG" },
-  "japanese-yakitori": { id: "japanese-yakitori", widths: [640], w: 16, h: 9, alt: "Yakitori, grilled chicken on a skewer", caption: "Yakitori.", artist: "Leandro Kibisz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Argentina_-_Misiones_-_Ober%C3%A1_-_Fiesta_del_Inmigrante_2014_-_Gastronom%C3%ADa_-_Colectividad_japonesa_-_Yakitori_y_Tonyaki_con_Kare_Rice.JPG" }
+  "japanese-yakitori": { id: "japanese-yakitori", widths: [640], w: 16, h: 9, alt: "Yakitori, grilled chicken on a skewer", caption: "Yakitori.", artist: "Leandro Kibisz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Argentina_-_Misiones_-_Ober%C3%A1_-_Fiesta_del_Inmigrante_2014_-_Gastronom%C3%ADa_-_Colectividad_japonesa_-_Yakitori_y_Tonyaki_con_Kare_Rice.JPG" },
+  "paper-dosa": { id: "paper-dosa", widths: [640], w: 16, h: 9, alt: "A large paper dosa rolled on a restaurant table", caption: "Paper dosa.", artist: "Karol Gajda", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Massive_50_Rupee_Paper_Dosa_(4437743263).jpg" },
+  "malaysian-satay-ayam": { id: "malaysian-satay-ayam", widths: [640], w: 16, h: 9, alt: "Chicken satay on skewers with peanut sauce", caption: "Chicken satay.", artist: "Elly Suhailee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CHICKEN_SATAY.jpg" },
+  "roti-canai": { id: "roti-canai", widths: [640], w: 16, h: 9, alt: "Roti canai, a flaky flatbread, on a metal plate", caption: "Roti canai.", artist: "Alpha", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Fluffy_close-up_-_Roti_Canai_-_Mega_Curry_House_MYR1.30_(4573123653).jpg" }
 };
 const DISH_PHOTO = Object.fromEntries([
   "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
   "injera", "masala-dosa", "poffertjes", "potato-latkes", "pupusas", "syrniki", "osaka-okonomiyaki", "arepa-boyacense", "colombian-arepas", "jamaican-festival",
-  "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori"
+  "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori",
+  "paper-dosa", "malaysian-satay-ayam", "roti-canai"
 ].map((slug) => [slug, EDITORIAL[slug]]));
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
@@ -902,6 +917,7 @@ write("index.html", page({
   title: "Kite Kitchen · Flying around the world recipes",
   description: "Kite Kitchen means flying around the world, one simple recipe at a time. Sauces, pancakes, and barbecue, with a world map.",
   path: "/",
+  image: "/assets/og/home.jpg",
   current: "home",
   jsonLd: homeLd,
   scripts: `<script src="/assets/js/atlas.js" defer></script>`,
@@ -946,6 +962,7 @@ write("recipes/index.html", page({
   title: "Recipes · Kite Kitchen",
   description: "Browse Flying Sauces, Flying Pancakes, and Flying BBQ by continent and region.",
   path: "/recipes/",
+  image: "/assets/og/recipes.jpg",
   current: "recipes",
   main: `<div class="kk-wrap">
     ${crumbs([["/", "Kite Kitchen"], ["/recipes/", "Recipes"]])}
@@ -973,6 +990,7 @@ write("shop/index.html", page({
   title: "Shop · KiteKitchen",
   description: "KiteKitchen utensils, apron, tote, and cookbook, plus Flying Sauces and Flying Pancakes books. Coming soon. No prices and no checkout.",
   path: "/shop/",
+  image: "/assets/og/shop.jpg",
   current: "shop",
   main: `<div class="kk-wrap">
       ${crumbs([["/", "Kite Kitchen"], ["/shop/", "Shop"]])}
@@ -1036,6 +1054,7 @@ write("books/index.html", page({
   title: "Books · KiteKitchen",
   description: "Cookbooks from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon, with no prices.",
   path: "/books/",
+  image: "/assets/og/books.jpg",
   current: "",
   scripts: `<script src="/assets/js/filter.js" defer></script>`,
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/books/", "Cookbooks"]])}
@@ -1078,6 +1097,7 @@ write("about/index.html", page({
   title: "About · KiteKitchen",
   description: "Kite Kitchen means flying around the world and tasting different foods, one simple recipe at a time.",
   path: "/about/",
+  image: "/assets/og/about.jpg",
   main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/about/", "About"]])}
     <figure class="kk-about-crest"><img src="/assets/brand/logo-full.webp" alt="The full Kite Kitchen crest: a gold kite inside an ornamental frame, with the name Kite Kitchen" width="360" height="467"></figure>
     <h1>About Kite Kitchen</h1>
@@ -1206,6 +1226,7 @@ write("map/index.html", page({
   title: "World map · Kite Kitchen",
   description: "A simple world map of Flying Sauces, Flying Pancakes, and Flying BBQ. Choose a country to see its recipes.",
   path: "/map/",
+  image: "/assets/og/map.jpg",
   current: "map",
   scripts: `<script src="/assets/js/atlas.js" defer></script>`,
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"]])}
@@ -1246,10 +1267,18 @@ write("submit.html", page({
 
 write("404.html", page({
   title: "Page not found · KiteKitchen",
-  description: "That KiteKitchen page is not here.",
+  description: "That page is not on Kite Kitchen.",
   path: "/404.html",
+  image: "/assets/og/lost.jpg",
   robots: "noindex",
-  main: `<article class="kk-wrap"><h1>That page is not here</h1><p><a href="/">Back to KiteKitchen</a></p></article>`
+  main: `<article class="kk-wrap kk-missing">
+    <img class="kk-compass-lg" src="/assets/brand/compass.svg" alt="" width="96" height="96">
+    <p class="kk-kicker">Off the map</p>
+    <h1>That page is not here</h1>
+    <p class="kk-lede">The route does not match a recipe on Kite Kitchen.</p>
+    ${searchForm("missing-q", "Pesto, dosa, asado")}
+    <p class="kk-row"><a class="kk-button" href="/">Back to Kite Kitchen</a><a class="kk-button quiet" href="/map/">World map</a><a class="kk-button quiet" href="/recipes/">Recipes</a></p>
+  </article>`
 }));
 
 const legacy = JSON.parse(fs.readFileSync(path.join(root, "data/legacy-paths.json"), "utf8"));
@@ -1300,28 +1329,38 @@ for (const rel of legacy) {
   write(rel, html);
 }
 
-const searchItems = [];
-for (const [dir, section, folder] of [["flying-sauces", "Flying Sauces", "sauces"], ["flying-pancakes", "Flying Pancakes", "pancakes"], ["flying-bbq", "Flying BBQ", "dishes"]]) {
-  for (const slug of dirs(`${dir}/${folder}`)) {
-    const html = fs.readFileSync(path.join(root, dir, folder, slug, "index.html"), "utf8");
-    searchItems.push({
-      title: textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug,
-      href: `/${dir}/${folder}/${slug}/`,
-      section,
-      text: textOf(html, /<p class="dek">([\s\S]*?)<\/p>/)
-    });
-  }
-}
+const searchItems = catalog.map((item) => {
+  const slug = item.href.split("/").filter(Boolean).at(-1);
+  const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
+  const place = byIso[item.iso];
+  const width = photo ? photo.widths[photo.widths.length - 1] : 0;
+  return {
+    title: item.title,
+    href: item.href,
+    section: item.section,
+    text: item.text,
+    country: item.country || "",
+    region: item.region || "",
+    thumb: photo ? `/assets/photos/editorial/${photo.id}-${width}.jpg` : "",
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
+  };
+});
 write("assets/search-index.json", JSON.stringify(searchItems));
 write("search/index.html", page({
   title: "Search · KiteKitchen",
-  description: "Search Flying Sauces, Flying Pancakes, and Flying BBQ.",
+  description: "Search Flying Sauces, Flying Pancakes, and Flying BBQ by dish, country, or guide.",
   path: "/search/",
+  image: "/assets/og/search.jpg",
   current: "",
-  main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/search/", "Search"]])}<h1>Search</h1>
+  main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/search/", "Search"]])}
+    <h1>Search</h1>
+    <p class="kk-lede">Type a dish, a country, or a guide. Results stay in the browser.</p>
     ${searchForm("q", "Pesto, dosa, asado", "search-form")}
-    <p id="search-status" class="kk-meta"></p>
-    <ul id="results" class="kk-results"></ul>
+    <p id="search-status" class="kk-meta" role="status" aria-live="polite"></p>
+    <p id="search-empty" class="kk-empty" hidden>Nothing matches that search. Try a dish, a country, or a guide.</p>
+    <div id="results" class="kk-results"></div>
+    <svg id="kk-land" hidden><rect width="160" height="80" fill="#f4f0e8"/><path d="M0 40H160M40 0V80M80 0V80M120 0V80" stroke="#e4ddd2" stroke-width="0.45"/><g fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6">${MINI_LANDS}</g></svg>
   </div>
   <script src="/assets/js/search.js" defer></script>`
 }));
@@ -1423,6 +1462,8 @@ function polishRecipes() {
           html = html.replace(/<\/h1>/, `</h1>\n<div class="kk-mast">${dek[0]}\n${info[0]}</div>`);
         }
       }
+      const kind = folder === "sauces" ? "sauces" : folder === "pancakes" ? "pancakes" : "bbq";
+      html = stampOg(html, `/assets/og/recipes/${kind}-${slug}.jpg`);
       fs.writeFileSync(file, html);
     }
   }
@@ -1444,6 +1485,47 @@ polishRecipes();
 mountBrowse("flying-sauces/index.html", catalog.filter((item) => item.section === "Flying Sauces"));
 mountBrowse("flying-pancakes/index.html", catalog.filter((item) => item.section === "Flying Pancakes"));
 mountBrowse("flying-bbq/index.html", catalog.filter((item) => item.section === "Flying BBQ"));
+
+function photoFile(photo) {
+  if (!photo) return "";
+  return `assets/photos/editorial/${photo.id}-${photo.widths[photo.widths.length - 1]}.jpg`;
+}
+const ogJobs = [
+  { out: "assets/og/home.jpg", title: "Kite Kitchen", kicker: "World recipes", line: TAGLINE },
+  { out: "assets/og/sauces.jpg", title: "Flying Sauces", kicker: "Kite Kitchen", line: "Sauces from the table, the mortar, and the market.", photo: photoFile(EDITORIAL.chimichurri) },
+  { out: "assets/og/pancakes.jpg", title: "Flying Pancakes", kicker: "Kite Kitchen", line: "Batters, griddles, and the pancakes that travel with them.", photo: photoFile(EDITORIAL.crepes) },
+  { out: "assets/og/bbq.jpg", title: "Flying BBQ", kicker: "Kite Kitchen", line: "Fire, smoke, and the dishes cooked over them.", photo: photoFile(EDITORIAL.hog) },
+  { out: "assets/og/recipes.jpg", title: "Recipes", kicker: "Kite Kitchen", line: "Browse by continent and region." },
+  { out: "assets/og/books.jpg", title: "Recipe cookbooks", kicker: "Kite Kitchen", line: "Original covers. Nothing here has a price." },
+  { out: "assets/og/about.jpg", title: "About Kite Kitchen", kicker: "Kite Kitchen", line: TAGLINE },
+  { out: "assets/og/map.jpg", title: "World map", kicker: "Kite Kitchen", line: "Shaded countries have recipes." },
+  { out: "assets/og/shop.jpg", title: "The shop is coming soon", kicker: "Kite Kitchen", line: "No prices and no checkout." },
+  { out: "assets/og/search.jpg", title: "Search", kicker: "Kite Kitchen", line: "A dish, a country, or a guide." },
+  { out: "assets/og/lost.jpg", title: "That page is not here", kicker: "Off the map", line: "The route does not match a recipe." }
+];
+for (const item of catalog) {
+  const parts = item.href.split("/").filter(Boolean);
+  const slug = parts.at(-1);
+  const kind = parts[1] === "pancakes" ? "pancakes" : parts[1] === "dishes" ? "bbq" : "sauces";
+  const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
+  const place = byIso[item.iso];
+  ogJobs.push({
+    out: `assets/og/recipes/${kind}-${slug}.jpg`,
+    title: item.title,
+    kicker: item.section,
+    line: [item.country, item.region].filter(Boolean).join(" · "),
+    photo: photoFile(photo),
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
+  });
+}
+const ogManifest = "/tmp/kk-og-jobs.json";
+fs.writeFileSync(ogManifest, JSON.stringify(ogJobs));
+execFileSync("python3", ["scripts/og-cards.py", ogManifest], { cwd: root, stdio: "inherit" });
+for (const [rel, image] of [["flying-sauces/index.html", "/assets/og/sauces.jpg"], ["flying-pancakes/index.html", "/assets/og/pancakes.jpg"], ["flying-bbq/index.html", "/assets/og/bbq.jpg"]]) {
+  const file = path.join(root, rel);
+  fs.writeFileSync(file, stampOg(fs.readFileSync(file, "utf8"), image));
+}
 
 function walkHtml(dir, found = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
