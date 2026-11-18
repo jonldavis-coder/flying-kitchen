@@ -388,12 +388,12 @@ write("index.html", page({
         <div class="kk-hero-copy">
           <p class="kk-kicker">Recipes for kite days</p>
           <h1>Food for the hour the kite goes up.</h1>
-          <p class="kk-lede">KiteKitchen cooks from real kite festivals, and from the picnic you pack for the park. Flying Sauces and Flying Pancakes live here under their own names. The shop is a preview. Nothing is for sale.</p>
+          <p class="kk-lede">KiteKitchen cooks from real kite festivals, and from the picnic you pack for the park. Flying Sauces and Flying Pancakes live here under their own names. The KiteKitchen shop is coming soon.</p>
           <p class="kk-row"><a class="kk-button" href="/traditions/">Festival foods</a><a class="kk-button quiet" href="/recipes/">All recipes</a></p>
         </div>
       </div>
     </section>
-    ${figure("modhera", "People flying large colorful kites, including a red heart-shaped kite, on a white flat in Gujarat.", "Kites at a Gujarat kite festival in January. The Commons file is titled for the 2013 Makar Sankranti gathering at Modhera and also described as a Rann Utsav kite festival.", "kk-hero-photo")}
+    ${figure("sumpango", "Crowd in front of enormous circular tissue-paper kites at the Sumpango festival under a blue sky.", "Giant kites at the Sumpango festival in Guatemala, on the Day of the Saints. The photograph shows the kites, not a plate of food.", "kk-hero-photo")}
     <div class="kk-wrap">${ad("home", "inline")}</div>
     <section class="kk-wrap">
       <h2>Festival foods</h2>

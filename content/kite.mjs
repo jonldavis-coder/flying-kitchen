@@ -38,9 +38,9 @@ export const traditions = [
     slug: "gujarat-uttarayan",
     title: "Gujarat’s Uttarayan",
     description: "Uttarayan is Gujarat’s Makar Sankranti kite festival. Undhiyu, chikki, and jalebi are the foods those sources name.",
-    photo: "modhera",
-    photoAlt: "People on a white flat in Gujarat flying large colorful kites, including a red heart-shaped kite.",
-    photoNote: "Kites at a Gujarat kite festival in January. The Commons file is titled “2013 Makar Sankranti Modhera Sun temple Kite Mahotsav” and its description also says Rann Utsav Sun Temple kite festival. It shows the flying, not a plate of food.",
+    photo: "undhiyu",
+    photoAlt: "A round metal platter of Gujarati undhiyu, mixed vegetables and fried dumplings, with lemon and cilantro.",
+    photoNote: "A Gujarati undhiyu, the festival dish named with Uttarayan. It is not a photograph of the kites.",
     kicker: "Gujarat · about 14 January",
     lede: "In Gujarat, Makar Sankranti is Uttarayan, a public kite festival around 14 January. The foods repeatedly named with it are undhiyu, chikki, and jalebi.",
     sections: [
