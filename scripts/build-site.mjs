@@ -702,6 +702,44 @@ for (const item of catalog) {
 const countries = Object.values(byIso).map((country) => ({ ...country, count: (byCountry.get(country.iso) || []).length }));
 const MINI_LANDS = `<path d="M5.3 11.1 12.9 8.9 23.1 8.9 33.3 7.1 40.9 7.6 48.9 9.8 55.1 16.4 50.7 20.4 46.7 24.4 44 28.9 40 32.9 36.9 32.9 32.9 30.2 30.2 28.4 28 25.8 24.9 22.2 24.4 18.2 19.6 14.7 12.4 13.8 6.2 13.3Z"/><path d="M44.4 35.6 48.9 34.7 53.3 36.4 57.8 39.1 64.4 42.2 62.7 49.8 58.7 52.4 52.4 63.1 48 63.1 46.2 57.8 44.4 43.6 45.3 37.3Z"/><path d="M75.6 24 76 20.9 76.4 14.2 80 12.4 83.6 11.6 88.9 8.9 92.4 8.4 94.2 13.3 92.4 19.6 88 22.2 83.6 23.6 77.8 24Z"/><path d="M72.4 30.7 72.9 27.6 74.7 24.4 80 23.6 84.4 23.6 91.1 25.8 94.2 26.2 99.1 34.7 102.7 35.1 98.7 47.1 95.6 51.6 88.9 55.6 85.3 48 83.6 38.2 77.3 37.8 73.8 33.8Z"/><path d="M97.8 15.6 101.3 8.9 115.6 7.1 133.3 7.6 151.1 9.8 159.1 10.7 154.7 13.3 148.9 17.8 143.1 21.3 137.8 25.8 134.2 30.2 128.4 36.4 126.2 39.6 122.2 32.9 115.6 37.3 110.2 29.8 106.7 28.4 101.3 22.2 98.7 17.8Z"/><path d="M130.7 49.8 136.9 45.8 143.1 44.9 144.9 48 148 51.6 146.7 56.9 140.4 55.6 135.1 54.7 130.7 55.1 130.2 51.6Z"/>`;
 
+function coverSvg(book) {
+  const words = book.title.split(/\s+/);
+  const lines = [];
+  let line = "";
+  for (const word of words) {
+    const next = line ? `${line} ${word}` : word;
+    if (next.length > 18 && line) {
+      lines.push(line);
+      line = word;
+    } else line = next;
+  }
+  if (line) lines.push(line);
+  const shown = lines.slice(0, 6);
+  const size = shown.some((item) => item.length > 16) ? 30 : 36;
+  const title = shown.map((item, index) => `<text x="46" y="${268 + index * (size + 8)}" fill="#1a1a1a" font-family="Georgia, 'Times New Roman', serif" font-size="${size}">${escapeHtml(item)}</text>`).join("");
+  let hash = 0;
+  for (const ch of book.slug) hash = (hash * 33 + ch.charCodeAt(0)) >>> 0;
+  const pinX = 70 + (hash % 420);
+  const pinY = 560 + ((hash >> 8) % 70);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img">
+  <rect width="600" height="800" fill="#f6f1e6"/>
+  <rect x="18" y="18" width="564" height="764" fill="none" stroke="#c6a15b" stroke-width="3"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#c6a15b" stroke-width="0.7"/>
+  <text x="46" y="88" fill="#8a6a32" font-family="Georgia, serif" font-size="15" letter-spacing="3">${escapeHtml(book.section.toUpperCase())}</text>
+  <path d="M46 108 H210" stroke="#c6a15b" stroke-width="1.4"/>
+  <g transform="translate(46, 132) scale(1.7)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.5">${MINI_LANDS}</g>
+  ${title}
+  <g fill="none" stroke="#c6a15b" stroke-width="0.6" opacity="0.8">
+    <path d="M46 620 H554 M46 660 H554 M46 700 H554"/>
+    <path d="M140 600 V720 M260 600 V720 M380 600 V720 M500 600 V720"/>
+  </g>
+  <circle cx="${pinX}" cy="${pinY}" r="7" fill="#e2b007" stroke="#1a1a1a" stroke-width="1"/>
+  <g transform="translate(46, 724) scale(0.62)"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/></g>
+  <text x="96" y="752" fill="#1a1a1a" font-family="Georgia, serif" font-size="16">Kite Kitchen</text>
+</svg>`;
+}
+
 function pinSvg(lat, lon) {
   const x = ((lon + 180) / 360) * 160;
   const y = ((90 - lat) / 180) * 80;
@@ -727,22 +765,30 @@ const EDITORIAL = {
   "burro-e-salvia": { id: "burro-e-salvia", widths: [480], w: 16, h: 9, alt: "Gnocchi with butter and sage", caption: "Gnocchi with burro e salvia.", artist: "Paoletta S.", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Gnocchi_di_ricotta_burro_e_salvia.jpg" },
   "cocktail-sauce": { id: "cocktail-sauce", widths: [640], w: 16, h: 9, alt: "Cocktail sauce with shrimp", caption: "Cocktail sauce.", artist: "jeffreyw", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Ice_cold_shrimp_and_cocktail_sauce_(4847681860).jpg" },
   "caramel-sauce": { id: "caramel-sauce", widths: [640], w: 16, h: 9, alt: "Caramel sauce with Bavarian cream and strawberries", caption: "Caramel sauce.", artist: "SKopp", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Bavarian_cream,_strawberries,_caramel_sauce,_spoon.jpg" },
-  "ata-din-din": { id: "ata-din-din", widths: [640], w: 16, h: 9, alt: "Ata din din, a red pepper sauce, on ekuru", caption: "Ata din din.", artist: "Atimukoh", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Ekuru_and_ata_din_din.jpg" }
+  "ata-din-din": { id: "ata-din-din", widths: [640], w: 16, h: 9, alt: "Ata din din, a red pepper sauce, on ekuru", caption: "Ata din din.", artist: "Atimukoh", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Ekuru_and_ata_din_din.jpg" },
+  injera: { id: "injera", widths: [640], w: 16, h: 9, alt: "Injera, a spongy flatbread, on a griddle", caption: "Injera.", artist: "Natnael Tadele", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Fresh_Injera.JPG" },
+  "masala-dosa": { id: "masala-dosa", widths: [640], w: 16, h: 9, alt: "Masala dosa with chutney and sambar", caption: "Masala dosa.", artist: "Avee12Wiki", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Delicious_Masala_Dosa.jpg" },
+  poffertjes: { id: "poffertjes", widths: [640], w: 16, h: 9, alt: "Poffertjes cooking in a dimpled pan", caption: "Poffertjes.", artist: "Elmschrat", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:1-Poffertjes-pan.JPG" },
+  "potato-latkes": { id: "potato-latkes", widths: [640], w: 16, h: 9, alt: "Potato latkes on a plate", caption: "Potato latkes.", artist: "J Doll", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Potato_Latkes_(140491619).jpeg" },
+  pupusas: { id: "pupusas", widths: [640], w: 16, h: 9, alt: "Two pupusas on a plate", caption: "Pupusas.", artist: "Jess Lander", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Plain_pupusas_revueltas.jpg" },
+  syrniki: { id: "syrniki", widths: [640], w: 16, h: 9, alt: "Syrniki, fried cheese pancakes, on a red plate", caption: "Syrniki.", artist: "Juerg Vollmer", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Syrniki.jpg" },
+  "osaka-okonomiyaki": { id: "osaka-okonomiyaki", widths: [640], w: 16, h: 9, alt: "Okonomiyaki topped with bonito flakes", caption: "Okonomiyaki.", artist: "ノボホショコロトソ", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Hand-made_Okonomiyaki_02.jpg" },
+  "arepa-boyacense": { id: "arepa-boyacense", widths: [640], w: 16, h: 9, alt: "Arepas boyacenses on a griddle", caption: "Arepa boyacense.", artist: "Neoredacturus", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Arepa_Boyacense.jpg" },
+  "colombian-arepas": { id: "colombian-arepas", widths: [640], w: 16, h: 9, alt: "Colombian arepas on a griddle and stacked above it", caption: "Colombian arepas.", artist: "Edgar Zuniga Jr.", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Colombian_Arepas,_Boyac%C3%A1,_Colombia.jpg" },
+  "jamaican-festival": { id: "jamaican-festival", widths: [640], w: 16, h: 9, alt: "Jamaican festival, fried dumplings", caption: "Jamaican festival.", artist: "999real", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:FOOD_Jamaican_festival_Trinidad.jpg" },
+  choripan: { id: "choripan", widths: [640], w: 16, h: 9, alt: "Choripán, sausage in a split roll", caption: "Choripán.", artist: "Horacio Cambeiro", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Argentine_Chorip%C3%A1n.jpg" },
+  "kalua-pig": { id: "kalua-pig", widths: [640], w: 16, h: 9, alt: "Kalua pig, shredded roasted pork", caption: "Kalua pig.", artist: "Pacamah", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Homemade_Kalua_Pig.jpg" },
+  "argentine-vacio": { id: "argentine-vacio", widths: [640], w: 16, h: 9, alt: "Argentine vacío grilling over coals with sausage and bread", caption: "Argentine vacío.", artist: "Horacio Cambeiro", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Grilled_Argentine_vac%C3%ADo_beef,_parrillero_chorizo_and_mignon_bread_on_a_traditional_chulengo_barbecue.jpg" },
+  "tandoori-chicken": { id: "tandoori-chicken", widths: [640], w: 16, h: 9, alt: "Tandoori chicken with lime", caption: "Tandoori chicken.", artist: "Saimmx", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:20251121_133209_Tandoori_chicken.jpg" },
+  "kansas-city-burnt-ends": { id: "kansas-city-burnt-ends", widths: [640], w: 16, h: 9, alt: "Burnt ends, cubed brisket with a dark crust", caption: "Burnt ends.", artist: "Gatorfan252525", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Beef_brisket_burnt_ends.jpg" },
+  "greek-souvlaki": { id: "greek-souvlaki", widths: [640], w: 16, h: 9, alt: "Souvlaki, grilled pork skewers with onion and pepper", caption: "Souvlaki.", artist: "Kolforn", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:2017-04-17_Souvlaki_(Barbequed_Pork_belly_kebab),_Trimingham.JPG" },
+  "japanese-yakitori": { id: "japanese-yakitori", widths: [640], w: 16, h: 9, alt: "Yakitori, grilled chicken on a skewer", caption: "Yakitori.", artist: "Leandro Kibisz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Argentina_-_Misiones_-_Ober%C3%A1_-_Fiesta_del_Inmigrante_2014_-_Gastronom%C3%ADa_-_Colectividad_japonesa_-_Yakitori_y_Tonyaki_con_Kare_Rice.JPG" }
 };
-const DISH_PHOTO = {
-  bechamel: EDITORIAL.bechamel,
-  bearnaise: EDITORIAL.bearnaise,
-  arrabbiata: EDITORIAL.arrabbiata,
-  adjika: EDITORIAL.adjika,
-  avgolemono: EDITORIAL.avgolemono,
-  chirmol: EDITORIAL.chirmol,
-  guacamole: EDITORIAL.guacamole,
-  haydari: EDITORIAL.haydari,
-  "burro-e-salvia": EDITORIAL["burro-e-salvia"],
-  "cocktail-sauce": EDITORIAL["cocktail-sauce"],
-  "caramel-sauce": EDITORIAL["caramel-sauce"],
-  "ata-din-din": EDITORIAL["ata-din-din"]
-};
+const DISH_PHOTO = Object.fromEntries([
+  "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
+  "injera", "masala-dosa", "poffertjes", "potato-latkes", "pupusas", "syrniki", "osaka-okonomiyaki", "arepa-boyacense", "colombian-arepas", "jamaican-festival",
+  "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori"
+].map((slug) => [slug, EDITORIAL[slug]]));
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
   "/flying-pancakes/pancakes/crepes-suzette/": EDITORIAL.crepes,
@@ -872,6 +918,12 @@ write("index.html", page({
     <div class="kk-wrap kk-home">
       <h2>Featured recipes</h2>
       <div class="kk-rcards">${featuredItems.map((item) => recipeCard(item)).join("")}</div>
+      <h2>Browse by continent</h2>
+      <div class="kk-continents">${["Africa", "Americas", "Asia", "Europe", "Oceania"].map((name) => {
+        const items = catalog.filter((item) => item.continent === name);
+        const regions = new Set(items.map((item) => item.region).filter(Boolean));
+        return `<a class="kk-continent" href="/recipes/?continent=${encodeURIComponent(name)}"><span class="kk-kicker">${name}</span><strong>${regions.size} ${regions.size === 1 ? "region" : "regions"}</strong><span>${items.length} recipes</span></a>`;
+      }).join("")}</div>
       ${ad("home", "inline")}
       <p class="kk-shop-strip"><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
       <h2>The guides</h2>
@@ -968,6 +1020,18 @@ for (const item of shopCards) {
 }
 writeMoved("shop/kite-festival-cookbook/index.html", "/books/");
 
+for (const book of guideBooks) {
+  const prefix = book.section === "Flying Sauces" ? "sauces" : book.section === "Flying Pancakes" ? "pancakes" : "bbq";
+  const rel = `assets/brand/covers/${prefix}-${book.slug}.svg`;
+  write(rel, coverSvg(book));
+  book.cover = `/${rel}`;
+  const pagePath = path.join(root, book.href.slice(1), "index.html");
+  if (fs.existsSync(pagePath)) {
+    const html = fs.readFileSync(pagePath, "utf8").replace(/<img class="cover"[^>]*>/, `<img class="cover kk-cover" src="${book.cover}" alt="Original cover design for ${escapeHtml(book.title)}" width="600" height="800">`);
+    fs.writeFileSync(pagePath, html);
+  }
+}
+
 write("books/index.html", page({
   title: "Books · KiteKitchen",
   description: "Cookbooks from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon, with no prices.",
@@ -977,7 +1041,7 @@ write("books/index.html", page({
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/books/", "Cookbooks"]])}
     <h1>Recipe cookbooks</h1>
     <p class="kk-lede">Titles imported with Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon. Nothing here has a price.</p>
-    <section data-kk-filter>
+    <section data-kk-filter data-kk-noun="title">
       <div class="kk-filters">
         <div class="kk-chips" role="group" aria-label="Guide">
           <button type="button" class="is-on" data-continent-value="all" aria-pressed="true">All</button>
@@ -987,7 +1051,7 @@ write("books/index.html", page({
         </div>
         <p class="kk-meta" data-kk-count>${guideBooks.length} titles</p>
       </div>
-      <div class="kk-grid">${guideBooks.map((book) => `<article class="kk-card" data-continent="${escapeHtml(book.section)}"><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p><p class="kk-meta"><a href="${book.href.replace(/books\/.*$/, "")}">Open the guide</a></p></article>`).join("")}</div>
+      <div class="kk-grid kk-books">${guideBooks.map((book) => `<article class="kk-card kk-book" data-continent="${escapeHtml(book.section)}"><a href="${book.href}"><img class="kk-cover" src="${book.cover}" alt="Original cover design for ${escapeHtml(book.title)}" width="300" height="400"></a><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p></article>`).join("")}</div>
     </section>
   </div>`
 }));
@@ -1006,7 +1070,7 @@ write("credits/index.html", page({
     </ul>
     <h2>Photographs on the home page</h2>
     <ul class="kk-sources">${Object.values(EDITORIAL).map((photo) => `<li>${escapeHtml(photo.caption)} Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">Wikimedia Commons</a>.</li>`).join("")}</ul>
-    <p>The crest and the small compass are original artwork for this site. The home photograph is cropped 16:9. The cards are cropped 4:3.</p>
+    <p>The crest, the cookbook covers, and the small compass are original artwork for this site. Recipe photographs are credited above.</p>
   </div>`
 }));
 
@@ -1015,12 +1079,13 @@ write("about/index.html", page({
   description: "Kite Kitchen means flying around the world and tasting different foods, one simple recipe at a time.",
   path: "/about/",
   main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/about/", "About"]])}
-    <figure class="kk-about-crest"><img src="/assets/brand/logo-480.webp" alt="Kite Kitchen crest, a gold kite inside an ornamental frame" width="240" height="311"></figure>
+    <figure class="kk-about-crest"><img src="/assets/brand/logo-full.webp" alt="The full Kite Kitchen crest: a gold kite inside an ornamental frame, with the name Kite Kitchen" width="360" height="467"></figure>
     <h1>About Kite Kitchen</h1>
     <p>The name Kite Kitchen means flying around the world and tasting different foods. ${TAGLINE}.</p>
-    <p>Three guides are published here under their own names: Flying Sauces, Flying Pancakes, and Flying BBQ. The world map is a way to browse those recipes by country.</p>
-    <p>The public address is <a href="${SITE_ORIGIN}/">kitekitchen.com</a>. That origin is the <code>SITE_ORIGIN</code> value in <span class="kk-note">site.config.mjs</span>.</p>
-    <p>Counts are the number of entries imported from those guides. This site does not add reviews or star ratings.</p>
+    <p>Three guides keep their own names here: Flying Sauces, Flying Pancakes, and Flying BBQ. A recipe stays with the guide and the place it was already filed under. The world map, the region pages, and the continent list are ways to move between those recipes.</p>
+    <p>The crest is the gold kite in its frame. This page shows the full crest. The header uses the kite with the wordmark.</p>
+    <p>The public address is <a href="${SITE_ORIGIN}/">kitekitchen.com</a>. Counts on the site are the entries imported from the three guides. This site does not add reviews or star ratings.</p>
+    <p>The Kite Kitchen shop is coming soon. Nothing here is priced or for sale.</p>
     <p>Write to <a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a>.</p>
   </article>`
 }));

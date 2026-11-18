@@ -20,4 +20,4 @@ export const ADS = {
 export const HELLO_EMAIL = "hello@kitekitchen.com";
 
 // home_hero_photo: set false to remove the photograph under the home search.
-export const home_hero_photo = true;
+export const home_hero_photo = false;

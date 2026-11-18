@@ -40,13 +40,18 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(home, /class="kk-mark"/);
   assert.match(home, /Search recipes/);
   assert.equal((home.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
-  assert.equal(home_hero_photo, true);
+  assert.equal(home_hero_photo, false);
   if (home_hero_photo) {
     assert.match(home, /hero-1280\.avif/);
     assert.match(home, /rel="preload"/);
   } else {
     assert.doesNotMatch(home, /hero-1280\.avif/);
+    assert.doesNotMatch(home, /rel="preload"/);
   }
+  assert.match(home, /Browse by continent/);
+  assert.match(read("books/index.html"), /kk-cover/);
+  assert.match(read("about/index.html"), /logo-full/);
+  assert.match(read("about/index.html"), /flying around the world/);
   assert.match(read("flying-sauces/sauces/bechamel/index.html"), /data-photo="bechamel"/);
   assert.match(read("flying-pancakes/pancakes/acadian-ployes/index.html"), /kk-atlas-card/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Jump to recipe/);

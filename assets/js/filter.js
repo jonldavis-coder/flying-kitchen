@@ -15,9 +15,23 @@
         card.hidden = !ok;
         if (ok) shown += 1;
       });
-      if (status) status.textContent = shown + (shown === 1 ? " recipe" : " recipes");
+      var noun = root.getAttribute("data-kk-noun") || "recipe";
+      var label = shown === 1 ? noun : (noun === "title" ? "titles" : "recipes");
+      if (status) status.textContent = shown + " " + label;
     }
 
+    var wanted = new URLSearchParams(location.search).get("continent");
+    if (wanted) {
+      var match = Array.prototype.find.call(root.querySelectorAll("[data-continent-value]"), function (button) {
+        return button.getAttribute("data-continent-value") === wanted;
+      });
+      if (match) {
+        root.querySelectorAll("[data-continent-value]").forEach(function (item) {
+          item.classList.toggle("is-on", item === match);
+          item.setAttribute("aria-pressed", item === match ? "true" : "false");
+        });
+      }
+    }
     root.addEventListener("click", function (ev) {
       var button = ev.target.closest("[data-continent-value]");
       if (!button || !root.contains(button)) return;
@@ -28,5 +42,6 @@
       apply();
     });
     if (select) select.addEventListener("change", apply);
+    apply();
   });
 })();

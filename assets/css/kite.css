@@ -471,7 +471,14 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   box-shadow: inset 0 0 0 5px #fffdfb, inset 0 0 0 6px var(--gold-line);
 }
 .kk-about-crest { display: inline-block; margin: 0 0 1.2rem; padding: 0.7rem; }
-.kk-about-crest img { display: block; width: min(240px, 70vw); height: auto; }
+.kk-about-crest img { display: block; width: min(280px, 78vw); height: auto; }
+.kk-continents { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.4rem 0 1.4rem; }
+.kk-continent { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.85rem 0.9rem; background: var(--paper-2); border: 1px solid var(--gold-line); color: inherit; text-decoration: none; }
+.kk-continent strong { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; }
+.kk-continent span:last-child { color: var(--muted); font-size: 0.92rem; }
+.kk-cover { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; background: #f6f1e6; border: 1px solid var(--gold-line); }
+.kk-book { padding: 0.55rem 0.55rem 0.9rem; }
+.kk-book h2 { margin: 0.45rem 0.35rem 0.2rem; font-size: 1.35rem; }
 .photo-hero img, .hero-media img { border: 1px solid var(--gold-line); }
 .dek { font-size: 1.25rem; max-width: 40rem; color: var(--ink); }
 #rating-summary, #heart-summary { display: none; }
@@ -480,6 +487,8 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   .kk-tag-long { white-space: nowrap; }
   .kk-rcards, .kk-grid { grid-template-columns: 1fr 1fr; }
   .kk-guides, .kk-products { grid-template-columns: 1fr 1fr 1fr; }
+  .kk-continents { grid-template-columns: repeat(5, 1fr); }
+  .kk-books { grid-template-columns: 1fr 1fr 1fr; }
   .kk-method {
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);

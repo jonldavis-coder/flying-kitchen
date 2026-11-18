@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img">
+  <rect width="600" height="800" fill="#f6f1e6"/>
+  <rect x="18" y="18" width="564" height="764" fill="none" stroke="#c6a15b" stroke-width="3"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#c6a15b" stroke-width="0.7"/>
+  <text x="46" y="88" fill="#8a6a32" font-family="Georgia, serif" font-size="15" letter-spacing="3">FLYING SAUCES</text>
+  <path d="M46 108 H210" stroke="#c6a15b" stroke-width="1.4"/>
+  <g transform="translate(46, 132) scale(1.7)" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.5"><path d="M5.3 11.1 12.9 8.9 23.1 8.9 33.3 7.1 40.9 7.6 48.9 9.8 55.1 16.4 50.7 20.4 46.7 24.4 44 28.9 40 32.9 36.9 32.9 32.9 30.2 30.2 28.4 28 25.8 24.9 22.2 24.4 18.2 19.6 14.7 12.4 13.8 6.2 13.3Z"/><path d="M44.4 35.6 48.9 34.7 53.3 36.4 57.8 39.1 64.4 42.2 62.7 49.8 58.7 52.4 52.4 63.1 48 63.1 46.2 57.8 44.4 43.6 45.3 37.3Z"/><path d="M75.6 24 76 20.9 76.4 14.2 80 12.4 83.6 11.6 88.9 8.9 92.4 8.4 94.2 13.3 92.4 19.6 88 22.2 83.6 23.6 77.8 24Z"/><path d="M72.4 30.7 72.9 27.6 74.7 24.4 80 23.6 84.4 23.6 91.1 25.8 94.2 26.2 99.1 34.7 102.7 35.1 98.7 47.1 95.6 51.6 88.9 55.6 85.3 48 83.6 38.2 77.3 37.8 73.8 33.8Z"/><path d="M97.8 15.6 101.3 8.9 115.6 7.1 133.3 7.6 151.1 9.8 159.1 10.7 154.7 13.3 148.9 17.8 143.1 21.3 137.8 25.8 134.2 30.2 128.4 36.4 126.2 39.6 122.2 32.9 115.6 37.3 110.2 29.8 106.7 28.4 101.3 22.2 98.7 17.8Z"/><path d="M130.7 49.8 136.9 45.8 143.1 44.9 144.9 48 148 51.6 146.7 56.9 140.4 55.6 135.1 54.7 130.7 55.1 130.2 51.6Z"/></g>
+  <text x="46" y="268" fill="#1a1a1a" font-family="Georgia, 'Times New Roman', serif" font-size="36">Flavors of the</text><text x="46" y="312" fill="#1a1a1a" font-family="Georgia, 'Times New Roman', serif" font-size="36">British Isles</text>
+  <g fill="none" stroke="#c6a15b" stroke-width="0.6" opacity="0.8">
+    <path d="M46 620 H554 M46 660 H554 M46 700 H554"/>
+    <path d="M140 600 V720 M260 600 V720 M380 600 V720 M500 600 V720"/>
+  </g>
+  <circle cx="464" cy="575" r="7" fill="#e2b007" stroke="#1a1a1a" stroke-width="1"/>
+  <g transform="translate(46, 724) scale(0.62)"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/></g>
+  <text x="96" y="752" fill="#1a1a1a" font-family="Georgia, serif" font-size="16">Kite Kitchen</text>
+</svg>
