@@ -52,6 +52,8 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("books/index.html"), /kk-cover/);
   assert.match(read("about/index.html"), /logo-full/);
   assert.match(read("about/index.html"), /flying around the world/);
+  assert.match(read("journeys/index.html"), /A week of street food in Asia/);
+  assert.match(read("journeys/street-food-asia/index.html"), /Turmeric chicken skewers with a warm peanut sauce/);
   assert.match(read("404.html"), /kk-compass-lg/);
   assert.match(read("404.html"), /Off the map/);
   assert.match(read("search/index.html"), /Nothing matches/);
