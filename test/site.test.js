@@ -64,6 +64,12 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("journeys/index.html"), /Oceania/);
   assert.match(read("journeys/day-in-australia/index.html"), /Australian/);
   assert.match(read("journeys/day-ghana-nigeria-ethiopia/index.html"), /data-photo="nigerian-suya"|Suya/);
+  assert.match(read("countries/france/index.html"), /"@type":"ItemList"/);
+  assert.match(read("countries/france/index.html"), /Journeys through France/);
+  assert.match(read("sitemap.xml"), /\/countries\/france\//);
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /href="\/countries\/italy\/"/);
+  assert.match(read("sitemap.xml"), /\/countries\/italy\//);
+  assert.match(read("journeys/day-france-italy-argentina/index.html"), /"@type":"ItemList"/);
   assert.match(read("assets/js/days.js"), /Surprise me|data-surprise/);
   assert.match(read("404.html"), /kk-compass-lg/);
   assert.match(read("404.html"), /Off the map/);

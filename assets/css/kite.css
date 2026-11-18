@@ -490,6 +490,7 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--gold-line); }
 .kk-stop h2 { margin: 0.2rem 0 0.45rem; }
 .kk-route { width: 100%; max-width: 42rem; height: auto; display: block; margin: 1rem 0 0.4rem; border: 1px solid var(--gold-line); background: #f4f0e8; }
+.kk-country-map .kk-pin { width: min(100%, 22rem); height: auto; }
 .kk-day-stop { display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: start; }
 .kk-day-media .kk-shot, .kk-day-media .kk-atlas-card { margin: 0; }
 .kk-week, .kk-day-home { margin: 0.4rem 0 1.4rem; padding: 0.85rem; background: var(--paper-2); border: 1px solid var(--gold-line); }
