@@ -3,7 +3,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { cpSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, HELLO_EMAIL, home_hero_photo } from "../site.config.mjs";
+import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 import { escapeHtml, safeJsonLd } from "../assets/js/lib/escape.js";
 import { traditions, recipes, products } from "../content/kite.mjs";
 
@@ -131,8 +131,7 @@ function header(current) {
 }
 
 function contactLine() {
-  if (!HELLO_EMAIL) return "";
-  return `<p class="kk-contact"><a href="mailto:${escapeHtml(HELLO_EMAIL)}">${escapeHtml(HELLO_EMAIL)}</a></p>`;
+  return `<p class="kk-contact">Contact details coming soon.</p>`;
 }
 
 function footInner() {
@@ -217,8 +216,7 @@ function orgLd() {
     "@type": "Organization",
     name: "KiteKitchen",
     url: `${SITE_ORIGIN}/`,
-    logo: `${SITE_ORIGIN}/assets/brand/logo-480.png`,
-    email: HELLO_EMAIL
+    logo: `${SITE_ORIGIN}/assets/brand/logo-480.png`
   };
 }
 
@@ -691,8 +689,7 @@ window.KITE_KITCHEN = ${JSON.stringify({
   SITE_ORIGIN,
   BASE_PATH,
   GA_MEASUREMENT_ID,
-  ADS,
-  HELLO_EMAIL
+  ADS
 }, null, 2)};
 `);
 
@@ -1343,12 +1340,7 @@ write("shop/index.html", page({
       <h1>The Kite Kitchen shop</h1>
       <p class="kk-lede">The Kite Kitchen shop is coming soon. These are mockups and book titles. There is no checkout and no prices.</p>
       ${ad("shop", "inline")}
-      <form class="kk-notify" action="mailto:${HELLO_EMAIL}" method="post" enctype="text/plain">
-        <label for="notify">What should the note say?</label>
-        <input id="notify" name="note" type="text" value="Please tell me when the KiteKitchen shop opens.">
-        <button type="submit">Email ${HELLO_EMAIL}</button>
-      </form>
-      <p class="kk-note">The form opens your email app and writes to ${HELLO_EMAIL}.</p>
+      ${contactLine()}
       <h2>Kitchen goods</h2>
       <div class="kk-products">${shopCards.map((item) => `<article class="kk-card">
           <img src="/assets/brand/products/${item.id}.svg" alt="Original mockup of the ${escapeHtml(item.title)}, a gold drawing on black, not a photograph of a finished product" width="800" height="640">
@@ -1377,7 +1369,8 @@ for (const item of shopCards) {
         <p class="kk-lede">${escapeHtml(item.summary)}</p>
         <p>The picture is an original mockup drawn for this shop. It is not a photograph of a finished product. No price is listed.</p>
         ${ad("product", "inline", true)}
-        <p class="kk-row"><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=${encodeURIComponent(item.title)}">Email about this item</a><a class="kk-button quiet" href="/shop/">All shop items</a></p>
+        ${contactLine()}
+        <p class="kk-row"><a class="kk-button quiet" href="/shop/">All shop items</a></p>
       </article>`
   }));
 }
@@ -1474,8 +1467,7 @@ write("advertise/index.html", page({
     <p>Kite Kitchen will take a small number of sponsors. Slots are labeled Advertisement, kept out of ingredient lists and steps, hidden when a recipe is printed, and capped at about three a page.</p>
     <p>Google AdSense is not connected. The ads config ships with <code>enabled: false</code> and an empty publisher ID. A certified consent platform is required before personalized ads run in the EEA or the UK. The banner on this site is not that certified platform.</p>
     <p>Amazon Associates is not connected either. The <a href="/affiliate/">affiliate disclosure</a> is ready for the day a real link exists. There are no affiliate links now.</p>
-    <p><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=Advertise%20on%20KiteKitchen">Email ${HELLO_EMAIL}</a></p>
-    <p class="kk-note">Write to ${HELLO_EMAIL}.</p>
+    ${contactLine()}
   </article>`
 }));
 
@@ -1496,7 +1488,7 @@ write("privacy/index.html", page({
   path: "/privacy/",
   main: `<article class="kk-wrap"><h1>Privacy</h1>
     <p>This is a plain-language notice, not a lawyer’s privacy policy.</p>
-    <p>The pages are static files. A recipe does not ask you to make an account. The notify buttons open your own email app and send nothing to a KiteKitchen server, because there isn’t one.</p>
+    <p>The pages are static files. A recipe does not ask you to make an account. Nothing on these pages sends a message to a KiteKitchen server, because there isn’t one.</p>
     <h2>Google Analytics</h2>
     <p>Kite Kitchen uses Google Analytics 4 with measurement ID ${GA_MEASUREMENT_ID}. The Analytics library is not requested until you press, type, or scroll, or until a short wait after the page loads, so it does not sit on the first paint.</p>
     <p>Before that library loads, the page sets Google Consent Mode defaults. In the EEA, the UK, and Switzerland, analytics cookies start denied and stay denied until you accept. Elsewhere, analytics storage starts granted unless you reject. If you reject, a later visit keeps analytics storage denied. If you accept, it is granted. The choice is stored in this browser under the key <code>kk-consent</code>.</p>
@@ -1518,7 +1510,7 @@ write("terms/index.html", page({
     <p>KiteKitchen publishes recipes and guides for home cooks. They are not professional food-safety, medical, or dietary advice. Festival pages describe other people’s published sources and then give a home adaptation. Read the note on the recipe before you treat it as the traditional dish.</p>
     <p>The shop is coming soon. A “Coming soon” label is not an offer to sell. No prices are listed. Do not send payment.</p>
     <p>Flying Sauces, Flying Pancakes, and Flying BBQ keep the text imported from those guides.</p>
-    <p>Contact <a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a>.</p>
+    ${contactLine()}
   </article>`
 }));
 
@@ -1527,7 +1519,7 @@ write("guidelines/index.html", page({
   description: "How KiteKitchen handles recipe suggestions. No made-up reviews or ratings.",
   path: "/guidelines/",
   main: `<article class="kk-wrap"><h1>Guidelines</h1>
-    <p>Suggest a correction or a recipe by emailing <a href="mailto:${HELLO_EMAIL}?subject=KiteKitchen%20suggestion">${HELLO_EMAIL}</a>. A suggestion is not published as a review. This site does not collect star ratings.</p>
+    <p>Contact details coming soon. A suggestion is not published as a review. This site does not collect star ratings.</p>
     <p>Do not send anyone else’s private information.</p>
   </article>`
 }));
@@ -1678,9 +1670,9 @@ write("login.html", page({
 
 write("submit.html", page({
   title: "Suggest a recipe · KiteKitchen",
-  description: "Send Kite Kitchen a recipe idea or a correction by email.",
+  description: "How to suggest a recipe. Contact details are not published yet.",
   path: "/submit.html",
-  main: `<article class="kk-wrap"><h1>Suggest a recipe</h1><p><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=Recipe%20suggestion">Email a suggestion</a></p><p class="kk-note">Nothing you send is turned into a rating or a review.</p></article>`
+  main: `<article class="kk-wrap"><h1>Suggest a recipe</h1>${contactLine()}<p class="kk-note">Nothing you send is turned into a rating or a review.</p></article>`
 }));
 
 write("404.html", page({

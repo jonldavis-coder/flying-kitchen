@@ -52,8 +52,9 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("books/index.html"), /kk-cover/);
   assert.match(read("about/index.html"), /logo-full/);
   assert.match(read("about/index.html"), /flying around the world/);
-  assert.match(read("about/index.html"), /<p class="kk-contact"><a href="mailto:hello@kitekitchen.com">hello@kitekitchen.com<\/a><\/p>/);
-  assert.equal((read("about/index.html").match(/class="kk-contact"/g) || []).length, 2);
+  assert.match(read("about/index.html"), /Contact details coming soon/);
+  assert.doesNotMatch(read("about/index.html"), /hello@kitekitchen\.com/);
+  assert.doesNotMatch(read("config.js"), /hello@kitekitchen\.com/);
   assert.match(read("flying-sauces/index.html"), /kk-guide-mast/);
   assert.match(read("flying-sauces/index.html"), /Start here/);
   assert.match(read("flying-pancakes/index.html"), /Start here/);
@@ -130,6 +131,16 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("friends/index.html"), /flying-bbq/);
   assert.match(read("shop/index.html"), /Coming soon/);
   assert.doesNotMatch(read("shop/index.html"), /\$\d/);
+});
+
+test("the unpublished mailbox is not in the build", () => {
+  const files = walkHtml(root);
+  files.push(path.join(root, "config.js"));
+  const hits = [];
+  for (const file of files) {
+    if (fs.readFileSync(file, "utf8").includes("hello@kitekitchen.com")) hits.push(path.relative(root, file));
+  }
+  assert.deepEqual(hits, []);
 });
 
 test("every sitemap url is a file and local links resolve", () => {
