@@ -286,7 +286,7 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /data-units="metric"/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /"recipeYield":"4 servings \(about 1 cup\)"/);
   assert.match(read("assets/js/recipe.js"), /data-units/);
-  assert.match(read("flying-bbq/dishes/afghan-tikka/index.html"), /<li>Cook whole cuts of beef/);
+  assert.match(read("flying-bbq/dishes/afghan-tikka/index.html"), /Cook whole cuts of beef, pork, lamb, or goat to at least 145°F \(63°C\)/);
   assert.match(read("flying-sauces/sauces/coconut-chutney/index.html"), /data-photo="coconut-chutney"/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /assets\/js\/recipe.js/);
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
@@ -465,4 +465,69 @@ test("recipe pages keep ads out of the method and printable", () => {
   assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /kk-place-links/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /noindex/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /flying-sauces\/sauces\/pesto-alla-genovese/);
+});
+
+test("recipe times, temperatures, units, and repeated doneness lines stay consistent", () => {
+  const folders = ["flying-sauces/sauces", "flying-pancakes/pancakes", "flying-bbq/dishes"];
+  const boiler = [
+    "Cook poultry to 165°F (74°C) in the thickest part, not touching bone.",
+    "Cook ground meat to 160°F (71°C).",
+    "Cook whole cuts of beef, pork, lamb, or goat to at least 145°F (63°C) and rest 3 minutes."
+  ];
+  function minutes(label) {
+    if (!label) return null;
+    const hours = label.match(/(\d+)\s*hr/i);
+    const mins = label.match(/(\d+)\s*min/i);
+    if (!hours && !mins) return null;
+    return (hours ? Number(hours[1]) * 60 : 0) + (mins ? Number(mins[1]) : 0);
+  }
+  function durationMinutes(value) {
+    if (!value) return null;
+    const hours = value.match(/(\d+)H/);
+    const mins = value.match(/(\d+)M/);
+    return (hours ? Number(hours[1]) * 60 : 0) + (mins ? Number(mins[1]) : 0);
+  }
+  let checked = 0;
+  for (const folder of folders) {
+    for (const entry of fs.readdirSync(path.join(root, folder))) {
+      const file = path.join(root, folder, entry, "index.html");
+      if (!fs.existsSync(file)) continue;
+      const html = fs.readFileSync(file, "utf8");
+      const name = entry;
+      const info = (html.match(/<ul class="kk-info"[\s\S]*?<\/ul>/) || [""])[0];
+      const bits = [...info.matchAll(/<li>([^<]+)<\/li>/g)].map((match) => match[1]);
+      assert.ok(bits.some((bit) => /Serves\s+\d+/i.test(bit)), `${name} servings`);
+      const prep = bits.find((bit) => /prep/i.test(bit));
+      const cook = bits.find((bit) => /cook/i.test(bit));
+      assert.notEqual(minutes(prep), null, `${name} prep`);
+      assert.notEqual(minutes(cook), null, `${name} cook`);
+      const data = JSON.parse((html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/) || [null, "null"])[1]);
+      const nodes = Array.isArray(data) ? data : [data];
+      const recipe = nodes.find((node) => node && node["@type"] === "Recipe");
+      if (recipe && recipe.totalTime) {
+        assert.equal(durationMinutes(recipe.totalTime), minutes(prep) + minutes(cook), `${name} total time`);
+      }
+      const plain = html.replace(/<[^>]+>/g, " ");
+      const ovenFahrenheit = new Set([225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500]);
+      for (const match of plain.matchAll(/(\d+(?:\.\d+)?)\s*°\s*F\s*\(\s*(\d+(?:\.\d+)?)\s*°\s*C\s*\)/g)) {
+        const fahrenheit = Number(match[1]);
+        const celsius = Number(match[2]);
+        const exact = (fahrenheit - 32) * 5 / 9;
+        const delta = Math.abs(exact - celsius);
+        if (ovenFahrenheit.has(fahrenheit)) {
+          assert.equal(celsius % 5, 0, `${name} ${match[0]} should use a Celsius dial mark`);
+          assert.ok(delta <= 8, `${name} ${match[0]} is ${delta.toFixed(1)}° from ${exact.toFixed(1)}°C`);
+        } else {
+          assert.ok(delta <= 1, `${name} ${match[0]} internal temperature should stay within 1° of ${exact.toFixed(1)}°C`);
+        }
+      }
+      const ingredients = ((html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/) || [null, ""])[1]).replace(/<[^>]+>/g, " ");
+      assert.doesNotMatch(ingredients, /(?<!\d )(?<!\d)(?:1|1\/2|1\/3|1\/4|1\/8|2\/3|3\/4)\s+(?:cups|tablespoons|teaspoons|pounds|ounces)\b/, name);
+      const steps = (html.match(/<ol class="steps">([\s\S]*?)<\/ol>/) || [null, ""])[1];
+      assert.match(steps, /<li>/, `${name} steps`);
+      for (const phrase of boiler) assert.ok(steps.split(phrase).length - 1 <= 1, `${name} ${phrase}`);
+      checked += 1;
+    }
+  }
+  assert.ok(checked >= 800);
 });
