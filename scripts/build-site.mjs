@@ -1348,7 +1348,7 @@ write("index.html", page({
     <div class="kk-wrap kk-home">
       ${featureHome(COLLECTIONS.find((item) => item.slug === HOME_FEATURE))}
       <h2>Featured recipes</h2>
-      <div class="kk-rcards">${featuredItems.map((item) => recipeCard(item)).join("")}</div>
+      <div class="kk-rcards">${photosFirst(featuredItems).map((item) => recipeCard(item)).join("")}</div>
       <h2>A day around the world</h2>
       <article class="kk-day-home">
         <p class="kk-kicker">Journey</p>
@@ -1738,7 +1738,7 @@ for (const [iso, items] of byCountry) {
       </header>
       <p class="kk-meta"><a href="/map/#${iso}">Open ${escapeHtml(place.name)} on the world map</a>${regions.length ? ` · ${regions.map((region) => `<a href="/regions/${regionSlug(region)}/">${escapeHtml(region)}</a>`).join(", ")}` : ""}</p>
       ${landDefs(items)}
-      ${guides.map((group) => `<h2>${escapeHtml(group.section)}</h2><div class="kk-rcards">${group.items.map((item) => placeCard(item)).join("")}</div>`).join("")}
+      ${guides.map((group) => `<h2>${escapeHtml(group.section)}</h2><div class="kk-rcards">${photosFirst(group.items).map((item) => placeCard(item)).join("")}</div>`).join("")}
       ${through.length ? `<h2>Journeys through ${escapeHtml(place.name)}</h2><div class="kk-rcards">${through.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">Journey</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>` : ""}
     </article>`
   }));
@@ -1858,6 +1858,9 @@ function journeyStops(journey) {
     if (!item) throw new Error(`Missing journey recipe ${href}`);
     return { ...item, meal };
   });
+}
+function photosFirst(items) {
+  return items.slice().sort((a, b) => (itemPhoto(a) ? 0 : 1) - (itemPhoto(b) ? 0 : 1));
 }
 function itemPhoto(item) {
   const slug = item.href.split("/").filter(Boolean).at(-1);
@@ -2423,7 +2426,7 @@ function polishRecipes() {
       }
       if (DISH_PHOTO[slug]) {
         const figure = photoFigure(DISH_PHOTO[slug], { eager: true, sizes: "(min-width: 900px) 68vw, 100vw", frame: "kk-shot kk-hero-shot" }).replace("<figure ", `<figure data-photo="${slug}" `);
-        const replaced = html.replace(/<figure\b[^>]*class="(?:photo-hero|pancake-hero|stop-hero|kk-locator-fallback|kk-shot)[^"]*"[^>]*>[\s\S]*?<\/figure>/, figure);
+        const replaced = html.replace(/<figure\b[^>]*class="(?:photo-hero|pancake-hero|stop-hero|kk-locator-fallback|kk-shot|kk-atlas-card)[^"]*"[^>]*>[\s\S]*?<\/figure>/, figure);
         if (replaced !== html) html = replaced;
       } else if (html.includes("/assets/photos/editorial/")) {
         const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
