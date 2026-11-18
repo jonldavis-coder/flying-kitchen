@@ -97,6 +97,7 @@ function headBits(title, description, url, jsonLd, robots, extraHead = "", image
 const NAV = [
   ["/recipes/", "Recipes", "recipes"],
   ["/map/", "World Map", "map"],
+  ["/journeys/", "Journeys", "journeys"],
   ["/flying-sauces/", "Flying Sauces", "sauces"],
   ["/flying-pancakes/", "Flying Pancakes", "pancakes"],
   ["/flying-bbq/", "Flying BBQ", "bbq"],
@@ -142,6 +143,7 @@ function footInner() {
           <a href="/flying-pancakes/">Flying Pancakes</a>
           <a href="/flying-bbq/">Flying BBQ</a>
           <a href="/map/">World Map</a>
+          <a href="/journeys/">Journeys</a>
           <a href="/books/">Cookbooks</a>
           <a href="/shop/">Shop</a>
           <a href="/about/">About</a>
@@ -796,13 +798,15 @@ const EDITORIAL = {
   "japanese-yakitori": { id: "japanese-yakitori", widths: [640], w: 16, h: 9, alt: "Yakitori, grilled chicken on a skewer", caption: "Yakitori.", artist: "Leandro Kibisz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Argentina_-_Misiones_-_Ober%C3%A1_-_Fiesta_del_Inmigrante_2014_-_Gastronom%C3%ADa_-_Colectividad_japonesa_-_Yakitori_y_Tonyaki_con_Kare_Rice.JPG" },
   "paper-dosa": { id: "paper-dosa", widths: [640], w: 16, h: 9, alt: "A large paper dosa rolled on a restaurant table", caption: "Paper dosa.", artist: "Karol Gajda", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Massive_50_Rupee_Paper_Dosa_(4437743263).jpg" },
   "malaysian-satay-ayam": { id: "malaysian-satay-ayam", widths: [640], w: 16, h: 9, alt: "Chicken satay on skewers with peanut sauce", caption: "Chicken satay.", artist: "Elly Suhailee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:CHICKEN_SATAY.jpg" },
-  "roti-canai": { id: "roti-canai", widths: [640], w: 16, h: 9, alt: "Roti canai, a flaky flatbread, on a metal plate", caption: "Roti canai.", artist: "Alpha", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Fluffy_close-up_-_Roti_Canai_-_Mega_Curry_House_MYR1.30_(4573123653).jpg" }
+  "roti-canai": { id: "roti-canai", widths: [640], w: 16, h: 9, alt: "Roti canai, a flaky flatbread, on a metal plate", caption: "Roti canai.", artist: "Alpha", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Fluffy_close-up_-_Roti_Canai_-_Mega_Curry_House_MYR1.30_(4573123653).jpg" },
+  "korean-bulgogi": { id: "bulgogi", widths: [640], w: 16, h: 9, alt: "Bulgogi, marinated beef with sesame, served with rice", caption: "Bulgogi.", artist: "Andy Li", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/", sourceUrl: "https://commons.wikimedia.org/wiki/File:Bulgogi_(Marinated_beef._Served_with_rice)_-_Kogi_2023-09-11.jpg" },
+  "jamaican-jerk-chicken": { id: "jerk", widths: [640], w: 16, h: 9, alt: "Jerk chicken with rice and cabbage", caption: "Jerk chicken.", artist: "naotakem", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", sourceUrl: "https://commons.wikimedia.org/wiki/File:Jerk_Chicken_Plate.jpg" }
 };
 const DISH_PHOTO = Object.fromEntries([
   "bechamel", "bearnaise", "arrabbiata", "adjika", "avgolemono", "chirmol", "guacamole", "haydari", "burro-e-salvia", "cocktail-sauce", "caramel-sauce", "ata-din-din",
   "injera", "masala-dosa", "poffertjes", "potato-latkes", "pupusas", "syrniki", "osaka-okonomiyaki", "arepa-boyacense", "colombian-arepas", "jamaican-festival",
   "choripan", "kalua-pig", "argentine-vacio", "tandoori-chicken", "kansas-city-burnt-ends", "greek-souvlaki", "japanese-yakitori",
-  "paper-dosa", "malaysian-satay-ayam", "roti-canai"
+  "paper-dosa", "malaysian-satay-ayam", "roti-canai", "korean-bulgogi", "jamaican-jerk-chicken"
 ].map((slug) => [slug, EDITORIAL[slug]]));
 const CARD_PHOTO = {
   "/flying-sauces/sauces/pesto-alla-genovese/": EDITORIAL.pesto,
@@ -903,6 +907,50 @@ function browseBlock(items) {
 }
 const homeMap = worldSvg(countries, 960, 480, (iso) => `/map/#${iso}`, true);
 const atlasMap = worldSvg(countries, 960, 480, (iso) => `#${iso}`);
+const JOURNEYS = [
+  {
+    slug: "street-food-asia",
+    title: "A week of street food in Asia",
+    lede: "Seven recipes already filed in Asia. The note under each title is the description on that recipe page.",
+    stops: [
+      "/flying-bbq/dishes/malaysian-satay-ayam/",
+      "/flying-pancakes/pancakes/roti-canai/",
+      "/flying-bbq/dishes/singapore-hawker-satay/",
+      "/flying-pancakes/pancakes/tianjin-jianbing/",
+      "/flying-pancakes/pancakes/osaka-okonomiyaki/",
+      "/flying-bbq/dishes/japanese-yakitori/",
+      "/flying-pancakes/pancakes/masala-dosa/"
+    ]
+  },
+  {
+    slug: "fire-in-the-americas",
+    title: "Fire in the Americas",
+    lede: "Six recipes already filed in the Americas. The note under each title is the description on that recipe page.",
+    stops: [
+      "/flying-bbq/dishes/argentine-asado/",
+      "/flying-bbq/dishes/choripan/",
+      "/flying-bbq/dishes/argentine-vacio/",
+      "/flying-bbq/dishes/kansas-city-burnt-ends/",
+      "/flying-bbq/dishes/eastern-nc-whole-hog/",
+      "/flying-bbq/dishes/jamaican-jerk-chicken/"
+    ]
+  },
+  {
+    slug: "seven-batters",
+    title: "Seven batters",
+    lede: "Seven pancake recipes from seven places already on this site. The note under each title is the description on that recipe page.",
+    stops: [
+      "/flying-pancakes/pancakes/injera/",
+      "/flying-pancakes/pancakes/appam/",
+      "/flying-pancakes/pancakes/crepes-suzette/",
+      "/flying-pancakes/pancakes/poffertjes/",
+      "/flying-pancakes/pancakes/potato-latkes/",
+      "/flying-pancakes/pancakes/pupusas/",
+      "/flying-pancakes/pancakes/syrniki/"
+    ]
+  }
+];
+
 const featuredItems = [
   "/flying-sauces/sauces/pesto-alla-genovese/",
   "/flying-pancakes/pancakes/crepes-suzette/",
@@ -948,6 +996,9 @@ write("index.html", page({
         ${guideCard("/flying-pancakes/", "Flying Pancakes", pancakeCount, "Flying Pancakes", "Batters, griddles, and the pancakes that travel with them.", EDITORIAL.crepes)}
         ${guideCard("/flying-bbq/", "Flying BBQ", bbqCount, "Flying BBQ", "Fire, smoke, and the dishes cooked over them.", EDITORIAL.hog)}
       </div>
+      <h2>Journeys</h2>
+      <p class="kk-meta">Reading orders made from recipes already on this site. Each note is the description on that recipe.</p>
+      <div class="kk-rcards">${JOURNEYS.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.length} recipes</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>
       <h2>World map</h2>
       <p class="kk-meta">Shaded countries have recipes. Open one to see what is cooked there.</p>
       ${plate(homeMap, "Atlas plate")}
@@ -1329,6 +1380,41 @@ for (const rel of legacy) {
   write(rel, html);
 }
 
+for (const journey of JOURNEYS) {
+  const stops = journey.stops.map((href) => {
+    const item = catalog.find((entry) => entry.href === href);
+    if (!item) throw new Error(`Missing journey recipe ${href}`);
+    return item;
+  });
+  const list = stops.map((item, index) => `<li class="kk-stop"><p class="kk-kicker">Recipe ${index + 1}</p><h2><a href="${item.href}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.text)}</p><p class="kk-meta">${escapeHtml([item.country, item.region, item.section].filter(Boolean).join(" · "))}</p></li>`).join("");
+  write(`journeys/${journey.slug}/index.html`, page({
+    title: `${journey.title} · Kite Kitchen`,
+    description: journey.lede,
+    path: `/journeys/${journey.slug}/`,
+    image: "/assets/og/journeys.jpg",
+    current: "journeys",
+    main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/journeys/", "Journeys"], [`/journeys/${journey.slug}/`, journey.title]])}
+      <p class="kk-kicker">Journey</p>
+      <h1>${escapeHtml(journey.title)}</h1>
+      <p class="kk-lede">${escapeHtml(journey.lede)}</p>
+      <ol class="kk-stops">${list}</ol>
+    </article>`
+  }));
+}
+write("journeys/index.html", page({
+  title: "Journeys · Kite Kitchen",
+  description: "Reading orders made from recipes already on Kite Kitchen. Each note is the description on that recipe.",
+  path: "/journeys/",
+  image: "/assets/og/journeys.jpg",
+  current: "journeys",
+  main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/journeys/", "Journeys"]])}
+    <p class="kk-kicker">Reading orders</p>
+    <h1>Journeys</h1>
+    <p class="kk-lede">These are short reading orders through recipes already published here. Nothing in the notes is new. Each line is the description on that recipe page.</p>
+    <div class="kk-rcards">${JOURNEYS.map((journey) => `<article class="kk-rcard"><p class="kk-kicker">${journey.stops.length} recipes</p><h3><a href="/journeys/${journey.slug}/">${escapeHtml(journey.title)}</a></h3><p>${escapeHtml(journey.lede)}</p></article>`).join("")}</div>
+  </div>`
+}));
+
 const searchItems = catalog.map((item) => {
   const slug = item.href.split("/").filter(Boolean).at(-1);
   const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
@@ -1501,6 +1587,7 @@ const ogJobs = [
   { out: "assets/og/map.jpg", title: "World map", kicker: "Kite Kitchen", line: "Shaded countries have recipes." },
   { out: "assets/og/shop.jpg", title: "The shop is coming soon", kicker: "Kite Kitchen", line: "No prices and no checkout." },
   { out: "assets/og/search.jpg", title: "Search", kicker: "Kite Kitchen", line: "A dish, a country, or a guide." },
+  { out: "assets/og/journeys.jpg", title: "Journeys", kicker: "Kite Kitchen", line: "Reading orders through recipes already on this site." },
   { out: "assets/og/lost.jpg", title: "That page is not here", kicker: "Off the map", line: "The route does not match a recipe." }
 ];
 for (const item of catalog) {

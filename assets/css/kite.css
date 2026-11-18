@@ -486,6 +486,10 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
 .kk-hit .kk-meta { display: block; margin-top: 0.15rem; }
 .kk-empty { margin: 0.8rem 0; padding: 1rem 1.1rem; border: 1px dashed var(--gold-line); background: var(--paper-2); }
 .kk-missing { max-width: 40rem; }
+.kk-stops { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.kk-stop { padding: 1.35rem 0; border-top: 1px solid var(--gold-line); }
+.kk-stop h2 { margin: 0.2rem 0 0.45rem; }
+.kk-stop p { max-width: 40rem; margin: 0.35rem 0 0; }
 .kk-compass-lg { display: block; width: 6rem; height: 6rem; margin: 0.4rem 0 0.8rem; }
 #kk-land { position: absolute; width: 0; height: 0; overflow: hidden; }
 .photo-hero img, .hero-media img { border: 1px solid var(--gold-line); }
@@ -523,7 +527,17 @@ h3 { font-size: 1.65rem; margin: 0 0 0.35rem; }
   .kk-word { font-size: 1.45rem; letter-spacing: 0.04em; }
   .kk-mark { width: 36px; height: 36px; }
   .kk-section-name { flex-basis: 100%; }
-  .kk-hero-inner { padding: 2.2rem 1.1rem 1.8rem; }
+  .kk-hero-inner { padding: 2rem 1.05rem 1.5rem; }
+  .kk-hero h1 { font-size: clamp(2.55rem, 12vw, 3.3rem); }
+  .kk-wrap { padding: 1.15rem 1.05rem 2.8rem; }
+  .kk-lede, .dek { font-size: 1.12rem; line-height: 1.5; }
+  .kk-search { border-radius: 1.25rem; }
+  .kk-search input { min-width: 0; }
+  .kk-info { flex-wrap: wrap; row-gap: 0.35rem; }
+  .kk-info li { border-right: 0; padding: 0 0.85rem 0 0; }
+  .kk-caption, .photo-hero figcaption, .stop-hero figcaption, .pancake-hero figcaption, .photo-credit { font-size: 0.86rem; line-height: 1.45; }
+  .kk-hit { grid-template-columns: 5.4rem minmax(0, 1fr); }
+  .kk-hit strong { font-size: 1.2rem; }
   .kk-foot { grid-template-columns: 1fr; }
   .kk-crest { width: 72px; }
 }
