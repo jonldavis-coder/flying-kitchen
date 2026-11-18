@@ -16,8 +16,8 @@ export const ADS = {
   publisherId: ""
 };
 
-// Placeholder mailbox. Jonathan still needs to confirm it receives mail.
-export const HELLO_EMAIL = "hello@kitekitchen.com";
+// No public mailbox is set up. Leave this empty so the build cannot publish an address.
+export const HELLO_EMAIL = "";
 
 // home_hero_photo: set false to remove the photograph under the home search.
 export const home_hero_photo = false;

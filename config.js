@@ -6,6 +6,5 @@ window.KITE_KITCHEN = {
   "ADS": {
     "enabled": false,
     "publisherId": ""
-  },
-  "HELLO_EMAIL": "hello@kitekitchen.com"
+  }
 };

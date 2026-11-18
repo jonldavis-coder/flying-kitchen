@@ -52,6 +52,18 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("books/index.html"), /kk-cover/);
   assert.match(read("about/index.html"), /logo-full/);
   assert.match(read("about/index.html"), /flying around the world/);
+  assert.match(read("about/index.html"), /Contact details coming soon/);
+  assert.doesNotMatch(read("about/index.html"), /hello@kitekitchen\.com/);
+  assert.doesNotMatch(read("config.js"), /hello@kitekitchen\.com/);
+  assert.match(read("flying-sauces/index.html"), /kk-guide-mast/);
+  assert.match(read("flying-sauces/index.html"), /Start here/);
+  assert.match(read("flying-pancakes/index.html"), /Start here/);
+  assert.match(read("flying-bbq/index.html"), /Start here/);
+  assert.match(read("books/index.html"), /kk-catalog/);
+  assert.match(read("books/index.html"), /class="dek"/);
+  assert.match(read("books/index.html"), /\d+ recipes/);
+  assert.equal((read("books/index.html").match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
+  assert.doesNotMatch(read("books/index.html"), /\$\d/);
   assert.match(read("journeys/index.html"), /A week of street food in Asia/);
   assert.match(read("journeys/street-food-asia/index.html"), /Turmeric chicken skewers with a warm peanut sauce/);
   assert.match(read("cookbooks/index.html"), /url=\/books\//);
@@ -119,6 +131,16 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("friends/index.html"), /flying-bbq/);
   assert.match(read("shop/index.html"), /Coming soon/);
   assert.doesNotMatch(read("shop/index.html"), /\$\d/);
+});
+
+test("the unpublished mailbox is not in the build", () => {
+  const files = walkHtml(root);
+  files.push(path.join(root, "config.js"));
+  const hits = [];
+  for (const file of files) {
+    if (fs.readFileSync(file, "utf8").includes("hello@kitekitchen.com")) hits.push(path.relative(root, file));
+  }
+  assert.deepEqual(hits, []);
 });
 
 test("every sitemap url is a file and local links resolve", () => {
