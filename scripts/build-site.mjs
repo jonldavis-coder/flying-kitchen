@@ -1191,21 +1191,26 @@ const COLLECTIONS = [
   {
     slug: "holiday-table",
     title: "Holiday table around the world",
-    when: "Thanksgiving, November 26",
-    lede: "A reading order for the week of Thanksgiving, November 26. Every recipe is already on this site. Each page already describes the dish as food for a holiday or a celebration. The note under each title is that recipe’s own description.",
+    when: "Thanksgiving, through November 26",
+    lede: "The Thanksgiving reading order, through November 26. Cranberry sauce is the American Thanksgiving sauce. Bread sauce is the British sauce served with roast turkey. The potato pancakes and the orange crepes are the other plates. Every recipe is already on this site.",
     stops: [
       { href: "/flying-sauces/sauces/cranberry-sauce/", seat: "Thanksgiving table" },
-      { href: "/flying-bbq/dishes/hickory-smoked-turkey/", seat: "Holiday roast" },
+      { href: "/flying-sauces/sauces/bread-sauce/", seat: "With roast turkey" },
+      { href: "/flying-pancakes/pancakes/placki-ziemniaczane/", seat: "Potato pancakes" },
+      { href: "/flying-pancakes/pancakes/crepes-suzette/", seat: "Orange crepes" }
+    ]
+  },
+  {
+    slug: "december-table",
+    title: "Holiday table around the world",
+    when: "Through January 1",
+    lede: "The winter-holiday reading order, from November 27 through January 1. Each page already places the dish at a winter holiday: a Norwegian Christmas lamb, Danish Advent pancakes, the British Christmas sauce, Hanukkah latkes, and a Georgian New Year sauce.",
+    stops: [
       { href: "/flying-sauces/sauces/bread-sauce/", seat: "Christmas and Sunday roast sauce" },
       { href: "/flying-bbq/dishes/norwegian-pinnekjott/", seat: "Christmas dish" },
-      { href: "/flying-pancakes/pancakes/portuguese-rabanadas/", seat: "Christmas fried bread" },
       { href: "/flying-pancakes/pancakes/aebleskiver/", seat: "Advent and Christmas" },
-      { href: "/flying-pancakes/pancakes/goan-alebele/", seat: "Served at Christmas" },
-      { href: "/flying-sauces/sauces/satsivi/", seat: "New Year" },
-      { href: "/flying-bbq/dishes/moroccan-mechoui/", seat: "Eid al-Adha" },
-      { href: "/flying-bbq/dishes/omani-shuwa/", seat: "Cooked for Eid" },
-      { href: "/flying-pancakes/pancakes/turnip-cake/", seat: "Lunar New Year" },
-      { href: "/flying-pancakes/pancakes/persian-kuku-sabzi/", seat: "Nowruz" }
+      { href: "/flying-pancakes/pancakes/potato-latkes/", seat: "Hanukkah" },
+      { href: "/flying-sauces/sauces/satsivi/", seat: "New Year" }
     ]
   },
   {
@@ -1309,6 +1314,11 @@ function collectionPlate(stops) {
 
 function featureHome(collection) {
   const stops = collectionStops(collection);
+  const places = routePlaces(stops);
+  const names = orderedCountries(stops);
+  const plate = places.length >= 2
+    ? `<figure class="kk-shot kk-route-shot">${routeSvg(places, "Map of the countries on this table")}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(names.join(" · "))}.</span><span class="kk-credit">Map plate. The marks follow the reading order.</span></figcaption></figure>`
+    : "";
   return `<section class="kk-feature" data-feature="${escapeHtml(collection.slug)}">
         <div>
           <p class="kk-kicker">Now</p>
@@ -1317,6 +1327,7 @@ function featureHome(collection) {
           <p class="kk-meta">${stops.length} recipes${collection.when ? ` · ${escapeHtml(collection.when)}` : ""}</p>
           <p class="kk-meta"><a href="/collections/">All collections</a></p>
         </div>
+        ${plate}
       </section>`;
 }
 
@@ -2058,7 +2069,7 @@ write("collections/index.html", page({
     <header class="kk-mast">
       <p class="kk-kicker">Reading orders</p>
       <h1 class="kk-display">Collections</h1>
-      <p class="dek">Recipes already on this site. The home page features one collection for the date the site was built: the holiday table through November 30, winter warmers from December through February, breakfast from March through May, street food from June through August, and the weeknight list from September through October.</p>
+      <p class="dek">Recipes already on this site. The home page features one collection for the date the site was built: the Thanksgiving table through November 26, the December holiday table through January 1, winter warmers from January 2 through February, breakfast from March through May, street food from June through August, and the weeknight list from September through October.</p>
     </header>
     <div class="kk-catalog kk-collection-catalog">${COLLECTIONS.map((collection) => {
       const stops = collectionStops(collection);

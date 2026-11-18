@@ -113,9 +113,15 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.match(read("credits/index.html"), /Ssamjang\./);
   assert.match(read("flying-pancakes/pancakes/banh-xeo/index.html"), /data-photo="banh-xeo"/);
   assert.match(read("assets/css/kite.css"), /aspect-ratio: 3 \/ 2/);
+  assert.equal(featureForDate(new Date("2026-11-01T00:30:00Z")), "holiday-table");
   assert.equal(featureForDate(new Date("2026-11-18T15:00:00Z")), "holiday-table");
-  assert.equal(featureForDate(new Date("2026-11-30T23:00:00Z")), "holiday-table");
-  assert.equal(featureForDate(new Date("2026-12-01T00:30:00Z")), "winter-warmers");
+  assert.equal(featureForDate(new Date("2026-11-26T23:00:00Z")), "holiday-table");
+  assert.equal(featureForDate(new Date("2026-11-27T00:30:00Z")), "december-table");
+  assert.equal(featureForDate(new Date("2026-11-30T23:00:00Z")), "december-table");
+  assert.equal(featureForDate(new Date("2026-12-01T00:30:00Z")), "december-table");
+  assert.equal(featureForDate(new Date("2026-12-25T12:00:00Z")), "december-table");
+  assert.equal(featureForDate(new Date("2027-01-01T23:00:00Z")), "december-table");
+  assert.equal(featureForDate(new Date("2027-01-02T00:30:00Z")), "winter-warmers");
   assert.equal(featureForDate(new Date("2027-02-28T12:00:00Z")), "winter-warmers");
   assert.equal(featureForDate(new Date("2027-03-01T12:00:00Z")), "breakfast");
   assert.equal(featureForDate(new Date("2026-07-04T12:00:00Z")), "street-food");
@@ -125,12 +131,14 @@ test("origin, domain, analytics, and ads stay honest", () => {
   const homeHtml = read("index.html");
   const homeFeature = homeHtml.slice(homeHtml.indexOf("kk-feature"), homeHtml.indexOf("Featured recipes"));
   const homeFeatured = homeHtml.slice(homeHtml.indexOf("Featured recipes"), homeHtml.indexOf("A day around the world"));
-  assert.doesNotMatch(homeFeature, /Map plate|kk-atlas-card/);
+  assert.match(homeFeature, /Map plate/);
+  assert.match(homeFeature, /kk-route/);
+  assert.doesNotMatch(homeFeature, /kk-atlas-card/);
   assert.match(homeFeatured, /\/assets\/photos\/editorial\//);
   assert.doesNotMatch(homeFeatured, /kk-atlas-card/);
-  assert.ok(homeHtml.indexOf("Featured recipes") < homeHtml.indexOf("Map plate"));
   assert.match(read("collections/index.html"), /kk-collection-catalog/);
-  assert.match(read("collections/index.html"), /through November 30/);
+  assert.match(read("collections/index.html"), /through November 26/);
+  assert.match(read("collections/index.html"), /through January 1/);
   assert.match(read("collections/index.html"), /Breakfast around the world/);
   assert.match(read("collections/index.html"), /Street food of the world/);
   assert.match(read("collections/index.html"), /Winter warmers/);
@@ -232,7 +240,7 @@ test("origin, domain, analytics, and ads stay honest", () => {
     assert.equal(hrefs.length, cards.length, name);
     for (const href of hrefs) assert.equal(dishPhotoSlugs.has(href.split("/").filter(Boolean).at(-1)), true, href);
   }
-  for (const name of ["holiday-table", "weeknight", "breakfast", "street-food", "winter-warmers"]) {
+  for (const name of ["holiday-table", "december-table", "weeknight", "breakfast", "street-food", "winter-warmers"]) {
     const page = read(`collections/${name}/index.html`);
     const cards = page.match(/<article class="kk-rcard">[\s\S]*?<\/article>/g) || [];
     assert.ok(cards.length >= 3, name);
