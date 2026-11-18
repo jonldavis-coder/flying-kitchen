@@ -64,6 +64,38 @@
     });
   }
 
+  var units = "us";
+  try { units = localStorage.getItem("kk-units") === "metric" ? "metric" : "us"; } catch (error) { units = "us"; }
+
+  function roundMetric(value, unit) {
+    if (unit === "ml" || unit === "g") {
+      if (value >= 100) return Math.round(value / 5) * 5;
+      if (value >= 15) return Math.round(value);
+      return Math.round(value * 2) / 2;
+    }
+    return Math.round(value);
+  }
+
+  function toMetric(text) {
+    return text.replace(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:\.\d+)?)\s*(fl\.?\s*oz|fluid ounces?|tablespoons?|teaspoons?|cups?|pounds?|ounces?|°\s*F|degrees?\s+F|inches?)/gi, function (all, num, unit, offset) {
+      if (/°|degrees/i.test(unit) && /°\s*C/i.test(text.slice(offset, offset + all.length + 14))) return all;
+      var value = parseAmount(num);
+      var key = unit.toLowerCase().replace(/\./g, "");
+      var amount;
+      var name;
+      if (key === "teaspoon" || key === "teaspoons") { amount = value * 5; name = "ml"; }
+      else if (key === "tablespoon" || key === "tablespoons") { amount = value * 15; name = "ml"; }
+      else if (key === "cup" || key === "cups") { amount = value * 240; name = "ml"; }
+      else if (key === "fl oz" || key === "fluid ounce" || key === "fluid ounces") { amount = value * 30; name = "ml"; }
+      else if (key === "pound" || key === "pounds") { amount = value * 454; name = "g"; }
+      else if (key === "ounce" || key === "ounces") { amount = value * 28; name = "g"; }
+      else if (key === "inch" || key === "inches") { amount = value * 2.54; name = "cm"; }
+      else { amount = (value - 32) * 5 / 9; name = "°C"; }
+      var shown = name === "cm" ? (Math.round(amount * 10) / 10) : name === "°C" ? Math.round(amount) : roundMetric(amount, name);
+      return shown + " " + name;
+    });
+  }
+
   function render(next) {
     var servings = Math.max(1, Math.min(24, next));
     count.textContent = servings + (servings === 1 ? " serving" : " servings");
@@ -71,11 +103,26 @@
     list.querySelectorAll("li").forEach(function (item) {
       var box = item.querySelector(".kk-check");
       var text = scale(item.dataset.base, factor);
+      if (units === "metric") text = toMetric(text);
       item.textContent = "";
       if (box) item.appendChild(box);
       item.appendChild(document.createTextNode(text));
     });
+    document.querySelectorAll(".kk-units [data-units]").forEach(function (button) {
+      var on = button.getAttribute("data-units") === units;
+      button.classList.toggle("is-on", on);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
+
+  document.querySelectorAll(".kk-units [data-units]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      units = button.getAttribute("data-units");
+      try { localStorage.setItem("kk-units", units); } catch (error) { /* keep the choice for this page */ }
+      var current = Number((count.textContent.match(/(\d+)/) || [0, base])[1]);
+      render(current);
+    });
+  });
 
   control.addEventListener("click", function (event) {
     var step = event.target.closest("[data-serves]");
