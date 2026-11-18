@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M471.6 117.6 L472.5 125.8 L488.3 126.8 L508.6 128.2 L513.1 145.6 L496.8 154.7 L462.3 137.1" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="471.6" cy="117.6" r="5" fill="#8c2f1e"/><circle cx="472.5" cy="125.8" r="5" fill="#8c2f1e"/><circle cx="488.3" cy="126.8" r="5" fill="#8c2f1e"/><circle cx="508.6" cy="128.2" r="5" fill="#8c2f1e"/><circle cx="513.1" cy="145.6" r="5" fill="#8c2f1e"/><circle cx="496.8" cy="154.7" r="5" fill="#8c2f1e"/><circle cx="462.3" cy="137.1" r="5" fill="#8c2f1e"/>
+  <text x="479.6" y="109.6" font-family="Georgia, serif" font-size="12">Turkey</text><text x="496.3" y="118.8" font-family="Georgia, serif" font-size="12">Iraq</text><text x="521.1" y="137.6" font-family="Georgia, serif" font-size="12">Oman</text><text x="470.3" y="129.1" font-family="Georgia, serif" font-size="12">Egypt</text>
+</svg>

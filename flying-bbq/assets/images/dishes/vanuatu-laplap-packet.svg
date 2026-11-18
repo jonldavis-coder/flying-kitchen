@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title">
+  <title id="title">Illustration of Vanuatu Laplap Packet</title>
+  <rect width="800" height="520" fill="#f7f1e4"/>
+  <rect x="18" y="18" width="764" height="484" fill="none" stroke="#e2b007" stroke-width="16"/>
+  <rect x="42" y="42" width="716" height="436" fill="#1e4d5c"/>
+  <path d="M80 430c80-40 140-20 200-60s120-30 180 10 140 20 220-20" fill="none" stroke="#e2b007" stroke-width="3" opacity="0.45"/>
+  <circle cx="150" cy="120" r="28" fill="none" stroke="#e2b007" stroke-width="3"/>
+  <path d="M150 96v16M150 140v-8M128 120h12M172 120h-8" stroke="#e2b007" stroke-width="2"/>
+  <ellipse cx="410" cy="330" rx="150" ry="36" fill="#142f38"/>
+      <path d="M280 330c20-70 40-120 130-120s110 50 130 120" fill="#6e4b32"/>
+      <ellipse cx="410" cy="318" rx="70" ry="16" fill="#1c1915"/>
+  <rect x="70" y="360" width="120" height="14" fill="#6e4b32" opacity="0.85"/>
+</svg>

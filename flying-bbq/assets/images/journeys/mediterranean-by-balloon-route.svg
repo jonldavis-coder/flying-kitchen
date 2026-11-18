@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M391.1 121.2 L402.5 113.9 L394.2 111.9 L381.5 118.0 L446.1 119.9 L471.4 120.8" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="391.1" cy="121.2" r="5" fill="#8c2f1e"/><circle cx="402.5" cy="113.9" r="5" fill="#8c2f1e"/><circle cx="394.2" cy="111.9" r="5" fill="#8c2f1e"/><circle cx="381.5" cy="118.0" r="5" fill="#8c2f1e"/><circle cx="446.1" cy="119.9" r="5" fill="#8c2f1e"/><circle cx="471.4" cy="120.8" r="5" fill="#8c2f1e"/>
+  <text x="399.1" y="113.2" font-family="Georgia, serif" font-size="12">Spain</text><text x="410.5" y="105.9" font-family="Georgia, serif" font-size="12">Spain</text><text x="402.2" y="103.9" font-family="Georgia, serif" font-size="12">Spain</text><text x="389.5" y="110.0" font-family="Georgia, serif" font-size="12">Portugal</text><text x="454.1" y="111.9" font-family="Georgia, serif" font-size="12">Greece</text><text x="479.4" y="112.8" font-family="Georgia, serif" font-size="12">Turkey</text>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <rect width="600" height="800" fill="#4a121c"/>
+  <g fill="none" stroke="#2a0a10" stroke-width="1.2" opacity="0.5">
+    <path d="M0 40c40-8 70 10 120 4s70-12 110-2 80 10 150 0 90-8 220 4"/>
+    <path d="M0 90c50 8 80-10 140-2s80 12 130 2 90-8 200 4"/>
+    <path d="M0 150c36-6 90 12 150 2s80-10 140-2 100 8 210 0"/>
+    <path d="M0 220c44 6 70-12 130-2s90 10 140 2 80-8 230 4"/>
+    <path d="M0 300c30-8 100 10 160 2s70-10 120-2 90 8 200 0"/>
+    <path d="M0 380c48 6 80-10 140-2s80 12 150 2 70-6 210 4"/>
+    <path d="M0 460c40-6 90 10 150 2s80-8 130 0 90 6 220-2"/>
+    <path d="M0 540c32 8 100-10 160 0s70 8 140 2 80-6 200 2"/>
+    <path d="M0 620c46-6 80 12 150 2s90-10 140-2 80 8 210 0"/>
+    <path d="M0 700c28 6 90-8 150 2s80 6 140 0 90-4 210 2"/>
+  </g>
+  <g fill="#1a100e">
+    <circle cx="48" cy="760" r="5"/>
+    <circle cx="70" cy="754" r="3.5"/>
+    <circle cx="90" cy="762" r="4.2"/>
+    <circle cx="112" cy="756" r="3"/>
+  </g>
+  <g fill="none" stroke="#f6efe6" stroke-width="3" opacity="0.28">
+    <path d="M80 640c20-30 10-70 30-100"/>
+    <path d="M120 660c16-24 8-54 22-80"/>
+  </g>
+  <rect x="18" y="18" width="564" height="764" fill="none" stroke="#e07a3d" stroke-width="16"/>
+  <text x="48" y="90" fill="#e8a05a" font-family="Georgia, serif" font-size="18" letter-spacing="3">Flying BBQ</text>
+  <text x="48" y="210" fill="#f6efe6" font-family="Georgia, serif" font-size="34">Sides of the Pit</text>
+  <g transform="translate(430, 620)"><path d="M8 36l40-10-18-22 6 24 20 4-24 6 18 22-6-24z" fill="#e2b007"/></g>
+  <text x="48" y="720" fill="#f6efe6" font-family="Georgia, serif" font-size="16">Field book · Not a ranking</text>
+</svg>

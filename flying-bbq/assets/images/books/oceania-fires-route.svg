@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M669.9 223.4 L748.9 244.9 L400.0 207.4 L700.3 190.5 L738.2 205.0" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="669.9" cy="223.4" r="5" fill="#8c2f1e"/><circle cx="748.9" cy="244.9" r="5" fill="#8c2f1e"/><circle cx="400.0" cy="207.4" r="5" fill="#8c2f1e"/><circle cx="700.3" cy="190.5" r="5" fill="#8c2f1e"/><circle cx="738.2" cy="205.0" r="5" fill="#8c2f1e"/>
+  <text x="677.9" y="215.4" font-family="Georgia, serif" font-size="12">Australia</text><text x="756.9" y="236.9" font-family="Georgia, serif" font-size="12">New Zealand</text><text x="408.0" y="199.4" font-family="Georgia, serif" font-size="12">Fiji</text><text x="708.3" y="182.5" font-family="Georgia, serif" font-size="12">Papua New Guinea</text><text x="746.2" y="197.0" font-family="Georgia, serif" font-size="12">Vanuatu</text>
+</svg>

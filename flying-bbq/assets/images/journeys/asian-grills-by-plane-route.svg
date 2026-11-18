@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M577.2 109.9 L635.4 116.2 L629.0 143.0 L656.9 120.4 L682.6 122.9 L612.0 155.6 L605.8 175.2 L650.5 163.5" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="577.2" cy="109.9" r="5" fill="#8c2f1e"/><circle cx="635.4" cy="116.2" r="5" fill="#8c2f1e"/><circle cx="629.0" cy="143.0" r="5" fill="#8c2f1e"/><circle cx="656.9" cy="120.4" r="5" fill="#8c2f1e"/><circle cx="682.6" cy="122.9" r="5" fill="#8c2f1e"/><circle cx="612.0" cy="155.6" r="5" fill="#8c2f1e"/><circle cx="605.8" cy="175.2" r="5" fill="#8c2f1e"/><circle cx="650.5" cy="163.5" r="5" fill="#8c2f1e"/>
+  <text x="585.2" y="101.9" font-family="Georgia, serif" font-size="12">China</text><text x="637.0" y="135.0" font-family="Georgia, serif" font-size="12">China</text><text x="690.6" y="114.9" font-family="Georgia, serif" font-size="12">Japan</text><text x="613.8" y="167.2" font-family="Georgia, serif" font-size="12">Malaysia</text><text x="658.5" y="155.5" font-family="Georgia, serif" font-size="12">Philippines</text>
+</svg>

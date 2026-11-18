@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title">
+  <title id="title">Illustration of Haitian Boukannen</title>
+  <rect width="800" height="520" fill="#f7f1e4"/>
+  <rect x="18" y="18" width="764" height="484" fill="none" stroke="#e2b007" stroke-width="16"/>
+  <rect x="42" y="42" width="716" height="436" fill="#1e4d5c"/>
+  <path d="M80 430c80-40 140-20 200-60s120-30 180 10 140 20 220-20" fill="none" stroke="#e2b007" stroke-width="3" opacity="0.45"/>
+  <circle cx="150" cy="120" r="28" fill="none" stroke="#e2b007" stroke-width="3"/>
+  <path d="M150 96v16M150 140v-8M128 120h12M172 120h-8" stroke="#e2b007" stroke-width="2"/>
+  <rect x="240" y="320" width="320" height="18" fill="#f7f1e4"/>
+    <rect x="250" y="338" width="300" height="28" rx="3" fill="#142f38"/>
+    <circle cx="464" cy="348" r="6" fill="#1c1915"/><circle cx="301" cy="348" r="7" fill="#1c1915"/><circle cx="338" cy="348" r="8" fill="#1c1915"/><circle cx="375" cy="348" r="6" fill="#1c1915"/><circle cx="412" cy="348" r="7" fill="#1c1915"/>
+    <path d="M390 252c8-28 28-36 24-62 18 16 28 40 18 62 16-8 20-28 10-40 18 22 8 48-10 56-8 20-28 28-42 16z" fill="#e2b007"/>
+  <path d="M400 260c4-14 14-18 12-32 8 10 10 22 4 30z" fill="#f7f1e4"/>
+  <rect x="70" y="360" width="120" height="14" fill="#e07a2f" opacity="0.85"/>
+</svg>

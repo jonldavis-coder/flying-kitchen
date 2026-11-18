@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jonldavis-coder.github.io/flying-bbq/sitemap.xml

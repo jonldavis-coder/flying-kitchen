@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M279.7 234.8 L282.6 231.7 L253.9 260.5 L257.1 233.5 L296.4 228.1" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="279.7" cy="234.8" r="5" fill="#8c2f1e"/><circle cx="282.6" cy="231.7" r="5" fill="#8c2f1e"/><circle cx="253.9" cy="260.5" r="5" fill="#8c2f1e"/><circle cx="257.1" cy="233.5" r="5" fill="#8c2f1e"/><circle cx="296.4" cy="228.1" r="5" fill="#8c2f1e"/>
+  <text x="287.7" y="226.8" font-family="Georgia, serif" font-size="12">Argentina</text><text x="290.6" y="223.7" font-family="Georgia, serif" font-size="12">Uruguay</text><text x="261.9" y="252.5" font-family="Georgia, serif" font-size="12">Argentina</text><text x="265.1" y="225.5" font-family="Georgia, serif" font-size="12">Chile</text><text x="304.4" y="220.1" font-family="Georgia, serif" font-size="12">Brazil</text>
+</svg>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/flying-bbq/">
+  <title>Route map · Flying BBQ · KiteKitchen</title>
+  <meta name="description" content="A route map of barbecue journeys. Vehicle icons mark each leg. Countries are shaded by how many stops name them.">
+  <meta name="theme-color" content="#141210">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <link rel="canonical" href="https://kitekitchen.com/flying-bbq/map/">
+  
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css"><meta property="og:title" content="Route map">
+  <meta property="og:description" content="A world route map of barbecue journeys.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kitekitchen.com/flying-bbq/map/">
+  <meta property="og:image" content="https://kitekitchen.com/flying-bbq/assets/images/hero.svg">
+  <link rel="stylesheet" href="/assets/css/kite.css">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png">
+</head>
+<body data-page="map" data-print="full">
+<div class="kk-bar" id="kk-bar">
+    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="28" height="28"><span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag">Flying around the world, one simple recipe at a time</span></span></a>
+    <p class="kk-section-name">Flying BBQ</p>
+    <nav aria-label="KiteKitchen"><a href="/recipes/">Recipes</a><a href="/map/">World Map</a><a href="/flying-sauces/">Flying Sauces</a><a href="/flying-pancakes/">Flying Pancakes</a><a href="/flying-bbq/" aria-current="page">Flying BBQ</a><a href="/shop/">Shop</a><a href="/about/">About</a></nav>
+  </div>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="smoke" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="frame">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="8" fill="#e8a05a"/>
+            <rect x="6" y="6" width="52" height="52" fill="#2a1814"/>
+            <circle cx="18" cy="46" r="3" fill="#1a100e"/>
+            <circle cx="28" cy="48" r="2.2" fill="#3a2a24"/>
+            <circle cx="36" cy="45" r="2.6" fill="#1a100e"/>
+            <path d="M34 40c2-8 8-10 7-16 5 4 7 10 4 16 4-2 5-8 2-12 5 6 2 14-3 16-2 5-8 7-10 4z" fill="#e07a3d"/>
+            <path d="M36 38c1-4 4-5 3-8 2 2 2 5 1 7z" fill="#f6efe6"/>
+          </svg>
+          <span class="brand-text">
+            <span class="brand-kicker">Field guide</span>
+            <span class="brand-name">Flying BBQ</span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" aria-label="Primary">
+          <a href="index.html">Journal</a>
+          <a href="map/" aria-current="page">Route map</a>
+          <a href="journeys/">Journeys</a>
+          <a href="explore/">Explore</a>
+          <a href="books/">Recipe books</a>
+          <a href="shop/">Shop</a>
+          <a href="learn/who-settled-the-flavor/">Who settled the flavor</a>
+          <a href="learn/fire-101/">Fire 101</a>
+          <a href="submit.html">Submit a dish</a>
+          <a href="about/">About</a>
+        </nav>
+        <div id="auth-slot"></div>
+      </div>
+      <p class="issue-line">302 stops in this passport · Growing to 1,000</p>
+    </header>
+    <p id="demo-banner" class="demo-banner" role="status" hidden></p>
+    <noscript>
+      <p class="demo-banner">JavaScript is off. You can still read the field guide. Search, the shaded map, and community notes need JavaScript.</p>
+    </noscript>
+    <main id="content" tabindex="-1">
+      <div class="wrap">
+      <aside class="kk-ad kk-ad-inline" data-ad-slot="section-slot" aria-label="Advertisement">
+      <p class="kk-ad-label">Advertisement</p>
+      <div class="kk-ad-frame">
+        <p class="kk-house-kicker">From KiteKitchen</p>
+        <p><a href="/shop/">The shop is coming soon</a>. <a href="mailto:hello@kitekitchen.com?subject=KiteKitchen%20shop">Ask for a note</a> when Jonathan approves it.</p>
+      </div>
+    </aside>
+      <p class="eyebrow">Route map</p>
+      <h1>The voyage, leg by leg</h1>
+      <p class="lede">Colored lines are curated journeys. A small vehicle icon sits on each leg: balloon, plane, train, or boat. Countries are shaded by how many stops name them. Pins mark places too small to see as a shape. The lists under the map work without JavaScript.</p>
+      <div class="journey-key"><a href="journeys/american-bbq-belt/">Train · The American BBQ Belt by train</a><a href="journeys/caribbean-by-boat/">Boat · Caribbean by boat</a><a href="journeys/asado-by-plane/">Plane · Asado and churrasco by plane</a><a href="journeys/mediterranean-by-balloon/">Hot air balloon · Mediterranean by balloon</a><a href="journeys/africa-by-plane/">Plane · Africa&#39;s fires by plane</a><a href="journeys/pacific-by-boat/">Boat · Pacific earth ovens by boat</a><a href="journeys/asian-grills-by-plane/">Plane · Asian grills by plane</a></div>
+      <form id="filters" class="filters" role="search">
+      <div class="filter-grid">
+        <label>Search
+          <input name="q" type="search" placeholder="Brisket, Oaxaca, oak…" autocomplete="off">
+        </label>
+        <label>Region
+          <select name="region"><option value="">All regions</option><option value="North Africa">North Africa</option><option value="West Africa">West Africa</option><option value="Central Africa">Central Africa</option><option value="East Africa">East Africa</option><option value="Southern Africa">Southern Africa</option><option value="Middle East">Middle East</option><option value="Caucasus">Caucasus</option><option value="Central Asia">Central Asia</option><option value="South Asia">South Asia</option><option value="Southeast Asia">Southeast Asia</option><option value="East Asia">East Asia</option><option value="Western Europe">Western Europe</option><option value="Northern Europe">Northern Europe</option><option value="Eastern Europe">Eastern Europe</option><option value="Southern Europe">Southern Europe</option><option value="North America">North America</option><option value="Mexico &amp; Central America">Mexico &amp; Central America</option><option value="Caribbean">Caribbean</option><option value="South America">South America</option><option value="Oceania">Oceania</option></select>
+        </label>
+        <label>Fire method
+          <select name="type"><option value="">All methods</option><option value="low-and-slow">Low and slow</option><option value="hot-grill">Hot grill</option><option value="skewer">Skewer</option><option value="spit">Spit roast</option><option value="earth-oven">Earth oven</option><option value="tandoor">Tandoor</option><option value="plancha">Griddle and plancha</option><option value="open-fire">Open fire</option><option value="smokehouse">Smokehouse</option><option value="rotisserie">Rotisserie</option><option value="sauce">Sauce, mop, and dip</option><option value="rub">Rub and spice</option><option value="side">Pit side</option></select>
+        </label>
+        <label>Heat
+          <select name="heat"><option value="">Any heat</option><option value="none">No chili heat</option><option value="mild">Mild</option><option value="medium">Medium</option><option value="hot">Hot</option><option value="extra-hot">Extra hot</option></select>
+        </label>
+        <label>Use
+          <select name="use"><option value="">Any use</option><option value="beef">Beef</option><option value="pork">Pork</option><option value="lamb">Lamb and mutton</option><option value="goat">Goat</option><option value="poultry">Poultry</option><option value="fish">Fish</option><option value="seafood">Shellfish</option><option value="offal">Offal</option><option value="vegetables">Vegetables</option><option value="bread">Breads</option><option value="side">Sides</option><option value="sauce">Sauces and dips</option><option value="feast">Feasts</option><option value="sandwich">Sandwiches</option><option value="street">Street food</option><option value="holiday">Holidays</option></select>
+        </label>
+        <label>Diet
+          <select name="diet"><option value="">Any diet</option><option value="vegetarian">Vegetarian</option><option value="vegan">Vegan</option><option value="gluten-free">Gluten-free</option><option value="dairy-free">Dairy-free</option><option value="nut-free">Nut-free</option></select>
+        </label>
+        <label>Country
+          <select name="country"><option value="">All countries</option><option value="AF">Afghanistan</option><option value="AO">Angola</option><option value="AG">Antigua and Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AU">Australia</option><option value="BB">Barbados</option><option value="BZ">Belize</option><option value="BO">Bolivia</option><option value="BA">Bosnia and Herzegovina</option><option value="BR">Brazil</option><option value="BG">Bulgaria</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CL">Chile</option><option value="CN">China</option><option value="CO">Colombia</option><option value="CK">Cook Islands</option><option value="CR">Costa Rica</option><option value="CI">Côte d&#39;Ivoire</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="CY">Cyprus</option><option value="CD">Democratic Republic of the Congo</option><option value="DO">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="ET">Ethiopia</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="PF">French Polynesia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GR">Greece</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IQ">Iraq</option><option value="IE">Ireland</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="KE">Kenya</option><option value="LA">Laos</option><option value="LB">Lebanon</option><option value="MG">Madagascar</option><option value="MY">Malaysia</option><option value="ML">Mali</option><option value="MQ">Martinique</option><option value="MX">Mexico</option><option value="MN">Mongolia</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NP">Nepal</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NG">Nigeria</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PG">Papua New Guinea</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="RO">Romania</option><option value="RU">Russia</option><option value="LC">Saint Lucia</option><option value="WS">Samoa</option><option value="SN">Senegal</option><option value="SG">Singapore</option><option value="ZA">South Africa</option><option value="KR">South Korea</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="TW">Taiwan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="BS">The Bahamas</option><option value="TO">Tonga</option><option value="TT">Trinidad and Tobago</option><option value="TR">Turkey</option><option value="UG">Uganda</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VU">Vanuatu</option><option value="VE">Venezuela</option><option value="VN">Vietnam</option><option value="YE">Yemen</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option></select>
+        </label>
+      </div>
+    </form>
+      <p id="map-status" class="results-count" role="status">302 dishes for all countries.</p>
+      <div id="world-map" role="application" aria-label="World route map of barbecue journeys"></div>
+      <div id="country-results" class="section-rule"></div>
+      <h2>Journeys on this map</h2>
+      <div class="journey-list"><section><h3><a href="journeys/american-bbq-belt/">The American BBQ Belt by train</a></h3><p>Vinegar, mustard, white sauce, and post oak, from eastern North Carolina to South Texas. Vehicle: Train.</p><ol><li><a href="dishes/eastern-nc-whole-hog/">Eastern North Carolina Whole Hog</a> · Ayden, North Carolina · next leg by train</li><li><a href="dishes/lexington-pork-shoulder/">Lexington Pork Shoulder</a> · Lexington, North Carolina · next leg by train</li><li><a href="dishes/south-carolina-mustard-pork/">South Carolina Midlands Mustard Pork</a> · Columbia, South Carolina · next leg by train</li><li><a href="dishes/alabama-white-chicken/">Alabama White-Sauce Chicken</a> · Decatur, Alabama · next leg by train</li><li><a href="dishes/memphis-dry-ribs/">Memphis Dry-Rubbed Ribs</a> · Memphis, Tennessee · next leg by train</li><li><a href="dishes/kentucky-mutton/">Owensboro Mutton</a> · Owensboro, Kentucky · next leg by train</li><li><a href="dishes/st-louis-pork-steaks/">St. Louis Pork Steaks</a> · St. Louis, Missouri · next leg by train</li><li><a href="dishes/chicago-rib-tips/">Chicago South Side Rib Tips</a> · Chicago&#39;s South Side · next leg by train</li><li><a href="dishes/kansas-city-burnt-ends/">Kansas City Burnt Ends</a> · Kansas City, Missouri · next leg by train</li><li><a href="dishes/east-texas-chopped-beef/">East Texas Chopped Beef</a> · Marshall, Texas · next leg by train</li><li><a href="dishes/central-texas-brisket/">Central Texas Salt-and-Pepper Brisket</a> · Lockhart, Texas · next leg by train</li><li><a href="dishes/south-texas-barbacoa/">South Texas Barbacoa de Cabeza</a> · Brownsville, Texas</li></ol></section><section><h3><a href="journeys/caribbean-by-boat/">Caribbean by boat</a></h3><p>Mojo, jerk, and island pigs, harbor to harbor. Vehicle: Boat.</p><ol><li><a href="dishes/cuban-lechon-asado/">Cuban Lechón Asado</a> · Sancti Spíritus · next leg by boat</li><li><a href="dishes/jamaican-jerk-chicken/">Jamaican Jerk Chicken</a> · Boston Bay · next leg by boat</li><li><a href="dishes/haitian-boukannen/">Haitian Boukannen</a> · Port-au-Prince · next leg by boat</li><li><a href="dishes/dominican-wasakaka-chicken/">Dominican Wasakaka Chicken</a> · Santo Domingo · next leg by boat</li><li><a href="dishes/puerto-rican-lechon/">Puerto Rican Lechón Asado</a> · Cayey · next leg by boat</li><li><a href="dishes/trinidad-grilled-kingfish/">Trinidadian Grilled Kingfish</a> · Port of Spain · next leg by boat</li><li><a href="dishes/barbados-grilled-flying-fish/">Barbadian Grilled Flying Fish</a> · Oistins</li></ol></section><section><h3><a href="journeys/asado-by-plane/">Asado and churrasco by plane</a></h3><p>A flight across the southern fires, from the parrilla to picanha. Vehicle: Plane.</p><ol><li><a href="dishes/argentine-asado/">Argentine Asado</a> · San Antonio de Areco · next leg by plane</li><li><a href="dishes/uruguayan-asado-al-espeto/">Uruguayan Asado al Espeto</a> · Paysandú · next leg by plane</li><li><a href="dishes/patagonian-cordero-al-asador/">Patagonian Cordero al Asador</a> · El Calafate, Patagonia · next leg by plane</li><li><a href="dishes/chilean-asado/">Chilean Asado</a> · Santiago · next leg by plane</li><li><a href="dishes/brazilian-picanha/">Brazilian Picanha</a> · Porto Alegre</li></ol></section><section><h3><a href="journeys/mediterranean-by-balloon/">Mediterranean by balloon</a></h3><p>A low pass over sardines, calçots, vine shoots, and a spit. Vehicle: Hot air balloon.</p><ol><li><a href="dishes/spanish-espetos/">Malaga Sardine Skewers</a> · Malaga · next leg by hot air balloon</li><li><a href="dishes/spanish-calcots/">Catalan Calcots</a> · Valls · next leg by hot air balloon</li><li><a href="dishes/spanish-chuletillas/">Rioja Vine-Shoot Lamb Chops</a> · Haro · next leg by hot air balloon</li><li><a href="dishes/portuguese-sardines/">Lisbon June Sardines</a> · Lisbon · next leg by hot air balloon</li><li><a href="dishes/greek-spit-lamb/">Greek Easter Spit Lamb</a> · Nafplio · next leg by hot air balloon</li><li><a href="dishes/turkish-adana-kebab/">Adana Kebab</a> · Adana</li></ol></section><section><h3><a href="journeys/africa-by-plane/">Africa&#39;s fires by plane</a></h3><p>Mechoui, dibi, suya, nyama choma, and a braai. Vehicle: Plane.</p><ol><li><a href="dishes/moroccan-mechoui/">Moroccan Mechoui</a> · Marrakesh · next leg by plane</li><li><a href="dishes/senegalese-dibi/">Senegalese Dibi</a> · Dakar · next leg by plane</li><li><a href="dishes/nigerian-suya/">Nigerian Suya</a> · Kano · next leg by plane</li><li><a href="dishes/ghanaian-grilled-tilapia/">Ghanaian Grilled Tilapia</a> · Accra · next leg by plane</li><li><a href="dishes/kenyan-nyama-choma/">Kenyan Nyama Choma</a> · Nairobi · next leg by plane</li><li><a href="dishes/mozambican-peri-peri-chicken/">Mozambican Peri-Peri Chicken</a> · Maputo · next leg by plane</li><li><a href="dishes/south-african-boerewors/">South African Boerewors</a> · Johannesburg</li></ol></section><section><h3><a href="journeys/pacific-by-boat/">Pacific earth ovens by boat</a></h3><p>Imu, lovo, umu, and hāngi. Related heat, separate peoples. Vehicle: Boat.</p><ol><li><a href="dishes/kalua-pig/">Kalua Pig</a> · Hilo, Hawaii · next leg by boat</li><li><a href="dishes/fijian-lovo/">Fijian Lovo</a> · Suva · next leg by boat</li><li><a href="dishes/samoan-umu/">Samoan Umu</a> · Apia · next leg by boat</li><li><a href="dishes/tongan-umu/">Tongan Umu</a> · Nuku&#39;alofa · next leg by boat</li><li><a href="dishes/maori-hangi/">Maori Hangi</a> · Rotorua</li></ol></section><section><h3><a href="journeys/asian-grills-by-plane/">Asian grills by plane</a></h3><p>Cumin lamb, char siu, galbi, yakitori, gai yang, satay, and lechón. Vehicle: Plane.</p><ol><li><a href="dishes/xinjiang-lamb-skewers/">Xinjiang Lamb Skewers</a> · Ürümqi · next leg by plane</li><li><a href="dishes/peking-duck/">Home-Roast Peking Duck</a> · Beijing · next leg by plane</li><li><a href="dishes/char-siu/">Cantonese Char Siu</a> · Guangzhou · next leg by plane</li><li><a href="dishes/korean-galbi/">Korean Beef Galbi</a> · Suwon · next leg by plane</li><li><a href="dishes/japanese-yakitori/">Japanese Yakitori</a> · Tokyo · next leg by plane</li><li><a href="dishes/thai-gai-yang/">Thai Gai Yang</a> · Ubon Ratchathani · next leg by plane</li><li><a href="dishes/malaysian-satay-ayam/">Malaysian Chicken Satay</a> · Kajang · next leg by plane</li><li><a href="dishes/filipino-lechon/">Cebu Lechon</a> · Cebu City</li></ol></section></div>
+    </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav aria-label="Footer">
+          <a href="shop/">Shop</a>
+          <a href="books/">Recipe books</a>
+          <a href="journeys/">Journeys</a>
+          <a href="map/">Route map</a>
+          <a href="about/">About</a>
+          <a href="learn/who-settled-the-flavor/">Who settled the flavor</a>
+          <a href="learn/fire-101/">Fire 101</a>
+          <a href="learn/glossary/">Glossary</a>
+          <a href="credits/">Photo credits</a>
+          <a href="/guidelines/">Community guidelines</a>
+          <a href="/affiliate/">Affiliate disclosure</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="submit.html">Submit a dish</a>
+        </nav>
+        <p id="mode-note"></p>
+        <p>Recipes are for home cooking. They are not professional food-safety, medical, or dietary advice. The passport is growing toward 1,000 stops. Counts on this site are the edited entries in this issue, nothing else.</p>
+      </div>
+    <p class="kk-partof">Flying BBQ is a section of <a href="/">KiteKitchen</a>.</p></footer>
+  </div>
+  <script src="assets/vendor/leaflet/leaflet.js"></script>
+  <script src="config.js"></script>
+  <script src="ads-config.js"></script>
+  <script type="module" src="assets/js/boot.js"></script>
+<div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
+    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <div class="kk-row">
+      <button type="button" class="kk-button" data-consent="granted">Accept</button>
+      <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
+    </div>
+  </div>
+<script src="/config.js"></script>
+<script src="/assets/js/consent.js" defer></script>
+</body>
+</html>

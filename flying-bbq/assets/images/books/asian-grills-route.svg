@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360">
+  <rect width="800" height="360" fill="#f4efe4"/>
+  <rect x="8" y="8" width="784" height="344" fill="none" stroke="#e2b007" stroke-width="6"/>
+  <path d="M605.2 159.1 L613.9 154.4 L610.0 150.9 L621.7 173.8 L638.9 183.9 L646.4 160.7 L612.3 160.0 L595.6 149.4" fill="none" stroke="#1e4d5c" stroke-width="3" stroke-dasharray="7 6"/>
+  <circle cx="605.2" cy="159.1" r="5" fill="#8c2f1e"/><circle cx="613.9" cy="154.4" r="5" fill="#8c2f1e"/><circle cx="610.0" cy="150.9" r="5" fill="#8c2f1e"/><circle cx="621.7" cy="173.8" r="5" fill="#8c2f1e"/><circle cx="638.9" cy="183.9" r="5" fill="#8c2f1e"/><circle cx="646.4" cy="160.7" r="5" fill="#8c2f1e"/><circle cx="612.3" cy="160.0" r="5" fill="#8c2f1e"/><circle cx="595.6" cy="149.4" r="5" fill="#8c2f1e"/>
+  <text x="613.2" y="151.1" font-family="Georgia, serif" font-size="12">Thailand</text><text x="618.0" y="142.9" font-family="Georgia, serif" font-size="12">Laos</text><text x="646.9" y="175.9" font-family="Georgia, serif" font-size="12">Indonesia</text><text x="620.3" y="152.0" font-family="Georgia, serif" font-size="12">Cambodia</text><text x="603.6" y="141.4" font-family="Georgia, serif" font-size="12">Myanmar</text>
+</svg>

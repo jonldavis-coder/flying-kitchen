@@ -550,13 +550,13 @@ export const recipes = [
 ];
 
 export const products = [
-  ["spatula", "KiteKitchen spatula", "A turner planned with the KiteKitchen crest on the handle. Nothing has been manufactured for this page."],
-  ["whisk", "KiteKitchen whisk", "A balloon whisk planned with a gold-and-black handle. The drawing is a mockup."],
-  ["wooden-spoons", "KiteKitchen wooden spoon set", "A planned set of three wooden spoons with the crest burned or printed on the handles. Wood species and lengths are not chosen yet, so they are not listed."],
-  ["tongs", "KiteKitchen tongs", "Kitchen tongs planned with the crest on the lock. Not a grill set from the old Flying Kitchen shop."],
-  ["apron", "KiteKitchen apron", "A cotton apron planned with the crest on the bib. Print-on-demand is the hope, not a finished order."],
-  ["tea-towel", "KiteKitchen tea towel", "A cotton tea towel planned with the crest in one corner."],
-  ["oven-mitt", "KiteKitchen oven mitt", "An oven mitt planned with the crest on the cuff."],
-  ["picnic-tote", "KiteKitchen picnic tote", "A canvas tote for a kite-day lunch. Size and fabric weight are not set, so they are not listed."],
-  ["kite-festival-cookbook", "KiteKitchen kite-day cookbook", "A planned collection of the kite-festival foods and the picnic recipes on this site. It is not printed, not priced, and not for sale."]
+  ["spatula", "Kite Kitchen spatula", "A turner planned with the Kite Kitchen crest on the handle. Nothing has been manufactured for this page."],
+  ["whisk", "Kite Kitchen whisk", "A balloon whisk planned with a gold-and-black handle. The drawing is a mockup."],
+  ["wooden-spoons", "Kite Kitchen wooden spoon set", "A planned set of three wooden spoons. Wood species and lengths are not chosen yet, so they are not listed."],
+  ["tongs", "Kite Kitchen tongs", "Kitchen tongs. No set has been manufactured for this page."],
+  ["apron", "Kite Kitchen apron", "A cotton apron planned with the crest on the bib. Nothing is for sale yet."],
+  ["tea-towel", "Kite Kitchen tea towel", "A cotton tea towel planned with the crest in one corner."],
+  ["oven-mitt", "Kite Kitchen oven mitt", "An oven mitt planned with the crest on the cuff."],
+  ["picnic-tote", "Kite Kitchen picnic tote", "A canvas tote for a packed meal. Size and fabric weight are not set, so they are not listed."],
+  ["world-recipes", "Kite Kitchen recipe collection", "A planned collection of recipes from Flying Sauces, Flying Pancakes, and Flying BBQ. It is not printed and it is not for sale."]
 ];

@@ -38,14 +38,14 @@ function ad(slot, kind) {
   return `<aside class="kk-ad${side ? " kk-ad-sidebar" : " kk-ad-inline"}" data-ad-slot="${slot}" aria-label="Advertisement">
       <p class="kk-ad-label">Advertisement</p>
       <div class="kk-ad-frame">
-        <p class="kk-house-kicker">From KiteKitchen</p>
+        <p class="kk-house-kicker">From Kite Kitchen</p>
         <p><a href="/shop/">The shop is coming soon</a>. <a href="mailto:${HELLO_EMAIL}?subject=KiteKitchen%20shop">Ask for a note</a> when Jonathan approves it.</p>
       </div>
     </aside>`;
 }
 
 const consent = `<div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
-    <p id="kk-consent-title"><strong>Cookies.</strong> KiteKitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
+    <p id="kk-consent-title"><strong>Cookies.</strong> Kite Kitchen uses Google Analytics only after a choice where a choice is required. In the EEA, the UK, and Switzerland, analytics cookies stay off until you accept. Advertising cookies stay off until you accept, and no ad network is loaded while ads are turned off. <a href="/privacy/">Privacy</a></p>
     <div class="kk-row">
       <button type="button" class="kk-button" data-consent="granted">Accept</button>
       <button type="button" class="kk-button quiet" data-consent="denied">Reject</button>
@@ -84,13 +84,15 @@ function headBits(title, description, url, jsonLd, robots) {
 }
 
 const NAV = [
-  ["/", "Home", "home"],
   ["/recipes/", "Recipes", "recipes"],
-  ["/traditions/", "Traditions", "traditions"],
+  ["/map/", "World Map", "map"],
   ["/flying-sauces/", "Flying Sauces", "sauces"],
   ["/flying-pancakes/", "Flying Pancakes", "pancakes"],
-  ["/shop/", "Shop", "shop"]
+  ["/flying-bbq/", "Flying BBQ", "bbq"],
+  ["/shop/", "Shop", "shop"],
+  ["/about/", "About", "about"]
 ];
+const TAGLINE = "Flying around the world, one simple recipe at a time";
 
 function nav(current, cls) {
   return `<nav class="${cls}" aria-label="Primary">${NAV.map(([href, label, id]) => `<a href="${href}"${id === current ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>`;
@@ -101,8 +103,8 @@ function header(current) {
 <header class="kk-header">
   <div class="kk-header-inner">
     <a class="kk-brand" href="/">
-      <img src="/assets/brand/kite-mark-128.webp" alt="" width="44" height="44">
-      <span class="kk-word">KiteKitchen</span>
+      <img src="/assets/brand/kite-mark-128.webp" alt="" width="28" height="28">
+      <span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag">${TAGLINE}</span></span>
     </a>
     ${nav(current, "kk-nav")}
     <details class="kk-menu">
@@ -116,26 +118,21 @@ function header(current) {
 function footer() {
   return `<footer class="kk-footer">
     <div class="kk-wrap">
-      <p class="kk-word">KiteKitchen</p>
+      <p class="kk-word">Kite Kitchen</p>
       <nav aria-label="Footer">
         <a href="/recipes/">Recipes</a>
-        <a href="/traditions/">Traditions</a>
         <a href="/flying-sauces/">Flying Sauces</a>
         <a href="/flying-pancakes/">Flying Pancakes</a>
-        <a href="/friends/">Friends</a>
+        <a href="/flying-bbq/">Flying BBQ</a>
+        <a href="/map/">World Map</a>
         <a href="/shop/">Shop</a>
-        <a href="/books/">Books</a>
-        <a href="/advertise/">Advertise</a>
-        <a href="/credits/">Photo credits</a>
-        <a href="/sources/">Sources</a>
         <a href="/about/">About</a>
+        <a href="/credits/">Credits</a>
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
-        <a href="/affiliate/">Affiliate disclosure</a>
-        <a href="/guidelines/">Guidelines</a>
         <button type="button" class="quiet" data-consent-open>Cookie choices</button>
       </nav>
-      <p>Recipes are for home cooking. They are not medical, dietary, or food-safety advice. The shop is not open. Nothing on this site has a price.</p>
+      <p class="kk-fine">Home cooking, not professional advice. The shop is coming soon, and no prices are listed.</p>
     </div>
   </footer>
   ${consent}
@@ -181,7 +178,7 @@ function textOf(html, re) {
 }
 
 function ensureSisters() {
-  for (const id of ["flying-sauces", "flying-pancakes"]) {
+  for (const id of ["flying-sauces", "flying-pancakes", "flying-bbq"]) {
     if (fs.existsSync(path.join(root, id, "index.html"))) continue;
     const src = path.join("/tmp/sisters", id);
     if (!fs.existsSync(src)) throw new Error(`Missing ${src}. Clone jonldavis-coder/${id} before building.`);
@@ -193,18 +190,10 @@ function ensureSisters() {
 }
 
 function sectionBar(name, currentHref) {
-  const links = [
-    ["/", "Home"],
-    ["/recipes/", "Recipes"],
-    ["/traditions/", "Traditions"],
-    ["/flying-sauces/", "Flying Sauces"],
-    ["/flying-pancakes/", "Flying Pancakes"],
-    ["/shop/", "Shop"]
-  ];
   return `<div class="kk-bar" id="kk-bar">
-    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="36" height="36"><span class="kk-word">KiteKitchen</span></a>
+    <a class="kk-brand" href="/"><img src="/assets/brand/kite-mark-128.webp" alt="" width="28" height="28"><span class="kk-brand-text"><span class="kk-word">Kite Kitchen</span><span class="kk-tag">${TAGLINE}</span></span></a>
     <p class="kk-section-name">${escapeHtml(name)}</p>
-    <nav aria-label="KiteKitchen">${links.map(([href, label]) => `<a href="${href}"${href === currentHref ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>
+    <nav aria-label="KiteKitchen">${NAV.map(([href, label]) => `<a href="${href}"${href === currentHref ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>
   </div>`;
 }
 
@@ -231,8 +220,11 @@ function transformSection(dir, name, originFrom) {
   walk(dir);
   for (const rel of files) {
     let html = fs.readFileSync(path.join(root, rel), "utf8");
-    if (!html.includes('id="kk-bar"')) {
-      html = html.replace(/<body([^>]*)>/, `<body$1>\n${sectionBar(name, `/${dir}/`)}`);
+    const bar = sectionBar(name, `/${dir}/`);
+    if (html.includes('id="kk-bar"')) {
+      html = html.replace(/<div class="kk-bar" id="kk-bar">[\s\S]*?<\/div>/, bar);
+    } else {
+      html = html.replace(/<body([^>]*)>/, `<body$1>\n${bar}`);
     }
     if (!html.includes("/assets/css/kite.css")) {
       html = html.replace(/<\/head>/, `  <link rel="stylesheet" href="/assets/css/kite.css">\n</head>`);
@@ -262,8 +254,16 @@ function transformSection(dir, name, originFrom) {
     html = html.replace(/href="terms\/"/g, 'href="/terms/"');
     html = html.replace(/href="affiliate\/"/g, 'href="/affiliate/"');
     html = html.replace(/href="guidelines\/"/g, 'href="/guidelines/"');
+    if (/data-page="(sauce|pancake|dish)"/.test(html) && !html.includes("kk-origin")) {
+      const iso = (html.match(/country=([A-Z]{2})/) || [])[1];
+      const countryName = textOf(html, /<dt>Country<\/dt>\s*<dd>([^<]+)/);
+      const place = iso && byIso[iso];
+      if (countryName && place) {
+        html = html.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, (m) => `${m}\n${originMarkup(countryName, place.lat, place.lon)}`);
+      }
+    }
     if (!html.includes('data-ad-slot="after-intro"') && !html.includes('data-ad-slot="section-slot"')) {
-      if (/data-page="(sauce|pancake)"/.test(html)) {
+      if (/data-page="(sauce|pancake|dish)"/.test(html)) {
         html = html.replace(/<p class="dek">[\s\S]*?<\/p>/, (m) => `${m}\n${ad("after-intro", "inline")}`);
         html = html.replace(/<aside class="ad-slot"[\s\S]*?<\/aside>/, ad("before-recipe", "inline"));
         html = html.replace(/<aside class="rail">/, `${ad("sidebar", "sidebar")}\n<aside class="rail">`);
@@ -276,7 +276,7 @@ function transformSection(dir, name, originFrom) {
       html = html.replace(/<\/body>/, `${consent}\n<script src="/config.js"></script>\n<script src="/assets/js/consent.js" defer></script>\n</body>`);
     }
     if (!html.includes("kk-partof")) {
-      html = html.replace(/<\/footer>/, `<p class="kk-partof">${escapeHtml(name)} is a section of <a href="/">KiteKitchen</a>.</p></footer>`);
+      html = html.replace(/<\/footer>/, `<p class="kk-partof">${escapeHtml(name)} is a section of <a href="/">Kite Kitchen</a>.</p></footer>`);
     }
     fs.writeFileSync(path.join(root, rel), html);
   }
@@ -308,13 +308,107 @@ function prosePage(title, description, pagePath, body, current = "") {
   }));
 }
 
+function loadCountries() {
+  const file = path.join(root, "flying-sauces/assets/maps/countries.geojson");
+  const data = JSON.parse(fs.readFileSync(file, "utf8"));
+  const countries = [];
+  for (const feature of data.features) {
+    const iso = feature.properties.iso;
+    const name = feature.properties.name;
+    if (!iso || !feature.geometry) continue;
+    const polys = feature.geometry.type === "Polygon" ? [feature.geometry.coordinates] : feature.geometry.coordinates;
+    let best = null;
+    const rings = [];
+    for (const poly of polys) {
+      const ring = poly[0];
+      if (!ring || ring.length < 4) continue;
+      rings.push(ring);
+      if (!best || ring.length > best.length) best = ring;
+    }
+    if (!best) continue;
+    let lon = 0;
+    let lat = 0;
+    for (const pt of best) { lon += pt[0]; lat += pt[1]; }
+    countries.push({ iso, name, rings, lon: lon / best.length, lat: lat / best.length });
+  }
+  return countries;
+}
+
+function ringPath(ring, w, h) {
+  let d = "";
+  for (let i = 0; i < ring.length; i++) {
+    const x = ((ring[i][0] + 180) / 360) * w;
+    const y = ((90 - ring[i][1]) / 180) * h;
+    d += `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  return `${d}Z`;
+}
+
+function worldSvg(countries, w, h, hrefFor) {
+  const lines = [];
+  for (let lon = -150; lon <= 150; lon += 30) {
+    const x = ((lon + 180) / 360) * w;
+    lines.push(`<line x1="${x.toFixed(1)}" y1="0" x2="${x.toFixed(1)}" y2="${h}"/>`);
+  }
+  for (let lat = -60; lat <= 60; lat += 30) {
+    const y = ((90 - lat) / 180) * h;
+    lines.push(`<line x1="0" y1="${y.toFixed(1)}" x2="${w}" y2="${y.toFixed(1)}"/>`);
+  }
+  const lands = countries.map((country) => {
+    const d = country.rings.map((ring) => ringPath(ring, w, h)).join("");
+    const cls = country.count ? "has" : "";
+    const title = `<title>${escapeHtml(country.name)}</title>`;
+    const pathEl = `<path class="${cls}" d="${d}">${title}</path>`;
+    return country.count ? `<a href="${hrefFor(country.iso)}">${pathEl}</a>` : pathEl;
+  }).join("");
+  return `<svg class="kk-map" viewBox="0 0 ${w} ${h}" role="img" aria-label="World map. Countries with recipes can be opened.">
+    <rect class="kk-map-ocean" width="${w}" height="${h}"/>
+    <g class="kk-graticule">${lines.join("")}</g>
+    <g class="kk-lands">${lands}</g>
+  </svg>`;
+}
+
+function originMarkup(countryName, lat, lon) {
+  const ns = lat >= 0 ? "N" : "S";
+  const ew = lon >= 0 ? "E" : "W";
+  const label = `${Math.abs(Math.round(lat))}° ${ns}, ${Math.abs(Math.round(lon))}° ${ew}`;
+  const x = ((lon + 180) / 360) * 80;
+  const y = ((90 - lat) / 180) * 40;
+  return `<p class="kk-origin"><svg class="kk-locator" viewBox="0 0 80 40" width="80" height="40" aria-hidden="true"><rect width="80" height="40" fill="none" stroke="#c6a15b" stroke-width="0.8"/><path d="M0 20 H80 M40 0 V40" stroke="#e4ddd2" stroke-width="0.5"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.4" fill="#1a1a1a"/></svg> <span>Origin: ${escapeHtml(countryName)} · ${label}</span></p>`;
+}
+
+function writeMoved(rel, target) {
+  const absolute = `${SITE_ORIGIN}${target}`;
+  write(rel, `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page moved · Kite Kitchen</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="${escapeHtml(absolute.split("#")[0])}">
+  <meta http-equiv="refresh" content="0; url=${escapeHtml(target)}">
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+  <p>This page has moved. <a href="${escapeHtml(target)}">Continue</a>.</p>
+</body>
+</html>
+`);
+}
+
+let byIso = {};
+
 ensureSisters();
+byIso = Object.fromEntries(loadCountries().map((country) => [country.iso, country]));
 transformSection("flying-sauces", "Flying Sauces", "https://jonldavis-coder.github.io/flying-sauces/");
 transformSection("flying-pancakes", "Flying Pancakes", "https://jonldavis-coder.github.io/flying-pancakes/");
+transformSection("flying-bbq", "Flying BBQ", "https://jonldavis-coder.github.io/flying-bbq/");
 cleanOld();
 
 const sauceCount = dirs("flying-sauces/sauces").length;
 const pancakeCount = dirs("flying-pancakes/pancakes").length;
+const bbqCount = dirs("flying-bbq/dishes").length;
 const sauceBooks = dirs("flying-sauces/books").map((slug) => ({
   slug,
   title: textOf(fs.readFileSync(path.join(root, "flying-sauces/books", slug, "index.html"), "utf8"), /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug,
@@ -327,6 +421,13 @@ const pancakeBooks = dirs("flying-pancakes/books").map((slug) => ({
   href: `/flying-pancakes/books/${slug}/`,
   section: "Flying Pancakes"
 }));
+const bbqBooks = dirs("flying-bbq/books").map((slug) => ({
+  slug,
+  title: textOf(fs.readFileSync(path.join(root, "flying-bbq/books", slug, "index.html"), "utf8"), /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug,
+  href: `/flying-bbq/books/${slug}/`,
+  section: "Flying BBQ"
+}));
+const guideBooks = sauceBooks.concat(pancakeBooks, bbqBooks);
 
 write("config.js", `// Generated from site.config.mjs. Change SITE_ORIGIN there, then rebuild.
 window.KITE_KITCHEN = ${JSON.stringify({
@@ -366,7 +467,7 @@ const homeLd = [
     "@type": "WebSite",
     name: "KiteKitchen",
     url: `${SITE_ORIGIN}/`,
-    description: "Kite-day recipes, kite-festival foods with sources, and the Flying Sauces and Flying Pancakes guides.",
+    description: "Flying around the world, one simple recipe at a time. Sauces, pancakes, and barbecue.",
     publisher: { "@type": "Organization", name: "KiteKitchen", url: `${SITE_ORIGIN}/` },
     potentialAction: {
       "@type": "SearchAction",
@@ -376,178 +477,117 @@ const homeLd = [
   }
 ];
 
+function entryLink(dir, folder, slug) {
+  const file = path.join(root, dir, folder, slug, "index.html");
+  if (!fs.existsSync(file)) return "";
+  const title = textOf(fs.readFileSync(file, "utf8"), /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug;
+  return `<li><a href="/${dir}/${folder}/${slug}/">${escapeHtml(title)}</a></li>`;
+}
+function collectEntries(dir, folder, section) {
+  const items = [];
+  for (const slug of dirs(`${dir}/${folder}`)) {
+    const html = fs.readFileSync(path.join(root, dir, folder, slug, "index.html"), "utf8");
+    const iso = (html.match(/country=([A-Z]{2})/) || [])[1] || "";
+    items.push({
+      title: textOf(html, /<h1[^>]*>([\s\S]*?)<\/h1>/) || slug,
+      href: `/${dir}/${folder}/${slug}/`,
+      section,
+      iso,
+      text: textOf(html, /<p class="dek">([\s\S]*?)<\/p>/)
+    });
+  }
+  return items;
+}
+const catalog = [
+  ...collectEntries("flying-sauces", "sauces", "Flying Sauces"),
+  ...collectEntries("flying-pancakes", "pancakes", "Flying Pancakes"),
+  ...collectEntries("flying-bbq", "dishes", "Flying BBQ")
+];
+const byCountry = new Map();
+for (const item of catalog) {
+  if (!item.iso || !byIso[item.iso]) continue;
+  if (!byCountry.has(item.iso)) byCountry.set(item.iso, []);
+  byCountry.get(item.iso).push(item);
+}
+const countries = Object.values(byIso).map((country) => ({ ...country, count: (byCountry.get(country.iso) || []).length }));
+const homeMap = worldSvg(countries, 960, 480, (iso) => `/map/#${iso}`);
+const atlasMap = worldSvg(countries, 960, 480, (iso) => `#${iso}`);
+const saucePicks = ["pesto-alla-genovese", "aioli", "romesco", "mole-poblano"].map((slug) => entryLink("flying-sauces", "sauces", slug)).join("");
+const pancakePicks = ["crepes-suzette", "appam", "galette-complete", "aebleskiver"].map((slug) => entryLink("flying-pancakes", "pancakes", slug)).join("");
+const bbqPicks = ["argentine-asado", "eastern-nc-whole-hog", "kalua-pig", "jamaican-jerk-chicken"].map((slug) => entryLink("flying-bbq", "dishes", slug)).join("");
+const featured = [
+  ["flying-sauces", "sauces", "pesto-alla-genovese"],
+  ["flying-pancakes", "pancakes", "crepes-suzette"],
+  ["flying-bbq", "dishes", "argentine-asado"],
+  ["flying-sauces", "sauces", "mole-poblano"],
+  ["flying-pancakes", "pancakes", "appam"],
+  ["flying-bbq", "dishes", "eastern-nc-whole-hog"]
+].map(([dir, folder, slug]) => entryLink(dir, folder, slug)).join("");
+const cookbookPicks = guideBooks.filter((book) => /top-100|flagship|american-bbq-belt|crepes-of-france|top 100/i.test(`${book.slug} ${book.title}`)).slice(0, 6);
+
 write("index.html", page({
-  title: "KiteKitchen · recipes for kite days",
-  description: "KiteKitchen is a kite-day recipe site: festival foods with sources, picnic recipes, Flying Sauces, Flying Pancakes, and a shop that is not open yet.",
+  title: "Kite Kitchen · Flying around the world recipes",
+  description: "Kite Kitchen means flying around the world, one simple recipe at a time. Sauces, pancakes, and barbecue, with a world map.",
   path: "/",
   current: "home",
   jsonLd: homeLd,
-  main: `<section class="kk-hero">
-      <div class="kk-hero-inner">
-        <img class="kk-crest" src="/assets/brand/logo-360.webp" srcset="/assets/brand/logo-240.webp 240w, /assets/brand/logo-360.webp 360w, /assets/brand/logo-480.webp 480w" sizes="(min-width: 800px) 280px, 70vw" alt="KiteKitchen crest: a gold kite, spatula, and fork on a black and gold shield" width="360" height="467" fetchpriority="high">
-        <div class="kk-hero-copy">
-          <p class="kk-kicker">Recipes for kite days</p>
-          <h1>Food for the hour the kite goes up.</h1>
-          <p class="kk-lede">KiteKitchen cooks from real kite festivals, and from the picnic you pack for the park. Flying Sauces and Flying Pancakes live here under their own names. The KiteKitchen shop is coming soon.</p>
-          <p class="kk-row"><a class="kk-button" href="/traditions/">Festival foods</a><a class="kk-button quiet" href="/recipes/">All recipes</a></p>
-        </div>
-      </div>
-    </section>
-    ${figure("sumpango", "Crowd in front of enormous circular tissue-paper kites at the Sumpango festival under a blue sky.", "Giant kites at the Sumpango festival in Guatemala, on the Day of the Saints. The photograph shows the kites, not a plate of food.", "kk-hero-photo")}
-    <div class="kk-wrap">${ad("home", "inline")}</div>
-    <section class="kk-wrap">
-      <h2>Festival foods</h2>
-      <p>Each tradition page says what the sources support, and links those sources. The recipes are home adaptations, labeled as such.</p>
-      <div class="kk-grid cards-3">${traditions.map((item) => `<article class="kk-card">
-          <p class="kk-kicker">${escapeHtml(item.kicker)}</p>
-          <h3><a href="/traditions/${item.slug}/">${escapeHtml(item.title)}</a></h3>
-          <p>${escapeHtml(item.lede.slice(0, 180))}…</p>
-        </article>`).join("")}</div>
-    </section>
-    <section class="kk-wrap">
-      <h2>Two guides, still under their own names</h2>
-      <div class="kk-grid">
-        <article class="kk-card">
-          <p class="kk-kicker">Section</p>
-          <h3><a href="/flying-sauces/">Flying Sauces</a></h3>
-          <p>${sauceCount} sauces, with the journeys, books, and photo credits imported from that guide.</p>
-        </article>
-        <article class="kk-card">
-          <p class="kk-kicker">Section</p>
-          <h3><a href="/flying-pancakes/">Flying Pancakes</a></h3>
-          <p>${pancakeCount} pancakes and their griddled relatives, imported the same way.</p>
-        </article>
-      </div>
-      <p class="kk-note">Flying BBQ stays on its own site. It is listed with <a href="/friends/#flying-bbq">Friends of KiteKitchen</a>.</p>
-    </section>
-    <section class="kk-wrap">
-      <h2>Picnic originals</h2>
-      <p>These are KiteKitchen shapes for a park day. They are not traditional festival dishes.</p>
-      <div class="kk-grid">${recipes.filter((item) => item.kind === "original").map((item) => `<article class="kk-card"><h3><a href="/recipes/${item.slug}/">${escapeHtml(item.title)}</a></h3><p>${escapeHtml(item.description)}</p></article>`).join("")}</div>
-    </section>
-    <section class="kk-wrap">
-      <h2>The shop is not open</h2>
-      <p>Utensils, an apron, a tote, and a kite-day cookbook are drawn as mockups. There are no prices and no checkout. Jonathan has to approve the goods before anything is sold.</p>
-      <p><a class="kk-button" href="/shop/">Look at the shop</a></p>
-    </section>`
+  main: `<div class="kk-wrap kk-home">
+      <h1>Kite Kitchen</h1>
+      <p class="kk-lede">${TAGLINE}.</p>
+      <form class="kk-search" action="/search/" method="get">
+        <label for="home-q">Search recipes</label>
+        <input id="home-q" name="q" type="search" placeholder="Pesto, dosa, asado">
+        <button class="kk-button" type="submit">Search</button>
+      </form>
+      ${ad("home", "inline")}
+      <h2>Featured recipes</h2>
+      <ul class="kk-recipe-list">${featured}</ul>
+      <h2>World map</h2>
+      <p class="kk-meta">Countries with recipes are marked. Open one to see what is cooked there.</p>
+      <div class="kk-atlas">${homeMap}</div>
+      <p class="kk-meta"><a href="/map/">Open the full world map</a></p>
+      <h2>Flying Sauces</h2>
+      <ul class="kk-recipe-list">${saucePicks}</ul>
+      <p class="kk-meta"><a href="/flying-sauces/">All ${sauceCount} Flying Sauces</a></p>
+      <h2>Flying Pancakes</h2>
+      <ul class="kk-recipe-list">${pancakePicks}</ul>
+      <p class="kk-meta"><a href="/flying-pancakes/">All ${pancakeCount} Flying Pancakes</a></p>
+      <h2>Flying BBQ</h2>
+      <ul class="kk-recipe-list">${bbqPicks}</ul>
+      <p class="kk-meta"><a href="/flying-bbq/">All ${bbqCount} Flying BBQ recipes</a></p>
+      <h2>Recipe cookbooks</h2>
+      <ul class="kk-recipe-list">${cookbookPicks.map((book) => `<li><a href="${book.href}">${escapeHtml(book.title)}</a> <span class="kk-meta">${escapeHtml(book.section)} · Coming soon</span></li>`).join("")}</ul>
+      <p class="kk-meta"><a href="/books/">All cookbooks</a></p>
+      <p class="kk-shop-strip"><a href="/shop/">Shop</a> is coming soon.</p>
+    </div>`
 }));
 
 write("recipes/index.html", page({
-  title: "Recipes · KiteKitchen",
-  description: "Kite-festival foods cooked as home adaptations, and KiteKitchen picnic originals. Each festival recipe points at its tradition page and sources.",
+  title: "Recipes · Kite Kitchen",
+  description: "Browse Flying Sauces, Flying Pancakes, and Flying BBQ. Simple recipes from around the world.",
   path: "/recipes/",
   current: "recipes",
   main: `<div class="kk-wrap"><h1>Recipes</h1>
-    <p class="kk-lede">Festival recipes are home adaptations of foods the tradition pages cite. Originals are picnic ideas from this kitchen. Neither kind is a customer review or a ranked list.</p>
+    <p class="kk-lede">${TAGLINE}.</p>
+    <form class="kk-search" action="/search/" method="get"><label for="recipes-q">Search recipes</label><input id="recipes-q" name="q" type="search" placeholder="Name or place"><button class="kk-button" type="submit">Search</button></form>
     ${ad("recipes-top", "inline")}
-    <h2>From the festivals</h2>
-    <div class="kk-grid">${recipes.filter((item) => item.kind === "adaptation").map((item) => `<article class="kk-card"><h3><a href="/recipes/${item.slug}/">${escapeHtml(item.title)}</a></h3><p>${escapeHtml(item.description)}</p><p class="kk-meta"><a href="/traditions/${item.tradition}/">${escapeHtml(traditionBySlug[item.tradition].title)}</a></p></article>`).join("")}</div>
-    <h2>KiteKitchen originals</h2>
-    <div class="kk-grid">${recipes.filter((item) => item.kind === "original").map((item) => `<article class="kk-card"><p class="kk-pill">Original</p><h3><a href="/recipes/${item.slug}/">${escapeHtml(item.title)}</a></h3><p>${escapeHtml(item.description)}</p></article>`).join("")}</div>
+    <h2>Flying Sauces</h2>
+    <ul class="kk-recipe-list">${saucePicks}</ul>
+    <p><a href="/flying-sauces/">All Flying Sauces</a></p>
+    <h2>Flying Pancakes</h2>
+    <ul class="kk-recipe-list">${pancakePicks}</ul>
+    <p><a href="/flying-pancakes/">All Flying Pancakes</a></p>
+    <h2>Flying BBQ</h2>
+    <ul class="kk-recipe-list">${bbqPicks}</ul>
+    <p><a href="/flying-bbq/">All Flying BBQ</a></p>
+    <p class="kk-meta"><a href="/map/">Or start from the world map</a></p>
   </div>`
 }));
 
-write("traditions/index.html", page({
-  title: "Kite traditions · KiteKitchen",
-  description: "Kite-day foods KiteKitchen could verify: Bermuda, Gujarat, Maharashtra, Guatemala, and Qingming, each with sources.",
-  path: "/traditions/",
-  current: "traditions",
-  main: `<div class="kk-wrap"><h1>Kite traditions</h1>
-    <p class="kk-lede">These are the kite-and-food traditions this site could check against published sources. If a story is only a guess, it is not here.</p>
-    ${ad("traditions-top", "inline")}
-    <div class="kk-grid">${traditions.map((item) => `<article class="kk-card">${figure(item.photo, item.photoAlt, item.photoNote)}<h2><a href="/traditions/${item.slug}/">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.lede)}</p></article>`).join("")}</div>
-  </div>`
-}));
-
-for (const item of traditions) {
-  const related = item.recipes.map((slug) => recipeBySlug[slug]);
-  write(`traditions/${item.slug}/index.html`, page({
-    title: `${item.title} · KiteKitchen`,
-    description: item.description,
-    path: `/traditions/${item.slug}/`,
-    current: "traditions",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: item.title,
-      description: item.description,
-      url: `${SITE_ORIGIN}/traditions/${item.slug}/`,
-      image: `${SITE_ORIGIN}/${photo(item.photo).file1600}`,
-      author: { "@type": "Organization", name: "KiteKitchen" },
-      publisher: { "@type": "Organization", name: "KiteKitchen", url: `${SITE_ORIGIN}/` }
-    },
-    main: `${figure(item.photo, item.photoAlt, item.photoNote, "kk-hero-photo")}
-      <article class="kk-wrap">
-        <p class="kk-kicker">${escapeHtml(item.kicker)}</p>
-        <h1>${escapeHtml(item.title)}</h1>
-        <p class="kk-lede">${escapeHtml(item.lede)}</p>
-        ${ad("after-intro", "inline")}
-        <div class="kk-layout">
-          <div>
-            ${item.sections.map((section) => `<h2>${escapeHtml(section.h)}</h2>${section.p.map((para) => `<p>${escapeHtml(para)}</p>`).join("")}`).join("")}
-            ${item.extraPhoto ? figure(item.extraPhoto, item.extraAlt, item.extraNote) : ""}
-            ${ad("before-recipe", "inline")}
-            <h2>Recipes on this site</h2>
-            <div class="kk-grid">${related.map((recipe) => `<article class="kk-card"><h3><a href="/recipes/${recipe.slug}/">${escapeHtml(recipe.title)}</a></h3><p>${escapeHtml(recipe.kind === "original" ? "KiteKitchen original." : "Home adaptation.")} ${escapeHtml(recipe.description)}</p></article>`).join("")}</div>
-            <h2>Sources</h2>
-            <ul class="kk-sources">${item.sources.map(([label, href]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`).join("")}</ul>
-          </div>
-          <aside class="kk-rail">${ad("sidebar", "sidebar")}<div class="kk-card"><h2>On this page</h2><p>History is limited to the linked sources. The recipes are cooked at home and say so.</p></div></aside>
-        </div>
-      </article>`
-  }));
-}
-
-for (const recipe of recipes) {
-  const image = `${SITE_ORIGIN}/${photo(recipe.photo).file1600}`;
-  const tradition = recipe.tradition ? traditionBySlug[recipe.tradition] : null;
-  write(`recipes/${recipe.slug}/index.html`, page({
-    title: `${recipe.title} · KiteKitchen`,
-    description: recipe.description,
-    path: `/recipes/${recipe.slug}/`,
-    current: "recipes",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Recipe",
-      name: recipe.title,
-      description: recipe.description,
-      image,
-      author: { "@type": "Organization", name: "KiteKitchen" },
-      publisher: { "@type": "Organization", name: "KiteKitchen", url: `${SITE_ORIGIN}/` },
-      recipeYield: recipe.yield,
-      prepTime: recipe.prep,
-      cookTime: recipe.cook,
-      recipeCategory: recipe.category,
-      recipeCuisine: recipe.cuisine,
-      recipeIngredient: recipe.ingredients,
-      recipeInstructions: recipe.steps.map((text) => ({ "@type": "HowToStep", text })),
-      url: `${SITE_ORIGIN}/recipes/${recipe.slug}/`
-    },
-    main: `${figure(recipe.photo, recipe.photoAlt, recipe.photoNote, "kk-hero-photo")}
-      <article class="kk-wrap">
-        <p class="kk-kicker">${recipe.kind === "original" ? "KiteKitchen original" : "Home adaptation"}</p>
-        <h1>${escapeHtml(recipe.title)}</h1>
-        <p class="kk-lede">${escapeHtml(recipe.description)}</p>
-        <p class="kk-meta">${escapeHtml(recipe.prepLabel)} · ${escapeHtml(recipe.cookLabel)} · ${escapeHtml(recipe.yield)}</p>
-        ${tradition ? `<p>Tradition: <a href="/traditions/${tradition.slug}/">${escapeHtml(tradition.title)}</a></p>` : ""}
-        ${ad("after-intro", "inline")}
-        <div class="kk-layout">
-          <div>
-            ${recipe.kind === "original" ? "<p>This recipe was written for KiteKitchen. It is not a historical festival dish.</p>" : "<p>This is a home adaptation. The tradition page cites the sources. The quantities are this kitchen’s, not a single official formula.</p>"}
-            ${ad("before-recipe", "inline")}
-            <section class="kk-recipe-card" id="recipe" aria-label="Recipe">
-              <h2>Ingredients</h2>
-              <ul class="kk-ingredients">${recipe.ingredients.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>
-              <h2>Steps</h2>
-              <ol class="kk-steps">${recipe.steps.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ol>
-            </section>
-            ${recipe.notes.map((note) => `<p class="kk-note">${escapeHtml(note)}</p>`).join("")}
-          </div>
-          <aside class="kk-rail">${ad("sidebar", "sidebar")}</aside>
-        </div>
-      </article>`
-  }));
-}
+writeMoved("traditions/index.html", "/map/");
+for (const item of traditions) writeMoved(`traditions/${item.slug}/index.html`, "/map/");
+for (const recipe of recipes) writeMoved(`recipes/${recipe.slug}/index.html`, "/recipes/");
+writeMoved("friends/index.html", "/flying-bbq/");
 
 const shopCards = products.map(([id, title, summary]) => {
   const svg = productSvg(title);
@@ -579,9 +619,9 @@ write("shop/index.html", page({
           <p class="kk-pill">Coming soon</p>
         </article>`).join("")}</div>
       <h2 id="books">Books</h2>
-      <p>The kite-day cookbook above is a KiteKitchen plan. The titles below are the Flying Sauces and Flying Pancakes books, still under those names. They are not priced here.</p>
+      <p>These are the cookbooks from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon. No prices are listed.</p>
       <div class="kk-grid">
-        ${sauceBooks.concat(pancakeBooks).map((book) => `<article class="kk-card"><p class="kk-kicker">${escapeHtml(book.section)}</p><h3><a href="${book.href}">${escapeHtml(book.title)}</a></h3><p class="kk-pill">Coming soon</p></article>`).join("")}
+        ${guideBooks.map((book) => `<article class="kk-card"><p class="kk-kicker">${escapeHtml(book.section)}</p><h3><a href="${book.href}">${escapeHtml(book.title)}</a></h3><p class="kk-pill">Coming soon</p></article>`).join("")}
       </div>
     </div>`
 }));
@@ -603,64 +643,53 @@ for (const item of shopCards) {
       </article>`
   }));
 }
+writeMoved("shop/kite-festival-cookbook/index.html", "/books/");
 
 write("books/index.html", page({
   title: "Books · KiteKitchen",
-  description: "Flying Sauces and Flying Pancakes books listed inside KiteKitchen, plus a planned kite-day cookbook. Coming soon, with no prices.",
+  description: "Cookbooks from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon, with no prices.",
   path: "/books/",
   current: "",
-  main: `<div class="kk-wrap"><h1>Books</h1><p>These titles come from the Flying Sauces and Flying Pancakes guides. KiteKitchen is not selling them yet.</p><p><a href="/shop/kite-festival-cookbook/">Kite-day cookbook</a>, still a plan.</p><div class="kk-grid">${sauceBooks.concat(pancakeBooks).map((book) => `<article class="kk-card"><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p></article>`).join("")}</div></div>`
+  main: `<div class="kk-wrap"><h1>Recipe cookbooks</h1><p>Titles from Flying Sauces, Flying Pancakes, and Flying BBQ. Coming soon. Nothing here has a price.</p><div class="kk-grid">${guideBooks.map((book) => `<article class="kk-card"><p class="kk-kicker">${escapeHtml(book.section)}</p><h2><a href="${book.href}">${escapeHtml(book.title)}</a></h2><p class="kk-pill">Coming soon</p></article>`).join("")}</div></div>`
 }));
 
 const creditItems = Object.values(photos);
 write("credits/index.html", page({
-  title: "Photo credits · KiteKitchen",
-  description: "Photographers, licenses, and Wikimedia Commons links for the photos stored on KiteKitchen.",
+  title: "Photo credits · Kite Kitchen",
+  description: "Where the photographs on Kite Kitchen are credited.",
   path: "/credits/",
   main: `<div class="kk-wrap"><h1>Photo credits</h1>
-    <p>KiteKitchen stores these files in the repository. They are not hotlinked. Flying Sauces and Flying Pancakes keep their own credit pages: <a href="/flying-sauces/credits/">Flying Sauces credits</a> and <a href="/flying-pancakes/credits/">Flying Pancakes credits</a>.</p>
-    <ul class="kk-sources">${creditItems.map((item) => `<li><strong>${escapeHtml(item.sourceTitle)}</strong>. ${escapeHtml(item.artist.replace(/\s*\(talk\)/, ""))}. ${escapeHtml(item.license)}. <a href="${escapeHtml(item.sourceUrl)}">File page</a>.</li>`).join("")}</ul>
-    <p>The shop drawings and the gold crest are KiteKitchen’s own artwork. The crest was supplied by Jonathan Davis and cut out of its white background for the site.</p>
+    <p>Photographs in the three guides are stored with the pages and credited there.</p>
+    <ul class="kk-sources">
+      <li><a href="/flying-sauces/credits/">Flying Sauces credits</a></li>
+      <li><a href="/flying-pancakes/credits/">Flying Pancakes credits</a></li>
+      <li><a href="/flying-bbq/credits/">Flying BBQ credits</a></li>
+    </ul>
+    <p>The crest and the small compass are original artwork for this site. The crest was supplied by Jonathan Davis.</p>
   </div>`
-}));
-
-write("sources/index.html", page({
-  title: "Sources · KiteKitchen",
-  description: "The published sources behind KiteKitchen’s kite-tradition pages.",
-  path: "/sources/",
-  main: `<div class="kk-wrap"><h1>Sources</h1><p>Tradition pages cite these links in context. This list is the same set, gathered in one place.</p>${traditions.map((item) => `<h2>${escapeHtml(item.title)}</h2><ul class="kk-sources">${item.sources.map(([label, href]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`).join("")}</ul>`).join("")}</div>`
 }));
 
 write("about/index.html", page({
   title: "About · KiteKitchen",
-  description: "KiteKitchen is Jonathan Davis’s kite-day recipe site, with Flying Sauces and Flying Pancakes as named sections.",
+  description: "Kite Kitchen means flying around the world and tasting different foods, one simple recipe at a time.",
   path: "/about/",
-  main: `<article class="kk-wrap"><h1>About KiteKitchen</h1>
-    <p>KiteKitchen is run by Jonathan Davis. The site collects foods tied to kite-flying days, plus picnic recipes made for the park, and it houses two older guides under their own names: Flying Sauces and Flying Pancakes.</p>
-    <p>The public address is <a href="${SITE_ORIGIN}/">kitekitchen.com</a>. That origin is set in <span class="kk-note">site.config.mjs</span> as <code>SITE_ORIGIN</code>.</p>
-    <p>Counts on the Flying Sauces and Flying Pancakes sections are the number of entries imported from those guides. This site does not add reviews or star ratings.</p>
+  main: `<article class="kk-wrap"><h1>About Kite Kitchen</h1>
+    <p>The name Kite Kitchen means flying around the world and tasting different foods. ${TAGLINE}.</p>
+    <p>Jonathan Davis publishes three guides here, under their own names: Flying Sauces, Flying Pancakes, and Flying BBQ. The world map is a way to browse those recipes by country.</p>
+    <p>The public address is <a href="${SITE_ORIGIN}/">kitekitchen.com</a>. That origin is the <code>SITE_ORIGIN</code> value in <span class="kk-note">site.config.mjs</span>.</p>
+    <p>Counts are the number of entries imported from those guides. This site does not add reviews or star ratings.</p>
     <p><a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a> is the contact address written into the pages. Jonathan still needs to confirm the mailbox.</p>
   </article>`
 }));
 
-write("friends/index.html", page({
-  title: "Friends of KiteKitchen",
-  description: "Flying BBQ stays on its own site. Flying Sauces and Flying Pancakes are sections of KiteKitchen.",
-  path: "/friends/",
-  main: `<article class="kk-wrap"><h1>Friends of KiteKitchen</h1>
-    <p>Flying Sauces and Flying Pancakes are part of this site. Flying BBQ was not folded in.</p>
-    <h2 id="flying-bbq">Flying BBQ</h2>
-    <p>Barbecue and live-fire cooking stay on the Flying BBQ site.</p>
-    <p class="kk-row"><a class="kk-button" href="https://jonldavis-coder.github.io/flying-bbq/">Open Flying BBQ</a><a class="kk-button quiet" href="https://github.com/jonldavis-coder/flying-bbq">Repository</a></p>
-  </article>`
-}));
+writeMoved("sources/index.html", "/credits/");
 
 write("advertise/index.html", page({
   title: "Advertise with KiteKitchen",
-  description: "A page for kitchen and kite brands that want to sponsor KiteKitchen. No ad network is switched on, and there are no affiliate links yet.",
+  description: "A page for brands that want to sponsor Kite Kitchen. No ad network is switched on, and there are no affiliate links yet.",
   path: "/advertise/",
   main: `<article class="kk-wrap"><h1>Advertise</h1>
-    <p>KiteKitchen will take a small number of sponsors from kitchen brands and kite brands. Slots are labeled Advertisement, kept out of ingredient lists and steps, hidden when a recipe is printed, and capped at about three a page.</p>
+    <p>Kite Kitchen will take a small number of sponsors. Slots are labeled Advertisement, kept out of ingredient lists and steps, hidden when a recipe is printed, and capped at about three a page.</p>
     <p>Google AdSense is not connected. The ads config ships with <code>enabled: false</code> and an empty publisher ID. A certified consent platform is required before personalized ads run in the EEA or the UK. The banner on this site is not that certified platform.</p>
     <p>Amazon Associates is not connected either. The <a href="/affiliate/">affiliate disclosure</a> is ready for the day a real link exists. There are no affiliate links now.</p>
     <p><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=Advertise%20on%20KiteKitchen">Email ${HELLO_EMAIL}</a></p>
@@ -687,7 +716,7 @@ write("privacy/index.html", page({
     <p>This is a plain-language notice, not a lawyer’s privacy policy.</p>
     <p>The pages are static files. A recipe does not ask you to make an account. The notify buttons open your own email app and send nothing to a KiteKitchen server, because there isn’t one.</p>
     <h2>Google Analytics</h2>
-    <p>KiteKitchen uses Google Analytics 4 with measurement ID ${GA_MEASUREMENT_ID}. The Analytics library is not requested until you press, type, or scroll, or until a short wait after the page loads, so it does not sit on the first paint.</p>
+    <p>Kite Kitchen uses Google Analytics 4 with measurement ID ${GA_MEASUREMENT_ID}. The Analytics library is not requested until you press, type, or scroll, or until a short wait after the page loads, so it does not sit on the first paint.</p>
     <p>Before that library loads, the page sets Google Consent Mode defaults. In the EEA, the UK, and Switzerland, analytics cookies start denied and stay denied until you accept. Elsewhere, analytics storage starts granted unless you reject. If you reject, a later visit keeps analytics storage denied. If you accept, it is granted. The choice is stored in this browser under the key <code>kk-consent</code>.</p>
     <p>When storage is denied, Google’s tag can still receive a cookieless signal. That is how Consent Mode is built. Advertising storage stays denied until you accept, and the ad script is not loaded at all while ads are switched off.</p>
     <h2>Advertising</h2>
@@ -706,7 +735,7 @@ write("terms/index.html", page({
   main: `<article class="kk-wrap"><h1>Terms</h1>
     <p>KiteKitchen publishes recipes and guides for home cooks. They are not professional food-safety, medical, or dietary advice. Festival pages describe other people’s published sources and then give a home adaptation. Read the note on the recipe before you treat it as the traditional dish.</p>
     <p>The shop is a preview. A “Coming soon” label is not an offer to sell. There is no price because none has been approved. Do not send payment.</p>
-    <p>The Flying Sauces and Flying Pancakes sections keep the text imported from those guides. Flying BBQ is a separate site.</p>
+    <p>Flying Sauces, Flying Pancakes, and Flying BBQ keep the text imported from those guides.</p>
     <p>Contact <a href="mailto:${HELLO_EMAIL}">${HELLO_EMAIL}</a>. That mailbox is a placeholder until Jonathan confirms it.</p>
   </article>`
 }));
@@ -716,16 +745,29 @@ write("guidelines/index.html", page({
   description: "How KiteKitchen handles recipe suggestions. No made-up reviews or ratings.",
   path: "/guidelines/",
   main: `<article class="kk-wrap"><h1>Guidelines</h1>
-    <p>Suggest a correction or a kite-day food by emailing <a href="mailto:${HELLO_EMAIL}?subject=KiteKitchen%20suggestion">${HELLO_EMAIL}</a>. A suggestion is not published as a review. This site does not collect star ratings.</p>
+    <p>Suggest a correction or a recipe by emailing <a href="mailto:${HELLO_EMAIL}?subject=KiteKitchen%20suggestion">${HELLO_EMAIL}</a>. A suggestion is not published as a review. This site does not collect star ratings.</p>
     <p>Do not send anyone else’s private information.</p>
   </article>`
 }));
 
+const countryBlocks = [...byCountry.entries()].sort((a, b) => byIso[a[0]].name.localeCompare(byIso[b[0]].name)).map(([iso, items]) => {
+  const place = byIso[iso];
+  const ns = place.lat >= 0 ? "N" : "S";
+  const ew = place.lon >= 0 ? "E" : "W";
+  const label = `${Math.abs(Math.round(place.lat))}° ${ns}, ${Math.abs(Math.round(place.lon))}° ${ew}`;
+  return `<section id="${iso}" class="kk-country"><h2>${escapeHtml(place.name)}</h2><p class="kk-meta">${label}</p><ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul></section>`;
+}).join("");
 write("map/index.html", page({
-  title: "Maps · KiteKitchen",
-  description: "Maps of Flying Sauces and Flying Pancakes, kept inside those sections of KiteKitchen.",
+  title: "World map · Kite Kitchen",
+  description: "A simple world map of Flying Sauces, Flying Pancakes, and Flying BBQ. Choose a country to see its recipes.",
   path: "/map/",
-  main: `<article class="kk-wrap"><h1>Maps</h1><p>The route maps stay with the guides that drew them.</p><p><a href="/flying-sauces/map/">Flying Sauces map</a></p><p><a href="/flying-pancakes/map/">Flying Pancakes map</a></p></article>`
+  current: "map",
+  main: `<div class="kk-wrap"><h1><img class="kk-compass" src="/assets/brand/compass.svg" alt="" width="36" height="36"> World map</h1>
+    <p class="kk-lede">Flying around the world, one recipe at a time. Marked countries have recipes. The shapes are a simplified public-domain country map.</p>
+    ${ad("map", "inline")}
+    <div class="kk-atlas">${atlasMap}</div>
+    ${countryBlocks}
+  </div>`
 }));
 
 write("settled/index.html", page({
@@ -748,7 +790,7 @@ write("login.html", page({
 
 write("submit.html", page({
   title: "Suggest a recipe · KiteKitchen",
-  description: "Send KiteKitchen a kite-day food or a correction by email.",
+  description: "Send Kite Kitchen a recipe idea or a correction by email.",
   path: "/submit.html",
   main: `<article class="kk-wrap"><h1>Suggest a recipe</h1><p><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=Recipe%20suggestion">Email a suggestion</a></p><p class="kk-note">Nothing you send is turned into a rating or a review.</p></article>`
 }));
@@ -766,7 +808,7 @@ function legacyTarget(rel) {
   const parts = rel.replace(/index\.html$/, "").split("/").filter(Boolean);
   if (rel === "sauces/index.html") return "/flying-sauces/";
   if (rel === "pancakes/index.html") return "/flying-pancakes/";
-  if (rel === "bbq/index.html") return "/friends/#flying-bbq";
+  if (rel === "bbq/index.html") return "/flying-bbq/";
   if (rel === "moderate.html") return "/login.html";
   if (rel === "shop/ultimate-library/index.html") return "/shop/#books";
   if (rel === "shop/grill-tools/index.html") return "/shop/tongs/";
@@ -774,13 +816,13 @@ function legacyTarget(rel) {
   if (["cutting-board", "skillet", "spice-tin", "thermometer", "branding-iron", "tumbler", "hat"].includes(parts[1]) && parts[0] === "shop" && parts.length === 2) return "/shop/";
   if (parts[0] === "notes" && parts[1] === "sauces") return `/flying-sauces/sauces/${parts[2]}/`;
   if (parts[0] === "notes" && parts[1] === "pancakes") return `/flying-pancakes/pancakes/${parts[2]}/`;
-  if (parts[0] === "notes" && parts[1] === "bbq") return `https://jonldavis-coder.github.io/flying-bbq/dishes/${parts[2]}/`;
+  if (parts[0] === "notes" && parts[1] === "bbq") return `/flying-bbq/dishes/${parts[2]}/`;
   if (parts[0] === "journeys" && parts[1] === "sauces") return `/flying-sauces/journeys/${parts[2]}/`;
   if (parts[0] === "journeys" && parts[1] === "pancakes") return `/flying-pancakes/journeys/${parts[2]}/`;
-  if (parts[0] === "journeys" && parts[1] === "bbq") return `https://jonldavis-coder.github.io/flying-bbq/journeys/${parts[2]}/`;
+  if (parts[0] === "journeys" && parts[1] === "bbq") return `/flying-bbq/journeys/${parts[2]}/`;
   if (parts[0] === "shop" && parts[1] === "books" && parts[2] === "sauces") return `/flying-sauces/books/${parts[3]}/`;
   if (parts[0] === "shop" && parts[1] === "books" && parts[2] === "pancakes") return `/flying-pancakes/books/${parts[3]}/`;
-  if (parts[0] === "shop" && parts[1] === "books" && parts[2] === "bbq") return `https://jonldavis-coder.github.io/flying-bbq/books/${parts[3]}/`;
+  if (parts[0] === "shop" && parts[1] === "books" && parts[2] === "bbq") return `/flying-bbq/books/${parts[3]}/`;
   return null;
 }
 for (const rel of legacy) {
@@ -810,8 +852,7 @@ for (const rel of legacy) {
 }
 
 const searchItems = [];
-for (const recipe of recipes) searchItems.push({ title: recipe.title, href: `/recipes/${recipe.slug}/`, section: "KiteKitchen", text: recipe.description });
-for (const [dir, section, folder] of [["flying-sauces", "Flying Sauces", "sauces"], ["flying-pancakes", "Flying Pancakes", "pancakes"]]) {
+for (const [dir, section, folder] of [["flying-sauces", "Flying Sauces", "sauces"], ["flying-pancakes", "Flying Pancakes", "pancakes"], ["flying-bbq", "Flying BBQ", "dishes"]]) {
   for (const slug of dirs(`${dir}/${folder}`)) {
     const html = fs.readFileSync(path.join(root, dir, folder, slug, "index.html"), "utf8");
     searchItems.push({
@@ -825,7 +866,7 @@ for (const [dir, section, folder] of [["flying-sauces", "Flying Sauces", "sauces
 write("assets/search-index.json", JSON.stringify(searchItems));
 write("search/index.html", page({
   title: "Search · KiteKitchen",
-  description: "Search KiteKitchen recipes and the Flying Sauces and Flying Pancakes entries on this site.",
+  description: "Search Flying Sauces, Flying Pancakes, and Flying BBQ.",
   path: "/search/",
   current: "",
   main: `<div class="kk-wrap"><h1>Search</h1>

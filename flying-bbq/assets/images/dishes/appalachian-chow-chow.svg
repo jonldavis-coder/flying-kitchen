@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title">
+  <title id="title">Illustration of Appalachian Chow-Chow</title>
+  <rect width="800" height="520" fill="#f7f1e4"/>
+  <rect x="18" y="18" width="764" height="484" fill="none" stroke="#e2b007" stroke-width="16"/>
+  <rect x="42" y="42" width="716" height="436" fill="#1e4d5c"/>
+  <path d="M80 430c80-40 140-20 200-60s120-30 180 10 140 20 220-20" fill="none" stroke="#e2b007" stroke-width="3" opacity="0.45"/>
+  <circle cx="150" cy="120" r="28" fill="none" stroke="#e2b007" stroke-width="3"/>
+  <path d="M150 96v16M150 140v-8M128 120h12M172 120h-8" stroke="#e2b007" stroke-width="2"/>
+  <rect x="300" y="230" width="160" height="90" rx="8" fill="#f7f1e4"/>
+      <rect x="318" y="248" width="124" height="54" fill="#c2412d"/>
+      <circle cx="520" cy="250" r="28" fill="none" stroke="#e2b007" stroke-width="4"/>
+  <rect x="70" y="360" width="120" height="14" fill="#c4a15a" opacity="0.85"/>
+</svg>
