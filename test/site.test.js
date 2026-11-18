@@ -39,7 +39,7 @@ test("origin, domain, analytics, and ads stay honest", () => {
   const home = read("index.html");
   assert.match(home, /class="kk-mark"/);
   assert.match(home, /Search recipes/);
-  assert.match(home, /The Kite Kitchen shop is coming soon/);
+  assert.equal((home.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
   assert.match(home, /kk-hero/);
   assert.match(home, /Atlas plate/);
   assert.doesNotMatch(home, /Jonathan/);
@@ -96,6 +96,7 @@ test("recipe pages keep ads out of the method and printable", () => {
   assert.equal(ingredients.includes("kk-ad"), false);
   assert.match(recipe, /"@type":"Recipe"/);
   assert.match(recipe, /kk-origin/);
+  assert.equal((recipe.match(/The Kite Kitchen shop is coming soon/g) || []).length, 1);
   assert.match(read("traditions/bermuda-good-friday/index.html"), /noindex/);
   assert.match(read("flying-bbq/index.html"), /Flying BBQ/);
   assert.match(read("notes/sauces/pesto-alla-genovese/index.html"), /noindex/);

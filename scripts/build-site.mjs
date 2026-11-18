@@ -33,14 +33,23 @@ function figure(id, alt, note, cls = "kk-photo") {
     </figure>`;
 }
 
-function ad(slot, kind) {
+const SHOP_LINE = `<p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>`;
+
+function ad(slot, kind, shopLine = false) {
   const side = kind === "sidebar";
   return `<aside class="kk-ad${side ? " kk-ad-sidebar" : " kk-ad-inline"}" data-ad-slot="${slot}" aria-label="Advertisement">
       <p class="kk-ad-label">Advertisement</p>
-      <div class="kk-ad-frame">
-        <p><a href="/shop/">The Kite Kitchen shop is coming soon.</a></p>
-      </div>
+      <div class="kk-ad-frame">${shopLine ? SHOP_LINE : ""}</div>
     </aside>`;
+}
+
+function keepFirstShopLine(html) {
+  let seen = false;
+  return html.replace(/<p><a href="\/shop\/">The Kite Kitchen shop is coming soon\.<\/a><\/p>/g, (line) => {
+    if (seen) return "";
+    seen = true;
+    return line;
+  });
 }
 
 const consent = `<div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
@@ -306,14 +315,15 @@ function transformSection(dir, name, originFrom) {
     }
     if (!html.includes('data-ad-slot="after-intro"') && !html.includes('data-ad-slot="section-slot"')) {
       if (/data-page="(sauce|pancake|dish)"/.test(html)) {
-        html = html.replace(/<p class="dek">[\s\S]*?<\/p>/, (m) => `${m}\n${ad("after-intro", "inline")}`);
+        html = html.replace(/<p class="dek">[\s\S]*?<\/p>/, (m) => `${m}\n${ad("after-intro", "inline", true)}`);
         html = html.replace(/<aside class="ad-slot"[\s\S]*?<\/aside>/, ad("before-recipe", "inline"));
         html = html.replace(/<aside class="rail">/, `${ad("sidebar", "sidebar")}\n<aside class="rail">`);
       } else if (html.includes('class="ad-slot"')) {
-        html = html.replace(/<aside class="ad-slot"[\s\S]*?<\/aside>/, ad("section-slot", "inline"));
+        html = html.replace(/<aside class="ad-slot"[\s\S]*?<\/aside>/, ad("section-slot", "inline", true));
       }
     }
     html = html.replace(/<aside class="ad-slot"[\s\S]*?<\/aside>/g, "");
+    html = keepFirstShopLine(html);
     if (!html.includes('id="kk-consent"')) {
       html = html.replace(/<\/body>/, `${consent}\n<script src="/config.js"></script>\n<script src="/assets/js/consent.js" defer></script>\n</body>`);
     }
@@ -585,10 +595,12 @@ for (const item of catalog) {
   byCountry.get(item.iso).push(item);
 }
 const countries = Object.values(byIso).map((country) => ({ ...country, count: (byCountry.get(country.iso) || []).length }));
+const MINI_LANDS = `<path d="M5.3 11.1 12.9 8.9 23.1 8.9 33.3 7.1 40.9 7.6 48.9 9.8 55.1 16.4 50.7 20.4 46.7 24.4 44 28.9 40 32.9 36.9 32.9 32.9 30.2 30.2 28.4 28 25.8 24.9 22.2 24.4 18.2 19.6 14.7 12.4 13.8 6.2 13.3Z"/><path d="M44.4 35.6 48.9 34.7 53.3 36.4 57.8 39.1 64.4 42.2 62.7 49.8 58.7 52.4 52.4 63.1 48 63.1 46.2 57.8 44.4 43.6 45.3 37.3Z"/><path d="M75.6 24 76 20.9 76.4 14.2 80 12.4 83.6 11.6 88.9 8.9 92.4 8.4 94.2 13.3 92.4 19.6 88 22.2 83.6 23.6 77.8 24Z"/><path d="M72.4 30.7 72.9 27.6 74.7 24.4 80 23.6 84.4 23.6 91.1 25.8 94.2 26.2 99.1 34.7 102.7 35.1 98.7 47.1 95.6 51.6 88.9 55.6 85.3 48 83.6 38.2 77.3 37.8 73.8 33.8Z"/><path d="M97.8 15.6 101.3 8.9 115.6 7.1 133.3 7.6 151.1 9.8 159.1 10.7 154.7 13.3 148.9 17.8 143.1 21.3 137.8 25.8 134.2 30.2 128.4 36.4 126.2 39.6 122.2 32.9 115.6 37.3 110.2 29.8 106.7 28.4 101.3 22.2 98.7 17.8Z"/><path d="M130.7 49.8 136.9 45.8 143.1 44.9 144.9 48 148 51.6 146.7 56.9 140.4 55.6 135.1 54.7 130.7 55.1 130.2 51.6Z"/>`;
+
 function pinSvg(lat, lon) {
-  const x = ((lon + 180) / 360) * 72;
-  const y = ((90 - lat) / 180) * 36;
-  return `<svg class="kk-pin" viewBox="0 0 72 36" width="72" height="36" aria-hidden="true"><rect width="72" height="36" fill="#f7f5f2"/><path d="M0 18H72M36 0V36" stroke="#e4ddd2" stroke-width="0.6"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.3" fill="#5c3d12"/></svg>`;
+  const x = ((lon + 180) / 360) * 160;
+  const y = ((90 - lat) / 180) * 80;
+  return `<svg class="kk-pin" viewBox="0 0 160 80" width="156" height="78" aria-hidden="true"><rect width="160" height="80" fill="#f4f0e8"/><path d="M0 40H160M40 0V80M80 0V80M120 0V80" stroke="#e4ddd2" stroke-width="0.45"/><g fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6">${MINI_LANDS}</g><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.4" fill="#e2b007" stroke="#fffdfb" stroke-width="1.7"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.4" fill="none" stroke="#1a1a1a" stroke-width="0.6"/></svg>`;
 }
 function recipeCard(item, compact = false) {
   const place = !compact && item.iso && byIso[item.iso];
@@ -712,7 +724,7 @@ write("recipes/index.html", page({
     <h1>Recipes</h1>
     <p class="kk-lede">${TAGLINE}.</p>
     ${searchForm("recipes-q", "Name or place")}
-    ${ad("recipes-top", "inline")}
+    ${ad("recipes-top", "inline", true)}
     ${browseBlock(catalog)}
     <p class="kk-meta"><a href="/map/">Or start from the world map</a></p>
   </div>`
@@ -773,7 +785,7 @@ for (const item of shopCards) {
         <img src="/assets/brand/products/${item.id}.svg" alt="Original mockup of the ${escapeHtml(item.title)}" width="800" height="640">
         <p class="kk-lede">${escapeHtml(item.summary)}</p>
         <p>The picture is an original mockup drawn for this shop. It is not a photograph of a finished product. No price is listed.</p>
-        ${ad("product", "inline")}
+        ${ad("product", "inline", true)}
         <p class="kk-row"><a class="kk-button" href="mailto:${HELLO_EMAIL}?subject=${encodeURIComponent(item.title)}">Email about this item</a><a class="kk-button quiet" href="/shop/">All shop items</a></p>
       </article>`
   }));
@@ -903,7 +915,7 @@ write("map/index.html", page({
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/map/", "World map"]])}
     <h1>World map</h1>
     <p class="kk-lede">Flying around the world, one recipe at a time. Shaded countries have recipes. The shapes are a simplified public-domain country map.</p>
-    ${ad("map", "inline")}
+    ${ad("map", "inline", true)}
     ${plate(atlasMap, "Atlas plate")}
     ${countryBlocks}
   </div>`
