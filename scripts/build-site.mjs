@@ -1192,12 +1192,13 @@ const COLLECTIONS = [
     slug: "holiday-table",
     title: "Holiday table around the world",
     when: "Thanksgiving, through November 26",
-    lede: "The Thanksgiving reading order, through November 26. Cranberry sauce is the American Thanksgiving sauce. Bread sauce is the British sauce served with roast turkey. The potato pancakes and the orange crepes are the other plates. Every recipe is already on this site.",
+    lede: "The Thanksgiving reading order, through November 26. Roast turkey is the centerpiece. Bread stuffing and cranberry sauce are the American sides. Bread sauce is the British sauce served with roast turkey. Pumpkin pie is the dessert.",
     stops: [
-      { href: "/flying-sauces/sauces/cranberry-sauce/", seat: "Thanksgiving table" },
+      { href: "/flying-bbq/dishes/roast-turkey/", seat: "Centerpiece" },
+      { href: "/flying-bbq/dishes/bread-stuffing/", seat: "Bread stuffing" },
+      { href: "/flying-sauces/sauces/cranberry-sauce/", seat: "Thanksgiving sauce" },
       { href: "/flying-sauces/sauces/bread-sauce/", seat: "With roast turkey" },
-      { href: "/flying-pancakes/pancakes/placki-ziemniaczane/", seat: "Potato pancakes" },
-      { href: "/flying-pancakes/pancakes/crepes-suzette/", seat: "Orange crepes" }
+      { href: "/flying-bbq/dishes/pumpkin-pie/", seat: "Dessert" }
     ]
   },
   {
