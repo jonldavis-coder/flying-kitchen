@@ -13,6 +13,21 @@ const WINDOWS = [
   { slug: "weeknight", from: 901, to: 1031 }
 ];
 
+export function isoWeekSerial(date) {
+  const utc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const day = utc.getUTCDay() || 7;
+  utc.setUTCDate(utc.getUTCDate() - day + 1);
+  const epoch = Date.UTC(1970, 0, 5);
+  return Math.round((utc.getTime() - epoch) / 604800000);
+}
+
+export function weekPick(hrefs, date) {
+  const list = hrefs.slice().sort();
+  if (!list.length) throw new Error("No recipes with a dish photograph");
+  const index = ((isoWeekSerial(date) % list.length) + list.length) % list.length;
+  return list[index];
+}
+
 export function featureForDate(date) {
   const month = date.getUTCMonth() + 1;
   const day = date.getUTCDate();
