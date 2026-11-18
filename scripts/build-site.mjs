@@ -5,6 +5,7 @@ import { cpSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 import { featureForDate } from "./feature-calendar.mjs";
+import { PANTRY_TERMS, pantrySlug } from "./pantry.mjs";
 import { escapeHtml, safeJsonLd } from "../assets/js/lib/escape.js";
 import { traditions, recipes, products } from "../content/kite.mjs";
 
@@ -157,6 +158,7 @@ function footInner() {
           <a href="/journeys/">Journeys</a>
           <a href="/collections/">Collections</a>
           <a href="/passport/">Passport</a>
+          <a href="/pantry/">Pantry</a>
           <a href="/books/">Cookbooks</a>
           <a href="/shop/">Shop</a>
           <a href="/about/">About</a>
@@ -2376,6 +2378,112 @@ function syncRecipeLd(html) {
   });
 }
 
+let pantryPages = [];
+
+function ingredientBlob(item) {
+  const file = path.join(root, item.href.slice(1), "index.html");
+  if (!fs.existsSync(file)) return "";
+  const html = fs.readFileSync(file, "utf8");
+  const block = html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/);
+  return block ? block[1].replace(/<[^>]+>/g, " ") : "";
+}
+
+function buildPantry() {
+  fs.rmSync(path.join(root, "pantry"), { recursive: true, force: true });
+  const ranked = PANTRY_TERMS.map((term) => {
+    const re = new RegExp(term.pattern, "i");
+    const recipes = catalog.filter((item) => re.test(ingredientBlob(item)));
+    return { ...term, slug: pantrySlug(term.name), recipes };
+  }).filter((term) => term.recipes.length).sort((a, b) => b.recipes.length - a.recipes.length || a.name.localeCompare(b.name));
+  pantryPages = ranked.slice(0, 60);
+  const continents = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+  write("pantry/index.html", page({
+    title: "Pantry atlas · Kite Kitchen",
+    description: "The ingredients named most often in the recipes on Kite Kitchen, each with the recipes that list it.",
+    path: "/pantry/",
+    image: "/assets/og/pantry.jpg",
+    main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/pantry/", "Pantry"]])}
+      <header class="kk-mast">
+        <p class="kk-kicker">From the ingredient lines</p>
+        <h1 class="kk-display">Pantry atlas</h1>
+        <p class="dek">The ${pantryPages.length} ingredients named most often in the recipes on this site. Each page lists those recipes, grouped by continent. The count is the number of recipes whose ingredient list matches.</p>
+      </header>
+      <ul class="kk-pantry-index">${pantryPages.map((term) => `<li><a href="/pantry/${term.slug}/">${escapeHtml(term.name)}</a><span class="kk-meta">${term.recipes.length} ${term.recipes.length === 1 ? "recipe" : "recipes"}</span></li>`).join("")}</ul>
+    </div>`
+  }));
+  for (const term of pantryPages) {
+    const counts = new Map();
+    for (const item of term.recipes) if (item.iso) counts.set(item.iso, (counts.get(item.iso) || 0) + 1);
+    const plate = worldSvg(Object.values(byIso).map((country) => ({ ...country, count: counts.get(country.iso) || 0 })), 640, 360, (iso) => countryPath(iso), true, 16);
+    const countries = new Set(term.recipes.map((item) => item.country).filter(Boolean));
+    const usedContinents = continents.filter((name) => term.recipes.some((item) => item.continent === name));
+    const label = term.name.toLowerCase();
+    const groups = usedContinents.map((name) => {
+      const items = term.recipes.filter((item) => item.continent === name).slice().sort((a, b) => a.country.localeCompare(b.country) || a.title.localeCompare(b.title));
+      return `<section class="kk-pantry-group"><h2>${escapeHtml(name)}</h2><ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml([item.country, item.section].filter(Boolean).join(" · "))}</span></li>`).join("")}</ul></section>`;
+    }).join("");
+    write(`pantry/${term.slug}/index.html`, page({
+      title: `${term.name} · Pantry atlas`,
+      description: `${term.recipes.length} recipes on Kite Kitchen list ${label}.`,
+      path: `/pantry/${term.slug}/`,
+      image: `/assets/og/pantry/${term.slug}.jpg`,
+      main: `<article class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/pantry/", "Pantry"], [`/pantry/${term.slug}/`, term.name]])}
+        <header class="kk-mast">
+          <p class="kk-kicker">Pantry</p>
+          <h1 class="kk-display">${escapeHtml(term.name)}</h1>
+          <p class="dek">${term.recipes.length} ${term.recipes.length === 1 ? "recipe lists" : "recipes list"} ${escapeHtml(label)}.</p>
+          <figure class="kk-shot kk-pantry-plate">${plate}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(term.name)}.</span><span class="kk-credit">Atlas plate. Shaded countries have a recipe that lists ${escapeHtml(label)}.</span></figcaption></figure>
+          <ul class="kk-info" aria-label="This ingredient"><li>${term.recipes.length} ${term.recipes.length === 1 ? "recipe" : "recipes"}</li><li>${countries.size} ${countries.size === 1 ? "country" : "countries"}</li><li>${usedContinents.length} ${usedContinents.length === 1 ? "continent" : "continents"}</li></ul>
+        </header>
+        ${groups}
+        <p class="kk-meta"><a href="/pantry/">All pantry ingredients</a></p>
+      </article>`
+    }));
+  }
+}
+
+function linkableName(match, name) {
+  const word = match.toLowerCase().replace(/[^a-z]+/g, " ").trim();
+  const base = name.toLowerCase();
+  if (word === base || word === `${base}s` || `${word}s` === base) return true;
+  if (base.endsWith("ies") && word === `${base.slice(0, -3)}y`) return true;
+  if (word.length >= 4 && (base.startsWith(word) || word.startsWith(base))) return true;
+  const aliases = { chilies: ["chile", "chiles", "chili", "chilis", "chillies"], chickpeas: ["chickpea", "garbanzo"], yogurt: ["yoghurt"] };
+  return (aliases[base] || []).includes(word);
+}
+
+function linkPantry(html) {
+  if (!pantryPages.length || !html.includes('<ul class="ingredients">')) return html;
+  const terms = pantryPages.slice().sort((a, b) => b.name.length - a.name.length);
+  return html.replace(/<ul class="ingredients">([\s\S]*?)<\/ul>/, (full, inner) => {
+    const linked = inner.replace(/<li>([\s\S]*?)<\/li>/g, (line, text) => {
+      if (text.includes("kk-pantry")) return line;
+      const hits = [];
+      for (const term of terms) {
+        const re = new RegExp(term.pattern, "gi");
+        let match;
+        while ((match = re.exec(text))) {
+          if (!linkableName(match[0], term.name)) continue;
+          hits.push({ start: match.index, end: match.index + match[0].length, slug: term.slug });
+        }
+      }
+      hits.sort((a, b) => (b.end - b.start) - (a.end - a.start) || a.start - b.start);
+      const kept = [];
+      for (const hit of hits) {
+        if (kept.some((item) => hit.start < item.end && hit.end > item.start)) continue;
+        kept.push(hit);
+      }
+      kept.sort((a, b) => b.start - a.start);
+      let next = text;
+      for (const hit of kept) {
+        next = `${next.slice(0, hit.start)}<a class="kk-pantry" href="/pantry/${hit.slug}/">${next.slice(hit.start, hit.end)}</a>${next.slice(hit.end)}`;
+      }
+      return `<li>${next}</li>`;
+    });
+    return `<ul class="ingredients">${linked}</ul>`;
+  });
+}
+
 function polishRecipes() {
   const priority = prioritySlugs();
   const sections = [["flying-sauces", "sauces", "Flying Sauces"], ["flying-pancakes", "pancakes", "Flying Pancakes"], ["flying-bbq", "dishes", "Flying BBQ"]];
@@ -2545,6 +2653,7 @@ function polishRecipes() {
           ? html.replace(/(<p class="kk-servings[\s\S]*?<\/p>)/, `$1\n${toggle}`)
           : html.replace(/(<ul class="kk-info"[\s\S]*?<\/ul>)/, `$1\n${toggle}`);
       }
+      html = linkPantry(html);
       html = stampOg(html, `/assets/og/recipes/${kind}-${slug}.jpg`);
       fs.writeFileSync(file, html);
     }
@@ -2603,6 +2712,7 @@ function mountBrowse(rel, items, name) {
   fs.writeFileSync(file, html);
 }
 
+buildPantry();
 polishRecipes();
 mountBrowse("flying-sauces/index.html", catalog.filter((item) => item.section === "Flying Sauces"), "Flying Sauces");
 mountBrowse("flying-pancakes/index.html", catalog.filter((item) => item.section === "Flying Pancakes"), "Flying Pancakes");
@@ -2625,6 +2735,7 @@ const ogJobs = [
   { out: "assets/og/search.jpg", title: "Search", kicker: "Kite Kitchen", line: "A dish, a country, or a guide." },
   { out: "assets/og/journeys.jpg", title: "Journeys", kicker: "Kite Kitchen", line: "Reading orders through recipes already on this site." },
   { out: "assets/og/passport.jpg", title: "My passport", kicker: "Kite Kitchen", line: "Saved in this browser. Nothing is sent on." },
+  { out: "assets/og/pantry.jpg", title: "Pantry atlas", kicker: "Kite Kitchen", line: "Ingredients named in the recipes on this site." },
   { out: "assets/og/lost.jpg", title: "That page is not here", kicker: "Off the map", line: "The route does not match a recipe." }
 ];
 for (const item of catalog) {
@@ -2678,6 +2789,18 @@ for (const [iso, items] of byCountry) {
     line: `${items.length} ${items.length === 1 ? "recipe" : "recipes"}`,
     lat: place.lat,
     lon: place.lon
+  });
+}
+for (const term of pantryPages) {
+  const sample = term.recipes.find((item) => byIso[item.iso]);
+  const place = sample ? byIso[sample.iso] : null;
+  ogJobs.push({
+    out: `assets/og/pantry/${term.slug}.jpg`,
+    title: term.name,
+    kicker: "Pantry",
+    line: `${term.recipes.length} ${term.recipes.length === 1 ? "recipe" : "recipes"}`,
+    lat: place ? place.lat : null,
+    lon: place ? place.lon : null
   });
 }
 for (const [region, items] of byRegion) {
