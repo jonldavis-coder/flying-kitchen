@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import { cpSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
+import { featureForDate } from "./feature-calendar.mjs";
 import { escapeHtml, safeJsonLd } from "../assets/js/lib/escape.js";
 import { traditions, recipes, products } from "../content/kite.mjs";
 
@@ -1295,8 +1296,7 @@ function recipeMinutes(item) {
   return found ? total : null;
 }
 
-// Change this slug to rotate the home-page feature.
-const HOME_FEATURE = "holiday-table";
+const HOME_FEATURE = featureForDate(new Date());
 const COLLECTIONS = [
   {
     slug: "holiday-table",
@@ -1336,6 +1336,64 @@ const COLLECTIONS = [
       { href: "/flying-bbq/dishes/portuguese-sardines/" },
       { href: "/flying-sauces/sauces/hummus/" }
     ]
+  },
+  {
+    slug: "breakfast",
+    title: "Breakfast around the world",
+    when: "Breakfast",
+    lede: "Recipes already on this site whose pages call the dish breakfast. The note under each title is that recipe’s own description.",
+    stops: [
+      { href: "/flying-pancakes/pancakes/masala-dosa/", seat: "City breakfast" },
+      { href: "/flying-pancakes/pancakes/tianjin-jianbing/", seat: "Street breakfast" },
+      { href: "/flying-pancakes/pancakes/msemen/", seat: "Breakfast" },
+      { href: "/flying-pancakes/pancakes/mexican-hotcakes/", seat: "City breakfast" },
+      { href: "/flying-pancakes/pancakes/kenyan-chapati/", seat: "Breakfast with tea" },
+      { href: "/flying-pancakes/pancakes/english-crumpets/", seat: "Breakfast or tea" },
+      { href: "/flying-pancakes/pancakes/turkish-gozleme/", seat: "Savory breakfast" },
+      { href: "/flying-pancakes/pancakes/lebanese-manakish/", seat: "Breakfast loaf" },
+      { href: "/flying-pancakes/pancakes/nigerian-masa/", seat: "Breakfast and street food" },
+      { href: "/flying-pancakes/pancakes/ethiopian-kita/", seat: "Breakfast" },
+      { href: "/flying-pancakes/pancakes/australian-pancakes/", seat: "Home breakfast" },
+      { href: "/flying-pancakes/pancakes/brazilian-beiju/", seat: "Breakfast" }
+    ]
+  },
+  {
+    slug: "street-food",
+    title: "Street food of the world",
+    when: "Street food",
+    lede: "Recipes already on this site whose pages call the dish street food. The note under each title is that recipe’s own description.",
+    stops: [
+      { href: "/flying-pancakes/pancakes/takoyaki/", seat: "Street food" },
+      { href: "/flying-pancakes/pancakes/banh-khot/", seat: "Street food" },
+      { href: "/flying-bbq/dishes/thai-moo-ping/", seat: "Street food" },
+      { href: "/flying-bbq/dishes/xinjiang-lamb-skewers/", seat: "Street food" },
+      { href: "/flying-pancakes/pancakes/afghan-bolani/", seat: "Street food" },
+      { href: "/flying-pancakes/pancakes/arepa-de-huevo/", seat: "Street food" },
+      { href: "/flying-pancakes/pancakes/socca/", seat: "Street food" },
+      { href: "/flying-bbq/dishes/ghanaian-kyinkyinga/", seat: "Street food" },
+      { href: "/flying-bbq/dishes/peruvian-anticuchos/", seat: "Street food" },
+      { href: "/flying-bbq/dishes/senegalese-dibi/", seat: "Street food" },
+      { href: "/flying-bbq/dishes/portuguese-sardines/", seat: "Street food" },
+      { href: "/flying-sauces/sauces/currywurst-sauce/", seat: "Street food" }
+    ]
+  },
+  {
+    slug: "winter-warmers",
+    title: "Winter warmers",
+    when: "Winter",
+    lede: "Recipes already on this site whose pages place the dish in winter. The note under each title is that recipe’s own description.",
+    stops: [
+      { href: "/flying-sauces/sauces/bagna-cauda/", seat: "Autumn and winter" },
+      { href: "/flying-sauces/sauces/romesco/", seat: "In winter" },
+      { href: "/flying-pancakes/pancakes/chilean-sopaipillas/", seat: "Street food in winter" },
+      { href: "/flying-pancakes/pancakes/hotteok/", seat: "Winter street sweet" },
+      { href: "/flying-pancakes/pancakes/patishapta/", seat: "Winter crepe" },
+      { href: "/flying-pancakes/pancakes/spekdik/", seat: "Winter food" },
+      { href: "/flying-pancakes/pancakes/bangladeshi-chitoi-pitha/", seat: "Winter cakes" },
+      { href: "/flying-pancakes/pancakes/filloas/", seat: "Late-winter" },
+      { href: "/flying-bbq/dishes/norwegian-pinnekjott/", seat: "Dark winter" },
+      { href: "/flying-bbq/dishes/spanish-calcots/", seat: "Late winter" }
+    ]
   }
 ];
 
@@ -1368,7 +1426,7 @@ function featureHome(collection) {
     : "";
   return `<section class="kk-feature" data-feature="${escapeHtml(collection.slug)}">
         <div>
-          <p class="kk-kicker">This week</p>
+          <p class="kk-kicker">Now</p>
           <h2><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h2>
           <p>${escapeHtml(collection.lede)}</p>
           <p class="kk-meta">${stops.length} recipes${collection.when ? ` · ${escapeHtml(collection.when)}` : ""}</p>
@@ -2054,19 +2112,21 @@ for (const collection of COLLECTIONS) {
 const featuredCollection = COLLECTIONS.find((item) => item.slug === HOME_FEATURE);
 write("collections/index.html", page({
   title: "Collections · Kite Kitchen",
-  description: "Reading orders through recipes already on Kite Kitchen. One collection is featured on the home page.",
+  description: "Reading orders through recipes already on Kite Kitchen. The home page features one collection for the date the site was built.",
   path: "/collections/",
-  image: "/assets/og/collections/holiday-table.jpg",
+  image: `/assets/og/collections/${featuredCollection.slug}.jpg`,
   main: `<div class="kk-wrap">${crumbs([["/", "Kite Kitchen"], ["/collections/", "Collections"]])}
     <header class="kk-mast">
       <p class="kk-kicker">Reading orders</p>
       <h1 class="kk-display">Collections</h1>
-      <p class="dek">Recipes already on this site, gathered for a week. The home page features one collection at a time.</p>
+      <p class="dek">Recipes already on this site. The home page features one collection for the date the site was built: the holiday table through November 30, winter warmers from December through February, breakfast from March through May, street food from June through August, and the weeknight list from September through October.</p>
     </header>
-    <div class="kk-rcards">${COLLECTIONS.map((collection) => {
+    <div class="kk-catalog kk-collection-catalog">${COLLECTIONS.map((collection) => {
       const stops = collectionStops(collection);
+      const names = orderedCountries(stops);
       const onHome = collection.slug === featuredCollection.slug;
-      return `<article class="kk-rcard"><p class="kk-kicker">${escapeHtml(collection.when || "Collection")}${onHome ? " · On the home page" : ""}</p><h3><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h3><p>${escapeHtml(collection.lede)}</p><p class="kk-meta">${stops.length} recipes</p></article>`;
+      const plate = routeSvg(routePlaces(stops), `Map of ${collection.title}`);
+      return `<article class="kk-book"><a class="kk-catalog-map" href="/collections/${collection.slug}/">${plate}</a><div><p class="kk-kicker">${escapeHtml(collection.when || "Collection")}${onHome ? " · On the home page" : ""}</p><h2><a href="/collections/${collection.slug}/">${escapeHtml(collection.title)}</a></h2><p class="dek">${escapeHtml(collection.lede)}</p><p class="kk-meta">${stops.length} recipes · ${names.length} ${names.length === 1 ? "country" : "countries"}</p></div></article>`;
     }).join("")}</div>
   </div>`
 }));
@@ -2391,7 +2451,7 @@ function polishRecipes() {
       if (heroFig && html.includes('<p class="dek">')) {
         const figure = heroFig[0];
         html = html.replace(figure, "");
-        html = html.replace(/(<p class="dek">[\s\S]*?<\/p>)/, `$1\n${figure}`);
+        html = html.replace(/(<p class="dek">[\s\S]*?<\/p>)\s*/, `$1\n${figure}\n`);
       }
       const printBrand = `<p class="print-only print-brand">${KITE_MARK}<span>Kite Kitchen</span></p>`;
       if (html.includes("print-brand")) html = html.replace(/<p class="print-only print-brand">[\s\S]*?<\/p>/, printBrand);
