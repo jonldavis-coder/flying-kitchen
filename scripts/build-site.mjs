@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { cpSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { SITE_ORIGIN, BASE_PATH, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
-import { featureForDate, weekPick } from "./feature-calendar.mjs";
+import { featureForDate, extendWeekSchedule, isoWeekSerial } from "./feature-calendar.mjs";
 import { PANTRY_TERMS, pantrySlug } from "./pantry.mjs";
 import { escapeHtml, safeJsonLd } from "../assets/js/lib/escape.js";
 import { traditions, recipes, products } from "../content/kite.mjs";
@@ -1309,11 +1309,21 @@ const featuredItems = [
   "/flying-pancakes/pancakes/appam/",
   "/flying-bbq/dishes/eastern-nc-whole-hog/"
 ].map((href) => catalog.find((item) => item.href === href)).filter(Boolean);
-const photoHrefs = catalog.filter((item) => {
+const photoSlugs = catalog.filter((item) => {
   const slug = item.href.split("/").filter(Boolean).at(-1);
   return Boolean(DISH_PHOTO[slug] || CARD_PHOTO[item.href]);
-}).map((item) => item.href);
-const weekRecipe = catalog.find((item) => item.href === weekPick(photoHrefs, new Date()));
+}).map((item) => item.href.split("/").filter(Boolean).at(-1));
+const schedulePath = path.join(root, "data/week-schedule.json");
+const weekSchedule = JSON.parse(fs.readFileSync(schedulePath, "utf8"));
+const weekSerial = isoWeekSerial(new Date());
+const extendedSchedule = extendWeekSchedule(weekSchedule, photoSlugs, weekSerial + 25);
+if (JSON.stringify(extendedSchedule) !== JSON.stringify(weekSchedule)) {
+  fs.writeFileSync(schedulePath, `${JSON.stringify(extendedSchedule, null, 2)}\n`);
+}
+const weekRow = extendedSchedule.find((row) => row.serial === weekSerial);
+if (!weekRow) throw new Error(`No recipe of the week for ISO week serial ${weekSerial}`);
+const weekRecipe = catalog.find((item) => item.href.split("/").filter(Boolean).at(-1) === weekRow.slug);
+if (!weekRecipe) throw new Error(`Scheduled recipe ${weekRow.slug} is not in the catalog`);
 const featuredDay = DAY_JOURNEYS[0];
 const cookbookPicks = guideBooks.filter((book) => /top-100|flagship|american-bbq-belt|crepes-of-france|top 100/i.test(`${book.slug} ${book.title}`)).slice(0, 6);
 
