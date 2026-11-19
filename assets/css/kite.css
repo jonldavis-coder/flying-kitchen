@@ -470,6 +470,8 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-shop-strip a { color: var(--ink); }
 
 .kk-filters { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin: 0.5rem 0 1rem; }
+#search-country { width: 12rem; max-width: 100%; }
+#search-status { min-height: 1.5em; }
 .kk-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .kk-chips button {
   min-height: 44px;
@@ -496,7 +498,7 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-footer .kk-tag { color: var(--muted); }
 .kk-footer .kk-wrap, .kk-foot { padding-top: 0; padding-bottom: 0; }
 .kk-foot { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem 1.75rem; align-items: center; }
-.kk-crest { width: 96px; height: auto; display: block; }
+.kk-crest { width: 96px; height: 124px; object-fit: contain; display: block; }
 .kk-footer nav { display: flex; flex-wrap: wrap; gap: 0.45rem 1rem; margin: 0.55rem 0; }
 .kk-footer a, .kk-footer button { color: var(--ink); }
 .kk-footer button.quiet {
@@ -825,7 +827,8 @@ body[data-page="book"] .book-recipe { border-top: 1px solid var(--line); padding
   .kk-catalog.kk-collection-catalog .kk-book { grid-template-columns: 1fr; }
   .kk-hit strong { font-size: 1.2rem; }
   .kk-foot { grid-template-columns: 1fr; }
-  .kk-crest { width: 72px; }
+  .kk-crest { width: 72px; height: 93px; }
+  #search-status { min-height: 3.4em; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
