@@ -336,12 +336,24 @@ test("origin, domain, analytics, and ads stay honest", () => {
     assert.equal(node.author.name, "Kite Kitchen");
     assert.equal(node.datePublished, undefined);
     assert.ok(node.recipeIngredient.length);
-    assert.ok(node.recipeInstructions.every((step) => step["@type"] === "HowToStep" && step.text));
+    assert.ok(node.recipeInstructions.every((step, index) => step["@type"] === "HowToStep" && step.name && step.text && step.url.endsWith(`#step-${index + 1}`) && step.image));
+    assert.ok(node.keywords);
+    assert.equal(node.aggregateRating, undefined);
+    assert.equal(node.video, undefined);
+    assert.match(read(`${rel}/index.html`), /id="step-1"/);
     assert.ok(node.totalTime);
     assert.ok(node.recipeYield);
     assert.ok(node.recipeCuisine);
     assert.ok(node.recipeCategory);
+    assert.match(node.keywords, new RegExp(node.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.ok(node.keywords.split(",").length <= 6);
   }
+  const plate = JSON.parse(read("flying-bbq/dishes/cuban-lechon-asado/index.html").match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]).find((item) => item["@type"] === "Recipe");
+  assert.ok(plate.recipeInstructions.every((step, index) => step.name && step.text && step.url.endsWith(`#step-${index + 1}`) && !step.image));
+  assert.ok(plate.keywords);
+  assert.equal(plate.aggregateRating, undefined);
+  assert.equal(plate.video, undefined);
+  assert.doesNotMatch(read("flying-bbq/dishes/cuban-lechon-asado/index.html"), /data-photo=/);
   assert.match(read("sitemap.xml"), /\/pantry\/garlic\//);
   assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
   assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
@@ -535,7 +547,7 @@ test("recipe times, temperatures, units, and repeated doneness lines stay consis
       const ingredients = ((html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/) || [null, ""])[1]).replace(/<[^>]+>/g, " ");
       assert.doesNotMatch(ingredients, /(?<!\d )(?<!\d)(?:1|1\/2|1\/3|1\/4|1\/8|2\/3|3\/4)\s+(?:cups|tablespoons|teaspoons|pounds|ounces)\b/, name);
       const steps = (html.match(/<ol class="steps">([\s\S]*?)<\/ol>/) || [null, ""])[1];
-      assert.match(steps, /<li>/, `${name} steps`);
+      assert.match(steps, /<li\b/, `${name} steps`);
       for (const phrase of boiler) assert.ok(steps.split(phrase).length - 1 <= 1, `${name} ${phrase}`);
       checked += 1;
     }

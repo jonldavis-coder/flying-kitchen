@@ -3992,5 +3992,68 @@
     "mastHeight": 1000,
     "cardWidth": 1200,
     "cardHeight": 900
+  },
+  {
+    "key": "abruzzo-arrosticini",
+    "id": "abruzzo-arrosticini",
+    "slug": "abruzzo-arrosticini",
+    "alt": "Cooked lamb arrosticini",
+    "caption": "Abruzzo arrosticini.",
+    "artist": "User:Raboe001",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arrosticini_01.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Arrosticini 01.jpg",
+    "focal": [
+      0.55,
+      0.48
+    ],
+    "mastWidth": 1313,
+    "mastHeight": 875,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "irish-boxty",
+    "id": "irish-boxty",
+    "slug": "irish-boxty",
+    "alt": "A folded potato boxty",
+    "caption": "Irish boxty.",
+    "artist": "\u3055\u3048\u307c\u30fc",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ansolas_boxty.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Ansolas boxty.jpg",
+    "focal": [
+      0.55,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "tunisian-mlawi",
+    "id": "tunisian-mlawi",
+    "slug": "tunisian-mlawi",
+    "alt": "Folded griddled mlawi",
+    "caption": "Tunisian mlawi.",
+    "artist": "Touzrimounir",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mlawi_1.JPG",
+    "source": "Wikimedia Commons",
+    "commons": "File:Mlawi 1.JPG",
+    "focal": [
+      0.5,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
   }
 ]
