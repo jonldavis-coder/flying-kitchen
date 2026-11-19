@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 import { featureForDate, isoWeekSerial, weekPick, extendWeekSchedule } from "../scripts/feature-calendar.mjs";
+import { rankItems } from "../assets/js/search-rank.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -186,7 +187,8 @@ test("origin, domain, analytics, and ads stay honest", () => {
   assert.ok(weeknightCards.indexOf('class="kk-shot"') < weeknightCards.indexOf('class="kk-atlas-card"'));
   const sauceBrowse = read("flying-sauces/index.html").split('id="kk-browse"')[1];
   assert.ok(sauceBrowse.indexOf("/flying-sauces/sauces/pesto-alla-genovese/") < sauceBrowse.indexOf("/flying-sauces/sauces/alabama-white-sauce/"));
-  assert.match(read("assets/js/search.js"), /a\.thumb \? 0 : 1/);
+  assert.match(read("assets/js/search.js"), /rankScore/);
+  assert.match(read("assets/js/search-rank.mjs"), /item\.thumb \? 1 : 0/);
   assert.match(read("journeys/day-china-elsalvador-mexico/index.html"), /Tianjin jianbing/);
   assert.doesNotMatch(read("journeys/day-china-elsalvador-mexico/index.html"), /shandong-jianbing/);
   assert.match(read("journeys/day-malaysia-italy-jamaica/index.html"), /Carbonara/);
@@ -538,4 +540,82 @@ test("recipe times, temperatures, units, and repeated doneness lines stay consis
     }
   }
   assert.ok(checked >= 800);
+});
+
+test("related recipes stay short, photographed, and tied to data on the page", () => {
+  for (const rel of [
+    "flying-sauces/sauces/carbonara/index.html",
+    "flying-sauces/sauces/pesto-alla-genovese/index.html",
+    "flying-pancakes/pancakes/albanian-flija/index.html",
+    "flying-sauces/sauces/ajvar/index.html",
+    "flying-pancakes/pancakes/tianjin-jianbing/index.html"
+  ]) {
+    const html = read(rel);
+    const related = html.split("<h2>Related</h2>")[1]?.split("</section>")[0] || "";
+    assert.match(html, /<h2>Related<\/h2>/, rel);
+    const links = [...related.matchAll(/<a href="([^"]+)">/g)].map((match) => match[1]);
+    assert.ok(links.length >= 1 && links.length <= 4, `${rel} ${links.length}`);
+    assert.equal(new Set(links).size, links.length, rel);
+    assert.equal(links.some((href) => rel.includes(href.split("/").filter(Boolean).at(-1))), false, rel);
+    assert.match(related, /kk-meta/, rel);
+  }
+  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
+  assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
+  assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
+  assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
+  assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Eastern Europe/);
+  assert.match(read("flying-pancakes/pancakes/tianjin-jianbing/index.html"), /Next stop/);
+});
+
+test("search ranks exact names, accents, typos, and photographs", () => {
+  const items = JSON.parse(read("assets/search-index.json"));
+  function top(query, count = 5) {
+    return rankItems(items, query).slice(0, count);
+  }
+  function first(query) {
+    const hit = top(query, 1)[0];
+    assert.ok(hit, query);
+    return hit;
+  }
+  const queries = [
+    "carbonara", "carbanara", "creme brulee", "crème brûlée", "jianbing", "chicken", "breakfast",
+    "vegetarian", "italian pasta", "quick", "thanksgiving", "pancakes", "bbq", "pesto", "aioli",
+    "dosa", "pupusas", "turkey", "mole", "injera", "fesenjan", "france", "gravy", "rice", "korea",
+    "holiday", "latke", "soup", "vegan", "roast turkey"
+  ];
+  assert.equal(queries.length, 30);
+  assert.equal(first("carbonara").title, "Carbonara");
+  assert.equal(first("carbanara").title, "Carbonara");
+  assert.deepEqual(top("creme brulee").map((item) => item.href), top("crème brûlée").map((item) => item.href));
+  assert.match(first("jianbing").title, /jianbing/i);
+  assert.match(first("chicken").title, /chicken/i);
+  assert.ok(first("chicken").thumb, "chicken photo");
+  assert.ok(first("breakfast").meals.includes("Breakfast"));
+  assert.ok(first("vegetarian").diets.some((diet) => /vegetarian/i.test(diet)));
+  assert.equal(first("italian pasta").country, "Italy");
+  assert.ok(first("quick").minutes <= 30);
+  assert.match(first("thanksgiving").collections.join(" "), /thanksgiving/i);
+  assert.match(first("pancakes").section, /Pancake/);
+  assert.match(first("bbq").section, /BBQ/);
+  assert.match(first("pesto").title, /Pesto/);
+  assert.match(first("aioli").title, /A[iï]oli/);
+  assert.match(first("dosa").title, /dosa/i);
+  assert.match(first("pupusas").title, /Pupusa/);
+  assert.match(first("turkey").title, /[Tt]urkey/);
+  assert.match(first("mole").title, /Mole/);
+  assert.match(first("injera").title, /Injera/);
+  assert.match(first("fesenjan").title, /Fesenjan/);
+  assert.equal(first("france").country, "France");
+  assert.match(`${first("gravy").title} ${first("gravy").text}`, /gravy/i);
+  assert.match(`${first("rice").title} ${first("rice").ingredients}`, /rice/i);
+  assert.ok(/korea/i.test(first("korea").country) || /korea/i.test(first("korea").title));
+  assert.match(first("holiday").collections.join(" "), /holiday|thanksgiving/i);
+  assert.match(first("latke").title, /latke/i);
+  assert.match(`${first("soup").title} ${first("soup").text} ${first("soup").ingredients}`, /soup/i);
+  assert.ok(first("vegan").diets.some((diet) => /vegan/i.test(diet)));
+  assert.match(first("roast turkey").title, /Roast Turkey/);
+  const chicken = top("chicken", 8);
+  const withPhoto = chicken.findIndex((item) => item.thumb);
+  const without = chicken.findIndex((item) => !item.thumb);
+  if (withPhoto >= 0 && without >= 0) assert.ok(withPhoto < without);
 });

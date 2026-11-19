@@ -1,3 +1,5 @@
+import { rankScore } from "./search-rank.mjs";
+
 (function () {
   var list = document.getElementById("results");
   var status = document.getElementById("search-status");
@@ -60,8 +62,10 @@
         if (country && item.country !== country) return false;
         if (meal !== "all" && (item.meals || []).indexOf(meal) === -1) return false;
         if (!query) return true;
-        return (item.title + " " + item.text + " " + item.section + " " + (item.country || "") + " " + (item.region || "") + " " + (item.meals || []).join(" ")).toLowerCase().includes(query);
-      }).sort(function (a, b) { return (a.thumb ? 0 : 1) - (b.thumb ? 0 : 1); }).slice(0, 36);
+        return rankScore(item, raw) > 0;
+      }).sort(function (a, b) {
+        return rankScore(b, raw) - rankScore(a, raw) || a.title.localeCompare(b.title);
+      }).slice(0, 36);
       var bits = [];
       if (query) bits.push("“" + raw + "”");
       if (country) bits.push(country);

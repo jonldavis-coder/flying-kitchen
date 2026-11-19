@@ -1380,7 +1380,7 @@ write("index.html", page({
   current: "home",
   jsonLd: homeLd,
   scripts: `<script src="/assets/js/atlas.js" defer></script>`,
-  extraHead: home_hero_photo ? `<link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/hero-mast-${EDITORIAL.hero.mastWidth}.avif" imagesizes="100vw">` : "",
+  extraHead: home_hero_photo ? `<link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/hero-mast-${EDITORIAL.hero.mastWidth}.avif" imagesizes="100vw" fetchpriority="high">` : "",
   main: `<section class="kk-hero">
       <div class="kk-hero-inner">
         <p class="kk-kicker">World recipes</p>
@@ -2161,10 +2161,45 @@ const mealsBySlug = new Map([
   ...usesMap("flying-pancakes/data/index.json", "pancakes"),
   ...usesMap("flying-bbq/data/dishes/raw.json")
 ]);
+function dietsMap(file, key) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+  const list = Array.isArray(data) ? data : data[key] || [];
+  return list.map((item) => [item.slug, item.diets || []]);
+}
+const dietsBySlug = new Map([
+  ...dietsMap("flying-sauces/data/index.json", "sauces"),
+  ...dietsMap("flying-pancakes/data/index.json", "pancakes"),
+  ...dietsMap("flying-bbq/data/dishes/raw.json")
+]);
+const collectionsByHref = new Map();
+for (const collection of COLLECTIONS) {
+  for (const stop of collection.stops) {
+    const href = typeof stop === "string" ? stop : stop.href;
+    const note = [collection.title, collection.when, stop.seat].filter(Boolean).join(" ");
+    const notes = collectionsByHref.get(href) || [];
+    notes.push(note);
+    collectionsByHref.set(href, notes);
+  }
+}
+function recipeFacts(href) {
+  const file = path.join(root, href.slice(1), "index.html");
+  if (!fs.existsSync(file)) return { method: "", base: "", locale: "", ingredients: "", pairs: [] };
+  const html = fs.readFileSync(file, "utf8");
+  const method = textOf(html, /<dt>Method<\/dt>\s*<dd>([\s\S]*?)<\/dd>/);
+  const base = textOf(html, /<dt>Base<\/dt>\s*<dd>([\s\S]*?)<\/dd>/);
+  const locale = textOf(html, /<dt>Locale<\/dt>\s*<dd>([\s\S]*?)<\/dd>/);
+  const ingredientBlock = html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/);
+  const ingredients = ingredientBlock ? ingredientBlock[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() : "";
+  const pairBlock = html.match(/<div class="pairings">([\s\S]*?)<\/div>/);
+  const pairs = pairBlock ? [...pairBlock[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()).filter(Boolean) : [];
+  return { method, base, locale, ingredients, pairs };
+}
+const factsByHref = new Map(catalog.map((item) => [item.href, recipeFacts(item.href)]));
 const searchItems = catalog.map((item) => {
   const slug = item.href.split("/").filter(Boolean).at(-1);
   const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
   const place = byIso[item.iso];
+  const facts = factsByHref.get(item.href) || { ingredients: "" };
   return {
     title: item.title,
     href: item.href,
@@ -2173,6 +2208,10 @@ const searchItems = catalog.map((item) => {
     country: item.country || "",
     region: item.region || "",
     meals: mealsBySlug.get(slug) || [],
+    diets: dietsBySlug.get(slug) || [],
+    ingredients: facts.ingredients,
+    minutes: recipeMinutes(item),
+    collections: collectionsByHref.get(item.href) || [],
     thumb: photo ? `/assets/photos/editorial/${photo.id}-card-${photo.cardWidth}.jpg` : "",
     lat: place ? place.lat : null,
     lon: place ? place.lon : null
@@ -2203,7 +2242,7 @@ write("search/index.html", page({
     <div id="results" class="kk-results"></div>
     <svg id="kk-land" hidden><rect width="160" height="80" fill="#f4f0e8"/><path d="M0 40H160M40 0V80M80 0V80M120 0V80" stroke="#e4ddd2" stroke-width="0.45"/><g fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6">${MINI_LANDS}</g></svg>
   </div>
-  <script src="/assets/js/search.js" defer></script>`
+  <script src="/assets/js/search.js" type="module"></script>`
 }));
 
 if (!fs.existsSync(path.join(root, "flying-sauces/explore/type/curry-paste/index.html"))) {
@@ -2467,6 +2506,108 @@ function linkPantry(html) {
   });
 }
 
+function nameWords(value) {
+  return String(value || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+}
+function titleMentioned(title, text) {
+  const wanted = nameWords(title).filter((word) => word.length >= 3);
+  if (!wanted.length || wanted.join("").length < 5) return false;
+  const hay = nameWords(text);
+  for (let start = 0; start + wanted.length <= hay.length; start += 1) {
+    if (wanted.every((word, index) => hay[start + index] === word)) return true;
+  }
+  return false;
+}
+function selectRelated(self) {
+  if (!self) return [];
+  const facts = factsByHref.get(self.href) || { method: "", base: "", locale: "", pairs: [] };
+  const groups = [];
+  function orderMates(items) {
+    const rest = items.filter((item) => item.href !== self.href);
+    rest.sort((a, b) => (a.section === self.section ? 0 : 1) - (b.section === self.section ? 0 : 1) || (itemPhoto(a) ? 0 : 1) - (itemPhoto(b) ? 0 : 1) || a.title.localeCompare(b.title));
+    const sameSection = rest.some((item) => item.section === self.section);
+    const pool = rest.filter((item) => (!sameSection || item.section === self.section) && itemPhoto(item));
+    const mates = pool.length ? pool : rest;
+    const start = mates.findIndex((item) => item.title.localeCompare(self.title) > 0);
+    const rotated = start > 0 ? mates.slice(start).concat(mates.slice(0, start)) : mates;
+    return rotated.concat(rest.filter((item) => !rotated.includes(item)));
+  }
+  function pushGroup(entries) {
+    const seen = new Set();
+    const list = [];
+    for (const entry of entries) {
+      if (!entry?.item || entry.item.href === self.href || seen.has(entry.item.href)) continue;
+      seen.add(entry.item.href);
+      list.push(entry);
+    }
+    if (list.length) groups.push(list);
+  }
+  if (self.country) {
+    pushGroup(orderMates(catalog.filter((item) => item.country === self.country)).map((item) => ({ item, reason: `Also from ${self.country}` })));
+  }
+  if (self.region) {
+    pushGroup(orderMates(catalog.filter((item) => item.region === self.region && item.country !== self.country)).map((item) => ({ item, reason: `Also from ${self.region}` })));
+  }
+  for (const journey of JOURNEYS) {
+    const hrefs = journey.stops.map((stop) => (typeof stop === "string" ? stop : stop.href));
+    const index = hrefs.indexOf(self.href);
+    if (index < 0 || index >= hrefs.length - 1) continue;
+    const next = catalog.find((item) => item.href === hrefs[index + 1]);
+    const stop = journey.stops[index + 1];
+    const meal = typeof stop === "string" ? "" : stop.meal;
+    pushGroup([{ item: next, reason: meal ? `Next stop, ${meal}` : `Next stop on ${journey.title}` }]);
+    break;
+  }
+  const locale = facts.locale || "";
+  if (locale && locale.length <= 40 && !/\band\b/i.test(locale) && locale !== self.country) {
+    pushGroup(orderMates(catalog.filter((item) => factsByHref.get(item.href)?.locale === locale)).map((item) => ({ item, reason: `Also from ${locale}` })));
+  }
+  const paired = [];
+  for (const pair of facts.pairs || []) {
+    const hits = catalog.filter((item) => titleMentioned(item.title, pair));
+    hits.sort((a, b) => nameWords(b.title).length - nameWords(a.title).length || b.title.length - a.title.length);
+    if (hits[0]) paired.push({ item: hits[0], reason: `Pairs with ${hits[0].title}` });
+  }
+  paired.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1) || a.item.title.localeCompare(b.item.title));
+  pushGroup(paired);
+  const namedBy = [];
+  for (const item of catalog) {
+    const other = factsByHref.get(item.href);
+    if ((other?.pairs || []).some((pair) => titleMentioned(self.title, pair))) namedBy.push({ item, reason: `Pairs with ${item.title}` });
+  }
+  namedBy.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1) || a.item.title.localeCompare(b.item.title));
+  pushGroup(namedBy);
+  if (facts.method && facts.method.length > 2 && facts.method.length <= 40) {
+    pushGroup(orderMates(catalog.filter((item) => factsByHref.get(item.href)?.method === facts.method)).map((item) => ({ item, reason: `Same method: ${facts.method}` })));
+  }
+  if (facts.base && facts.base.length > 2 && facts.base.length <= 40) {
+    pushGroup(orderMates(catalog.filter((item) => factsByHref.get(item.href)?.base === facts.base)).map((item) => ({ item, reason: `Same base: ${facts.base}` })));
+  }
+  const slug = self.href.split("/").filter(Boolean).at(-1);
+  const meal = (mealsBySlug.get(slug) || [])[0];
+  if (meal) {
+    pushGroup(orderMates(catalog.filter((item) => (mealsBySlug.get(item.href.split("/").filter(Boolean).at(-1)) || []).includes(meal))).map((item) => ({ item, reason: `Also for ${meal}` })));
+  }
+  const picks = [];
+  const used = new Set([self.href]);
+  const perReason = groups.length > 1 ? 2 : 4;
+  let added = true;
+  while (picks.length < 4 && added) {
+    added = false;
+    for (const group of groups) {
+      if (picks.length >= 4) break;
+      const reason = group[0].reason;
+      if (picks.filter((pick) => pick.reason === reason).length >= perReason) continue;
+      const entry = group.find((item) => !used.has(item.item.href));
+      if (!entry) continue;
+      used.add(entry.item.href);
+      picks.push(entry);
+      added = true;
+    }
+  }
+  picks.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1));
+  return picks.slice(0, 4);
+}
 function polishRecipes() {
   const priority = prioritySlugs();
   const sections = [["flying-sauces", "sauces", "Flying Sauces"], ["flying-pancakes", "pancakes", "Flying Pancakes"], ["flying-bbq", "dishes", "Flying BBQ"]];
@@ -2567,25 +2708,10 @@ function polishRecipes() {
       if (trips.length) {
         blocks.push(`<section class="kk-also"><h2>From the journey</h2><ul class="kk-recipe-list">${trips.join("")}</ul></section>`);
       }
-      if (self && (self.country || self.region)) {
-        const recipeList = (items) => `<ul class="kk-recipe-list">${items.map((item) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(item.section)}</span></li>`).join("")}</ul>`;
-        const sameCountry = self.country ? catalog.filter((item) => item.country === self.country && item.href !== selfHref) : [];
-        const countryPicks = sameCountry.slice(0, 4);
-        const regionPicks = [];
-        if (countryPicks.length < 4 && self.region) {
-          const used = new Set([selfHref, ...countryPicks.map((item) => item.href)]);
-          for (const item of catalog) {
-            if (regionPicks.length >= 4 - countryPicks.length) break;
-            if (item.region !== self.region || used.has(item.href)) continue;
-            regionPicks.push(item);
-          }
-        }
-        if (countryPicks.length) {
-          blocks.push(`<section class="kk-also"><h2>Also from ${escapeHtml(self.country)}</h2>${recipeList(countryPicks)}</section>`);
-        }
-        if (regionPicks.length) {
-          blocks.push(`<section class="kk-also"><h2>Also from ${escapeHtml(self.region)}</h2>${recipeList(regionPicks)}</section>`);
-        }
+      const related = selectRelated(self);
+      if (related.length) {
+        const rows = related.map(({ item, reason }) => `<li><a href="${item.href}">${escapeHtml(item.title)}</a> <span class="kk-meta">${escapeHtml(reason)}</span></li>`).join("");
+        blocks.push(`<section class="kk-also"><h2>Related</h2><ul class="kk-recipe-list">${rows}</ul></section>`);
       }
       if (blocks.length) {
         html = html.replace(/<\/article>/, `<div class="kk-more">${blocks.join("")}</div>\n</article>`);
@@ -2639,7 +2765,7 @@ function polishRecipes() {
       const avif = html.match(/<source type="image\/avif" srcset="(\/assets\/photos\/editorial\/[^"]+)" sizes="([^"]+)"/);
       if (avif) {
         const href = avif[1].split(",")[0].trim().split(/\s+/)[0];
-        html = html.replace("</head>", `<link rel="preload" as="image" type="image/avif" href="${href}" imagesrcset="${avif[1]}" imagesizes="${avif[2]}">\n</head>`);
+        html = html.replace("</head>", `<link rel="preload" as="image" type="image/avif" href="${href}" imagesrcset="${avif[1]}" imagesizes="${avif[2]}" fetchpriority="high">\n</head>`);
       }
       const kind = folder === "sauces" ? "sauces" : folder === "pancakes" ? "pancakes" : "bbq";
       html = html.replace(/<div class="kk-method" id="kk-method">([\s\S]*?)<\/div>/, (_, inner) => {
