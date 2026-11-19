@@ -66,16 +66,26 @@ function dishWords(token) {
   return null;
 }
 
+/** Filed under Flying Sauces: a condiment page rather than the dish it accompanies. */
+export function isCondiment(item) {
+  return /sauce/i.test(item.section || "");
+}
+
+function taggedCondiment(item, token) {
+  return isCondiment(item) && token !== "sauce" && token !== "sauces";
+}
+
 function dishTypeScore(item, token) {
   const list = dishWords(token);
   if (!list) return 0;
-  const hay = new Set(words([
-    item.title,
-    item.section,
-    item.ingredients,
-    ...(item.tags || [])
-  ].join(" ")));
-  return list.some((word) => hay.has(word)) ? 450 : 0;
+  const has = (value) => words(value).some((word) => list.includes(word));
+  const inTitle = has(item.title);
+  const inIngredients = has(item.ingredients);
+  const inTags = (item.tags || []).some((tag) => has(tag));
+  const inSection = has(item.section);
+  if (!inTitle && !inIngredients && !inTags && !inSection) return 0;
+  if (taggedCondiment(item, token)) return 280;
+  return inTitle ? 800 : 700;
 }
 
 /** Higher is a closer match. A photograph adds one point, so it wins only a tie. */
@@ -87,7 +97,7 @@ export function rankScore(item, query) {
   const title = fold(item.title);
   const titleWords = words(title);
   const parts = tokens.map((token) => {
-    if (titleWords.some((word) => word === token)) return 1000;
+    if (titleWords.some((word) => word === token)) return dishWords(token) && taggedCondiment(item, token) ? 420 : 1000;
     if (!dishWords(token) && titleWords.some((word) => typo(token, word))) return 850;
     if (hasWord(token, item.section)) return 600;
     if (placeMatch(token, item.country) || placeMatch(token, item.region)) return 1200;

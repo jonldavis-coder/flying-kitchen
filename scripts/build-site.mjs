@@ -70,6 +70,7 @@ function headBits(title, description, url, jsonLd, robots, extraHead = "", image
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  ${extraHead}
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
   <meta name="theme-color" content="#141210">
@@ -92,7 +93,6 @@ function headBits(title, description, url, jsonLd, robots, extraHead = "", image
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${escapeHtml(og)}">
   <link rel="stylesheet" href="/assets/css/kite.css">
-  ${extraHead}
   ${ld}
 </head>`;
 }
@@ -921,19 +921,40 @@ function bookPhoto(book) {
   }
   return null;
 }
+const MAST_STEPS = [480, 768, 1080, 1500];
+function mastWidths(photo) {
+  const native = photo.mastWidth;
+  const widths = MAST_STEPS.filter((width) => width < native);
+  widths.push(native);
+  return [...new Set(widths)].sort((a, b) => a - b);
+}
+function mastSrcset(photo, ext) {
+  return mastWidths(photo).map((width) => `/assets/photos/editorial/${photo.id}-mast-${width}.${ext} ${width}w`).join(", ");
+}
+function imagePreload(photo, sizes) {
+  const srcset = mastSrcset(photo, "avif");
+  const parts = srcset.split(",").map((part) => {
+    const [url, descriptor] = part.trim().split(/\s+/);
+    return { url, width: Number.parseInt(descriptor, 10) || 0 };
+  });
+  const chosen = parts.find((part) => part.width >= 768) || parts.at(-1);
+  return `<link rel="preload" as="image" type="image/avif" href="${chosen.url}" imagesrcset="${srcset}" imagesizes="${sizes}" fetchpriority="high">`;
+}
 function photoFigure(photo, { eager = false, sizes = "100vw", frame = "kk-shot" } = {}) {
   const mast = frame.includes("hero");
   const width = mast ? photo.mastWidth : photo.cardWidth;
   const height = mast ? photo.mastHeight : photo.cardHeight;
   const kind = mast ? "mast" : "card";
   const src = `/assets/photos/editorial/${photo.id}-${kind}-${width}`;
-  const priority = eager ? 'fetchpriority="high"' : 'loading="lazy"';
+  const priority = eager ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"';
   const source = photo.source || "Wikimedia Commons";
+  const avif = mast ? mastSrcset(photo, "avif") : `${src}.avif ${width}w`;
+  const webp = mast ? mastSrcset(photo, "webp") : `${src}.webp ${width}w`;
   return `<figure class="${frame}">
       <picture>
-        <source type="image/avif" srcset="${src}.avif ${width}w" sizes="${sizes}">
-        <source type="image/webp" srcset="${src}.webp ${width}w" sizes="${sizes}">
-        <img src="${src}.jpg" width="${width}" height="${height}" alt="${escapeHtml(photo.alt)}" ${priority} decoding="async">
+        <source type="image/avif" srcset="${avif}" sizes="${sizes}">
+        <source type="image/webp" srcset="${webp}" sizes="${sizes}">
+        <img src="${src}.jpg" width="${width}" height="${height}" alt="${escapeHtml(photo.alt)}" ${priority}>
       </picture>
       <figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(photo.caption)}</span><span class="kk-credit">Photograph by ${escapeHtml(photo.artist)}. <a href="${escapeHtml(photo.licenseUrl)}">${escapeHtml(photo.license)}</a>. <a href="${escapeHtml(photo.sourceUrl)}">${escapeHtml(source)}</a>.</span></figcaption>
     </figure>`;
@@ -1380,7 +1401,7 @@ write("index.html", page({
   current: "home",
   jsonLd: homeLd,
   scripts: `<script src="/assets/js/atlas.js" defer></script>`,
-  extraHead: home_hero_photo ? `<link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/hero-mast-${EDITORIAL.hero.mastWidth}.avif" imagesizes="100vw" fetchpriority="high">` : "",
+  extraHead: home_hero_photo ? imagePreload(EDITORIAL.hero, "100vw") : "",
   main: `<section class="kk-hero">
       <div class="kk-hero-inner">
         <p class="kk-kicker">World recipes</p>
@@ -2767,8 +2788,15 @@ function polishRecipes() {
       html = html.replace(/<link rel="preload" as="image" type="image\/avif" href="\/assets\/photos\/editorial\/[^"]*"[\s\S]*?>\n?/g, "");
       const avif = html.match(/<source type="image\/avif" srcset="(\/assets\/photos\/editorial\/[^"]+)" sizes="([^"]+)"/);
       if (avif) {
-        const href = avif[1].split(",")[0].trim().split(/\s+/)[0];
-        html = html.replace("</head>", `<link rel="preload" as="image" type="image/avif" href="${href}" imagesrcset="${avif[1]}" imagesizes="${avif[2]}" fetchpriority="high">\n</head>`);
+        const parts = avif[1].split(",").map((part) => {
+          const [url, descriptor] = part.trim().split(/\s+/);
+          return { url, width: Number.parseInt(descriptor, 10) || 0 };
+        });
+        const chosen = parts.find((part) => part.width >= 768) || parts.at(-1);
+        const preload = `<link rel="preload" as="image" type="image/avif" href="${chosen.url}" imagesrcset="${avif[1]}" imagesizes="${avif[2]}" fetchpriority="high">`;
+        html = html.includes('name="viewport"')
+          ? html.replace(/(<meta name="viewport"[^>]*>)/, `$1\n  ${preload}`)
+          : html.replace("</head>", `${preload}\n</head>`);
       }
       const kind = folder === "sauces" ? "sauces" : folder === "pancakes" ? "pancakes" : "bbq";
       html = html.replace(/<div class="kk-method" id="kk-method">([\s\S]*?)<\/div>/, (_, inner) => {
