@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
+import { createRequire } from "node:module";
 import { countriesDiffer, parsePlan, recipesFor, serializePlan } from "../assets/js/planner-model.mjs";
+import { rasterQr } from "../assets/js/qr-card.mjs";
+
+const require = createRequire(import.meta.url);
+const jsQR = require("jsqr");
 
 test("planner url state round-trips and keeps three countries distinct", () => {
   const slots = {
@@ -56,4 +61,18 @@ test("journey planner markup, print layout, and home link exist", () => {
   assert.ok(data.countries.length >= 10);
   assert.ok(data.recipes.length >= 100);
   assert.ok(data.countries.every((country) => country.slug && country.name));
+  assert.match(journeys, /class="kk-card-stops"/);
+  assert.match(journeys, /class="kk-card-toolbar/);
+  assert.match(journeys, /kk-plan-try/);
+  assert.match(css, /#kk-card-stops/);
+  assert.match(css, /list-style:\s*none/);
+  assert.match(css, /72px/);
+});
+
+test("journey card QR decodes to the share URL", () => {
+  const url = "https://kitekitchen.com/journeys/?b=france:crepes-suzette&l=italy:arrabbiata&d=argentina:argentine-asado";
+  const { data, dim } = rasterQr(url, 8, 4);
+  const found = jsQR(data, dim, dim);
+  assert.ok(found, "jsQR could not read the card QR");
+  assert.equal(found.data, url);
 });

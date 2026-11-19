@@ -1,4 +1,5 @@
 import { SLOTS, countriesDiffer, countriesFor, parsePlan, recipesFor, serializePlan } from "./planner-model.mjs";
+import { qrModules } from "./qr-card.mjs";
 
 const KEY = "kk-journeys";
 const motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -15,38 +16,18 @@ function storeJourneys(list) {
   localStorage.setItem(KEY, JSON.stringify(list.slice(0, 12)));
 }
 
-function qrMatrix(text) {
-  const data = Array.from(new TextEncoder().encode(text)).slice(0, 80);
-  const size = 21 + Math.floor(data.length / 14) * 4;
-  const grid = Array.from({ length: size }, () => Array(size).fill(false));
-  function finder(x, y) {
-    for (let row = 0; row < 7; row += 1) {
-      for (let col = 0; col < 7; col += 1) {
-        const edge = row === 0 || col === 0 || row === 6 || col === 6;
-        const core = row >= 2 && row <= 4 && col >= 2 && col <= 4;
-        if (x + col < size && y + row < size) grid[y + row][x + col] = edge || core;
-      }
-    }
-  }
-  finder(0, 0);
-  finder(size - 7, 0);
-  finder(0, size - 7);
-  data.forEach((byte, index) => {
-    const col = 8 + (index % (size - 16));
-    const row = 8 + Math.floor(index / (size - 16));
-    if (row < size - 8) grid[row][col] = Boolean(byte & 1);
-  });
-  return grid;
-}
-
 function drawQr(canvas, text) {
-  const grid = qrMatrix(text);
-  const cell = Math.floor(canvas.width / grid.length);
+  const grid = qrModules(text);
+  const quiet = 2;
+  const span = grid.length + quiet * 2;
+  const cell = Math.floor(canvas.width / span);
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#f4f0e8";
+  ctx.fillStyle = "#f6f1e6";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#1a1a1a";
-  grid.forEach((row, y) => row.forEach((on, x) => { if (on) ctx.fillRect(x * cell, y * cell, cell, cell); }));
+  grid.forEach((row, y) => row.forEach((on, x) => {
+    if (on) ctx.fillRect((x + quiet) * cell, (y + quiet) * cell, cell, cell);
+  }));
 }
 
 async function loadData() {
@@ -80,6 +61,18 @@ function drawMap(data, slots) {
     const country = countryBySlug(data, stop.country);
     return country ? { slot, country, xy: project(country.lon, country.lat) } : null;
   }).filter(Boolean);
+  const ghosts = document.getElementById("kk-plan-ghosts");
+  if (ghosts) {
+    ghosts.innerHTML = line.length >= 2 ? "" : (data.routes || []).map((route) => {
+      const d = route.map(([lon, lat], index) => {
+        const [x, y] = project(lon, lat);
+        return `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
+      }).join(" ");
+      return `<path d="${d}"/>`;
+    }).join("");
+  }
+  const tryRow = document.getElementById("kk-plan-try");
+  if (tryRow) tryRow.hidden = line.length > 0;
   fitMap(map, line.map((stop) => stop.xy));
   if (line.length >= 2) {
     flight.setAttribute("d", line.map((stop, index) => `${index ? "L" : "M"}${stop.xy[0].toFixed(1)} ${stop.xy[1].toFixed(1)}`).join(" "));
@@ -350,6 +343,7 @@ function initPlan(data) {
     const size = document.getElementById("kk-card-size");
     if (size) size.value = "5x7";
     fillCard(data, slots);
+    document.getElementById("kk-card-title")?.blur();
     const dialog = document.getElementById("kk-card-dialog");
     document.body.replaceChildren(dialog);
     dialog.setAttribute("open", "");
@@ -361,8 +355,12 @@ function openCard(data, slots) {
   const dialog = document.getElementById("kk-card-dialog");
   if (!dialog) return;
   fillCard(data, slots);
-  if (typeof dialog.showModal === "function" && !dialog.open) dialog.showModal();
-  else dialog.setAttribute("open", "");
+  document.body.classList.add("kk-card-open");
+  if (!dialog.open) {
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", "");
+  }
+  dialog.addEventListener("close", () => document.body.classList.remove("kk-card-open"), { once: true });
 }
 
 function loadImage(src) {
@@ -375,8 +373,23 @@ function loadImage(src) {
   });
 }
 
+async function mapImage() {
+  const svg = document.querySelector("#kk-card-map svg") || document.getElementById("kk-plan-map");
+  if (!svg) return null;
+  const clone = svg.cloneNode(true);
+  clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  clone.setAttribute("width", "880");
+  clone.setAttribute("height", "440");
+  const xml = new XMLSerializer().serializeToString(clone);
+  const url = URL.createObjectURL(new Blob([xml], { type: "image/svg+xml;charset=utf-8" }));
+  const image = await loadImage(url);
+  URL.revokeObjectURL(url);
+  return image;
+}
+
 async function paintCard(data, slots) {
   const images = await Promise.all(SLOTS.map((slot) => loadImage(recipeBySlug(data, slots[slot.key]?.recipe)?.thumb)));
+  const map = await mapImage();
   const canvas = document.createElement("canvas");
   canvas.width = 1000;
   canvas.height = 1400;
@@ -389,15 +402,19 @@ async function paintCard(data, slots) {
   ctx.fillStyle = "#1a1a1a";
   ctx.textAlign = "center";
   ctx.font = "22px sans-serif";
-  ctx.fillText("KITE KITCHEN", 500, 110);
-  ctx.font = "54px Georgia, serif";
+  ctx.fillText("KITE KITCHEN", 500, 100);
+  ctx.font = "48px Georgia, serif";
   const title = document.getElementById("kk-card-title")?.value || "A Day Around the World";
-  ctx.fillText(title, 500, 180);
+  ctx.fillText(title, 500, 160);
+  if (map) {
+    ctx.drawImage(map, 70, 190, 860, 360);
+    ctx.strokeRect(70, 190, 860, 360);
+  }
   SLOTS.forEach((slot, index) => {
     const stop = slots[slot.key];
     const country = stop ? countryBySlug(data, stop.country) : null;
     const recipe = stop ? recipeBySlug(data, stop.recipe) : null;
-    const y = 280 + index * 150;
+    const y = 640 + index * 150;
     ctx.beginPath();
     ctx.fillStyle = "#e2b007";
     ctx.arc(110, y, 22, 0, Math.PI * 2);
@@ -417,9 +434,26 @@ async function paintCard(data, slots) {
     if (image) ctx.drawImage(image, 760, y - 40, 120, 120);
     ctx.textAlign = "center";
   });
+  const share = `${location.origin}/journeys/${serializePlan(slots)}`;
+  paintQr(ctx, share, 820, 1165, 112);
+  ctx.fillStyle = "#1a1a1a";
   ctx.font = "18px sans-serif";
-  ctx.fillText("KITEKITCHEN.COM/JOURNEYS", 500, 1280);
+  ctx.textAlign = "left";
+  ctx.fillText("KITEKITCHEN.COM/JOURNEYS", 80, 1230);
   return canvas;
+}
+
+function paintQr(ctx, text, x, y, size) {
+  const grid = qrModules(text);
+  const quiet = 2;
+  const span = grid.length + quiet * 2;
+  const cell = size / span;
+  ctx.fillStyle = "#f6f1e6";
+  ctx.fillRect(x, y, size, size);
+  ctx.fillStyle = "#1a1a1a";
+  grid.forEach((row, py) => row.forEach((on, px) => {
+    if (on) ctx.fillRect(x + (px + quiet) * cell, y + (py + quiet) * cell, cell, cell);
+  }));
 }
 
 async function downloadCard(data, slots, preview = false) {

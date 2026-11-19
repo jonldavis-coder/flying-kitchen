@@ -562,6 +562,7 @@ ol.steps > li:has(.kk-check) .kk-step-text { grid-column: 3; grid-row: 1; }
 .kk-consent a { color: var(--ink); }
 .kk-consent .kk-button { background: var(--ink); color: #fff; }
 .kk-consent .quiet { background: #fff; color: var(--ink); }
+body.kk-card-open .kk-consent { visibility: hidden; }
 
 .kk-band { display: block; width: 2.5rem; height: 3px; background: var(--gold-line); margin: 0.35rem 0 0.15rem; }
 .sauce-title, .pancake-title, .dish-title, .kk-display {
@@ -880,8 +881,13 @@ a.explore-card, a.feature { color: inherit; text-decoration: none; }
 .kk-plan-map [data-iso] { cursor: pointer; }
 .kk-plan-map [data-iso]:focus { outline: 3px solid #1a1a1a; outline-offset: 2px; }
 .kk-plan-map [data-iso].is-on { fill: #e2b007; }
-.kk-plan-form { display: grid; gap: 0.6rem; }
-.kk-plan-form select, .kk-card-title-label input, #kk-card-size { min-height: 44px; font: inherit; }
+.kk-plan-side { display: grid; gap: 0.9rem; align-content: start; }
+.kk-plan-try .kk-meta { margin: 0 0 0.4rem; }
+.kk-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+a.kk-try { display: inline-block; border: 1px dashed #c6a15b; color: #5c3d12; text-decoration: none; border-radius: 999px; padding: 0.35rem 0.7rem; font-size: 0.88rem; line-height: 1.3; }
+.kk-plan-form { display: grid; gap: 0.75rem; }
+.kk-plan-form label { display: grid; grid-template-columns: 6.4rem minmax(0, 1fr); gap: 0.55rem; align-items: center; }
+.kk-plan-form select, #kk-card-size { min-height: 44px; font: inherit; width: 100%; color-scheme: light; color: #1a1a1a; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.35rem 0.75rem; }
 .kk-plan-recipes { display: grid; gap: 0.6rem; margin: 1rem 0; }
 @media (min-width: 700px) { .kk-plan-recipes { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); } }
 .kk-plan-card { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.7rem; align-items: center; padding: 0.45rem; border: 1px solid var(--line); background: #fff; text-align: left; font: inherit; color: inherit; cursor: pointer; }
@@ -896,23 +902,38 @@ a.explore-card, a.feature { color: inherit; text-decoration: none; }
   .kk-flight-draw { animation: kk-flight 1.1s linear 1; }
 }
 @keyframes kk-flight { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
-.kk-card-dialog { border: 0; padding: 0; background: transparent; max-width: min(38rem, calc(100vw - 1.5rem)); }
+.kk-card-dialog { border: 0; padding: 0.85rem; background: #fff; color: #1a1a1a; color-scheme: light; width: min(40rem, calc(100vw - 1.5rem)); max-width: calc(100vw - 1.5rem); max-height: calc(100dvh - 1.5rem); margin: auto; display: flex; flex-direction: column; overflow: hidden; }
 .kk-card-dialog::backdrop { background: rgba(20, 18, 16, 0.55); }
+.kk-journey-card { overflow: auto; min-height: 0; }
+.kk-card-toolbar { display: flex; flex-wrap: wrap; gap: 0.65rem 1rem; align-items: center; flex: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--line); background: #fff; }
+.kk-card-toolbar label { display: inline-flex; align-items: center; gap: 0.45rem; font-family: "Source Sans 3", sans-serif; font-size: 0.95rem; }
+.kk-card-toolbar #kk-card-size { width: auto; min-width: 8.5rem; }
 .kk-journey-card { background: #f6f1e6; color: #1a1a1a; border: 1px solid #c6a15b; padding: 1.35rem 1.4rem 1rem; font-family: Georgia, "Times New Roman", serif; }
 .kk-card-head { text-align: center; }
 .kk-card-head .kk-mark { margin: 0 auto 0.35rem; }
 .kk-card-brand { margin: 0; letter-spacing: 0.22em; text-transform: uppercase; font-family: "Source Sans 3", sans-serif; font-size: 0.72rem; }
 .kk-card-title-label { display: block; margin: 0.35rem 0 0.2rem; }
-#kk-card-title { width: 100%; border: 0; background: transparent; text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: 1.85rem; color: #1a1a1a; }
+#kk-card-title { width: 100%; margin: 0; padding: 0.15rem 0.4rem 0.2rem; appearance: none; -webkit-appearance: none; color-scheme: light; border: 0; border-bottom: 1px solid transparent; border-radius: 0; outline: none; box-shadow: none; background: transparent; background-color: transparent; text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.35rem, 4.8vw, 1.85rem); font-weight: 500; color: #1a1a1a; caret-color: #c6a15b; -webkit-text-fill-color: #1a1a1a; }
+#kk-card-title:focus { border-bottom-color: #c6a15b; outline: none; box-shadow: none; }
 .kk-card-map-frame { border: 1px solid #c6a15b; margin: 0.7rem 0 0.9rem; background: #f4f0e8; }
-#kk-card-map svg { width: 100%; height: auto; max-height: 210px; display: block; }
-.kk-card-stops { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
-.kk-card-stops li { display: grid; grid-template-columns: 1.7rem minmax(0, 1fr) 3.5rem; gap: 0.65rem; align-items: center; }
-.kk-pin-num { width: 1.7rem; height: 1.7rem; border-radius: 50%; background: #e2b007; border: 1px solid #1a1a1a; display: grid; place-items: center; font-family: Georgia, serif; }
+#kk-card-map svg { width: 100%; height: auto; max-height: 240px; display: block; }
+@media (max-width: 520px) {
+  #kk-card-map svg { max-height: 112px; }
+  .kk-journey-card { padding: 0.7rem 0.8rem 0.4rem; }
+  #kk-card-stops, .kk-card-stops { gap: 0.4rem; }
+  #kk-card-stops strong, .kk-card-stops strong { font-size: 1.12rem; }
+  .kk-card-foot { margin-top: 0.4rem; padding-top: 0.35rem; }
+  #kk-card-qr { width: 64px; height: 64px; }
+}
+#kk-card-stops, .kk-card-stops { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.85rem; }
+#kk-card-stops li, .kk-card-stops li { list-style: none; display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) 72px; gap: 0.75rem; align-items: center; }
+#kk-card-stops li::marker, .kk-card-stops li::marker { content: none; }
+.kk-pin-num { width: 1.75rem; height: 1.75rem; border-radius: 50%; background: #e2b007; border: 1px solid #1a1a1a; display: grid; place-items: center; font-family: Georgia, serif; }
+.kk-stop-copy { min-width: 0; }
 .kk-meal { display: block; font-family: "Source Sans 3", sans-serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5c3d12; }
-.kk-card-stops strong { display: block; font-size: 1.35rem; font-weight: 500; line-height: 1.1; margin-top: 0.1rem; }
-.kk-card-stops .kk-meta { display: block; margin-top: 0.15rem; }
-.kk-card-stops img, .kk-card-stops svg { width: 3.5rem; height: 3.5rem; object-fit: cover; border-radius: 2px; display: block; }
+#kk-card-stops strong, .kk-card-stops strong { display: block; font-size: 1.35rem; font-weight: 500; line-height: 1.1; margin-top: 0.1rem; }
+#kk-card-stops .kk-meta, .kk-card-stops .kk-meta { display: block; margin-top: 0.15rem; }
+#kk-card-stops img, #kk-card-stops svg, .kk-card-stops img, .kk-card-stops svg { width: 72px; height: 72px; object-fit: cover; border-radius: 2px; display: block; justify-self: end; }
 .kk-card-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; border-top: 1px solid #c6a15b; margin-top: 0.9rem; padding-top: 0.7rem; }
 #kk-card-url { margin: 0; font-family: "Source Sans 3", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem; }
 @media print {
@@ -921,7 +942,9 @@ a.explore-card, a.feature { color: inherit; text-decoration: none; }
   body.kk-printing > * { display: none !important; }
   body.kk-printing .kk-card-dialog { display: block !important; position: static; max-width: none; }
   body.kk-printing .kk-journey-card, body.kk-printing .kk-card-book { display: block !important; }
-  body.kk-card-5x7 { background: #fff; }
-body.kk-card-5x7 .kk-card-dialog { margin: 0 auto; }
-body.kk-card-5x7 .kk-journey-card { page: kk57; width: 5in; min-height: 7in; box-sizing: border-box; }
+  body.kk-card-5x7 .kk-journey-card { page: kk57; }
 }
+body.kk-card-5x7 { background: #fff; }
+body.kk-card-5x7 .kk-card-dialog { margin: 0 auto; max-height: none; overflow: visible; width: 5in; box-shadow: none; }
+body.kk-card-5x7 .kk-card-toolbar { display: none; }
+body.kk-card-5x7 .kk-journey-card { width: 5in; min-height: 7in; box-sizing: border-box; overflow: visible; }

@@ -2993,6 +2993,19 @@ for (const [region, items] of byRegion) {
     lon: place ? place.lon : null
   });
 }
+function quickChips() {
+  return DAY_JOURNEYS.flatMap((journey) => {
+    const href = customizeHref(journey);
+    const params = new URLSearchParams(href.split("?")[1]?.split("#")[0] || "");
+    if (!params.get("b") || !params.get("l") || !params.get("d")) return [];
+    const names = ["b", "l", "d"].map((key) => {
+      const slug = params.get(key).split(":")[0];
+      const item = catalog.find((entry) => slugByIso[entry.iso] === slug);
+      return item?.country || slug;
+    });
+    return [`<a class="kk-try" href="${href}">${escapeHtml(names.join(" → "))}</a>`];
+  }).slice(0, 6).join("");
+}
 function plannerMarkup() {
   const slots = [["b", "Breakfast"], ["l", "Lunch"], ["d", "Dinner"]];
   return `<section id="plan" class="kk-plan" aria-labelledby="kk-plan-title">
@@ -3004,18 +3017,25 @@ function plannerMarkup() {
         <svg id="kk-plan-map" class="kk-plan-map" viewBox="0 0 960 480" role="group" aria-label="World map. Choose a country that has recipes.">
           <rect width="960" height="480" fill="#f4f0e8"/>
           <g id="kk-plan-lands" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6"></g>
-          <path id="kk-plan-flight" fill="none" stroke="#c6a15b" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2 6"/>
+          <g id="kk-plan-ghosts" fill="none" stroke="#c6a15b" stroke-width="1.2" stroke-dasharray="2 6" opacity="0.45"></g>
+          <path id="kk-plan-flight" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="2 6"/>
           <g id="kk-plan-pins"></g>
           ${PLATE_COMPASS}
         </svg>
         <p id="kk-plan-status" class="kk-meta" role="status"></p>
       </div>
+      <div class="kk-plan-side">
+      <div class="kk-plan-try" id="kk-plan-try">
+        <p class="kk-meta">Try a day</p>
+        <div class="kk-chips">${quickChips()}</div>
+      </div>
       <form id="kk-plan-form" class="kk-plan-form">
-        ${slots.map(([key, meal]) => `<label>${meal} <select data-slot="${key}" aria-label="${meal} country"><option value="">Choose a country</option></select></label>`).join("")}
+        ${slots.map(([key, meal]) => `<label><span>${meal}</span><select data-slot="${key}" aria-label="${meal} country"><option value="">Choose a country</option></select></label>`).join("")}
         <div class="kk-chips" role="group" aria-label="Meal to choose">
           ${slots.map(([key, meal], index) => `<button type="button" data-meal-slot="${key}"${index === 0 ? ' class="is-on"' : ""} aria-pressed="${index === 0 ? "true" : "false"}">${meal}</button>`).join("")}
         </div>
       </form>
+      </div>
     </div>
     <div id="kk-plan-recipes" class="kk-plan-recipes" aria-live="polite"></div>
     <div class="kk-plan-actions">
@@ -3032,20 +3052,20 @@ function plannerMarkup() {
           <label class="kk-card-title-label"><span class="sr-only">Title</span><input id="kk-card-title" value="A Day Around the World" maxlength="60"></label>
         </header>
         <div id="kk-card-map" class="kk-card-map-frame"></div>
-        <ol id="kk-card-stops"></ol>
+        <ol id="kk-card-stops" class="kk-card-stops"></ol>
         <footer class="kk-card-foot">
           <p id="kk-card-url">kitekitchen.com/journeys</p>
           <canvas id="kk-card-qr" width="84" height="84" aria-hidden="true"></canvas>
         </footer>
       </article>
       <div id="kk-card-book" class="kk-card-book" hidden></div>
-      <p class="kk-plan-actions no-print">
-        <label>Layout <select id="kk-card-size"><option value="letter">Letter / A4</option><option value="5x7">5×7 card</option></select></label>
+      <div class="kk-card-toolbar no-print">
+        <label><span>Layout</span> <select id="kk-card-size"><option value="letter">Letter / A4</option><option value="5x7">5×7 card</option></select></label>
         <label><input type="checkbox" id="kk-card-booklet"> Include the three recipes</label>
         <button type="button" class="kk-button" id="kk-card-print">Print card</button>
         <button type="button" class="kk-button quiet" id="kk-card-download">Download card</button>
         <button type="button" class="kk-button quiet" id="kk-card-close">Close</button>
-      </p>
+      </div>
     </dialog>
   </section>`;
 }
@@ -3087,7 +3107,13 @@ function installPlanner() {
       thumb: photo ? `/assets/photos/editorial/${photo.id}-card-${photo.cardWidth}.jpg` : ""
     };
   });
-  write("assets/planner.json", JSON.stringify({ countries, recipes }));
+  const routes = DAY_JOURNEYS.map((journey) => journey.stops.flatMap((stop) => {
+    if (!stop.meal || !["Breakfast", "Lunch", "Dinner"].includes(stop.meal)) return [];
+    const item = catalog.find((entry) => entry.href === stop.href);
+    const place = item && byIso[item.iso];
+    return place ? [[Number(place.lon.toFixed(2)), Number(place.lat.toFixed(2))]] : [];
+  })).filter((route) => route.length >= 2);
+  write("assets/planner.json", JSON.stringify({ countries, recipes, routes }));
   const indexPath = path.join(root, "journeys/index.html");
   let index = fs.readFileSync(indexPath, "utf8");
   index = index.replace("<!--kk-planner-->", plannerMarkup());

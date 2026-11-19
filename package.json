@@ -7,5 +7,8 @@
     "build": "node scripts/build-site.mjs",
     "test": "node scripts/build-site.mjs && node --test",
     "preview": "node scripts/preview.mjs"
+  },
+  "devDependencies": {
+    "jsqr": "^1.4.0"
   }
 }
