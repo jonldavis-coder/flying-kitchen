@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/aebleskiver-mast-768.avif" imagesrcset="/assets/photos/editorial/aebleskiver-mast-480.avif 480w, /assets/photos/editorial/aebleskiver-mast-768.avif 768w, /assets/photos/editorial/aebleskiver-mast-1080.avif 1080w, /assets/photos/editorial/aebleskiver-mast-1500.avif 1500w" imagesizes="(min-width: 900px) 68vw, 100vw" fetchpriority="high">
-    <base href="/flying-pancakes/">
+        <base href="/flying-pancakes/">
   <title>Aebleskiver · Flying Pancakes · KiteKitchen</title>
   <meta name="description" content="Aebleskiver: Round Danish pancakes from a molded pan, cardamom, jam, and powdered sugar. A recipe from Denmark, with origin, method, and field notes.">
   <meta name="theme-color" content="#141210">
@@ -207,9 +207,33 @@
     <p class="kk-partof">Flying Pancakes is a section of <a href="/">KiteKitchen</a>.</p></footer>
   </div>
   
-  <script src="config.js"></script>
-  <script src="ads-config.js"></script>
-  <script type="module" src="assets/js/boot.js"></script>
+  <script>
+    (function () {
+      var started = false;
+      var base = "/flying-pancakes/";
+      function begin() {
+        if (started) return;
+        started = true;
+        function add(src, done) {
+          var s = document.createElement("script");
+          s.src = base + src;
+          s.onload = done;
+          document.body.appendChild(s);
+        }
+        add("config.js", function () {
+          add("ads-config.js", function () {
+            var boot = document.createElement("script");
+            boot.type = "module";
+            boot.src = base + "assets/js/boot.js";
+            document.body.appendChild(boot);
+          });
+        });
+      }
+      addEventListener("pointerdown", begin, { once: true });
+      addEventListener("keydown", begin, { once: true });
+      addEventListener("load", function () { setTimeout(begin, 8000); }, { once: true });
+    })();
+  </script>
 <div id="kk-consent" class="kk-consent no-print" role="dialog" aria-labelledby="kk-consent-title" hidden>
     <p id="kk-consent-title">Cookies stay off in the EEA, the UK, and Switzerland until you accept. <a href="/privacy/">Privacy</a></p>
     <div class="kk-row">

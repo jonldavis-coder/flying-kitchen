@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preload" as="image" type="image/avif" href="/assets/photos/editorial/roast-turkey-mast-768.avif" imagesrcset="/assets/photos/editorial/roast-turkey-mast-480.avif 480w, /assets/photos/editorial/roast-turkey-mast-768.avif 768w, /assets/photos/editorial/roast-turkey-mast-1080.avif 1080w, /assets/photos/editorial/roast-turkey-mast-1500.avif 1500w" imagesizes="(min-width: 900px) 68vw, 100vw" fetchpriority="high">
-      <base href="/flying-bbq/">
+          <base href="/flying-bbq/">
   <title>Roast Turkey · Flying BBQ · KiteKitchen</title>
   <meta name="description" content="Roast Turkey: A whole unstuffed turkey, salted and roasted at 325°F (165°C) until the breast and thigh reach 165°F (74°C).">
   <meta name="theme-color" content="#141210">
@@ -139,9 +139,33 @@
     <footer class="site-footer"><div class="wrap"><p>Recipes are for home cooking. They are not professional food-safety, medical, or dietary advice.</p></div>
     <p class="kk-partof">Flying BBQ is a section of <a href="/">KiteKitchen</a>.</p></footer>
   </div>
-  <script src="config.js"></script>
-  <script src="ads-config.js"></script>
-  <script type="module" src="assets/js/boot.js"></script>
+  <script>
+    (function () {
+      var started = false;
+      var base = "/flying-bbq/";
+      function begin() {
+        if (started) return;
+        started = true;
+        function add(src, done) {
+          var s = document.createElement("script");
+          s.src = base + src;
+          s.onload = done;
+          document.body.appendChild(s);
+        }
+        add("config.js", function () {
+          add("ads-config.js", function () {
+            var boot = document.createElement("script");
+            boot.type = "module";
+            boot.src = base + "assets/js/boot.js";
+            document.body.appendChild(boot);
+          });
+        });
+      }
+      addEventListener("pointerdown", begin, { once: true });
+      addEventListener("keydown", begin, { once: true });
+      addEventListener("load", function () { setTimeout(begin, 8000); }, { once: true });
+    })();
+  </script>
 <script src="/assets/js/recipe.js" defer></script>
 <script src="/assets/js/passport.js" defer></script>
 <footer class="kk-footer kk-sitefoot"><div class="kk-wrap kk-foot">

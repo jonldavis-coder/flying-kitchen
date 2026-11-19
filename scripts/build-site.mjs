@@ -2804,6 +2804,33 @@ function polishRecipes() {
           html = html.replace(/<\/h1>/, `</h1>\n<div class="kk-mast">${dek[0]}\n${info[0]}</div>`);
         }
       }
+      html = html.replace(/<script src="config\.js"><\/script>\s*<script src="ads-config\.js"><\/script>\s*<script type="module" src="assets\/js\/boot\.js"><\/script>/, `<script>
+    (function () {
+      var started = false;
+      var base = "/${dir}/";
+      function begin() {
+        if (started) return;
+        started = true;
+        function add(src, done) {
+          var s = document.createElement("script");
+          s.src = base + src;
+          s.onload = done;
+          document.body.appendChild(s);
+        }
+        add("config.js", function () {
+          add("ads-config.js", function () {
+            var boot = document.createElement("script");
+            boot.type = "module";
+            boot.src = base + "assets/js/boot.js";
+            document.body.appendChild(boot);
+          });
+        });
+      }
+      addEventListener("pointerdown", begin, { once: true });
+      addEventListener("keydown", begin, { once: true });
+      addEventListener("load", function () { setTimeout(begin, 8000); }, { once: true });
+    })();
+  </script>`);
       html = html.replace(/<link rel="preload" as="image" type="image\/avif" href="\/assets\/photos\/editorial\/[^"]*"[\s\S]*?>\n?/g, "");
       const avif = html.match(/<source type="image\/avif" srcset="(\/assets\/photos\/editorial\/[^"]+)" sizes="([^"]+)"/);
       if (avif) {
