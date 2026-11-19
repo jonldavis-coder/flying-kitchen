@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 import { featureForDate, isoWeekSerial, weekPick, extendWeekSchedule } from "../scripts/feature-calendar.mjs";
-import { rankItems } from "../assets/js/search-rank.mjs";
+import { isCondiment, rankItems } from "../assets/js/search-rank.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -649,4 +649,11 @@ test("search ranks exact names, accents, typos, and photographs", () => {
   assert.ok(soups.some((item) => !/soup/i.test(item.title)));
   const noodles = rankItems(items, "noodles");
   assert.ok(noodles.some((item) => /noodle/i.test(`${item.title} ${(item.tags || []).join(" ")} ${item.ingredients}`)));
+  for (const query of ["noodles", "soup"]) {
+    const hits = rankItems(items, query);
+    const sauceAt = hits.findIndex((item) => isCondiment(item));
+    assert.ok(sauceAt > 0, `${query} sauce index ${sauceAt}`);
+    assert.ok(hits.slice(0, sauceAt).every((item) => !isCondiment(item)), query);
+    assert.equal(isCondiment(hits[0]), false, query);
+  }
 });
