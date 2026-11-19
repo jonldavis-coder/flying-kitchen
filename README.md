@@ -13,6 +13,7 @@ Change that one line and run `npm run build` if the origin ever moves. `CNAME` c
 ## Run it
 
 ```bash
+npm install
 npm test
 npm run preview
 ```

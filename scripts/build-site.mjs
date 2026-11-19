@@ -1421,7 +1421,7 @@ write("index.html", page({
         <h3><a href="/journeys/${featuredDay.slug}/">${escapeHtml(featuredDay.title)}</a></h3>
         <p>${escapeHtml(featuredDay.lede)}</p>
         <figure class="kk-shot kk-route-shot">${routeSvg(featuredDay.stops.map((stop) => catalog.find((entry) => entry.href === stop.href)).map((item) => byIso[item.iso]).filter(Boolean), featuredDay.title)}<figcaption class="kk-caption"><span class="kk-cap-line">${escapeHtml(featuredDay.title)}.</span><span class="kk-credit">Map plate.</span></figcaption></figure>
-        <p class="kk-meta"><a href="/journeys/">All journeys</a></p>
+        <p class="kk-meta"><a href="/journeys/#plan">Plan your day around the world</a> · <a href="/journeys/">All journeys</a></p>
       </article>
       <h2>Recipe of the week</h2>
       <article class="kk-week" data-week="${escapeHtml(weekRecipe.href)}">
@@ -1979,6 +1979,22 @@ function routePlaces(stops) {
   }
   return places;
 }
+function customizeHref(journey) {
+  const keys = { Breakfast: "b", Lunch: "l", Dinner: "d" };
+  const params = new URLSearchParams();
+  for (const stop of journey.stops) {
+    const key = keys[stop.meal];
+    if (!key) continue;
+    const href = typeof stop === "string" ? stop : stop.href;
+    const item = catalog.find((entry) => entry.href === href);
+    if (!item?.iso) continue;
+    const country = slugByIso[item.iso];
+    const recipe = href.split("/").filter(Boolean).at(-1);
+    if (country && recipe) params.set(key, `${country}:${recipe}`);
+  }
+  const query = params.toString();
+  return query ? `/journeys/?${query}#plan` : "/journeys/#plan";
+}
 for (const journey of JOURNEYS) {
   const stops = journeyStops(journey);
   const day = DAY_JOURNEYS.includes(journey);
@@ -2008,6 +2024,7 @@ for (const journey of JOURNEYS) {
         <h1 class="kk-display">${escapeHtml(journey.title)}</h1>
         <p class="dek">${escapeHtml(dek)}</p>
         ${hero}
+        ${day ? `<p class="kk-meta"><a href="${customizeHref(journey)}">Customize this journey</a> <button type="button" class="kk-button quiet" data-kk-card="${escapeHtml(customizeHref(journey).replace("/journeys/", "").replace("#plan", ""))}">Recipe Journey Card</button></p>\n<script src="/assets/js/planner.js" type="module"></script>` : ""}
         <ul class="kk-info" aria-label="This journey">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
       </header>
       ${landDefs(stops)}
@@ -2058,6 +2075,7 @@ write("journeys/index.html", page({
     <p class="kk-kicker">Itineraries</p>
     <h1>Journeys</h1>
     <p class="kk-lede">A day is breakfast, lunch, and dinner from recipes already published here. The note under each stop is that recipe’s own description.</p>
+    <!--kk-planner-->
     <h2>A day around the world</h2>
     <div class="kk-filters">
       <div class="kk-chips" role="group" aria-label="Continent">
@@ -2221,9 +2239,10 @@ function recipeFacts(href) {
   const locale = textOf(html, /<dt>Locale<\/dt>\s*<dd>([\s\S]*?)<\/dd>/);
   const ingredientBlock = html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/);
   const ingredients = ingredientBlock ? ingredientBlock[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() : "";
+  const ingredientCount = ingredientBlock ? (ingredientBlock[1].match(/<li\b/g) || []).length : 0;
   const pairBlock = html.match(/<div class="pairings">([\s\S]*?)<\/div>/);
   const pairs = pairBlock ? [...pairBlock[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()).filter(Boolean) : [];
-  return { method, base, locale, ingredients, pairs };
+  return { method, base, locale, ingredients, ingredientCount, pairs };
 }
 const factsByHref = new Map(catalog.map((item) => [item.href, recipeFacts(item.href)]));
 const searchItems = catalog.map((item) => {
@@ -2974,6 +2993,134 @@ for (const [region, items] of byRegion) {
     lon: place ? place.lon : null
   });
 }
+function quickChips() {
+  return DAY_JOURNEYS.flatMap((journey) => {
+    const href = customizeHref(journey);
+    const params = new URLSearchParams(href.split("?")[1]?.split("#")[0] || "");
+    if (!params.get("b") || !params.get("l") || !params.get("d")) return [];
+    const names = ["b", "l", "d"].map((key) => {
+      const slug = params.get(key).split(":")[0];
+      const item = catalog.find((entry) => slugByIso[entry.iso] === slug);
+      return item?.country || slug;
+    });
+    return [`<a class="kk-try" href="${href}">${escapeHtml(names.join(" → "))}</a>`];
+  }).slice(0, 6).join("");
+}
+function plannerMarkup() {
+  const slots = [["b", "Breakfast"], ["l", "Lunch"], ["d", "Dinner"]];
+  return `<section id="plan" class="kk-plan" aria-labelledby="kk-plan-title">
+    <p class="kk-kicker">Plan your day around the world</p>
+    <h2 id="kk-plan-title">Build a day</h2>
+    <p>Choose breakfast, lunch, and dinner from three different countries that already have recipes here.</p>
+    <div class="kk-plan-layout">
+      <div class="kk-plan-map-wrap">
+        <svg id="kk-plan-map" class="kk-plan-map" viewBox="0 0 960 480" role="group" aria-label="World map. Choose a country that has recipes.">
+          <rect width="960" height="480" fill="#f4f0e8"/>
+          <g id="kk-plan-lands" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6"></g>
+          <g id="kk-plan-ghosts" fill="none" stroke="#c6a15b" stroke-width="1.2" stroke-dasharray="2 6" opacity="0.45"></g>
+          <path id="kk-plan-flight" fill="none" stroke="#c6a15b" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="2 6"/>
+          <g id="kk-plan-pins"></g>
+          ${PLATE_COMPASS}
+        </svg>
+        <p id="kk-plan-status" class="kk-meta" role="status"></p>
+      </div>
+      <div class="kk-plan-side">
+      <div class="kk-plan-try" id="kk-plan-try">
+        <p class="kk-meta">Try a day</p>
+        <div class="kk-chips">${quickChips()}</div>
+      </div>
+      <form id="kk-plan-form" class="kk-plan-form">
+        ${slots.map(([key, meal]) => `<label><span>${meal}</span><select data-slot="${key}" aria-label="${meal} country"><option value="">Choose a country</option></select></label>`).join("")}
+        <div class="kk-chips" role="group" aria-label="Meal to choose">
+          ${slots.map(([key, meal], index) => `<button type="button" data-meal-slot="${key}"${index === 0 ? ' class="is-on"' : ""} aria-pressed="${index === 0 ? "true" : "false"}">${meal}</button>`).join("")}
+        </div>
+      </form>
+      </div>
+    </div>
+    <div id="kk-plan-recipes" class="kk-plan-recipes" aria-live="polite"></div>
+    <div class="kk-plan-actions">
+      <button type="button" class="kk-button" id="kk-plan-card" disabled>Recipe Journey Card</button>
+      <button type="button" class="kk-button quiet" id="kk-plan-save" disabled>Save journey</button>
+    </div>
+    <h3>My journeys</h3>
+    <ul id="kk-plan-saved" class="kk-recipe-list"></ul>
+    <dialog id="kk-card-dialog" class="kk-card-dialog">
+      <article class="kk-journey-card" id="kk-journey-card">
+        <header class="kk-card-head">
+          <svg class="kk-mark" viewBox="0 0 64 64" aria-hidden="true" width="42" height="42"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/></svg>
+          <p class="kk-card-brand">Kite Kitchen</p>
+          <label class="kk-card-title-label"><span class="sr-only">Title</span><input id="kk-card-title" value="A Day Around the World" maxlength="60"></label>
+        </header>
+        <div id="kk-card-map" class="kk-card-map-frame"></div>
+        <ol id="kk-card-stops" class="kk-card-stops"></ol>
+        <footer class="kk-card-foot">
+          <p id="kk-card-url">kitekitchen.com/journeys</p>
+          <canvas id="kk-card-qr" width="84" height="84" aria-hidden="true"></canvas>
+        </footer>
+      </article>
+      <div id="kk-card-book" class="kk-card-book" hidden></div>
+      <div class="kk-card-toolbar no-print">
+        <label><span>Layout</span> <select id="kk-card-size"><option value="letter">Letter / A4</option><option value="5x7">5×7 card</option></select></label>
+        <label><input type="checkbox" id="kk-card-booklet"> Include the three recipes</label>
+        <button type="button" class="kk-button" id="kk-card-print">Print card</button>
+        <button type="button" class="kk-button quiet" id="kk-card-download">Download card</button>
+        <button type="button" class="kk-button quiet" id="kk-card-close">Close</button>
+      </div>
+    </dialog>
+  </section>`;
+}
+function installPlanner() {
+  const groups = new Map();
+  for (const item of catalog) {
+    if (!item.iso || !slugByIso[item.iso] || !byIso[item.iso]) continue;
+    if (!groups.has(item.iso)) groups.set(item.iso, []);
+    groups.get(item.iso).push(item);
+  }
+  const countries = [];
+  for (const [iso, items] of groups) {
+    const place = byIso[iso];
+    const ring = downsampleRing(place.outline, 28);
+    countries.push({
+      iso,
+      slug: slugByIso[iso],
+      name: place.name,
+      lat: Number(place.lat.toFixed(2)),
+      lon: Number(place.lon.toFixed(2)),
+      d: ring.length ? ringPath(ring, 960, 480, 0) : "",
+      count: items.length
+    });
+  }
+  countries.sort((a, b) => a.name.localeCompare(b.name));
+  const recipes = catalog.filter((item) => item.iso && slugByIso[item.iso]).map((item) => {
+    const slug = item.href.split("/").filter(Boolean).at(-1);
+    const photo = DISH_PHOTO[slug] || CARD_PHOTO[item.href];
+    const facts = factsByHref.get(item.href) || {};
+    return {
+      slug,
+      title: item.title,
+      href: item.href,
+      country: slugByIso[item.iso],
+      meals: mealsBySlug.get(slug) || [],
+      section: item.section,
+      minutes: recipeMinutes(item),
+      ingredients: facts.ingredientCount || 0,
+      thumb: photo ? `/assets/photos/editorial/${photo.id}-card-${photo.cardWidth}.jpg` : ""
+    };
+  });
+  const routes = DAY_JOURNEYS.map((journey) => journey.stops.flatMap((stop) => {
+    if (!stop.meal || !["Breakfast", "Lunch", "Dinner"].includes(stop.meal)) return [];
+    const item = catalog.find((entry) => entry.href === stop.href);
+    const place = item && byIso[item.iso];
+    return place ? [[Number(place.lon.toFixed(2)), Number(place.lat.toFixed(2))]] : [];
+  })).filter((route) => route.length >= 2);
+  write("assets/planner.json", JSON.stringify({ countries, recipes, routes }));
+  const indexPath = path.join(root, "journeys/index.html");
+  let index = fs.readFileSync(indexPath, "utf8");
+  index = index.replace("<!--kk-planner-->", plannerMarkup());
+  if (!index.includes("/assets/js/planner.js")) index = index.replace("</body>", `<script src="/assets/js/planner.js" type="module"></script>\n</body>`);
+  fs.writeFileSync(indexPath, index);
+}
+installPlanner();
 const ogManifest = "/tmp/kk-og-jobs.json";
 fs.writeFileSync(ogManifest, JSON.stringify(ogJobs));
 execFileSync("python3", ["scripts/og-cards.py", ogManifest], { cwd: root, stdio: "inherit" });
