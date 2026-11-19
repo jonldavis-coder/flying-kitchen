@@ -2358,15 +2358,15 @@ function polishMethod(html) {
   });
   html = html.replace(/<ol class="steps">([\s\S]*?)<\/ol>/, (_, inner) => {
     const next = [];
-    for (const match of inner.matchAll(/<li>([\s\S]*?)<\/li>/g)) {
+    for (const match of inner.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)) {
       if (/<[a-z]/i.test(match[1])) {
-        next.push(`<li>${match[1]}</li>`);
+        next.push(match[1]);
         continue;
       }
       const plain = match[1].replace(/\s+/g, " ").trim();
-      for (const chunk of splitStep(plain)) next.push(`<li>${chunk}</li>`);
+      for (const chunk of splitStep(plain)) next.push(chunk);
     }
-    return `<ol class="steps">${next.join("")}</ol>`;
+    return `<ol class="steps">${next.map((text, index) => `<li id="step-${index + 1}">${text}</li>`).join("")}</ol>`;
   });
   return html;
 }
@@ -2398,11 +2398,57 @@ function durationFromMinutes(total) {
   return `PT${minutes}M`;
 }
 
+function stepName(text) {
+  const clean = text.replace(/\s+/g, " ").trim();
+  const first = clean.split(/(?<=[.!?])\s+/)[0].replace(/[.!?]+$/, "");
+  let name = first.split(/\s+(?:then|until|so that|before)\b/i)[0].replace(/[,:;]\s*$/, "").trim();
+  if (name.length > 42) {
+    const shorter = name.split(/\s+and\s+/i)[0].replace(/,$/, "").trim();
+    if (shorter.length >= 8) name = shorter;
+  }
+  if (name.length > 64) name = name.split(",")[0].trim();
+  if (name.length > 72) name = name.split(/\s+/).slice(0, 7).join(" ");
+  return name || first;
+}
+
+function mainIngredient(lines) {
+  const staple = /^(salt|water|black pepper|pepper|kosher salt|sea salt)$/i;
+  const lead = /^(a|an|the|small|large|medium|packed|fresh|finely|grated|extra-virgin|extra|virgin|cups?|tablespoons?|teaspoons?|ounces?|pounds?|grams?|kilograms?|ml|kg|lb|cloves?|clove|skin-on|boneless)\b\s*/i;
+  for (const line of lines) {
+    let name = line.replace(/^[\d¼½¾./\s-]+/, "").trim();
+    for (let i = 0; i < 4; i += 1) name = name.replace(lead, "");
+    name = name.split(",")[0].trim();
+    if (name && !staple.test(name)) return name;
+  }
+  return "";
+}
+
+function recipeKeywords(node, item, ingredients) {
+  const short = (value) => {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    if (!text || text.length > 32 || text.includes(",")) return "";
+    return text;
+  };
+  const course = short(node.recipeCategory) || (item?.meals || [])[0] || "";
+  const ingredient = short(mainIngredient(ingredients));
+  const parts = [short(node.recipeCuisine), item?.country, course, ingredient, node.name];
+  const seen = new Set();
+  const keywords = [];
+  for (const part of parts) {
+    const value = String(part || "").replace(/\s+/g, " ").trim();
+    const key = value.toLowerCase();
+    if (!value || seen.has(key)) continue;
+    seen.add(key);
+    keywords.push(value);
+  }
+  return keywords.join(", ");
+}
+
 function syncRecipeLd(html) {
   const ingredientBlock = html.match(/<ul class="ingredients">([\s\S]*?)<\/ul>/);
-  const ingredients = ingredientBlock ? [...ingredientBlock[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()) : [];
+  const ingredients = ingredientBlock ? [...ingredientBlock[1].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()) : [];
   const stepBlock = html.match(/<ol class="steps">([\s\S]*?)<\/ol>/);
-  const steps = stepBlock ? [...stepBlock[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()) : [];
+  const steps = stepBlock ? [...stepBlock[1].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)].map((match) => match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()) : [];
   const info = (html.match(/<ul class="kk-info"[\s\S]*?<\/ul>/) || [""])[0];
   const bits = [...info.matchAll(/<li>([^<]+)<\/li>/g)].map((match) => match[1].trim());
   const prep = bits.find((bit) => /prep/i.test(bit));
@@ -2420,15 +2466,32 @@ function syncRecipeLd(html) {
         node.recipeIngredient = ingredients;
         changed = true;
       }
-      if (steps.length) {
-        node.recipeInstructions = steps.map((text) => ({ "@type": "HowToStep", text }));
-        changed = true;
-      }
-      node.author = { "@type": "Organization", name: "Kite Kitchen" };
-      changed = true;
+      const canonical = (html.match(/<link rel="canonical" href="([^"]+)"/) || [])[1] || node.url || "";
+      const pageUrl = canonical.replace(/#.*$/, "").replace(/\/?$/, "/");
+      const item = catalog.find((entry) => entry.href === pageUrl.replace(SITE_ORIGIN, ""));
       const photoSlug = (html.match(/data-photo="([^"]+)"/) || [])[1];
       const dishPhoto = photoSlug ? DISH_PHOTO[photoSlug] : null;
-      if (dishPhoto) node.image = `${SITE_ORIGIN}/assets/photos/editorial/${dishPhoto.id}-mast-${dishPhoto.mastWidth}.jpg`;
+      const photoUrl = dishPhoto ? `${SITE_ORIGIN}/assets/photos/editorial/${dishPhoto.id}-mast-${dishPhoto.mastWidth}.jpg` : "";
+      if (steps.length && pageUrl.startsWith("http")) {
+        node.recipeInstructions = steps.map((text, index) => {
+          const step = {
+            "@type": "HowToStep",
+            name: stepName(text),
+            text,
+            url: `${pageUrl}#step-${index + 1}`
+          };
+          if (photoUrl) step.image = photoUrl;
+          return step;
+        });
+        changed = true;
+      }
+      const keywords = recipeKeywords(node, item, ingredients);
+      if (keywords) node.keywords = keywords;
+      delete node.aggregateRating;
+      delete node.video;
+      node.author = { "@type": "Organization", name: "Kite Kitchen" };
+      changed = true;
+      if (photoUrl) node.image = photoUrl;
       else if (typeof node.image === "string" && node.image.includes("/assets/photos/editorial/")) delete node.image;
       else if (typeof node.image === "string" && node.image.startsWith("/")) node.image = `${SITE_ORIGIN}${node.image}`;
       delete node.datePublished;
