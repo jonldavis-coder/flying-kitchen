@@ -2171,6 +2171,16 @@ const dietsBySlug = new Map([
   ...dietsMap("flying-pancakes/data/index.json", "pancakes"),
   ...dietsMap("flying-bbq/data/dishes/raw.json")
 ]);
+function tagsMap(file, key) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+  const list = Array.isArray(data) ? data : data[key] || [];
+  return list.map((item) => [item.slug, item.uses || []]);
+}
+const usesBySlug = new Map([
+  ...tagsMap("flying-sauces/data/index.json", "sauces"),
+  ...tagsMap("flying-pancakes/data/index.json", "pancakes"),
+  ...tagsMap("flying-bbq/data/dishes/raw.json")
+]);
 const collectionsByHref = new Map();
 for (const collection of COLLECTIONS) {
   for (const stop of collection.stops) {
@@ -2209,6 +2219,7 @@ const searchItems = catalog.map((item) => {
     region: item.region || "",
     meals: mealsBySlug.get(slug) || [],
     diets: dietsBySlug.get(slug) || [],
+    tags: [...new Set([...(usesBySlug.get(slug) || []), facts.base].filter(Boolean))],
     ingredients: facts.ingredients,
     minutes: recipeMinutes(item),
     collections: collectionsByHref.get(item.href) || [],
@@ -2521,33 +2532,57 @@ function titleMentioned(title, text) {
 function selectRelated(self) {
   if (!self) return [];
   const facts = factsByHref.get(self.href) || { method: "", base: "", locale: "", pairs: [] };
-  const groups = [];
-  function orderMates(items) {
-    const rest = items.filter((item) => item.href !== self.href);
-    rest.sort((a, b) => (a.section === self.section ? 0 : 1) - (b.section === self.section ? 0 : 1) || (itemPhoto(a) ? 0 : 1) - (itemPhoto(b) ? 0 : 1) || a.title.localeCompare(b.title));
-    const sameSection = rest.some((item) => item.section === self.section);
-    const pool = rest.filter((item) => (!sameSection || item.section === self.section) && itemPhoto(item));
-    const mates = pool.length ? pool : rest;
-    const start = mates.findIndex((item) => item.title.localeCompare(self.title) > 0);
-    const rotated = start > 0 ? mates.slice(start).concat(mates.slice(0, start)) : mates;
-    return rotated.concat(rest.filter((item) => !rotated.includes(item)));
+  const slugOf = (item) => item.href.split("/").filter(Boolean).at(-1);
+  const usesOf = (item) => usesBySlug.get(slugOf(item)) || [];
+  const selfUses = new Set(usesOf(self));
+  const skipPlace = new Set(["and", "the", "with", "from", "area", "city", "region", "province", "northern", "southern", "eastern", "western", "north", "south", "east", "west", "central", ...nameWords(self.country)]);
+  function placeTokens(locale) {
+    return nameWords(locale).filter((word) => word.length >= 4 && !skipPlace.has(word));
   }
-  function pushGroup(entries) {
-    const seen = new Set();
-    const list = [];
+  function cityLabel(otherLocale) {
+    const other = new Set(placeTokens(otherLocale));
+    const chunks = String(facts.locale || "").split(",").map((part) => part.trim()).filter((part) => placeTokens(part).some((token) => other.has(token)));
+    return chunks.join(", ");
+  }
+  function rankWithin(items) {
+    return items.filter((item) => item.href !== self.href).sort((a, b) => {
+      const dish = (item) => (usesOf(item).some((use) => selfUses.has(use)) ? 0 : 1);
+      const base = (item) => (facts.base && factsByHref.get(item.href)?.base === facts.base ? 0 : 1);
+      return dish(a) - dish(b) || base(a) - base(b) || (itemPhoto(a) ? 0 : 1) - (itemPhoto(b) ? 0 : 1) || a.title.localeCompare(b.title);
+    });
+  }
+  const picks = [];
+  const used = new Set([self.href]);
+  function take(entries) {
     for (const entry of entries) {
-      if (!entry?.item || entry.item.href === self.href || seen.has(entry.item.href)) continue;
-      seen.add(entry.item.href);
-      list.push(entry);
+      if (picks.length >= 4 || !entry?.item || used.has(entry.item.href)) continue;
+      used.add(entry.item.href);
+      picks.push(entry);
     }
-    if (list.length) groups.push(list);
+  }
+  const selfTokens = new Set(placeTokens(facts.locale));
+  if (selfTokens.size) {
+    const cities = [];
+    for (const item of catalog) {
+      const other = factsByHref.get(item.href)?.locale || "";
+      const label = cityLabel(other);
+      if (!label || !placeTokens(other).some((token) => selfTokens.has(token))) continue;
+      cities.push({ item, reason: `Also from ${label}` });
+    }
+    cities.sort((a, b) => rankWithin([a.item, b.item])[0] === a.item ? -1 : 1);
+    take(cities);
   }
   if (self.country) {
-    pushGroup(orderMates(catalog.filter((item) => item.country === self.country)).map((item) => ({ item, reason: `Also from ${self.country}` })));
+    take(rankWithin(catalog.filter((item) => item.country === self.country)).map((item) => ({ item, reason: `Also from ${self.country}` })));
   }
-  if (self.region) {
-    pushGroup(orderMates(catalog.filter((item) => item.region === self.region && item.country !== self.country)).map((item) => ({ item, reason: `Also from ${self.region}` })));
+  const technique = [];
+  if (facts.base && facts.base.length > 2 && facts.base.length <= 40) {
+    technique.push(...rankWithin(catalog.filter((item) => factsByHref.get(item.href)?.base === facts.base)).map((item) => ({ item, reason: `Same base: ${facts.base}` })));
   }
+  if (facts.method && facts.method.length > 2 && facts.method.length <= 40) {
+    technique.push(...rankWithin(catalog.filter((item) => factsByHref.get(item.href)?.method === facts.method && factsByHref.get(item.href)?.base !== facts.base)).map((item) => ({ item, reason: `Same method: ${facts.method}` })));
+  }
+  take(technique);
   for (const journey of JOURNEYS) {
     const hrefs = journey.stops.map((stop) => (typeof stop === "string" ? stop : stop.href));
     const index = hrefs.indexOf(self.href);
@@ -2555,12 +2590,8 @@ function selectRelated(self) {
     const next = catalog.find((item) => item.href === hrefs[index + 1]);
     const stop = journey.stops[index + 1];
     const meal = typeof stop === "string" ? "" : stop.meal;
-    pushGroup([{ item: next, reason: meal ? `Next stop, ${meal}` : `Next stop on ${journey.title}` }]);
+    take([{ item: next, reason: meal ? `Next stop, ${meal}` : `Next stop on ${journey.title}` }]);
     break;
-  }
-  const locale = facts.locale || "";
-  if (locale && locale.length <= 40 && !/\band\b/i.test(locale) && locale !== self.country) {
-    pushGroup(orderMates(catalog.filter((item) => factsByHref.get(item.href)?.locale === locale)).map((item) => ({ item, reason: `Also from ${locale}` })));
   }
   const paired = [];
   for (const pair of facts.pairs || []) {
@@ -2568,44 +2599,16 @@ function selectRelated(self) {
     hits.sort((a, b) => nameWords(b.title).length - nameWords(a.title).length || b.title.length - a.title.length);
     if (hits[0]) paired.push({ item: hits[0], reason: `Pairs with ${hits[0].title}` });
   }
-  paired.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1) || a.item.title.localeCompare(b.item.title));
-  pushGroup(paired);
-  const namedBy = [];
   for (const item of catalog) {
     const other = factsByHref.get(item.href);
-    if ((other?.pairs || []).some((pair) => titleMentioned(self.title, pair))) namedBy.push({ item, reason: `Pairs with ${item.title}` });
+    if ((other?.pairs || []).some((pair) => titleMentioned(self.title, pair))) paired.push({ item, reason: `Pairs with ${item.title}` });
   }
-  namedBy.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1) || a.item.title.localeCompare(b.item.title));
-  pushGroup(namedBy);
-  if (facts.method && facts.method.length > 2 && facts.method.length <= 40) {
-    pushGroup(orderMates(catalog.filter((item) => factsByHref.get(item.href)?.method === facts.method)).map((item) => ({ item, reason: `Same method: ${facts.method}` })));
+  paired.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1) || a.item.title.localeCompare(b.item.title));
+  take(paired);
+  if (!picks.length && self.region) {
+    const broad = rankWithin(catalog.filter((item) => item.region === self.region && item.country !== self.country))[0];
+    if (broad) picks.push({ item: broad, reason: `Also from ${self.region}` });
   }
-  if (facts.base && facts.base.length > 2 && facts.base.length <= 40) {
-    pushGroup(orderMates(catalog.filter((item) => factsByHref.get(item.href)?.base === facts.base)).map((item) => ({ item, reason: `Same base: ${facts.base}` })));
-  }
-  const slug = self.href.split("/").filter(Boolean).at(-1);
-  const meal = (mealsBySlug.get(slug) || [])[0];
-  if (meal) {
-    pushGroup(orderMates(catalog.filter((item) => (mealsBySlug.get(item.href.split("/").filter(Boolean).at(-1)) || []).includes(meal))).map((item) => ({ item, reason: `Also for ${meal}` })));
-  }
-  const picks = [];
-  const used = new Set([self.href]);
-  const perReason = groups.length > 1 ? 2 : 4;
-  let added = true;
-  while (picks.length < 4 && added) {
-    added = false;
-    for (const group of groups) {
-      if (picks.length >= 4) break;
-      const reason = group[0].reason;
-      if (picks.filter((pick) => pick.reason === reason).length >= perReason) continue;
-      const entry = group.find((item) => !used.has(item.item.href));
-      if (!entry) continue;
-      used.add(entry.item.href);
-      picks.push(entry);
-      added = true;
-    }
-  }
-  picks.sort((a, b) => (itemPhoto(a.item) ? 0 : 1) - (itemPhoto(b.item) ? 0 : 1));
   return picks.slice(0, 4);
 }
 function polishRecipes() {

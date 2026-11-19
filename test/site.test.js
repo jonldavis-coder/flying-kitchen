@@ -343,10 +343,11 @@ test("origin, domain, analytics, and ads stay honest", () => {
     assert.ok(node.recipeCategory);
   }
   assert.match(read("sitemap.xml"), /\/pantry\/garlic\//);
-  assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
   assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
   assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
-  assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Eastern Europe/);
+  assert.doesNotMatch(read("flying-sauces/sauces/ajvar/index.html"), /Also from Eastern Europe/);
+  assert.match(read("flying-sauces/sauces/carbonara/index.html"), /Also from Rome/);
+  assert.doesNotMatch(read("flying-sauces/sauces/carbonara/index.html"), /Also from Southern Europe/);
   assert.match(read("assets/js/recipe.js"), /wakeLock/);
   assert.match(read("assets/css/kite.css"), /kk-cooking/);
   assert.match(read("flying-sauces/sauces/arrabbiata/index.html"), /From the journey/);
@@ -559,12 +560,22 @@ test("related recipes stay short, photographed, and tied to data on the page", (
     assert.equal(links.some((href) => rel.includes(href.split("/").filter(Boolean).at(-1))), false, rel);
     assert.match(related, /kk-meta/, rel);
   }
-  assert.match(read("flying-sauces/sauces/pesto-alla-genovese/index.html"), /Also from Italy/);
-  assert.match(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Eastern Europe/);
+  const carbonara = read("flying-sauces/sauces/carbonara/index.html");
+  const carbonaraRelated = carbonara.split("<h2>Related</h2>")[1].split("</section>")[0];
+  for (const slug of ["arrabbiata", "amatriciana", "gricia", "cacio-e-pepe"]) {
+    assert.match(carbonaraRelated, new RegExp(`/flying-sauces/sauces/${slug}/`), slug);
+  }
+  assert.match(carbonaraRelated, /Also from Rome/);
+  assert.doesNotMatch(carbonaraRelated, /Southern Europe|Skordalia/);
+  const pesto = read("flying-sauces/sauces/pesto-alla-genovese/index.html");
+  const pestoRelated = pesto.split("<h2>Related</h2>")[1].split("</section>")[0];
+  assert.match(pestoRelated, /Also from Italy/);
+  assert.match(pestoRelated, /Genoa|Liguria/);
+  assert.doesNotMatch(pestoRelated, /Southern Europe|Skordalia/);
   assert.doesNotMatch(read("flying-pancakes/pancakes/albanian-flija/index.html"), /Also from Albania/);
   assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Serbia/);
-  assert.match(read("flying-sauces/sauces/ajvar/index.html"), /Also from Eastern Europe/);
-  assert.match(read("flying-pancakes/pancakes/tianjin-jianbing/index.html"), /Next stop/);
+  assert.doesNotMatch(read("flying-sauces/sauces/ajvar/index.html"), /Also from Eastern Europe/);
+  assert.match(read("flying-pancakes/pancakes/tianjin-jianbing/index.html"), /Also from China/);
 });
 
 test("search ranks exact names, accents, typos, and photographs", () => {
@@ -618,4 +629,24 @@ test("search ranks exact names, accents, typos, and photographs", () => {
   const withPhoto = chicken.findIndex((item) => item.thumb);
   const without = chicken.findIndex((item) => !item.thumb);
   if (withPhoto >= 0 && without >= 0) assert.ok(withPhoto < without);
+  const pasta = rankItems(items, "italian pasta");
+  assert.ok(pasta.length >= 8, `italian pasta ${pasta.length}`);
+  assert.ok(pasta.slice(0, 8).every((item) => item.country === "Italy"));
+  for (const name of ["Arrabbiata", "Amatriciana", "Gricia", "Carbonara", "Cacio e Pepe"]) {
+    assert.ok(pasta.some((item) => item.title === name), name);
+  }
+  assert.ok(pasta.some((item) => /pesto/i.test(item.title)));
+  for (const word of ["noodles", "soup", "curry", "bread", "pancake", "sauce", "salad", "cake"]) {
+    const hits = rankItems(items, word);
+    assert.ok(hits.length >= 3, `${word} ${hits.length}`);
+    assert.ok(hits.every((item) => {
+      const hay = `${item.title} ${item.section} ${item.ingredients} ${(item.tags || []).join(" ")}`.toLowerCase();
+      return hay.includes(word) || hay.includes(word.replace(/s$/, "")) || (word === "pancake" && /pancake|crepe/.test(hay)) || (word === "noodle" && /noodle/.test(hay));
+    }), word);
+  }
+  const soups = rankItems(items, "soup");
+  assert.match(soups[0].title, /soup/i);
+  assert.ok(soups.some((item) => !/soup/i.test(item.title)));
+  const noodles = rankItems(items, "noodles");
+  assert.ok(noodles.some((item) => /noodle/i.test(`${item.title} ${(item.tags || []).join(" ")} ${item.ingredients}`)));
 });

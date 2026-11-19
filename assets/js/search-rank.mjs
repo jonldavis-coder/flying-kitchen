@@ -45,6 +45,39 @@ function hasWord(token, value) {
   return words(value).some((word) => word === token);
 }
 
+/** Dish-type words also match a category, a tag, or a main-ingredient name. */
+const DISH_TYPES = {
+  pasta: ["pasta", "spaghetti", "penne", "rigatoni", "bucatini", "fettuccine", "linguine", "tagliatelle", "macaroni", "lasagna", "lasagne", "ravioli", "gnocchi", "trofie", "trenette", "tonnarelli"],
+  noodle: ["noodle", "noodles", "ramen", "udon", "soba", "yakisoba"],
+  soup: ["soup", "soups", "bisque", "chowder"],
+  curry: ["curry", "curries"],
+  bread: ["bread", "breads", "flatbread"],
+  pancake: ["pancake", "pancakes", "crepe", "crepes"],
+  sauce: ["sauce", "sauces"],
+  salad: ["salad", "salads"],
+  cake: ["cake", "cakes"]
+};
+
+function dishWords(token) {
+  const stem = token.endsWith("s") && token.length > 4 ? token.slice(0, -1) : token;
+  for (const list of Object.values(DISH_TYPES)) {
+    if (list.includes(token) || list.includes(stem)) return list;
+  }
+  return null;
+}
+
+function dishTypeScore(item, token) {
+  const list = dishWords(token);
+  if (!list) return 0;
+  const hay = new Set(words([
+    item.title,
+    item.section,
+    item.ingredients,
+    ...(item.tags || [])
+  ].join(" ")));
+  return list.some((word) => hay.has(word)) ? 450 : 0;
+}
+
 /** Higher is a closer match. A photograph adds one point, so it wins only a tie. */
 export function rankScore(item, query) {
   const q = fold(query).trim();
@@ -55,13 +88,16 @@ export function rankScore(item, query) {
   const titleWords = words(title);
   const parts = tokens.map((token) => {
     if (titleWords.some((word) => word === token)) return 1000;
-    if (titleWords.some((word) => typo(token, word))) return 850;
+    if (!dishWords(token) && titleWords.some((word) => typo(token, word))) return 850;
     if (hasWord(token, item.section)) return 600;
     if (placeMatch(token, item.country) || placeMatch(token, item.region)) return 1200;
     if (token === "quick" && Number.isFinite(item.minutes) && item.minutes > 0 && item.minutes <= 30) return 350;
     if ((item.diets || []).some((diet) => hasWord(token, diet))) return 350;
     if ((item.meals || []).some((meal) => hasWord(token, meal))) return 350;
     if (hasWord(token, (item.collections || []).join(" "))) return 350;
+    const dish = dishTypeScore(item, token);
+    if (dish) return dish;
+    if (dishWords(token)) return 0;
     if (hasWord(token, item.ingredients)) return 200;
     if (hasWord(token, item.text)) return 100;
     return 0;
