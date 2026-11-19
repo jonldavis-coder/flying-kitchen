@@ -66,6 +66,15 @@ function dishWords(token) {
   return null;
 }
 
+/** A one-word dish search keeps sauces in their own group, under this heading. */
+export function sauceGroupLabel(query) {
+  const tokens = words(query);
+  if (tokens.length !== 1) return "";
+  const token = tokens[0];
+  if (!dishWords(token) || token === "sauce" || token === "sauces") return "";
+  return `Sauces for ${token}`;
+}
+
 /** Filed under Flying Sauces: a condiment page rather than the dish it accompanies. */
 export function isCondiment(item) {
   return /sauce/i.test(item.section || "");

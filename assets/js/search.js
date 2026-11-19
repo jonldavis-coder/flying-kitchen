@@ -1,4 +1,4 @@
-import { rankScore } from "./search-rank.mjs";
+import { isCondiment, rankScore, sauceGroupLabel } from "./search-rank.mjs";
 
 (function () {
   var list = document.getElementById("results");
@@ -58,26 +58,33 @@ import { rankScore } from "./search-rank.mjs";
         if (status) status.textContent = items.length + " recipes. Type a dish, choose a country, or choose a meal.";
         return;
       }
-      var found = items.filter(function (item) {
+      var ranked = items.filter(function (item) {
         if (country && item.country !== country) return false;
         if (meal !== "all" && (item.meals || []).indexOf(meal) === -1) return false;
         if (!query) return true;
         return rankScore(item, raw) > 0;
       }).sort(function (a, b) {
         return rankScore(b, raw) - rankScore(a, raw) || a.title.localeCompare(b.title);
-      }).slice(0, 36);
+      });
+      var label = query ? sauceGroupLabel(raw) : "";
+      var dishes = label ? ranked.filter(function (item) { return !isCondiment(item); }) : ranked;
+      var sauces = label ? ranked.filter(function (item) { return isCondiment(item); }) : [];
+      dishes = dishes.slice(0, 36);
+      sauces = sauces.slice(0, Math.max(0, 36 - dishes.length));
+      var found = dishes.concat(sauces);
       var bits = [];
       if (query) bits.push("“" + raw + "”");
       if (country) bits.push(country);
       if (meal !== "all") bits.push(meal);
       if (status) status.textContent = found.length + (found.length === 1 ? " recipe" : " recipes") + (bits.length ? " for " + bits.join(", ") : "") + ".";
       if (empty) empty.hidden = found.length > 0;
-      list.innerHTML = found.map(function (item) {
+      function hit(item) {
         var place = [item.country, (item.meals || []).join(" · "), item.section].filter(Boolean).join(" · ");
         return '<a class="kk-hit" href="' + esc(item.href) + '">' + thumb(item) +
           '<span><span class="kk-kicker">' + esc(place) + '</span><strong>' + esc(item.title) +
           '</strong>' + (item.text ? '<span class="kk-dek">' + esc(item.text) + "</span>" : "") + "</span></a>";
-      }).join("");
+      }
+      list.innerHTML = dishes.map(hit).join("") + (sauces.length ? '<h2 class="kk-search-group">' + esc(label) + "</h2>" + sauces.map(hit).join("") : "");
     }
 
     function sync() {
