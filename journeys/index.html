@@ -47,6 +47,60 @@
     <p class="kk-kicker">Itineraries</p>
     <h1>Journeys</h1>
     <p class="kk-lede">A day is breakfast, lunch, and dinner from recipes already published here. The note under each stop is that recipe’s own description.</p>
+    <section id="plan" class="kk-plan" aria-labelledby="kk-plan-title">
+    <p class="kk-kicker">Plan your day around the world</p>
+    <h2 id="kk-plan-title">Build a day</h2>
+    <p>Choose breakfast, lunch, and dinner from three different countries that already have recipes here.</p>
+    <div class="kk-plan-layout">
+      <div class="kk-plan-map-wrap">
+        <svg id="kk-plan-map" class="kk-plan-map" viewBox="0 0 960 480" role="group" aria-label="World map. Choose a country that has recipes.">
+          <rect width="960" height="480" fill="#f4f0e8"/>
+          <g id="kk-plan-lands" fill="#ead7ae" stroke="#1a1a1a" stroke-width="0.6"></g>
+          <path id="kk-plan-flight" fill="none" stroke="#c6a15b" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2 6"/>
+          <g id="kk-plan-pins"></g>
+          <g class="kk-compass-mark" transform="translate(552 34) scale(0.7)" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#f4f0e8" stroke="#1a1a1a" stroke-width="1.2"/><circle cx="32" cy="32" r="2" fill="#1a1a1a"/><path d="M32 6 L37 32 L32 26 L27 32 Z" fill="#c6a15b"/><path d="M32 58 L27 32 L32 38 L37 32 Z" fill="#1a1a1a"/><path d="M6 32 L32 27 L26 32 L32 37 Z" fill="#1a1a1a"/><path d="M58 32 L32 37 L38 32 L32 27 Z" fill="#1a1a1a"/></g>
+        </svg>
+        <p id="kk-plan-status" class="kk-meta" role="status"></p>
+      </div>
+      <form id="kk-plan-form" class="kk-plan-form">
+        <label>Breakfast <select data-slot="b" aria-label="Breakfast country"><option value="">Choose a country</option></select></label><label>Lunch <select data-slot="l" aria-label="Lunch country"><option value="">Choose a country</option></select></label><label>Dinner <select data-slot="d" aria-label="Dinner country"><option value="">Choose a country</option></select></label>
+        <div class="kk-chips" role="group" aria-label="Meal to choose">
+          <button type="button" data-meal-slot="b" class="is-on" aria-pressed="true">Breakfast</button><button type="button" data-meal-slot="l" aria-pressed="false">Lunch</button><button type="button" data-meal-slot="d" aria-pressed="false">Dinner</button>
+        </div>
+      </form>
+    </div>
+    <div id="kk-plan-recipes" class="kk-plan-recipes" aria-live="polite"></div>
+    <div class="kk-plan-actions">
+      <button type="button" class="kk-button" id="kk-plan-card" disabled>Recipe Journey Card</button>
+      <button type="button" class="kk-button quiet" id="kk-plan-save" disabled>Save journey</button>
+    </div>
+    <h3>My journeys</h3>
+    <ul id="kk-plan-saved" class="kk-recipe-list"></ul>
+    <dialog id="kk-card-dialog" class="kk-card-dialog">
+      <article class="kk-journey-card" id="kk-journey-card">
+        <header class="kk-card-head">
+          <svg class="kk-mark" viewBox="0 0 64 64" aria-hidden="true" width="36" height="36"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/></svg>
+          <p class="kk-kicker">Kite Kitchen</p>
+          <label class="kk-card-title-label">Title <input id="kk-card-title" value="A Day Around the World" maxlength="60"></label>
+        </header>
+        <div id="kk-card-map"></div>
+        <ol id="kk-card-stops"></ol>
+        <footer class="kk-card-foot">
+          <p>kitekitchen.com</p>
+          <p id="kk-card-url"></p>
+          <canvas id="kk-card-qr" width="96" height="96" aria-hidden="true"></canvas>
+        </footer>
+      </article>
+      <div id="kk-card-book" class="kk-card-book" hidden></div>
+      <p class="kk-plan-actions no-print">
+        <label>Layout <select id="kk-card-size"><option value="letter">Letter / A4</option><option value="5x7">5×7 card</option></select></label>
+        <label><input type="checkbox" id="kk-card-booklet"> Include the three recipes</label>
+        <button type="button" class="kk-button" id="kk-card-print">Print card</button>
+        <button type="button" class="kk-button quiet" id="kk-card-download">Download card</button>
+        <button type="button" class="kk-button quiet" id="kk-card-close">Close</button>
+      </p>
+    </dialog>
+  </section>
     <h2>A day around the world</h2>
     <div class="kk-filters">
       <div class="kk-chips" role="group" aria-label="Continent">
@@ -99,5 +153,6 @@
   <script src="/config.js"></script>
   <script src="/assets/js/consent.js" defer></script>
   
+<script src="/assets/js/planner.js" type="module"></script>
 </body>
 </html>

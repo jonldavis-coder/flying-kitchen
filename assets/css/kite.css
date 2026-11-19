@@ -872,3 +872,42 @@ body[data-page="book"] .book-recipe { border-top: 1px solid var(--line); padding
 }
 a.explore-card, a.feature { color: inherit; text-decoration: none; }
 .voyage-note, .next-stop { color: var(--muted); font-size: 0.95rem; }
+
+.kk-plan { margin: 1.5rem 0 2rem; }
+.kk-plan-layout { display: grid; gap: 1rem; }
+@media (min-width: 800px) { .kk-plan-layout { grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 0.8fr); align-items: start; } }
+.kk-plan-map { width: 100%; height: auto; aspect-ratio: 2 / 1; background: #f4f0e8; border: 1px solid #c6a15b; }
+.kk-plan-map [data-iso] { cursor: pointer; }
+.kk-plan-map [data-iso]:focus { outline: 3px solid #1a1a1a; outline-offset: 2px; }
+.kk-plan-map [data-iso].is-on { fill: #e2b007; }
+.kk-plan-form { display: grid; gap: 0.6rem; }
+.kk-plan-form select, .kk-card-title-label input, #kk-card-size { min-height: 44px; font: inherit; }
+.kk-plan-recipes { display: grid; gap: 0.6rem; margin: 1rem 0; }
+@media (min-width: 700px) { .kk-plan-recipes { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); } }
+.kk-plan-card { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.6rem; padding: 0.45rem; border: 1px solid var(--line); background: #fff; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.kk-plan-card img, .kk-plan-plate { width: 5.5rem; height: 4rem; object-fit: cover; background: #f4f0e8; }
+.kk-plan-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.kk-flight-draw { stroke-dasharray: 8 6; }
+@media (prefers-reduced-motion: no-preference) {
+  .kk-flight-draw { animation: kk-flight 1.1s linear 1; }
+}
+@keyframes kk-flight { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+.kk-journey-card { background: #f4f0e8; color: #1a1a1a; border: 1px solid #c6a15b; padding: 1rem; font-family: Georgia, "Times New Roman", serif; }
+.kk-journey-card .kk-kicker, .kk-card-foot { font-family: "Source Sans 3", sans-serif; }
+.kk-card-stops { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; gap: 0.65rem; }
+.kk-card-stops li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.55rem; align-items: center; }
+.kk-card-stops img, .kk-card-stops svg { width: 4.5rem; height: 3rem; object-fit: cover; display: block; }
+.kk-card-stops .kk-kicker, .kk-card-stops strong, .kk-card-stops .kk-meta { display: block; }
+.kk-card-dialog { max-width: 40rem; border: 0; padding: 0; background: transparent; }
+.kk-card-dialog[open] { display: block; width: min(40rem, 100%); margin: 1rem 0 1.5rem; background: #f4f0e8; }
+#kk-card-map svg { width: 100%; height: auto; max-height: 240px; display: block; }
+.kk-card-dialog:not([open]) { display: none; }
+@media print {
+  @page { size: letter; margin: 12mm; }
+  @page kk57 { size: 5in 7in; margin: 8mm; }
+  body.kk-printing * { visibility: hidden; }
+  body.kk-printing .kk-journey-card, body.kk-printing .kk-journey-card *,
+  body.kk-printing .kk-card-book, body.kk-printing .kk-card-book * { visibility: visible; }
+  body.kk-printing .kk-card-dialog { position: absolute; inset: 0; max-width: none; }
+  body.kk-card-5x7 .kk-journey-card { page: kk57; width: 5in; height: 7in; }
+}
