@@ -79,16 +79,15 @@
     <dialog id="kk-card-dialog" class="kk-card-dialog">
       <article class="kk-journey-card" id="kk-journey-card">
         <header class="kk-card-head">
-          <svg class="kk-mark" viewBox="0 0 64 64" aria-hidden="true" width="36" height="36"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/></svg>
-          <p class="kk-kicker">Kite Kitchen</p>
-          <label class="kk-card-title-label">Title <input id="kk-card-title" value="A Day Around the World" maxlength="60"></label>
+          <svg class="kk-mark" viewBox="0 0 64 64" aria-hidden="true" width="42" height="42"><path fill="#c6a15b" d="M32 3.5 57 30 32 51 7 30Z"/><path fill="#f6e7c1" d="M32 11 48.5 30 32 44.5 15.5 30Z"/><path fill="none" stroke="#5c3d12" stroke-width="1.15" d="M32 3.5V51M7 30h50"/></svg>
+          <p class="kk-card-brand">Kite Kitchen</p>
+          <label class="kk-card-title-label"><span class="sr-only">Title</span><input id="kk-card-title" value="A Day Around the World" maxlength="60"></label>
         </header>
-        <div id="kk-card-map"></div>
+        <div id="kk-card-map" class="kk-card-map-frame"></div>
         <ol id="kk-card-stops"></ol>
         <footer class="kk-card-foot">
-          <p>kitekitchen.com</p>
-          <p id="kk-card-url"></p>
-          <canvas id="kk-card-qr" width="96" height="96" aria-hidden="true"></canvas>
+          <p id="kk-card-url">kitekitchen.com/journeys</p>
+          <canvas id="kk-card-qr" width="84" height="84" aria-hidden="true"></canvas>
         </footer>
       </article>
       <div id="kk-card-book" class="kk-card-book" hidden></div>

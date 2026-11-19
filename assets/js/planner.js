@@ -1,4 +1,4 @@
-import { SLOTS, countriesDiffer, parsePlan, recipesFor, serializePlan } from "./planner-model.mjs";
+import { SLOTS, countriesDiffer, countriesFor, parsePlan, recipesFor, serializePlan } from "./planner-model.mjs";
 
 const KEY = "kk-journeys";
 const motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -63,33 +63,65 @@ function recipeBySlug(data, slug) {
 }
 
 function drawMap(data, slots) {
+  const map = document.getElementById("kk-plan-map");
   const lands = document.getElementById("kk-plan-lands");
   const pins = document.getElementById("kk-plan-pins");
   const flight = document.getElementById("kk-plan-flight");
-  if (!lands || !pins || !flight) return;
+  if (!map || !lands || !pins || !flight) return;
   const chosen = new Set(SLOTS.map((slot) => slots[slot.key]?.country).filter(Boolean));
   lands.innerHTML = data.countries.map((country) => {
+    if (!country.d) return "";
     const on = chosen.has(country.slug) ? " is-on" : "";
-    const shape = country.d ? `<path data-iso="${country.slug}" class="${on.trim()}" d="${country.d}" tabindex="0" role="button" aria-label="${country.name}"><title>${country.name}</title></path>` : "";
-    return shape;
+    return `<path data-iso="${country.slug}" class="${on.trim()}" d="${country.d}" tabindex="0" role="button" aria-label="${country.name}"><title>${country.name}</title></path>`;
   }).join("");
-  const points = SLOTS.map((slot, index) => {
+  const line = SLOTS.map((slot) => {
     const stop = slots[slot.key];
-    if (!stop) return "";
+    if (!stop) return null;
     const country = countryBySlug(data, stop.country);
-    if (!country) return "";
-    const [x, y] = project(country.lon, country.lat);
-    return `<g><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="#e2b007" stroke="#1a1a1a"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" font-size="12" font-family="Georgia, serif">${index + 1}</text></g>`;
-  }).join("");
-  pins.innerHTML = points;
-  const line = SLOTS.map((slot) => slots[slot.key]).filter(Boolean).map((stop) => countryBySlug(data, stop.country)).filter(Boolean);
+    return country ? { slot, country, xy: project(country.lon, country.lat) } : null;
+  }).filter(Boolean);
+  fitMap(map, line.map((stop) => stop.xy));
   if (line.length >= 2) {
-    flight.setAttribute("d", line.map((country, index) => {
-      const [x, y] = project(country.lon, country.lat);
-      return `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
-    }).join(" "));
+    flight.setAttribute("d", line.map((stop, index) => `${index ? "L" : "M"}${stop.xy[0].toFixed(1)} ${stop.xy[1].toFixed(1)}`).join(" "));
     flight.classList.toggle("kk-flight-draw", !motion);
   } else flight.setAttribute("d", "");
+  const plane = line.length >= 2 ? planeMark(line[line.length - 2].xy, line[line.length - 1].xy) : "";
+  pins.innerHTML = line.map((stop) => {
+    const [x, y] = stop.xy;
+    const letter = stop.slot.meal[0];
+    return `<g><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="16" fill="#e2b007" stroke="#1a1a1a" stroke-width="1.4"/><text x="${x.toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="middle" font-size="14" font-family="Georgia, serif" fill="#1a1a1a">${letter}</text></g>`;
+  }).join("") + plane;
+}
+
+function fitMap(map, points) {
+  if (points.length < 2) {
+    map.setAttribute("viewBox", "0 0 960 480");
+    return;
+  }
+  let minX = Math.min(...points.map((point) => point[0]));
+  let maxX = Math.max(...points.map((point) => point[0]));
+  let minY = Math.min(...points.map((point) => point[1]));
+  let maxY = Math.max(...points.map((point) => point[1]));
+  const padX = Math.max(90, (maxX - minX) * 0.45);
+  const padY = Math.max(70, (maxY - minY) * 0.55);
+  minX -= padX;
+  maxX += padX;
+  minY -= padY;
+  maxY += padY;
+  let width = Math.max(220, maxX - minX);
+  let height = Math.max(140, maxY - minY);
+  if (width / height < 1.7) width = height * 1.7;
+  else height = width / 1.7;
+  minX = Math.max(0, Math.min(minX, 960 - width));
+  minY = Math.max(0, Math.min(minY, 480 - height));
+  map.setAttribute("viewBox", `${minX.toFixed(1)} ${minY.toFixed(1)} ${Math.min(width, 960).toFixed(1)} ${Math.min(height, 480).toFixed(1)}`);
+}
+
+function planeMark(from, to) {
+  const x = from[0] + (to[0] - from[0]) * 0.62;
+  const y = from[1] + (to[1] - from[1]) * 0.62;
+  const angle = Math.atan2(to[1] - from[1], to[0] - from[0]) * 180 / Math.PI;
+  return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${angle.toFixed(1)})"><path d="M-8 0 L8 0 M2 -5 L8 0 L2 5" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/></g>`;
 }
 
 function renderRecipes(data, slots, active) {
@@ -103,20 +135,38 @@ function renderRecipes(data, slots, active) {
     return;
   }
   const place = countryBySlug(data, country);
-  const tagged = data.recipes.filter((recipe) => recipe.country === country && (recipe.meals || []).includes(slot.meal));
-  const list = recipesFor(data.recipes, country, slot.meal);
+  const grouped = recipesFor(data.recipes, country, slot.meal);
+  const photos = grouped.primary.filter((recipe) => recipe.thumb);
+  const showPlates = photos.length < 6;
+  const visible = showPlates ? grouped.primary : photos;
   if (status) {
-    status.textContent = tagged.length
-      ? `${place?.name || country}: ${slot.meal.toLowerCase()} recipes.`
-      : `${place?.name || country} has no ${slot.meal.toLowerCase()} tag. Showing every recipe from there.`;
+    status.textContent = grouped.primary.length
+      ? `${place?.name || country}: ${slot.meal.toLowerCase()}.`
+      : `${place?.name || country} has no ${slot.meal.toLowerCase()} dish that fits.`;
   }
-  host.innerHTML = list.map((recipe) => {
-    const media = recipe.thumb
-      ? `<img src="${recipe.thumb}" alt="" width="120" height="80">`
-      : `<svg class="kk-plan-plate" viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="#f4f0e8"/><circle cx="60" cy="40" r="6" fill="#e2b007" stroke="#1a1a1a"/></svg>`;
-    const meta = [recipe.minutes ? `${recipe.minutes} min` : "", recipe.ingredients ? `${recipe.ingredients} ingredients` : ""].filter(Boolean).join(" · ");
-    return `<button type="button" class="kk-plan-card" data-recipe="${recipe.slug}">${media}<span><strong>${recipe.title}</strong><span class="kk-meta">${meta}</span></span></button>`;
-  }).join("");
+  const tiles = visible.map((recipe) => recipeTile(recipe)).join("");
+  const hidden = !showPlates && grouped.primary.length > photos.length
+    ? `<p class="kk-plan-more"><button type="button" class="kk-button quiet" data-show-all>Show all</button></p>`
+    : "";
+  const more = grouped.more.length
+    ? `<details class="kk-plan-sauces"><summary>More from ${place?.name || country}</summary><div class="kk-plan-recipes">${grouped.more.map((recipe) => recipeTile(recipe)).join("")}</div></details>`
+    : "";
+  host.innerHTML = `${tiles}${hidden}${more}`;
+  host.querySelector("[data-show-all]")?.addEventListener("click", () => {
+    const extra = grouped.primary.filter((recipe) => !recipe.thumb).map((recipe) => recipeTile(recipe)).join("");
+    host.querySelector("[data-show-all]")?.parentElement?.remove();
+    const sauces = host.querySelector(".kk-plan-sauces");
+    if (sauces) sauces.insertAdjacentHTML("beforebegin", extra);
+    else host.insertAdjacentHTML("beforeend", extra);
+  });
+}
+
+function recipeTile(recipe) {
+  const media = recipe.thumb
+    ? `<img src="${recipe.thumb}" alt="" width="120" height="90">`
+    : `<svg class="kk-plan-plate" viewBox="0 0 120 90" aria-hidden="true"><rect width="120" height="90" fill="#f4f0e8"/><circle cx="60" cy="45" r="6" fill="#e2b007" stroke="#1a1a1a"/></svg>`;
+  const meta = [recipe.minutes ? `${recipe.minutes} min` : "", recipe.ingredients ? `${recipe.ingredients} ingredients` : ""].filter(Boolean).join(" · ");
+  return `<button type="button" class="kk-plan-card" data-recipe="${recipe.slug}">${media}<span class="kk-plan-copy"><strong>${recipe.title}</strong>${meta ? `<span class="kk-meta">${meta}</span>` : ""}</span></button>`;
 }
 
 function syncUrl(slots) {
@@ -132,7 +182,7 @@ function fillCard(data, slots, title) {
   const titleInput = document.getElementById("kk-card-title");
   if (titleInput && title) titleInput.value = title;
   const share = `${location.origin}/journeys/${serializePlan(slots)}`;
-  if (urlNode) urlNode.textContent = decodeURIComponent(share).replace(location.origin, "kitekitchen.com");
+  if (urlNode) urlNode.textContent = "kitekitchen.com/journeys";
   const qr = document.getElementById("kk-card-qr");
   if (qr) drawQr(qr, share);
   if (mapHost) {
@@ -146,10 +196,10 @@ function fillCard(data, slots, title) {
       const country = countryBySlug(data, stop.country);
       const recipe = recipeBySlug(data, stop.recipe);
       const media = recipe?.thumb
-        ? `<img src="${recipe.thumb}" alt="" width="84" height="56">`
-        : `<svg viewBox="0 0 84 56" aria-hidden="true"><rect width="84" height="56" fill="#f4f0e8"/><circle cx="42" cy="28" r="5" fill="#e2b007" stroke="#1a1a1a"/></svg>`;
-      const meta = [recipe?.minutes ? `${recipe.minutes} min` : "", recipe?.ingredients ? `${recipe.ingredients} ingredients` : ""].filter(Boolean).join(" · ");
-      return `<li>${media}<span><span class="kk-kicker">${slot.meal}</span><strong>${recipe?.title || stop.recipe}</strong><span class="kk-meta">${country?.name || stop.country}${meta ? ` · ${meta}` : ""}</span></span></li>`;
+        ? `<img src="${recipe.thumb}" alt="" width="72" height="72">`
+        : `<svg viewBox="0 0 72 72" aria-hidden="true"><rect width="72" height="72" fill="#f4f0e8"/><circle cx="36" cy="36" r="6" fill="#e2b007" stroke="#1a1a1a"/></svg>`;
+      const meta = [country?.name || stop.country, recipe?.minutes ? `${recipe.minutes} min` : "", recipe?.ingredients ? `${recipe.ingredients} ingredients` : ""].filter(Boolean).join(" · ");
+      return `<li><span class="kk-pin-num" aria-hidden="true">${SLOTS.indexOf(slot) + 1}</span><span class="kk-stop-copy"><span class="kk-meal">${slot.meal}</span><strong>${recipe?.title || stop.recipe}</strong><span class="kk-meta">${meta}</span></span>${media}</li>`;
     }).join("");
   }
   return share;
@@ -184,20 +234,25 @@ function initPlan(data) {
   let active = "b";
   const status = document.getElementById("kk-plan-status");
   const selects = [...document.querySelectorAll("[data-slot]")];
-  selects.forEach((select) => {
-    select.innerHTML = `<option value="">Choose a country</option>${data.countries.map((country) => `<option value="${country.slug}">${country.name}</option>`).join("")}`;
-    if (slots[select.getAttribute("data-slot")]?.country) select.value = slots[select.getAttribute("data-slot")].country;
-  });
+  function refillSelects() {
+    selects.forEach((select) => {
+      const key = select.getAttribute("data-slot");
+      const meal = SLOTS.find((slot) => slot.key === key).meal;
+      const taken = SLOTS.filter((slot) => slot.key !== key).map((slot) => slots[slot.key]?.country).filter(Boolean);
+      const list = countriesFor(data.recipes, data.countries, meal, taken);
+      const current = slots[key]?.country || "";
+      const options = list.some((country) => country.slug === current) || !current
+        ? list
+        : list.concat(data.countries.filter((country) => country.slug === current));
+      select.innerHTML = `<option value="">Choose a country</option>${options.map((country) => `<option value="${country.slug}">${country.name}</option>`).join("")}`;
+      select.value = current;
+    });
+  }
   function usedElsewhere(slug, key) {
     return SLOTS.some((slot) => slot.key !== key && slots[slot.key]?.country === slug);
   }
   function refresh() {
-    selects.forEach((select) => {
-      const key = select.getAttribute("data-slot");
-      [...select.options].forEach((option) => {
-        option.disabled = Boolean(option.value) && usedElsewhere(option.value, key);
-      });
-    });
+    refillSelects();
     drawMap(data, slots);
     renderRecipes(data, slots, active);
     const ready = SLOTS.every((slot) => slots[slot.key]?.recipe) && countriesDiffer(slots);
@@ -285,13 +340,20 @@ function initPlan(data) {
     document.body.classList.remove("kk-printing");
   });
   document.getElementById("kk-card-download")?.addEventListener("click", () => downloadCard(data, slots));
-  document.getElementById("kk-card-close")?.addEventListener("click", () => document.getElementById("kk-card-dialog")?.removeAttribute("open"));
+  document.getElementById("kk-card-close")?.addEventListener("click", () => document.getElementById("kk-card-dialog")?.close());
     refresh();
   if (SLOTS.some((slot) => slots[slot.key])) renderRecipes(data, slots, active);
   const ready = SLOTS.every((slot) => slots[slot.key]?.recipe) && countriesDiffer(slots);
-  if (ready && (opening === "#card" || opening === "#print")) {
-    openCard(data, slots);
-    if (opening === "#print") document.body.classList.add("kk-printing");
+  if (ready && opening === "#card") openCard(data, slots);
+  if (ready && opening === "#png") downloadCard(data, slots, true);
+  if (ready && opening === "#print") {
+    const size = document.getElementById("kk-card-size");
+    if (size) size.value = "5x7";
+    fillCard(data, slots);
+    const dialog = document.getElementById("kk-card-dialog");
+    document.body.replaceChildren(dialog);
+    dialog.setAttribute("open", "");
+    document.body.classList.add("kk-card-5x7");
   }
 }
 
@@ -299,36 +361,75 @@ function openCard(data, slots) {
   const dialog = document.getElementById("kk-card-dialog");
   if (!dialog) return;
   fillCard(data, slots);
-  dialog.setAttribute("open", "");
-  const plan = document.getElementById("plan");
-  if ((location.hash === "#card" || location.hash === "#print") && plan) plan.prepend(dialog);
+  if (typeof dialog.showModal === "function" && !dialog.open) dialog.showModal();
+  else dialog.setAttribute("open", "");
 }
 
-function downloadCard(data, slots) {
+function loadImage(src) {
+  return new Promise((resolve) => {
+    if (!src) return resolve(null);
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => resolve(null);
+    image.src = src;
+  });
+}
+
+async function paintCard(data, slots) {
+  const images = await Promise.all(SLOTS.map((slot) => loadImage(recipeBySlug(data, slots[slot.key]?.recipe)?.thumb)));
   const canvas = document.createElement("canvas");
-  const five = document.getElementById("kk-card-size")?.value === "5x7";
-  canvas.width = five ? 750 : 1100;
-  canvas.height = five ? 1050 : 1400;
+  canvas.width = 1000;
+  canvas.height = 1400;
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#f4f0e8";
+  ctx.fillStyle = "#f6f1e6";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.strokeStyle = "#c6a15b";
-  ctx.strokeRect(24, 24, canvas.width - 48, canvas.height - 48);
+  ctx.lineWidth = 3;
+  ctx.strokeRect(36, 36, canvas.width - 72, canvas.height - 72);
   ctx.fillStyle = "#1a1a1a";
-  ctx.font = "42px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.font = "22px sans-serif";
+  ctx.fillText("KITE KITCHEN", 500, 110);
+  ctx.font = "54px Georgia, serif";
   const title = document.getElementById("kk-card-title")?.value || "A Day Around the World";
-  ctx.fillText(title, 48, 100);
-  ctx.font = "22px Georgia, serif";
+  ctx.fillText(title, 500, 180);
   SLOTS.forEach((slot, index) => {
     const stop = slots[slot.key];
     const country = stop ? countryBySlug(data, stop.country) : null;
     const recipe = stop ? recipeBySlug(data, stop.recipe) : null;
-    const y = 220 + index * 90;
-    ctx.fillText(`${index + 1}. ${slot.meal}`, 48, y);
-    ctx.fillText(`${recipe?.title || ""} · ${country?.name || ""}`, 48, y + 36);
+    const y = 280 + index * 150;
+    ctx.beginPath();
+    ctx.fillStyle = "#e2b007";
+    ctx.arc(110, y, 22, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#1a1a1a";
+    ctx.font = "22px Georgia, serif";
+    ctx.fillText(String(index + 1), 110, y + 8);
+    ctx.textAlign = "left";
+    ctx.font = "16px sans-serif";
+    ctx.fillText(slot.meal.toUpperCase(), 160, y - 16);
+    ctx.font = "36px Georgia, serif";
+    ctx.fillText(recipe?.title || "", 160, y + 24);
+    const meta = [country?.name, recipe?.minutes ? `${recipe.minutes} min` : "", recipe?.ingredients ? `${recipe.ingredients} ingredients` : ""].filter(Boolean).join(" · ");
+    ctx.font = "18px sans-serif";
+    ctx.fillText(meta, 160, y + 56);
+    const image = images[index];
+    if (image) ctx.drawImage(image, 760, y - 40, 120, 120);
+    ctx.textAlign = "center";
   });
   ctx.font = "18px sans-serif";
-  ctx.fillText("kitekitchen.com", 48, canvas.height - 80);
+  ctx.fillText("KITEKITCHEN.COM/JOURNEYS", 500, 1280);
+  return canvas;
+}
+
+async function downloadCard(data, slots, preview = false) {
+  const canvas = await paintCard(data, slots);
+  if (preview) {
+    document.body.replaceChildren(canvas);
+    canvas.style.width = "100%";
+    canvas.style.height = "auto";
+    return;
+  }
   const link = document.createElement("a");
   link.href = canvas.toDataURL("image/png");
   link.download = "kite-kitchen-journey.png";

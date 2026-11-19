@@ -18,16 +18,18 @@ test("planner url state round-trips and keeps three countries distinct", () => {
     d: { country: "japan", recipe: "ramen" }
   }), false);
   const breakfast = recipesFor([
-    { title: "B", country: "france", meals: ["Dessert"], thumb: "" },
-    { title: "A", country: "france", meals: ["Breakfast"], thumb: "/a.jpg" },
-    { title: "C", country: "italy", meals: ["Breakfast"], thumb: "/c.jpg" }
+    { title: "Béarnaise", country: "france", section: "Flying Sauces", meals: [], thumb: "/b.jpg" },
+    { title: "Crêpes Suzette", country: "france", section: "Flying Pancakes", meals: ["Dessert"], thumb: "/c.jpg" },
+    { title: "A", country: "france", section: "Flying Pancakes", meals: ["Breakfast"], thumb: "" }
   ], "france", "Breakfast");
-  assert.deepEqual(breakfast.map((item) => item.title), ["A"]);
+  assert.deepEqual(breakfast.primary.map((item) => item.title), ["A", "Crêpes Suzette"]);
+  assert.deepEqual(breakfast.more.map((item) => item.title), ["Béarnaise"]);
   const fallback = recipesFor([
-    { title: "Z", country: "france", meals: [], thumb: "" },
-    { title: "Y", country: "france", meals: [], thumb: "/y.jpg" }
+    { title: "Z", country: "france", section: "Flying BBQ", meals: [], thumb: "" },
+    { title: "Y", country: "france", section: "Flying BBQ", meals: [], thumb: "/y.jpg" }
   ], "france", "Lunch");
-  assert.deepEqual(fallback.map((item) => item.title), ["Y", "Z"]);
+  assert.deepEqual(fallback.primary.map((item) => item.title), ["Y", "Z"]);
+  assert.equal(fallback.more.length, 0);
 });
 
 test("journey planner markup, print layout, and home link exist", () => {
