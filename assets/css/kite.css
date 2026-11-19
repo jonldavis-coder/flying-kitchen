@@ -676,6 +676,7 @@ ol.steps > li::before {
 .kk-book { padding: 0.55rem 0.55rem 0.9rem; }
 .kk-book h2 { margin: 0.45rem 0.35rem 0.2rem; font-size: 1.35rem; }
 .kk-results { display: grid; gap: 0.7rem; margin-top: 0.8rem; }
+.kk-search-group { grid-column: 1 / -1; margin: 1.15rem 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; font-weight: 500; }
 .kk-hit { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.85rem 1rem; align-items: center; padding: 0.55rem; background: #fff; border: 1px solid var(--line); color: inherit; text-decoration: none; }
 .kk-hit img, .kk-hit .kk-pin, .kk-hit .kk-plate-svg { width: 11rem; height: 6.2rem; object-fit: cover; }
 .kk-hit strong { display: block; font-family: var(--serif); font-size: 1.65rem; font-weight: 500; line-height: 1.05; }

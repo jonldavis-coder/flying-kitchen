@@ -3635,5 +3635,362 @@
     "mastHeight": 1000,
     "cardWidth": 1200,
     "cardHeight": 900
+  },
+  {
+    "key": "blue-cheese-dressing",
+    "id": "blue-cheese-dressing",
+    "slug": "blue-cheese-dressing",
+    "alt": "Blue cheese dressing in a bowl",
+    "caption": "Blue cheese dressing.",
+    "artist": "jules",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blue_cheese_dressing.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Blue cheese dressing.jpg",
+    "focal": [
+      0.4,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "chilean-sopaipillas",
+    "id": "chilean-sopaipillas",
+    "slug": "chilean-sopaipillas",
+    "alt": "A fried Chilean sopaipilla",
+    "caption": "Chilean sopaipilla.",
+    "artist": "Acquarius qqww",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sopaipilla_chilensi.JPG",
+    "source": "Wikimedia Commons",
+    "commons": "File:Sopaipilla chilensi.JPG",
+    "focal": [
+      0.5,
+      0.45
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "dadar-gulung",
+    "id": "dadar-gulung",
+    "slug": "dadar-gulung",
+    "alt": "Green dadar gulung rolls",
+    "caption": "Dadar gulung.",
+    "artist": "Supardisahabu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dadar_Gulung_aka_Dadara_isi_Unti_Kelapa.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Dadar Gulung aka Dadara isi Unti Kelapa.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "llapingachos",
+    "id": "llapingachos",
+    "slug": "llapingachos",
+    "alt": "Fried potato llapingachos on a plate",
+    "caption": "Llapingachos.",
+    "artist": "DFRod",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Llapingachos.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Llapingachos.jpg",
+    "focal": [
+      0.48,
+      0.55
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "khanom-bueang",
+    "id": "khanom-bueang",
+    "slug": "khanom-bueang",
+    "alt": "Thai khanom bueang folded crepes",
+    "caption": "Khanom bueang.",
+    "artist": "Paul_012",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Khanom_bueang.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Khanom bueang.jpg",
+    "focal": [
+      0.5,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "aloo-paratha",
+    "id": "aloo-paratha",
+    "slug": "aloo-paratha",
+    "alt": "A potato-stuffed aloo paratha",
+    "caption": "Aloo paratha.",
+    "artist": "Marajozkee",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aloor_paratha.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Aloor paratha.jpg",
+    "focal": [
+      0.42,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "azerbaijani-qutab",
+    "id": "azerbaijani-qutab",
+    "slug": "azerbaijani-qutab",
+    "alt": "Folded Azerbaijani qutab",
+    "caption": "Azerbaijani qutab.",
+    "artist": "Interfase",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Azerbaijani_national_dish_Qutab.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Azerbaijani national dish Qutab.jpg",
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "belarusian-draniki",
+    "id": "belarusian-draniki",
+    "slug": "belarusian-draniki",
+    "alt": "Potato draniki in a pan",
+    "caption": "Belarusian draniki.",
+    "artist": "Tess Mattew",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belarusian_Cuisine_Draniki_2021.06.30.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Belarusian Cuisine Draniki 2021.06.30.jpg",
+    "focal": [
+      0.48,
+      0.55
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "malawach",
+    "id": "malawach",
+    "slug": "malawach",
+    "alt": "A flaky malawach flatbread",
+    "caption": "Malawach.",
+    "artist": "HaJunkiyada",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Malawach_Yemeni_breakfast.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Liat Portal for Foodie Disorder - Malawach Yemeni breakfast.jpg",
+    "focal": [
+      0.62,
+      0.62
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "bosnian-cevapi",
+    "id": "bosnian-cevapi",
+    "slug": "bosnian-cevapi",
+    "alt": "\u0106evapi in bread with onion and kajmak",
+    "caption": "Bosnian \u0107evapi.",
+    "artist": "Bartape2",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bosnian-cevapi-with-kajmak-and-onion.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Bosnian-cevapi-with-kajmak-and-onion.jpg",
+    "focal": [
+      0.45,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "georgian-mchadi",
+    "id": "georgian-mchadi",
+    "slug": "georgian-mchadi",
+    "alt": "A bowl of fried mchadi",
+    "caption": "Georgian mchadi.",
+    "artist": "Georgian Recipes at Georgia About",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mchadi_2.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Mchadi 2.jpg",
+    "focal": [
+      0.5,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "thai-moo-ping",
+    "id": "thai-moo-ping",
+    "slug": "thai-moo-ping",
+    "alt": "Grilled pork moo ping skewers",
+    "caption": "Thai moo ping.",
+    "artist": "Phoebus 28",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mu_ping.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Mu ping.jpg",
+    "focal": [
+      0.42,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "egg-hoppers",
+    "id": "egg-hoppers",
+    "slug": "egg-hoppers",
+    "alt": "Sri Lankan egg hoppers",
+    "caption": "Egg hoppers.",
+    "artist": "Z thomas",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Egg_hoppers_sri_Lanka.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Egg hoppers sri Lanka.jpg",
+    "focal": [
+      0.55,
+      0.45
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "norwegian-lefse",
+    "id": "norwegian-lefse",
+    "slug": "norwegian-lefse",
+    "alt": "Lefse cooking on a griddle",
+    "caption": "Norwegian lefse.",
+    "artist": "Lance Fisher",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lefse_on_a_griddle.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Lefse on a griddle.jpg",
+    "focal": [
+      0.5,
+      0.36
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "egyptian-qatayef",
+    "id": "egyptian-qatayef",
+    "slug": "egyptian-qatayef",
+    "alt": "Cheese-filled qatayef",
+    "caption": "Qatayef.",
+    "artist": "\u0623\u0645\u064a\u0646",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Palestinian_Qatayef_002.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Palestinian Qatayef 002.jpg",
+    "focal": [
+      0.45,
+      0.48
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "kaiserschmarrn",
+    "id": "kaiserschmarrn",
+    "slug": "kaiserschmarrn",
+    "alt": "Kaiserschmarrn with applesauce",
+    "caption": "Kaiserschmarrn.",
+    "artist": "Takeaway",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2015_0731_Kaiserschmarrn_Apfelso%C3%9Fe_Edelweissh%C3%BCtte_S%C3%B6lden.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:2015 0731 Kaiserschmarrn Apfelso\u00dfe Edelweissh\u00fctte S\u00f6lden.jpg",
+    "focal": [
+      0.5,
+      0.52
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
+  },
+  {
+    "key": "malagasy-mofo-gasy",
+    "id": "malagasy-mofo-gasy",
+    "slug": "malagasy-mofo-gasy",
+    "alt": "Coconut mofo gasy cakes",
+    "caption": "Mofo gasy.",
+    "artist": "Cm Malagasy",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mofo_gasy_de_Madagascar.jpg",
+    "source": "Wikimedia Commons",
+    "commons": "File:Mofo gasy de Madagascar.jpg",
+    "focal": [
+      0.5,
+      0.55
+    ],
+    "mastWidth": 1500,
+    "mastHeight": 1000,
+    "cardWidth": 1200,
+    "cardHeight": 900
   }
 ]

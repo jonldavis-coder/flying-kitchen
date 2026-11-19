@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { SITE_ORIGIN, GA_MEASUREMENT_ID, ADS, home_hero_photo } from "../site.config.mjs";
 import { featureForDate, isoWeekSerial, weekPick, extendWeekSchedule } from "../scripts/feature-calendar.mjs";
-import { isCondiment, rankItems } from "../assets/js/search-rank.mjs";
+import { isCondiment, rankItems, sauceGroupLabel } from "../assets/js/search-rank.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -655,5 +655,12 @@ test("search ranks exact names, accents, typos, and photographs", () => {
     assert.ok(sauceAt > 0, `${query} sauce index ${sauceAt}`);
     assert.ok(hits.slice(0, sauceAt).every((item) => !isCondiment(item)), query);
     assert.equal(isCondiment(hits[0]), false, query);
+    assert.equal(sauceGroupLabel(query), `Sauces for ${query}`);
   }
+  assert.equal(sauceGroupLabel("sauce"), "");
+  assert.equal(sauceGroupLabel("italian pasta"), "");
+  const searchJs = fs.readFileSync("assets/js/search.js", "utf8");
+  assert.match(searchJs, /kk-search-group/);
+  assert.match(searchJs, /sauceGroupLabel/);
+  assert.match(fs.readFileSync("assets/css/kite.css", "utf8"), /kk-search-group/);
 });
